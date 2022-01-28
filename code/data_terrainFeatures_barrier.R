@@ -6,6 +6,8 @@ library(raster)
 
 data_dir <- "/Users/kehanyang/Documents/program/SnowCast/data/"
 cop90_dem <- raster(paste0(data_dir, "cop90_dem/COP90_DEM_westernUS.tif")) 
+
+## get terrain features for the stations ----------
 station_data <- read.csv(paste0(data_dir, "station_gridcell/ground_measures_metadata.csv"))
 station_topo_data <- read.csv(paste0(data_dir, "station_gridcell/station_terrainData.csv"))
 
@@ -56,3 +58,49 @@ for(i in 1:nrow(station_data)){
 # merge data into the station_terrainData
 merge_data = merge(station_topo_data, df_results, by = "station_id")
 write.csv(merge_data, paste0(data_dir, "station_gridcell/station_terrainData_barrier.csv"), row.names = F)
+
+
+## get terrain features for gridcells ----------
+gridcell <- readOGR(paste0(data_dir, "station_gridcell/grid_cells.geojson"))
+gridcell_topo_file <- paste0(data_dir, "station_gridcell/gridcells_terrainData_barrier.csv")
+
+center_points <- gCentroid(gridcell, byid = TRUE)
+center_points <- as.data.frame(center_points)
+
+df_results_gridcell = data.frame()
+for(i in 1:nrow(center_points)){
+  
+  station_coord <- cbind(center_points$x[i], center_points$y[i])
+  id_cell = extract(cop1k_dem,SpatialPoints(station_coord), cellnumbers=TRUE)
+  center_point = rowColFromCell(cop1k_dem, id_cell[1])
+  # cells number = (row-1) * (column dimension) + col
+  # get the strip from west
+  dem_subset_west = cop1k_dem_mx[center_point[1], 1:center_point[2]]
+  
+  # plot(dem_subset_west)
+  
+  # W barrier height
+  barrier_height_w = max(dem_subset_west, na.rm = T) - id_cell[2]
+  # W barrier distance, (y_center - y_peak) *1000 to calculate the distance with unit km
+  barrier_distance_w = (center_point[2] - which.max(dem_subset_west)) * 1000/1000
+  
+  # if there are >= 10 pixels (= 10 km) with 0 elevation, then the first pixel is seen as the shoreline (Ocean or big water body)
+  N = 10
+  for(j in center_point[2]:1){
+    sl_subset = dem_subset_west[j:(j-9)]
+    if(sum(sl_subset == 0) == N){
+      # west distance to the ocean
+      ocean_distance_w = center_point[2] - j
+      break()
+    }
+  }
+  
+  temp_result = cbind.data.frame(cell_id = gridcell$cell_id[1], barrier_heigh_west_m = barrier_height_w,
+                                 barrier_distance_west_km = barrier_distance_w, ocean_distance_west_km = ocean_distance_w)
+  
+  
+  
+  df_results_gridcell = rbind(df_results_gridcell, temp_result)
+}
+# save results 
+write.csv(df_results_gridcell, paste0(data_dir, "station_gridcell/gridcell_terrainData_barrier.csv"), row.names = F)
