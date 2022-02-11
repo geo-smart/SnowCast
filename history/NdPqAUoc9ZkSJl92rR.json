@@ -1,0 +1,121 @@
+[{
+  "history_id" : "eg6kd34wb1k",
+  "history_input" : "# Data preparation for Sentinel 1\n\nimport geopandas as gpd\nimport geoviews as gv\nimport holoviews as hv\nimport hvplot.pandas\nimport hvplot.xarray\nimport panel as pn\nimport intake\nimport numpy as np\nimport os\nimport pandas as pd\nimport rasterio\nimport rioxarray\nimport s3fs \nimport xarray as xr\nhv.extension('bokeh')\n\nprint(\"prepare Sentinel 1 into .csv\")\n\n# GDAL environment variables to efficiently read remote data\nos.environ['GDAL_DISABLE_READDIR_ON_OPEN']='EMPTY_DIR' #This is KEY! otherwise we send a bunch of HTTP GET requests to test for common sidecar metadata\nos.environ['AWS_NO_SIGN_REQUEST']='YES' #Since this is a public bucket, we don't need authentication\nos.environ['GDAL_MAX_RAW_BLOCK_CACHE_SIZE']='200000000'  #200MB: Default is 10 MB limit in the GeoTIFF driver for range request merging.\n\n# Data is stored in a public S3 Bucket\nurl = 's3://sentinel-s1-rtc-indigo/tiles/RTC/1/IW/12/S/YJ/2016/S1B_20161121_12SYJ_ASC/Gamma0_VV.tif'\n\n# These Cloud-Optimized-Geotiff (COG) files have 'overviews', low-resolution copies for quick visualization\nda = rioxarray.open_rasterio(url, overview_level=3).squeeze('band')\nda.hvplot.image(clim=(0,0.4), cmap='gray', \n                x='x', y='y', \n                aspect='equal', frame_width=400,\n                title='S1B_20161121_12SYJ_ASC',\n                rasterize=True # send rendered image to browser, rather than full array\n               )\n\n# Load a time series we created a VRT with GDAL to facilitate this step\nda3 = rioxarray.open_rasterio(vrtName, overview_level=3, chunks='auto')\n\n# Need to add time coordinates to this data\ndatetimes = [pd.to_datetime(x[55:63]) for x in keys]\n    \n# add new coordinate to existing dimension \nda = da3.assign_coords(time=('band', datetimes))\n# make 'time' active coordinate instead of integer band\nda = da.swap_dims({'band':'time'})\n# Name the dataset (helpful for hvplot calls later on)\nda.name = 'Gamma0VV'\n\n#use a small bounding box over grand mesa (UTM coordinates)\nxmin,xmax,ymin,ymax = [739186, 742748, 4.325443e+06, 4.327356e+06]\ndaT = da.sel(x=slice(xmin, xmax), \n             y=slice(ymax, ymin))\n\n# NOTE: this can take a while on slow internet connections, we're reading over 100 images!\nall_points = daT.where(daT!=0).hvplot.scatter('time', groupby=[], dynspread=True, datashade=True) \nmean_trend = daT.where(daT!=0, drop=True).mean(dim=['x','y']).hvplot.line(title='North Grand Mesa', color='red')\n\npath = '/tmp/tutorial-data/sar/sentinel1/S1AA_20201030T131820_20201111T131820_VVP012_INT80_G_ueF_EBD2/S1AA_20201030T131820_20201111T131820_VVP012_INT80_G_ueF_EBD2_unw_phase.tif'\nda = rioxarray.open_rasterio(path, masked=True).squeeze('band')\n\n\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/aoEFgxNxP9s6Yil9uLVnHwKUXb/data_sentinel1.py\", line 4, in <module>\n    import geoviews as gv\nModuleNotFoundError: No module named 'geoviews'\n",
+  "history_begin_time" : 1642969771011,
+  "history_end_time" : 1642969771672,
+  "history_notes" : null,
+  "history_process" : "m3bqdb",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "f7b7s0f1f9p",
+  "history_input" : "# Data Preparation for Sentinel 2\n\nprint(\"Prepare sentinel 2 into .csv\")\n\n",
+  "history_output" : "Prepare sentinel 2 into .csv\n",
+  "history_begin_time" : 1642969770517,
+  "history_end_time" : 1642969770694,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "od9rc01ue7l",
+  "history_input" : "# Data Preparation MODIS\n\nprint(\"Prepare MODIS into .csv\")\n",
+  "history_output" : "Prepare MODIS into .csv\n",
+  "history_begin_time" : 1642969771429,
+  "history_end_time" : 1642969771593,
+  "history_notes" : null,
+  "history_process" : "ob2m37",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "jkyzrgyhust",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1642969771395,
+  "history_end_time" : 1642969771510,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "3trcwp6n53x",
+  "history_input" : "# Random Forest model creation and save to file\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nhome = str(Path.home())\n\n\nprint(\"==> create random forest model\")\n\nrandomForestregModel = RandomForestRegressor(max_depth=15)\n\nos.makedirs(f\"{home}/model/\", exist_ok=True)\n\n# save\njoblib.dump(randomForestregModel, f\"{home}/model/wormhole_random_forest.joblib\")\n\nprint(\"wormhole_random_forest is saved to file\")\n",
+  "history_output" : "==> create random forest model\nwormhole_random_forest is saved to file\n",
+  "history_begin_time" : 1642969771188,
+  "history_end_time" : 1642969773040,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "226355jc7n3",
+  "history_input" : "# GhostNet\n\nprint(\"Create GhostNet\")\n\n",
+  "history_output" : "Create GhostNet\n",
+  "history_begin_time" : 1642969772666,
+  "history_end_time" : 1642969772921,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "dobji3n2vqf",
+  "history_input" : "# Find the best model\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1642969778997,
+  "history_end_time" : 1642969779100,
+  "history_notes" : null,
+  "history_process" : "mi3e5n",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "yu7vcxa8zet",
+  "history_input" : "# Integrate all the datasets into one training dataset\n\nprint(\"integrating datasets into one dataset\")\n\n",
+  "history_output" : "integrating datasets into one dataset\n",
+  "history_begin_time" : 1642969772716,
+  "history_end_time" : 1642969772920,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "rilhyfolrey",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1642969781031,
+  "history_end_time" : 1642969781150,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "nvdos9yaf4j",
+  "history_input" : "# Predict results using the model\n\nprint(\"feed data into the service and monitor the results\")\n\n",
+  "history_output" : "feed data into the service and monitor the results\n",
+  "history_begin_time" : 1642969783156,
+  "history_end_time" : 1642969783288,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "65c3yu4ryya",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1642969774772,
+  "history_end_time" : 1642969774929,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "aj570e06x7n",
+  "history_input" : "# Test models\n\nprint(\"test models\")\n\n",
+  "history_output" : "test models\n",
+  "history_begin_time" : 1642969776785,
+  "history_end_time" : 1642969776958,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "100001",
+  "indicator" : "Done"
+}]

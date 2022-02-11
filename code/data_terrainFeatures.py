@@ -212,3 +212,5 @@ for idx,station in stations.iterrows():
 # Save output data into CSV format
 df_station.set_index(stations['station_id'][0:idx+1],inplace=True)
 df_station.to_csv(stations_outfile)
+
+
