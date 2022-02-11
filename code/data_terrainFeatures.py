@@ -13,7 +13,7 @@ import pandas as pd
 from pyproj import Proj, transform
 
 # user-defined paths for data-access
-data_dir = '../../SnowCast_data/'
+data_dir = '../data/station_gridcell/'
 gridcells_file = data_dir+'grid_cells.geojson'
 stations_file = data_dir+'ground_measures_metadata.csv'
 gridcells_outfile = data_dir+'gridcells_terrainData.csv'
