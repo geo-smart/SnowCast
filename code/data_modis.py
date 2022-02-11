@@ -113,9 +113,9 @@ def list_hdf_blobs_in_folder(container_name,folder_name):
 
 
 # user-defined paths for data-access
-data_dir = '../../SnowCast/data/station_gridcell/'
-out_dir = '../../SnowCast/data/MODIS_SCA/'
-gridcells_file = data_dir+'grid_cells.geojson'
+data_dir = '../../SnowCast/data/'
+out_dir = data_dir + 'MODIS_SCA/'
+gridcells_file = data_dir+'station_gridcell/grid_cells.geojson'
 
 
 # Load metadata
@@ -137,7 +137,7 @@ modis_blob_root = modis_account_url + modis_container_name + '/'
 # https://modis-land.gsfc.nasa.gov/pdf/sn_bound_10deg.txt
 modis_tile_extents_url = modis_blob_root + 'sn_bound_10deg.txt'
 
-temp_dir = os.path.join(tempfile.gettempdir(),'modis')
+temp_dir = os.path.join(out_dir,'modis_images')
 os.makedirs(temp_dir,exist_ok=True)
 fn = os.path.join(temp_dir,modis_tile_extents_url.split('/')[-1])
 wget.download(modis_tile_extents_url, fn)
@@ -172,7 +172,7 @@ df_date_search = df_date_search[df_date_search["Month"].isin(["01","02","03","04
     
 for product in product_list:
     # instantiate output panda dataframes
-    gridcells_outfile = out_dir+'gridcells_' + product + '_test.csv'
+    gridcells_outfile = out_dir+'gridcells_' + product + '.csv'
     column_names = [c.strftime("%Y%m%d") for c in df_date_search["Date"]]
     column_names.insert(0,"cell_id")
     df_gridcells = pd.DataFrame(columns = column_names)
