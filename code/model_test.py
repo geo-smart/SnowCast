@@ -22,13 +22,12 @@ import os.path
 import math
 from sklearn.model_selection import RandomizedSearchCV
 
-#pd.set_option('display.max_columns', None)
 
 # read the grid geometry file
 homedir = os.path.expanduser('~')
 print(homedir)
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-modis_test_ready_file = f"{github_dir}/data/ready_for_training/modis_test_ready.csv"
+modis_test_ready_file = f"{github_dir}/data/ready_for_training/modis_train_ready.csv"
 modis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)
 
 pd_to_clean = modis_test_ready_pd[["year", "m", "doy", "ndsi", "swe"]].dropna()
@@ -52,10 +51,11 @@ def evaluate(model, test_features, y_test, model_name):
     
     return y_predicted
 
-base_model = joblib.load(f"{github_dir}/model/wormhole_random_forest_basic.joblib")
+#base_model = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic_v2.joblib")
+base_model = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic_v2.joblib")
 base_accuracy = evaluate(base_model, all_features, all_labels, "Base Model")
 
-best_random = joblib.load(f"{github_dir}/model/wormhole_random_forest.joblib")
+best_random = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_v2.joblib")
 random_accuracy = evaluate(best_random, all_features, all_labels, "Optimized")
 
 

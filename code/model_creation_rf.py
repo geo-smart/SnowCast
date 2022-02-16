@@ -26,7 +26,7 @@ from sklearn.model_selection import RandomizedSearchCV
 homedir = os.path.expanduser('~')
 print(homedir)
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-modis_ready_file = f"{github_dir}/data/ready_for_training/modis_ready.csv"
+modis_ready_file = f"{github_dir}/data/ready_for_training/modis_train_ready.csv"
 modis_ready_pd = pd.read_csv(modis_ready_file, header=0, index_col=0)
 
 pd_to_clean = modis_ready_pd[["year", "m", "doy", "ndsi", "swe"]].dropna()
@@ -102,7 +102,7 @@ print('Improvement of {:0.2f}%.'.format( 100 * (random_accuracy - base_accuracy)
 
 os.makedirs(f"{github_dir}/model/", exist_ok=True)
 # save
-joblib.dump(base_model, f"{github_dir}/model/wormhole_random_forest_basic.joblib")
-joblib.dump(best_random, f"{github_dir}/model/wormhole_random_forest.joblib")
+joblib.dump(base_model, f"{github_dir}/model/wormhole_random_forest_basic_v2.joblib")
+joblib.dump(best_random, f"{github_dir}/model/wormhole_random_forest_v2.joblib")
 print("wormhole_random_forest is saved to file")
 
