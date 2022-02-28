@@ -1,0 +1,131 @@
+[{
+  "history_id" : "uu5p8yh6nzr",
+  "history_input" : "# Data preparation for Sentinel 1\n\nimport geopandas as gpd\nimport geoviews as gv\nimport holoviews as hv\nimport hvplot.pandas\nimport hvplot.xarray\nimport panel as pn\nimport intake\nimport numpy as np\nimport os\nimport pandas as pd\nimport rasterio\nimport rioxarray\nimport s3fs \nimport xarray as xr\nhv.extension('bokeh')\n\nprint(\"prepare Sentinel 1 into .csv\")\n\n# GDAL environment variables to efficiently read remote data\nos.environ['GDAL_DISABLE_READDIR_ON_OPEN']='EMPTY_DIR' #This is KEY! otherwise we send a bunch of HTTP GET requests to test for common sidecar metadata\nos.environ['AWS_NO_SIGN_REQUEST']='YES' #Since this is a public bucket, we don't need authentication\nos.environ['GDAL_MAX_RAW_BLOCK_CACHE_SIZE']='200000000'  #200MB: Default is 10 MB limit in the GeoTIFF driver for range request merging.\n\n# Data is stored in a public S3 Bucket\nurl = 's3://sentinel-s1-rtc-indigo/tiles/RTC/1/IW/12/S/YJ/2016/S1B_20161121_12SYJ_ASC/Gamma0_VV.tif'\n\n# These Cloud-Optimized-Geotiff (COG) files have 'overviews', low-resolution copies for quick visualization\nda = rioxarray.open_rasterio(url, overview_level=3).squeeze('band')\nda.hvplot.image(clim=(0,0.4), cmap='gray', \n                x='x', y='y', \n                aspect='equal', frame_width=400,\n                title='S1B_20161121_12SYJ_ASC',\n                rasterize=True # send rendered image to browser, rather than full array\n               )\n\n# Load a time series we created a VRT with GDAL to facilitate this step\nda3 = rioxarray.open_rasterio(vrtName, overview_level=3, chunks='auto')\n\n# Need to add time coordinates to this data\ndatetimes = [pd.to_datetime(x[55:63]) for x in keys]\n    \n# add new coordinate to existing dimension \nda = da3.assign_coords(time=('band', datetimes))\n# make 'time' active coordinate instead of integer band\nda = da.swap_dims({'band':'time'})\n# Name the dataset (helpful for hvplot calls later on)\nda.name = 'Gamma0VV'\n\n#use a small bounding box over grand mesa (UTM coordinates)\nxmin,xmax,ymin,ymax = [739186, 742748, 4.325443e+06, 4.327356e+06]\ndaT = da.sel(x=slice(xmin, xmax), \n             y=slice(ymax, ymin))\n\n# NOTE: this can take a while on slow internet connections, we're reading over 100 images!\nall_points = daT.where(daT!=0).hvplot.scatter('time', groupby=[], dynspread=True, datashade=True) \nmean_trend = daT.where(daT!=0, drop=True).mean(dim=['x','y']).hvplot.line(title='North Grand Mesa', color='red')\n\npath = '/tmp/tutorial-data/sar/sentinel1/S1AA_20201030T131820_20201111T131820_VVP012_INT80_G_ueF_EBD2/S1AA_20201030T131820_20201111T131820_VVP012_INT80_G_ueF_EBD2_unw_phase.tif'\nda = rioxarray.open_rasterio(path, masked=True).squeeze('band')\n\n\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/i1KgbwuxiNuMSBX4Kd3ZwBwvgx/data_sentinel1.py\", line 4, in <module>\n    import geoviews as gv\nModuleNotFoundError: No module named 'geoviews'\n",
+  "history_begin_time" : 1642977852086,
+  "history_end_time" : 1642977853305,
+  "history_notes" : null,
+  "history_process" : "m3bqdb",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "elgnuc41vhg",
+  "history_input" : "# Data Preparation for Sentinel 2\n\nprint(\"Prepare sentinel 2 into .csv\")\n\n",
+  "history_output" : "Prepare sentinel 2 into .csv\n",
+  "history_begin_time" : 1642977852115,
+  "history_end_time" : 1642977852457,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "mmbv9ncyhh9",
+  "history_input" : "# Data Preparation MODIS\n\nprint(\"Prepare MODIS into .csv\")\n",
+  "history_output" : "Prepare MODIS into .csv\n",
+  "history_begin_time" : 1642977852020,
+  "history_end_time" : 1642977852473,
+  "history_notes" : null,
+  "history_process" : "ob2m37",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "bu0t929z1a3",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1642977852044,
+  "history_end_time" : 1642977852446,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "y7y0wata6j1",
+  "history_input" : "# Random Forest model creation and save to file\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nhome = str(Path.home())\n\n\nprint(\"==> create random forest model\")\n\nrandomForestregModel = RandomForestRegressor(max_depth=15)\n\nos.makedirs(f\"{home}/model/\", exist_ok=True)\n\n# save\njoblib.dump(randomForestregModel, f\"{home}/model/wormhole_random_forest.joblib\")\n\nprint(\"wormhole_random_forest is saved to file\")\n",
+  "history_output" : "==> create random forest model\nwormhole_random_forest is saved to file\n",
+  "history_begin_time" : 1642977852142,
+  "history_end_time" : 1642977854529,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "jns36hwdkcp",
+  "history_input" : "# GhostNet\n\nprint(\"Create GhostNet\")\n\n",
+  "history_output" : "Create GhostNet\n",
+  "history_begin_time" : 1642977854464,
+  "history_end_time" : 1642977854618,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "mx0trjasiow",
+  "history_input" : "# Find the best model\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1642977864595,
+  "history_end_time" : 1642977864708,
+  "history_notes" : null,
+  "history_process" : "mi3e5n",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "7ul0i2cxadd",
+  "history_input" : "# Integrate all the datasets into one training dataset\n\nprint(\"integrating datasets into one dataset\")\n\n",
+  "history_output" : "integrating datasets into one dataset\n",
+  "history_begin_time" : 1642977858383,
+  "history_end_time" : 1642977858518,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "argt5yqt0ad",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1642977866710,
+  "history_end_time" : 1642977866827,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "rby4m0etw7q",
+  "history_input" : "# Predict results using the model\n\nprint(\"feed data into the service and monitor the results\")\n\n",
+  "history_output" : "feed data into the service and monitor the results\n",
+  "history_begin_time" : 1642977868759,
+  "history_end_time" : 1642977868857,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "3a1xyt2wufr",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1642977860422,
+  "history_end_time" : 1642977860541,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "vpm7w392y9i",
+  "history_input" : "# Test models\n\nprint(\"test models\")\n\n",
+  "history_output" : "test models\n",
+  "history_begin_time" : 1642977862560,
+  "history_end_time" : 1642977862678,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "g56yebltn7y",
+  "history_input" : "# Load dependencies\nimport geopandas as gpd\nimport json\nimport geojson\nfrom pystac_client import Client\nimport planetary_computer\nimport xarray\nimport rioxarray\nimport xrspatial\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\nfrom pyproj import Proj, transform\n\n# user-defined paths for data-access\ndata_dir = '../../SnowCast_data/'\ngridcells_file = data_dir+'grid_cells.geojson'\nstations_file = data_dir+'ground_measures_metadata.csv'\ngridcells_outfile = data_dir+'gridcells_terrainData.csv'\nstations_outfile = data_dir+'station_terrainData.csv'\n\n# setup client for handshaking and data-access\nclient = Client.open(\n    \"https://planetarycomputer.microsoft.com/api/stac/v1\",\n    ignore_conformance=True,\n)\n\n# Load metadata\ngridcellsGPD = gpd.read_file(gridcells_file)\ngridcells = geojson.load(open(gridcells_file))\nstations = pd.read_csv(stations_file)\n\n# instantiate output panda dataframes\ndf_gridcells = df = pd.DataFrame(columns=(\"Longitude [deg]\",\"Latitude [deg]\",\n                                          \"Elevation [m]\",\"Aspect [deg]\",\n                                          \"Curvature [ratio]\",\"Slope [deg]\"))\ndf_station = pd.DataFrame(columns=(\"Longitude [deg]\",\"Latitude [deg]\",\n                                   \"Elevation [m]\",\"Elevation_30 [m]\",\"Elevation_1000 [m]\",\n                                   \"Aspect_30 [deg]\",\"Aspect_1000 [deg]\",\n                                   \"Curvature_30 [ratio]\",\"Curvature_1000 [ratio]\",\n                                   \"Slope_30 [deg]\",\"Slope_1000 [deg]\"))\n\n# Calculate gridcell characteristics using Copernicus DEM data\nfor idx,cell in enumerate(gridcells['features']):\n    print(idx)\n    search = client.search(\n        collections=[\"cop-dem-glo-30\"],\n        intersects={\"type\":\"Polygon\", \"coordinates\":cell['geometry']['coordinates']},\n    )\n    items = list(search.get_items())   \n    \n    try:\n        signed_asset = planetary_computer.sign(items[0].assets[\"data\"])\n        data = (\n            xarray.open_rasterio(signed_asset.href)\n            .squeeze()\n            .drop(\"band\")\n            .coarsen({\"y\": 1, \"x\": 1})\n            .mean()\n        )\n        cropped_data = data.rio.clip(gridcellsGPD['geometry'][idx:idx+1])\n    except:\n        signed_asset = planetary_computer.sign(items[1].assets[\"data\"])\n        data = (\n            xarray.open_rasterio(signed_asset.href)\n            .squeeze()\n            .drop(\"band\")\n            .coarsen({\"y\": 1, \"x\": 1})\n            .mean()\n        )\n        cropped_data = data.rio.clip(gridcellsGPD['geometry'][idx:idx+1])\n    \n    longitude = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n    latitude = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n    \n    cropped_data = cropped_data.rio.reproject(\"EPSG:32612\")\n        \n    mean_elev = cropped_data.mean().values\n    print(mean_elev)\n    \n    aspect = xrspatial.aspect(cropped_data)\n    aspect_xcomp = np.nansum(np.cos(aspect.values*(np.pi/180)))\n    aspect_ycomp = np.nansum(np.sin(aspect.values*(np.pi/180)))\n    mean_aspect = np.arctan2(aspect_ycomp,aspect_xcomp)*(180/np.pi)\n    if mean_aspect < 0:\n        mean_aspect = 360 + mean_aspect\n    print(mean_aspect)\n    \n    # Positive curvature = upward convex\n    curvature = xrspatial.curvature(cropped_data)\n    mean_curvature = curvature.mean().values\n    print(mean_curvature)\n    \n    slope = xrspatial.slope(cropped_data)\n    mean_slope = slope.mean().values\n    print(mean_slope)\n    \n    df_gridcells.loc[idx] = [longitude,latitude,\n                             mean_elev,mean_aspect,\n                             mean_curvature,mean_slope]\n    \n    if idx % 250 == 0:\n        df_gridcells.set_index(gridcellsGPD['cell_id'][0:idx+1],inplace=True)\n        df_gridcells.to_csv(gridcells_outfile)\n\n# Save output data into csv format\ndf_gridcells.set_index(gridcellsGPD['cell_id'][0:idx+1],inplace=True)\ndf_gridcells.to_csv(gridcells_outfile)\n\n# Calculate terrain characteristics of stations, and surrounding regions using COP 30\nfor idx,station in stations.iterrows():\n    search = client.search(\n        collections=[\"cop-dem-glo-30\"],\n        intersects={\"type\":\"Point\", \"coordinates\":[station['longitude'],station['latitude']]},\n    )\n    items = list(search.get_items())\n    print(f\"Returned {len(items)} items\")\n    \n    try:\n        signed_asset = planetary_computer.sign(items[0].assets[\"data\"])\n        data = (\n            xarray.open_rasterio(signed_asset.href)\n            .squeeze()\n            .drop(\"band\")\n            .coarsen({\"y\": 1, \"x\": 1})\n            .mean()\n        )\n        xdiff = np.abs(data.x-station['longitude'])\n        ydiff = np.abs(data.y-station['latitude'])\n        xdiff = np.where(xdiff == xdiff.min())[0][0]\n        ydiff = np.where(ydiff == ydiff.min())[0][0]\n        data = data[ydiff-33:ydiff+33,xdiff-33:xdiff+33].rio.reproject(\"EPSG:32612\")\n    except:\n        signed_asset = planetary_computer.sign(items[1].assets[\"data\"])\n        data = (\n            xarray.open_rasterio(signed_asset.href)\n            .squeeze()\n            .drop(\"band\")\n            .coarsen({\"y\": 1, \"x\": 1})\n            .mean()\n        )\n        xdiff = np.abs(data.x-station['longitude'])\n        ydiff = np.abs(data.y-station['latitude'])\n        xdiff = np.where(xdiff == xdiff.min())[0][0]\n        ydiff = np.where(ydiff == ydiff.min())[0][0]\n        data = data[ydiff-33:ydiff+33,xdiff-33:xdiff+33].rio.reproject(\"EPSG:32612\")\n    \n    inProj = Proj(init='epsg:4326')\n    outProj = Proj(init='epsg:32612')\n    new_x,new_y = transform(inProj,outProj,station['longitude'],station['latitude'])\n    \n    mean_elevation = data.mean().values\n    elevation = data.sel(x=new_x,y=new_y,method='nearest')\n    print(elevation.values)\n    \n    aspect = xrspatial.aspect(data)\n    aspect_xcomp = np.nansum(np.cos(aspect.values*(np.pi/180)))\n    aspect_ycomp = np.nansum(np.sin(aspect.values*(np.pi/180)))\n    mean_aspect = np.arctan2(aspect_ycomp,aspect_xcomp)*(180/np.pi)\n    if mean_aspect < 0:\n        mean_aspect = 360 + mean_aspect\n    print(mean_aspect)\n    aspect = aspect.sel(x=new_x,y=new_y,method='nearest')\n    print(aspect.values)\n    \n    # Positive curvature = upward convex\n    curvature = xrspatial.curvature(data)\n    mean_curvature = curvature.mean().values\n    curvature = curvature.sel(x=new_x,y=new_y,method='nearest')\n    print(curvature.values)\n    \n    slope = xrspatial.slope(data)\n    mean_slope = slope.mean().values\n    slope = slope.sel(x=new_x,y=new_y,method='nearest')\n    print(slope.values)\n    \n    df_station.loc[idx] = [station['longitude'],station['latitude'],\n                           station['elevation_m'],elevation.values,mean_elevation,\n                           aspect.values,mean_aspect,\n                           curvature.values,mean_curvature,\n                           slope.values,mean_slope]\n    \n    if idx % 250 == 0:\n        df_station.set_index(stations['station_id'][0:idx+1],inplace=True)\n        df_station.to_csv(stations_outfile)\n\n# Save output data into CSV format\ndf_station.set_index(stations['station_id'][0:idx+1],inplace=True)\ndf_station.to_csv(stations_outfile)\n\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/i1KgbwuxiNuMSBX4Kd3ZwBwvgx/data_terrainFeatures.py\", line 9, in <module>\n    import xrspatial\nModuleNotFoundError: No module named 'xrspatial'\n",
+  "history_begin_time" : 1642977854479,
+  "history_end_time" : 1642977856375,
+  "history_notes" : null,
+  "history_process" : "urd0nk",
+  "host_id" : "100001",
+  "indicator" : "Done"
+}]

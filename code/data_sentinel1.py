@@ -28,15 +28,32 @@ url = 's3://sentinel-s1-rtc-indigo/tiles/RTC/1/IW/12/S/YJ/2016/S1B_20161121_12SY
 
 # These Cloud-Optimized-Geotiff (COG) files have 'overviews', low-resolution copies for quick visualization
 da = rioxarray.open_rasterio(url, overview_level=3).squeeze('band')
-da.hvplot.image(clim=(0,0.4), cmap='gray', 
-                x='x', y='y', 
-                aspect='equal', frame_width=400,
-                title='S1B_20161121_12SYJ_ASC',
-                rasterize=True # send rendered image to browser, rather than full array
-               )
+
+zone = 12
+latLabel = 'S'
+square = 'YJ'
+year = '202*' #>=2020
+date = '*' #all acquisitions
+polarization = 'VV'
+s3Path = f's3://sentinel-s1-rtc-indigo/tiles/RTC/1/IW/{zone}/{latLabel}/{square}/{year}/{date}/Gamma0_{polarization}.tif'
+
+# Find imagery according to S3 path pattern
+s3 = s3fs.S3FileSystem(anon=True)
+keys = s3.glob(s3Path[5:]) #strip s3://
+print(f'Located {len(keys)} images matching {s3Path}:')
+
+vrtName = f'stack{zone}{latLabel}{square}.vrt'
+if not os.path.exists(vrtName):
+    with open('s3paths.txt', 'w') as f:
+        for key in keys:
+            f.write("/vsis3/%s\n" % key)
+    print("current working dir: ", os.getcwd())
+    cmd = f'gdalbuildvrt -overwrite -separate -input_file_list s3paths.txt {os.getcwd()}/{vrtName}'
+    print(cmd)
+    os.system(cmd)
 
 # Load a time series we created a VRT with GDAL to facilitate this step
-da3 = rioxarray.open_rasterio(vrtName, overview_level=3, chunks='auto')
+da3 = rioxarray.open_rasterio(os.getcwd() + "/" + vrtName, overview_level=3, chunks='auto')
 
 # Need to add time coordinates to this data
 datetimes = [pd.to_datetime(x[55:63]) for x in keys]
