@@ -3,3 +3,5 @@
 build/*
 dist/*
 MANIFEST
+model/wormhole_random_forest_basic_v2.joblib
+model/wormhole_random_forest_v2.joblib
