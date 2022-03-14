@@ -20,14 +20,14 @@ from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.model_selection import RandomizedSearchCV
-from base_hole import *
+from base_hole import BaseHole
 
 class RandomForestHole(BaseHole):
 
-  def prepare_training():
+  def prepare_training(self):
     pass
   
-  def get_model():
+  def get_model(self):
     rfc_pipeline = Pipeline(steps = [
       ('data_scaling', StandardScaler()),
       ('model', RandomForestClassifier(max_depth = 10,
