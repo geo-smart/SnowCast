@@ -1,8 +1,16 @@
 
+import json
+import pandas as pd
+import ee
+import seaborn as sns
+import matplotlib.pyplot as plt
+import os
+import geopandas as gpd
+import geojson
+import numpy as np
+import os.path
 
-# reminder that if you are installing libraries in a Google Colab instance you will be prompted to restart your kernal
-
-from all_dependencies import *
+#exit() # uncomment to download new files
 
 try:
     ee.Initialize()
@@ -19,22 +27,22 @@ github_dir = f"{homedir}/Documents/GitHub/SnowCast"
 station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
 station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
 
-start_date = '2022-03-07'
-end_date = '2022-03-13'
+#org_name = 'modis'
+#product_name = f'MODIS/006/MOD10A1'
+#var_name = 'NDSI'
+#column_name = 'mod10a1_ndsi'
 
-org_name = 'sentinel1'
-product_name = 'COPERNICUS/S1_GRD'
-var_name = 'VV'
-column_name = 's1_grd_vv'
+org_name = 'daymet'
+product_name = 'NASA/ORNL/DAYMET_V4'
+start_date = '2022-01-01'
+end_date = '2022-03-08'
 
-final_csv_file = f"{homedir}/Documents/GitHub/SnowCast/data/sat_testing/{org_name}/{column_name}_{start_date}_{end_date}.csv"
-print(f"Results will be saved to {final_csv_file}")
+var_name = 'tmax'
+column_name = 'tmax'
 
-
-if os.path.exists(final_csv_file):
-    print("exists skipping..")
-    exit()
-
+dfolder = f"{homedir}/Documents/GitHub/SnowCast/data/sim_training/{org_name}/"
+if not os.path.exists(dfolder):
+    os.makedirs(dfolder)
 
 all_cell_df = pd.DataFrame(columns = ['date', column_name, 'cell_id', 'latitude', 'longitude'])
 
@@ -44,24 +52,25 @@ for ind in station_cell_mapper_df.index:
   	
       current_cell_id = station_cell_mapper_df['cell_id'][ind]
       print("collecting ", current_cell_id)
-      
+      single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
+
+      if os.path.exists(single_csv_file):
+          print("exists skipping..")
+          continue
+
       longitude = station_cell_mapper_df['lon'][ind]
       latitude = station_cell_mapper_df['lat'][ind]
 
       # identify a 500 meter buffer around our Point Of Interest (POI)
-      poi = ee.Geometry.Point(longitude, latitude).buffer(1)
-
-      viirs = ee.ImageCollection(product_name) \
-          	.filterDate(start_date, end_date) \
-            .filterBounds(poi) \
-          	.filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV')) \
-      		.select('VV')
+      poi = ee.Geometry.Point(longitude, latitude).buffer(1000)
+      viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).select(var_name)
       
       def poi_mean(img):
-          reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi)
+          reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=1000)
           mean = reducer.get(var_name)
           return img.set('date', img.date().format()).set(column_name,mean)
 
+      
       poi_reduced_imgs = viirs.map(poi_mean)
 
       nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date',column_name]).values().get(0)
@@ -75,6 +84,7 @@ for ind in station_cell_mapper_df.index:
       df['cell_id'] = current_cell_id
       df['latitude'] = latitude
       df['longitude'] = longitude
+      df.to_csv(single_csv_file)
 
       df_list = [all_cell_df, df]
       all_cell_df = pd.concat(df_list) # merge into big dataframe
@@ -84,7 +94,7 @@ for ind in station_cell_mapper_df.index:
       print(e)
       pass
     
-all_cell_df.to_csv(final_csv_file)  
+all_cell_df.to_csv(f"{dfolder}/{column_name}.csv")  
 
 
 

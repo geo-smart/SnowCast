@@ -2,16 +2,7 @@
 
 # reminder that if you are installing libraries in a Google Colab instance you will be prompted to restart your kernal
 
-import json
-import pandas as pd
-import ee
-import seaborn as sns
-import matplotlib.pyplot as plt
-import os
-import geopandas as gpd
-import geojson
-import numpy as np
-import os.path
+from all_dependencies import *
 
 try:
     ee.Initialize()
@@ -29,8 +20,8 @@ org_name = 'modis'
 product_name = f'MODIS/006/MOD10A1'
 var_name = 'NDSI'
 column_name = 'mod10a1_ndsi'
-start_date = '2022-02-20'
-end_date = '2022-02-27'
+start_date = '2022-03-07'
+end_date = '2022-03-13'
 
 final_csv_file = f"{homedir}/Documents/GitHub/SnowCast/data/sat_testing/{org_name}/{column_name}_{start_date}_{end_date}.csv"
 print(f"Results will be saved to {final_csv_file}")

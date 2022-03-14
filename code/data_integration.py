@@ -48,10 +48,13 @@ def integrate_modis():
   """
   Integrate all MODIS data into mod_all.csv
   """
+  all_mod_file = f"{github_dir}/data/ready_for_training/modis_all.csv"
+  if os.path.isfile(all_mod_file):
+    return
   dates = pd.date_range(start='1/1/2013', end='12/31/2021', freq='D').astype(str)
   mod_all_df = pd.DataFrame(columns=["date"])
   mod_all_df['date'] = dates
-  all_mod_file = f"{github_dir}/data/ready_for_training/modis_all.csv"
+  
   #print(mod_all_df.head())
   for ind in station_cell_mapper_pd.index:
     current_cell_id = station_cell_mapper_pd["cell_id"][ind]
@@ -71,11 +74,13 @@ def integrate_sentinel1():
   """
   Integrate all Sentinel 1 data into sentinel1_all.csv
   """
+  all_sentinel1_file = f"{github_dir}/data/ready_for_training/sentinel1_all.csv"
+  if os.path.isfile(all_mod_file):
+    return
   dates = pd.date_range(start='1/1/2013', end='12/31/2021', freq='D').astype(str)
   sentinel1_all_df = pd.DataFrame(columns=["date"])
   sentinel1_all_df['date'] = dates
   #print(mod_all_df.head())
-  all_sentinel1_file = f"{github_dir}/data/ready_for_training/sentinel1_all.csv"
 
   def getDateStr(x):
     return x.split(" ")[0]
@@ -102,6 +107,10 @@ def integrate_sentinel1():
   print(sentinel1_all_df.shape)
   sentinel1_all_df.to_csv(all_sentinel1_file)
 
+def integrate_gridmet():
+  pass
+  
+  
 def prepare_training_csv():
   """
   MOD model:
@@ -157,9 +166,11 @@ def prepare_training_csv():
   print(grd_all_pd.shape)
   grd_all_pd.to_csv(f"{github_dir}/data/ready_for_training/sentinel1_ready.csv")
   
-  
+exit() # done already
+
 integrate_modis()
 integrate_sentinel1()
+integrate_gridmet()
 prepare_training_csv()
 
 
