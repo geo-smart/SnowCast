@@ -16,6 +16,8 @@ import os
 home_dir = os.path.expanduser('~')
 snowcast_github_dir = f"{home_dir}/Documents/GitHub/SnowCast/"
 
+exit() # this process no longer need to execute, we need to make Geoweaver to specify which process doesn't need to run
+
 # user-defined paths for data-access
 data_dir = f'{snowcast_github_dir}data/station_gridcell/'
 gridcells_file = data_dir+'grid_cells.geojson'

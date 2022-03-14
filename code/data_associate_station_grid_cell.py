@@ -24,6 +24,15 @@ testing_feature_file = f"{github_dir}/data/snowcast_provided/ground_measures_tes
 train_labels_file = f"{github_dir}/data/snowcast_provided/train_labels.csv"
 ground_measure_metadata_file = f"{github_dir}/data/snowcast_provided/ground_measures_metadata.csv"
 
+ready_for_training_folder = f"{github_dir}/data/ready_for_training/"
+
+result_mapping_file = f"{ready_for_training_folder}station_cell_mapping.csv"
+
+
+if os.path.exists(result_mapping_file):
+    exit()
+
+
 gridcells = geojson.load(open(gridcells_file))
 training_df = pd.read_csv(training_feature_file, header=0)
 testing_df = pd.read_csv(testing_feature_file, header=0)
@@ -35,7 +44,6 @@ print("testing: ", testing_df.head())
 print("ground measure metadata: ", ground_measure_metadata_df.head())
 print("training labels: ", train_labels_df.head())
 
-ready_for_training_folder = f"{github_dir}/data/ready_for_training/"
 
 def calculateDistance(lat1, lon1, lat2, lon2):
     lat1 = float(lat1)

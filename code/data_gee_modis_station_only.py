@@ -13,6 +13,8 @@ import geojson
 import numpy as np
 import os.path
 
+exit() # done, uncomment if you want to download new files.
+
 try:
     ee.Initialize()
 except Exception as e:
