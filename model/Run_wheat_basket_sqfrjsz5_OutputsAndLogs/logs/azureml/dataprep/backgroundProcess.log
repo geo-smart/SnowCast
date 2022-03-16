@@ -1,0 +1,142 @@
+2022-03-15 07:18:49.6250|DEBUG|EngineHost|37086ad7-cc92-4403-b9ff-81cd492a3ac3|Startup|MessageParser initialized|
+2022-03-15 07:18:49.6651|DEBUG|EngineHost|37086ad7-cc92-4403-b9ff-81cd492a3ac3|Startup|MessageLoop initialized|
+2022-03-15 07:18:50.0788|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: ActivityMigration|metrics: {}, properties: {"prevState":"No version","newState":"1","success":"True"}|
+2022-03-15 07:18:51.1618|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.GetDatastoreFilesBlock","id":"0"}|
+2022-03-15 07:18:51.1618|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.ParseDelimitedBlock","id":"1"}|
+2022-03-15 07:18:51.1618|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.DropColumnsBlock","id":"2"}|
+2022-03-15 07:18:51.1618|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.SetColumnTypesBlock","id":"3"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.GetDatastoreFilesBlock","id":"0"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.ParseDelimitedBlock","id":"1"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.DropColumnsBlock","id":"2"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.TakeBlock","id":"3"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.WritePreppyBlock","id":"4"}|
+2022-03-15 07:18:55.6793|DEBUG|DynamicPythonPathCLexExecutor|37086ad7-cc92-4403-b9ff-81cd492a3ac3|EnsureCLexExecutorReady|No more tasks in progress. Creating new CLexExecutor.|
+2022-03-15 07:18:55.6817|INFO|CLexExecutor|37086ad7-cc92-4403-b9ff-81cd492a3ac3|ExecuteLariatScriptAsync|Start Execution|{
+  "Id": "250f00b8-adf1-4adb-bb45-a5290e7f49df"
+}
+2022-03-15 07:18:55.7528|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|MapReduceExecutor|Execution started|{
+  "ExecutionId": "571b461b-9fab-4772-b1a4-c685b266e0c7",
+  "Main": "bqcvkAtLsxzg7lqYHWCtmY2zEOx9bP5K6n72GpbavNU="
+}
+2022-03-15 07:18:55.7565|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCacheOperationVisitor|Visiting activity. Activity: bqcvkAtLsxzg7lqYHWCtmY2zEOx9bP5K6n72GpbavNU=|
+2022-03-15 07:18:55.7687|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Build RDD|{
+  "Operation": "GetFilesOperation",
+  "Reference": "",
+  "Tag": "fa755348-4b09-46f6-8023-055a78c3d01b",
+  "ContextTag": "0",
+  "ParentContextTag": ""
+}
+2022-03-15 07:18:55.8120|INFO|DatastoreResolver|37086ad7-cc92-4403-b9ff-81cd492a3ac3|Resolve|Resolving auth and host for datastore: c1dbd0f4-8cb2-454f-b712-0ab7a6e4bbc7,airai2,swe,workspaceblobstore using python host.|
+2022-03-15 07:18:57.1078|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Cache added|{
+  "Operation": "GetFilesOperation",
+  "Reference": "",
+  "Tag": "fa755348-4b09-46f6-8023-055a78c3d01b",
+  "ContextTag": "0",
+  "ParentContextTag": ""
+}
+2022-03-15 07:18:57.1078|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Build RDD|{
+  "Operation": "ReadFilesOperation",
+  "Reference": "",
+  "Tag": "84f9243d-2fe9-4798-9c54-322e18ba4ab1",
+  "ContextTag": "1",
+  "ParentContextTag": "0"
+}
+2022-03-15 07:18:57.1316|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Cache added|{
+  "Operation": "ReadFilesOperation",
+  "Reference": "",
+  "Tag": "84f9243d-2fe9-4798-9c54-322e18ba4ab1",
+  "ContextTag": "1",
+  "ParentContextTag": "0"
+}
+2022-03-15 07:18:57.1316|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Build RDD|{
+  "Operation": "SplitColumnOperation",
+  "Reference": "",
+  "Tag": "84f9243d-2fe9-4798-9c54-322e18ba4ab1",
+  "ContextTag": "2",
+  "ParentContextTag": "1"
+}
+2022-03-15 07:18:57.1370|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Cache added|{
+  "Operation": "SplitColumnOperation",
+  "Reference": "",
+  "Tag": "84f9243d-2fe9-4798-9c54-322e18ba4ab1",
+  "ContextTag": "2",
+  "ParentContextTag": "1"
+}
+2022-03-15 07:18:57.1378|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Build RDD|{
+  "Operation": "PromoteHeadersOperation",
+  "Reference": "",
+  "Tag": "84f9243d-2fe9-4798-9c54-322e18ba4ab1",
+  "ContextTag": "3",
+  "ParentContextTag": "2"
+}
+2022-03-15 07:18:57.1427|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Cache added|{
+  "Operation": "PromoteHeadersOperation",
+  "Reference": "",
+  "Tag": "84f9243d-2fe9-4798-9c54-322e18ba4ab1",
+  "ContextTag": "3",
+  "ParentContextTag": "2"
+}
+2022-03-15 07:18:57.1427|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Build RDD|{
+  "Operation": "RemoveColumnsOperation",
+  "Reference": "",
+  "Tag": "a1936af6-0ee5-4845-aaf7-985b2973b841",
+  "ContextTag": "4",
+  "ParentContextTag": "3"
+}
+2022-03-15 07:18:57.2507|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: DataSourceGetFiles|metrics: {"size":2753924.0}, properties: {"datasourcePath":"AVM+uUxe6uy0Er7g8cq8KTAmnr9bff8uAysZiQrnlCo="}|
+2022-03-15 07:18:57.4224|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Cache added|{
+  "Operation": "RemoveColumnsOperation",
+  "Reference": "",
+  "Tag": "a1936af6-0ee5-4845-aaf7-985b2973b841",
+  "ContextTag": "4",
+  "ParentContextTag": "3"
+}
+2022-03-15 07:18:57.4224|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Build RDD|{
+  "Operation": "TakeOperation",
+  "Reference": "",
+  "Tag": "84f9243d-2fe9-4798-9c54-322e18ba4ab1",
+  "ContextTag": "5",
+  "ParentContextTag": "4"
+}
+2022-03-15 07:18:57.4224|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Cache added|{
+  "Operation": "TakeOperation",
+  "Reference": "",
+  "Tag": "84f9243d-2fe9-4798-9c54-322e18ba4ab1",
+  "ContextTag": "5",
+  "ParentContextTag": "4"
+}
+2022-03-15 07:18:57.4224|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Build RDD|{
+  "Operation": "SkipOperation",
+  "Reference": "",
+  "Tag": "",
+  "ContextTag": "6",
+  "ParentContextTag": "5"
+}
+2022-03-15 07:18:57.4708|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: DataSourceGetFiles|metrics: {"size":2753924.0}, properties: {"datasourcePath":"AVM+uUxe6uy0Er7g8cq8KTAmnr9bff8uAysZiQrnlCo="}|
+2022-03-15 07:18:57.5933|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: DataSourceGetFiles|metrics: {"size":2753924.0}, properties: {"datasourcePath":"AVM+uUxe6uy0Er7g8cq8KTAmnr9bff8uAysZiQrnlCo="}|
+2022-03-15 07:18:57.7368|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Cache added|{
+  "Operation": "SkipOperation",
+  "Reference": "",
+  "Tag": "",
+  "ContextTag": "6",
+  "ParentContextTag": "5"
+}
+2022-03-15 07:18:57.7368|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Build RDD|{
+  "Operation": "TakeOperation",
+  "Reference": "",
+  "Tag": "",
+  "ContextTag": "7",
+  "ParentContextTag": "6"
+}
+2022-03-15 07:18:57.7368|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|QueryCache|Cache added|{
+  "Operation": "TakeOperation",
+  "Reference": "",
+  "Tag": "",
+  "ContextTag": "7",
+  "ParentContextTag": "6"
+}
+2022-03-15 07:18:57.7769|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: DataSourceGetFiles|metrics: {"size":2753924.0}, properties: {"datasourcePath":"AVM+uUxe6uy0Er7g8cq8KTAmnr9bff8uAysZiQrnlCo="}|
+2022-03-15 07:18:58.5356|DEBUG|CLex|37086ad7-cc92-4403-b9ff-81cd492a3ac3|MapReduceExecutor|Execution Succeeded|{
+  "ExecutionId": "571b461b-9fab-4772-b1a4-c685b266e0c7",
+  "Main": "bqcvkAtLsxzg7lqYHWCtmY2zEOx9bP5K6n72GpbavNU="
+}

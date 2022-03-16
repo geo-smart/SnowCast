@@ -1,0 +1,188 @@
+2022/03/15 07:18:39 Got JobInfoJson from env
+2022/03/15 07:18:39 Starting App Insight Logger for task:  runTaskLet
+2022/03/15 07:18:39 Version: 3.0.01887.0001 Branch: 20220303.1 Commit: 7e6d075
+2022/03/15 07:18:39 Attempt 1 of http call to http://10.0.0.4:16384/sendlogstoartifacts/info
+2022/03/15 07:18:39 Send process info logs to master server succeeded
+2022/03/15 07:18:39 Attempt 1 of http call to http://10.0.0.4:16384/sendlogstoartifacts/status
+2022/03/15 07:18:39 Send process info logs to master server succeeded
+[2022-03-15T07:18:39.638148] Entering context manager injector.
+[2022-03-15T07:18:40.220353] context_manager_injector.py Command line Options: Namespace(inject=['ProjectPythonPath:context_managers.ProjectPythonPath', 'RunHistory:context_managers.RunHistory', 'TrackUserError:context_managers.TrackUserError'], invocation=['model_test.py'])
+Script type = None
+[2022-03-15T07:18:40.224328] Entering Run History Context Manager.
+[2022-03-15T07:18:42.667819] Current directory: /mnt/batch/tasks/shared/LS_root/jobs/swe/azureml/b857aec4-23ae-44a5-9259-23887b192290/wd/azureml/b857aec4-23ae-44a5-9259-23887b192290
+[2022-03-15T07:18:42.669224] Preparing to call script [model_test.py] with arguments:[]
+[2022-03-15T07:18:42.669247] After variable expansion, calling script [model_test.py] with arguments:[]
+
+2022/03/15 07:18:44 Not exporting to RunHistory as the exporter is either stopped or there is no data.
+Stopped: false
+OriginalData: 1
+FilteredData: 0.
+SDK supports model testing.
+Starting the model test run....
+run_id in the real script:  b857aec4-23ae-44a5-9259-23887b192290
+Set enable_streaming flag to False
+Set test_include_predictions_only flag to False
+2022-03-15 07:18:45,398920 - INFO - Beginning model test wrapper.
+WARNING:root:Received unrecognized parameter grain_column_names
+2022-03-15 07:18:45.566 - INFO - Successfully got the cache data store, caching enabled.
+2022-03-15 07:18:45.566 - INFO - Took 0.10375714302062988 seconds to retrieve cache data store
+2022-03-15 07:18:45.575 - INFO - Requested a new ExperimentStore instance.
+2022-03-15 07:18:45.576 - INFO - Created ExperimentStore with ID: 140582195982416.
+2022-03-15 07:18:45.576 - INFO - No files are available for the cache store locally, downloading files from the Run.
+2022-03-15 07:18:46.949 - INFO - Loading from file cache
+2022-03-15 07:18:46.950 - INFO - ActivityStarted: load
+2022-03-15 07:18:46.950 - INFO - load() => key _CACHE_STORE_KEY_ONNX_CONVERTER_INIT_METADATA_ exists in cache_items
+2022-03-15 07:18:46.951 - INFO - ActivityCompleted: Activity=load, HowEnded=Success, Duration=1.54[ms]
+2022-03-15 07:18:46.952 - INFO - ActivityStarted: get
+2022-03-15 07:18:46.952 - INFO - Getting data for key: ExperimentData_materialized
+2022-03-15 07:18:46.953 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.47[ms]
+2022-03-15 07:18:46.953 - INFO - ActivityStarted: get
+2022-03-15 07:18:46.953 - INFO - Getting data for key: ExperimentData_lazy
+2022-03-15 07:18:46.953 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.41[ms]
+2022-03-15 07:18:46.955 - INFO - ActivityStarted: get
+2022-03-15 07:18:46.955 - INFO - Getting data for key: ExperimentData_partitioned
+2022-03-15 07:18:46.963 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=8.14[ms]
+2022-03-15 07:18:46.964 - INFO - ActivityStarted: get
+2022-03-15 07:18:46.964 - INFO - Getting data for key: ExperimentMetadata
+2022-03-15 07:18:46.964 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.4[ms]
+2022-03-15 07:18:46.965 - INFO - ActivityStarted: get
+2022-03-15 07:18:46.965 - INFO - Getting data for key: ExperimentMetadata_Timeseries
+2022-03-15 07:18:46.965 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.47[ms]
+2022-03-15 07:18:46.966 - INFO - ActivityStarted: get
+2022-03-15 07:18:46.966 - INFO - Getting data for key: ExperimentMetadata_Regression
+2022-03-15 07:18:46.966 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.39[ms]
+2022-03-15 07:18:46.967 - INFO - ActivityStarted: get
+2022-03-15 07:18:46.967 - INFO - Getting data for key: ExperimentMetadata_Classification
+2022-03-15 07:18:46.967 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.42[ms]
+2022-03-15 07:18:46.967 - INFO - ActivityStarted: get
+2022-03-15 07:18:46.968 - INFO - Getting data for key: featurization/pipeline/ExperimentTransformers
+2022-03-15 07:18:46.968 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.59[ms]
+2022-03-15 07:18:46.972 - INFO - Feature sweeping enabled: False
+2022-03-15 07:18:46.972 - INFO - Feature sweeping timeout: 86400
+2022-03-15 07:18:51.923 - INFO - Current memory usage (X): 17.022258758544922Mb
+2022-03-15 07:18:52.009 - INFO - Memory usage (X) decreased to 12.10 Mb (0.0000% reduction)
+2022-03-15 07:18:52.009 - INFO - Performing train/test split using random sampling.
+2022-03-15 07:18:52.023 - INFO - Extracted train/test split from training data. X: (45389, 24), y: (45389,) X_test: (11348, 24), y_test: (11348,)
+2022-03-15 07:18:52.039 - INFO - Current memory usage (X): 10.026115417480469Mb
+2022-03-15 07:18:52.068 - INFO - Current memory usage (X): 2.5050058364868164Mb
+2022-03-15 07:18:52.081 - INFO - Fetching model from training run.
+2022-03-15 07:18:52.268 - INFO - ActivityStarted: DownloadModel
+2022-03-15 07:18:52.753 - INFO - Feature sweeping enabled: False
+2022-03-15 07:18:52.754 - INFO - Feature sweeping timeout: 86400
+2022-03-15 07:18:52.943 - INFO - ActivityCompleted: Activity=DownloadModel, HowEnded=Success, Duration=674.43[ms]
+2022-03-15 07:18:52.943 - INFO - ActivityStarted: get
+2022-03-15 07:18:52.943 - INFO - Getting data for key: featurization/data/full_training_dataset
+2022-03-15 07:18:52.943 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.38[ms]
+2022-03-15 07:18:52.944 - INFO - ActivityStarted: get
+2022-03-15 07:18:52.944 - INFO - Getting data for key: featurization/data/X
+2022-03-15 07:18:53.004 - INFO - parquet to spmatrix. Memory: 12407.48 kb,Disk: 4400.08 kb
+2022-03-15 07:18:53.004 - INFO - Getting data for key: featurization/data/y
+2022-03-15 07:18:53.010 - INFO - parquet to ndarray. Memory: 363.24 kb,Disk: 54.09 kb
+2022-03-15 07:18:53.011 - INFO - Deserialized parquet file into a numpy array of shape: (45389, 1)
+2022-03-15 07:18:53.011 - INFO - parquet to ndarray. Memory: 363.11 kb,Disk: 54.09 kb
+2022-03-15 07:18:53.011 - INFO - Deserialized parquet file into a single dimensional array of shape: (45389,)
+2022-03-15 07:18:53.012 - INFO - parquet to ndarray. Memory: 363.11 kb,Disk: 54.09 kb
+2022-03-15 07:18:53.012 - INFO - Getting data for key: featurization/data/sample_weight
+2022-03-15 07:18:53.012 - INFO - ActivityCompleted: Activity=get, HowEnded=Success, Duration=68.39[ms]
+2022-03-15 07:18:53.012 - INFO - ActivityStarted: Predict
+2022-03-15 07:18:53.013 - INFO - Running TSI V1.
+2022-03-15 07:18:53.013 - INFO - Starting to apply transforms. Total ram: 14673948672 bytes
+2022-03-15 07:18:53.014 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.014 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.016 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.017 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.017 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.019 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.019 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.020 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.021 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.022 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.022 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.024 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.024 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.025 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.027 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.027 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.027 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.029 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.030 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.030 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.031 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.032 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.032 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.034 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.034 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.035 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.036 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.037 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.037 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.039 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.039 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.040 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.041 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.042 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.042 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.044 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.044 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.044 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.046 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.047 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.047 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.049 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.049 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.049 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.051 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.051 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.052 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.053 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.054 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.054 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.056 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.056 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.057 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.058 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.059 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.059 - INFO - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.061 - INFO - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.061 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872419328 bytes
+2022-03-15 07:18:53.062 - INFO - StringCastTransformer,CountVectorizer: Applying transform.
+2022-03-15 07:18:53.098 - INFO - StringCastTransformer,CountVectorizer: Finished applying transform. Shape (11348, 138)
+2022-03-15 07:18:53.098 - INFO - Transform memory estimate: 0 bytes, Current available memory: 872161280 bytes
+2022-03-15 07:18:53.099 - INFO - StringCastTransformer,CountVectorizer: Applying transform.
+2022-03-15 07:18:53.151 - INFO - StringCastTransformer,CountVectorizer: Finished applying transform. Shape (11348, 7)
+2022-03-15 07:18:53.152 - INFO - Transform memory estimate: 0 bytes, Current available memory: 871387136 bytes
+2022-03-15 07:18:53.152 - INFO - StringCastTransformer,CountVectorizer: Applying transform.
+2022-03-15 07:18:53.194 - INFO - StringCastTransformer,CountVectorizer: Finished applying transform. Shape (11348, 7)
+2022-03-15 07:18:53.195 - INFO - Transform memory estimate: 0 bytes, Current available memory: 871387136 bytes
+2022-03-15 07:18:53.195 - INFO - StringCastTransformer,HashOneHotVectorizerTransformer: Applying transform.
+2022-03-15 07:18:53.211 - INFO - StringCastTransformer,HashOneHotVectorizerTransformer: Finished applying transform. Shape (11348, 2048)
+2022-03-15 07:18:53.212 - INFO - Finished applying transforms
+2022-03-15 07:18:53.212 - INFO - Total ram: 14673948672 bytes, Current Available memory: 871129088 bytes. Low memory threshold: 0.5
+2022-03-15 07:18:54.465 - INFO - ActivityCompleted: Activity=Predict, HowEnded=Success, Duration=1452.96[ms]
+2022-03-15 07:18:54.473 - INFO - Saving predicted results.
+2022-03-15 07:18:54.474 - INFO - Single inference output, casting to pandas.
+2022-03-15 07:18:54.474 - INFO - Inference output as pandas.
+2022-03-15 07:18:55.357 - INFO - Uploaded result to ExperimentRun/dcid.b857aec4-23ae-44a5-9259-23887b192290/predictions/predictions.csv
+2022-03-15 07:19:01.707 - INFO - Starting metrics computation for test run.
+2022-03-15 07:19:01.708 - INFO - ActivityStarted: ComputeMetrics
+2022-03-15 07:19:01.720 - INFO - Regression metrics debug: {'y_test': (11348,), 'y_pred': (11348,), 'y_test_unique': 609, 'y_pred_unique': 10599, 'y_test_has_negative': False, 'y_pred_has_negative': True, 'min_max_equal': False, 'sample_weight': None}
+2022-03-15 07:19:01.724 - WARNING - Skipping normalized_root_mean_squared_log_error calculation. y_test/y_pred contain negative values.
+2022-03-15 07:19:01.738 - WARNING - Skipping root_mean_squared_log_error calculation. y_test/y_pred contain negative values.
+2022-03-15 07:19:01.740 - INFO - ActivityCompleted: Activity=ComputeMetrics, HowEnded=Success, Duration=31.72[ms]
+2022-03-15 07:19:02.302 - INFO - Marking run b857aec4-23ae-44a5-9259-23887b192290 as Completed.
+2022-03-15 07:19:08.278 - INFO - Resetting ExpeirmentStore ID: 140582195982416
+
+
+[2022-03-15T07:19:08.289173] The experiment completed successfully. Finalizing run...
+Cleaning up all outstanding Run operations, waiting 900.0 seconds
+7 items cleaning up...
+Cleanup took 0.4259047508239746 seconds
+[2022-03-15T07:19:24.580452] Finished context manager injector.
+2022/03/15 07:19:33 Attempt 1 of http call to http://10.0.0.4:16384/sendlogstoartifacts/status
+2022/03/15 07:19:33 Send process info logs to master server succeeded
+2022/03/15 07:19:33 Not exporting to RunHistory as the exporter is either stopped or there is no data.
+Stopped: false
+OriginalData: 2
+FilteredData: 0.
+2022/03/15 07:19:33 Process Exiting with Code:  0
+2022/03/15 07:19:33 All App Insights Logs was sent successfully or the close timeout of 10 was reached
