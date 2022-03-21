@@ -13,3 +13,7 @@ data/sim_training/gridmet/tmmn.csv
 data/sim_training/gridmet/tmmx.csv
 data/sim_training/gridmet/vpd.csv
 data/sim_training/gridmet/vs.csv
+model/wormhole_20222003194621.joblib
+model/stackensemble_0.01714_AutoMLa89a9f74166/scoring_file_v_1_0_0.py
+model/stackensemble_0.01714_AutoMLa89a9f74166/model.pkl
+model/stackensemble_0.01714_AutoMLa89a9f74166/conda_env_v_1_0_0.yml
