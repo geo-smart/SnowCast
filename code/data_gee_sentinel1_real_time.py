@@ -3,6 +3,7 @@
 # reminder that if you are installing libraries in a Google Colab instance you will be prompted to restart your kernal
 
 from all_dependencies import *
+from snowcast_utils import *
 
 try:
     ee.Initialize()
@@ -16,11 +17,14 @@ print(homedir)
 # read grid cell
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
 # read grid cell
-station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
-station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
+submission_format_file = f"{github_dir}/data/snowcast_provided/submission_format.csv"
+submission_format_df = pd.read_csv(submission_format_file, header=0, index_col=0)
 
-start_date = '2022-03-07'
-end_date = '2022-03-13'
+all_cell_coords_file = f"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv"
+all_cell_coords_df = pd.read_csv(all_cell_coords_file, header=0, index_col=0)
+
+start_date = test_start_date
+end_date = test_end_date
 
 org_name = 'sentinel1'
 product_name = 'COPERNICUS/S1_GRD'
@@ -32,21 +36,21 @@ print(f"Results will be saved to {final_csv_file}")
 
 
 if os.path.exists(final_csv_file):
-    print("exists skipping..")
-    exit()
+    #print("exists skipping..")
+    #exit()
+    os.remove(final_csv_file)
 
 
 all_cell_df = pd.DataFrame(columns = ['date', column_name, 'cell_id', 'latitude', 'longitude'])
 
-for ind in station_cell_mapper_df.index:
+for current_cell_id in submission_format_df.index:
   
     try:
   	
-      current_cell_id = station_cell_mapper_df['cell_id'][ind]
-      print("collecting ", current_cell_id)
+      #print("collecting ", current_cell_id)
       
-      longitude = station_cell_mapper_df['lon'][ind]
-      latitude = station_cell_mapper_df['lat'][ind]
+      longitude = all_cell_coords_df['lon'][current_cell_id]
+      latitude = all_cell_coords_df['lat'][current_cell_id]
 
       # identify a 500 meter buffer around our Point Of Interest (POI)
       poi = ee.Geometry.Point(longitude, latitude).buffer(1)
