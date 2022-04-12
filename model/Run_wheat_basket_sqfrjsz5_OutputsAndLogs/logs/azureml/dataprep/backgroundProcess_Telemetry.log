@@ -1,0 +1,14 @@
+2022-03-15 07:18:50.0788|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: ActivityMigration|metrics: {}, properties: {"prevState":"No version","newState":"1","success":"True"}|
+2022-03-15 07:18:51.1618|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.GetDatastoreFilesBlock","id":"0"}|
+2022-03-15 07:18:51.1618|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.ParseDelimitedBlock","id":"1"}|
+2022-03-15 07:18:51.1618|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.DropColumnsBlock","id":"2"}|
+2022-03-15 07:18:51.1618|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.SetColumnTypesBlock","id":"3"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.GetDatastoreFilesBlock","id":"0"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.ParseDelimitedBlock","id":"1"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.DropColumnsBlock","id":"2"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.TakeBlock","id":"3"}|
+2022-03-15 07:18:55.5155|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: StepInfo|metrics: {}, properties: {"blockType":"Microsoft.DPrep.WritePreppyBlock","id":"4"}|
+2022-03-15 07:18:57.2507|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: DataSourceGetFiles|metrics: {"size":2753924.0}, properties: {"datasourcePath":"AVM+uUxe6uy0Er7g8cq8KTAmnr9bff8uAysZiQrnlCo="}|
+2022-03-15 07:18:57.4708|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: DataSourceGetFiles|metrics: {"size":2753924.0}, properties: {"datasourcePath":"AVM+uUxe6uy0Er7g8cq8KTAmnr9bff8uAysZiQrnlCo="}|
+2022-03-15 07:18:57.5933|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: DataSourceGetFiles|metrics: {"size":2753924.0}, properties: {"datasourcePath":"AVM+uUxe6uy0Er7g8cq8KTAmnr9bff8uAysZiQrnlCo="}|
+2022-03-15 07:18:57.7769|DEBUG|Telemetry|37086ad7-cc92-4403-b9ff-81cd492a3ac3|event: DataSourceGetFiles|metrics: {"size":2753924.0}, properties: {"datasourcePath":"AVM+uUxe6uy0Er7g8cq8KTAmnr9bff8uAysZiQrnlCo="}|

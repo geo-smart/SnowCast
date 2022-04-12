@@ -1,0 +1,147 @@
+2022-03-15 07:18:45.566 - INFO - 93 - azureml.train.automl.runtime._entrypoints.utils.common._get_cache_data_store:145 - Successfully got the cache data store, caching enabled.
+2022-03-15 07:18:45.566 - INFO - 93 - azureml.train.automl.runtime._entrypoints.utils.common._get_cache_data_store:156 - Took 0.10375714302062988 seconds to retrieve cache data store
+2022-03-15 07:18:45.575 - INFO - 93 - azureml.automl.runtime.experiment_store.__init__:1134 - Requested a new ExperimentStore instance.
+2022-03-15 07:18:45.576 - INFO - 93 - azureml.automl.runtime.experiment_store.__init__:1151 - Created ExperimentStore with ID: 140582195982416.
+2022-03-15 07:18:45.576 - INFO - 93 - azureml.automl.runtime.shared.run_backed_cache_store._download_cache:73 - No files are available for the cache store locally, downloading files from the Run.
+2022-03-15 07:18:46.949 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.load:593 - Loading from file cache
+2022-03-15 07:18:46.950 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: load
+2022-03-15 07:18:46.950 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.load:605 - load() => key _CACHE_STORE_KEY_ONNX_CONVERTER_INIT_METADATA_ exists in cache_items
+2022-03-15 07:18:46.951 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=load, HowEnded=Success, Duration=1.54[ms]
+2022-03-15 07:18:46.952 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:46.952 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: ExperimentData_materialized
+2022-03-15 07:18:46.953 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.47[ms]
+2022-03-15 07:18:46.953 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:46.953 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: ExperimentData_lazy
+2022-03-15 07:18:46.953 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.41[ms]
+2022-03-15 07:18:46.955 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:46.955 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: ExperimentData_partitioned
+2022-03-15 07:18:46.963 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=8.14[ms]
+2022-03-15 07:18:46.964 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:46.964 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: ExperimentMetadata
+2022-03-15 07:18:46.964 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.4[ms]
+2022-03-15 07:18:46.965 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:46.965 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: ExperimentMetadata_Timeseries
+2022-03-15 07:18:46.965 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.47[ms]
+2022-03-15 07:18:46.966 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:46.966 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: ExperimentMetadata_Regression
+2022-03-15 07:18:46.966 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.39[ms]
+2022-03-15 07:18:46.967 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:46.967 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: ExperimentMetadata_Classification
+2022-03-15 07:18:46.967 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.42[ms]
+2022-03-15 07:18:46.967 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:46.968 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: featurization/pipeline/ExperimentTransformers
+2022-03-15 07:18:46.968 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.59[ms]
+2022-03-15 07:18:46.972 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer.__init__:190 - Feature sweeping enabled: False
+2022-03-15 07:18:46.972 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer.__init__:191 - Feature sweeping timeout: 86400
+2022-03-15 07:18:51.923 - INFO - 93 - azureml.automl.runtime._data_definition.materialized_tabular_data._shrink_dtypes:198 - Current memory usage (X): 17.022258758544922Mb
+2022-03-15 07:18:52.009 - INFO - 93 - azureml.automl.runtime._data_definition.materialized_tabular_data._shrink_dtypes:211 - Memory usage (X) decreased to 12.10 Mb (0.0000% reduction)
+2022-03-15 07:18:52.009 - INFO - 93 - azureml.automl.runtime._data_splitting_utilities.split_dataset:90 - Performing train/test split using random sampling.
+2022-03-15 07:18:52.023 - INFO - 93 - azureml.automl.runtime._data_splitting_utilities.split_dataset:113 - Extracted train/test split from training data. X: (45389, 24), y: (45389,) X_test: (11348, 24), y_test: (11348,)
+2022-03-15 07:18:52.039 - INFO - 93 - azureml.automl.runtime._data_definition.materialized_tabular_data._shrink_dtypes:198 - Current memory usage (X): 10.026115417480469Mb
+2022-03-15 07:18:52.068 - INFO - 93 - azureml.automl.runtime._data_definition.materialized_tabular_data._shrink_dtypes:198 - Current memory usage (X): 2.5050058364868164Mb
+2022-03-15 07:18:52.081 - INFO - 93 - azureml.train.automl.runtime._model_test_utilities.get_model_from_training_run:56 - Fetching model from training run.
+2022-03-15 07:18:52.268 - INFO - 93 - azureml.train.automl._model_download_utilities._log_activity:55 - ActivityStarted: DownloadModel
+2022-03-15 07:18:52.753 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer.__init__:190 - Feature sweeping enabled: False
+2022-03-15 07:18:52.754 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer.__init__:191 - Feature sweeping timeout: 86400
+2022-03-15 07:18:52.943 - INFO - 93 - azureml.train.automl._model_download_utilities._log_activity:93 - ActivityCompleted: Activity=DownloadModel, HowEnded=Success, Duration=674.43[ms]
+2022-03-15 07:18:52.943 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:52.943 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: featurization/data/full_training_dataset
+2022-03-15 07:18:52.943 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=0.38[ms]
+2022-03-15 07:18:52.944 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:55 - ActivityStarted: get
+2022-03-15 07:18:52.944 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: featurization/data/X
+2022-03-15 07:18:53.004 - INFO - 93 - azureml.automl.runtime.shared._parqueter.load_sparse_matrix:245 - parquet to spmatrix. Memory: 12407.48 kb,Disk: 4400.08 kb
+2022-03-15 07:18:53.004 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: featurization/data/y
+2022-03-15 07:18:53.010 - INFO - 93 - azureml.automl.runtime.shared._parqueter.load_pandas_dataframe:153 - parquet to ndarray. Memory: 363.24 kb,Disk: 54.09 kb
+2022-03-15 07:18:53.011 - INFO - 93 - azureml.automl.runtime.shared._parqueter.load_numpy_array:183 - Deserialized parquet file into a numpy array of shape: (45389, 1)
+2022-03-15 07:18:53.011 - INFO - 93 - azureml.automl.runtime.shared._parqueter.load_numpy_array:190 - parquet to ndarray. Memory: 363.11 kb,Disk: 54.09 kb
+2022-03-15 07:18:53.011 - INFO - 93 - azureml.automl.runtime.shared._parqueter.load_single_dim_numpy_array:213 - Deserialized parquet file into a single dimensional array of shape: (45389,)
+2022-03-15 07:18:53.012 - INFO - 93 - azureml.automl.runtime.shared._parqueter.load_single_dim_numpy_array:219 - parquet to ndarray. Memory: 363.11 kb,Disk: 54.09 kb
+2022-03-15 07:18:53.012 - INFO - 93 - azureml.automl.runtime.shared.lazy_file_cache_store.get:424 - Getting data for key: featurization/data/sample_weight
+2022-03-15 07:18:53.012 - INFO - 93 - azureml.automl.runtime.shared.cache_store._log_activity:93 - ActivityCompleted: Activity=get, HowEnded=Success, Duration=68.39[ms]
+2022-03-15 07:18:53.012 - INFO - 93 - azureml.train.automl.runtime._model_test_utilities._log_activity:55 - ActivityStarted: Predict
+2022-03-15 07:18:53.013 - INFO - 93 - azureml.train.automl.runtime._model_test_utilities.inference:377 - Running TSI V1.
+2022-03-15 07:18:53.013 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:551 - Starting to apply transforms. Total ram: 14673948672 bytes
+2022-03-15 07:18:53.014 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.014 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.016 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.017 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.017 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.019 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.019 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.020 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.021 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.022 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.022 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.024 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.024 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.025 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.027 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.027 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.027 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.029 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.030 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.030 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.031 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.032 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.032 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.034 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.034 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.035 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.036 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.037 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.037 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.039 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.039 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.040 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.041 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.042 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.042 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.044 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.044 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.044 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.046 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.047 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.047 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.049 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.049 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.049 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.051 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.051 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.052 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.053 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.054 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.054 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.056 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.056 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.057 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.058 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.059 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872693760 bytes
+2022-03-15 07:18:53.059 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - SimpleImputer: Applying transform.
+2022-03-15 07:18:53.061 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - SimpleImputer: Finished applying transform. Shape (11348, 1)
+2022-03-15 07:18:53.061 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872419328 bytes
+2022-03-15 07:18:53.062 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - StringCastTransformer,CountVectorizer: Applying transform.
+2022-03-15 07:18:53.098 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - StringCastTransformer,CountVectorizer: Finished applying transform. Shape (11348, 138)
+2022-03-15 07:18:53.098 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 872161280 bytes
+2022-03-15 07:18:53.099 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - StringCastTransformer,CountVectorizer: Applying transform.
+2022-03-15 07:18:53.151 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - StringCastTransformer,CountVectorizer: Finished applying transform. Shape (11348, 7)
+2022-03-15 07:18:53.152 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 871387136 bytes
+2022-03-15 07:18:53.152 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - StringCastTransformer,CountVectorizer: Applying transform.
+2022-03-15 07:18:53.194 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - StringCastTransformer,CountVectorizer: Finished applying transform. Shape (11348, 7)
+2022-03-15 07:18:53.195 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:562 - Transform memory estimate: 0 bytes, Current available memory: 871387136 bytes
+2022-03-15 07:18:53.195 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:572 - StringCastTransformer,HashOneHotVectorizerTransformer: Applying transform.
+2022-03-15 07:18:53.211 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:586 - StringCastTransformer,HashOneHotVectorizerTransformer: Finished applying transform. Shape (11348, 2048)
+2022-03-15 07:18:53.212 - INFO - 93 - azureml.automl.runtime.featurization.data_transformer._apply_transforms:595 - Finished applying transforms
+2022-03-15 07:18:53.212 - INFO - 93 - azureml.automl.runtime.shared.memory_utilities._is_low_memory:208 - Total ram: 14673948672 bytes, Current Available memory: 871129088 bytes. Low memory threshold: 0.5
+2022-03-15 07:18:54.465 - INFO - 93 - azureml.train.automl.runtime._model_test_utilities._log_activity:93 - ActivityCompleted: Activity=Predict, HowEnded=Success, Duration=1452.96[ms]
+2022-03-15 07:18:54.473 - INFO - 93 - azureml.train.automl.runtime._model_test_utilities._save_results:182 - Saving predicted results.
+2022-03-15 07:18:54.474 - INFO - 93 - azureml.train.automl.runtime._model_test_utilities._save_results:188 - Single inference output, casting to pandas.
+2022-03-15 07:18:54.474 - INFO - 93 - azureml.train.automl.runtime._model_test_utilities._get_pandas:167 - Inference output as pandas.
+2022-03-15 07:18:55.357 - INFO - 93 - azureml.train.automl.runtime._model_test_utilities._save_results:221 - Uploaded result to ExperimentRun/dcid.b857aec4-23ae-44a5-9259-23887b192290/predictions/predictions.csv
+2022-03-15 07:19:01.707 - INFO - 93 - azureml.train.automl.runtime._automl_job_phases.model_test_phase.run:85 - Starting metrics computation for test run.
+2022-03-15 07:19:01.708 - INFO - 93 - azureml.automl.runtime.shared.metrics_utilities._log_activity:55 - ActivityStarted: ComputeMetrics
+2022-03-15 07:19:01.720 - INFO - 93 - azureml.automl.runtime.shared.score._validation.log_regression_debug:218 - Regression metrics debug: {'y_test': (11348,), 'y_pred': (11348,), 'y_test_unique': 609, 'y_pred_unique': 10599, 'y_test_has_negative': False, 'y_pred_has_negative': True, 'min_max_equal': False, 'sample_weight': None}
+2022-03-15 07:19:01.724 - WARNING - 93 - azureml.automl.runtime.shared.score._regression.compute:267 - Skipping normalized_root_mean_squared_log_error calculation. y_test/y_pred contain negative values.
+2022-03-15 07:19:01.738 - WARNING - 93 - azureml.automl.runtime.shared.score._regression.compute:248 - Skipping root_mean_squared_log_error calculation. y_test/y_pred contain negative values.
+2022-03-15 07:19:01.740 - INFO - 93 - azureml.automl.runtime.shared.metrics_utilities._log_activity:93 - ActivityCompleted: Activity=ComputeMetrics, HowEnded=Success, Duration=31.72[ms]
+2022-03-15 07:19:02.302 - INFO - 93 - azureml.automl.core._run.run_lifecycle_utilities.complete_run:76 - Marking run b857aec4-23ae-44a5-9259-23887b192290 as Completed.
+2022-03-15 07:19:08.278 - INFO - 93 - azureml.automl.runtime.experiment_store.reset:1168 - Resetting ExpeirmentStore ID: 140582195982416

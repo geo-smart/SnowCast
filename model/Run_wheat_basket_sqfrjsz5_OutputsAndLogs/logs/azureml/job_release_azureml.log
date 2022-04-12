@@ -1,0 +1,51 @@
+2022-03-15 07:19:36,179|azureml|DEBUG|Execute Job Release Inputs:: kwargs: {'disable_output_upload': True}, track_folders: None, deny_list: None, directories_to_watch: []
+2022-03-15 07:19:36,179|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,180|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,190|azureml.history._tracking.PythonWorkingDirectory|DEBUG|Execution target type: batchai
+2022-03-15 07:19:36,191|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,192|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,192|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,193|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,193|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,193|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,201|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,201|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,202|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,202|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,202|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,209|azureml.history._tracking.PythonWorkingDirectory|DEBUG|Failed to import pyspark with error: No module named 'pyspark'
+2022-03-15 07:19:36,210|azureml.history._tracking.PythonWorkingDirectory.workingdir|DEBUG|Pinning working directory for filesystems: ['pyfs']
+2022-03-15 07:19:36,210|azureml.core.run|DEBUG|Identity in use is not set. Falling back to using AMLToken
+2022-03-15 07:19:36,210|azureml.core.run|DEBUG|Using AMLToken auth for remote run
+2022-03-15 07:19:36,211|azureml._restclient.service_context|DEBUG|Access an existing static threadpool for ServiceContext class
+2022-03-15 07:19:36,212|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,214|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,215|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,215|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,217|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,217|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,217|azureml._base_sdk_common.service_discovery|DEBUG|Found history service url in environment variable AZUREML_SERVICE_ENDPOINT, history service url: https://eastus.api.azureml.ms.
+2022-03-15 07:19:36,422|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient.get_by_exp_id-async:False|DEBUG|[START]
+2022-03-15 07:19:36,427|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient|DEBUG|ClientBase: Calling get_by_exp_id with url /history/v1.0/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/experimentids/{experimentId}/runs/{runId}
+2022-03-15 07:19:36,430|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient.get_by_exp_id-async:False|DEBUG|[START]
+2022-03-15 07:19:36,438|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient.get_by_exp_id-async:False|DEBUG|[START]
+2022-03-15 07:19:36,439|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient|DEBUG|ClientBase: Calling get_by_exp_id with url /history/v1.0/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/experimentids/{experimentId}/runs/{runId}
+2022-03-15 07:19:36,438|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient|DEBUG|ClientBase: Calling get_by_exp_id with url /history/v1.0/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/experimentids/{experimentId}/runs/{runId}
+2022-03-15 07:19:36,503|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient.get_by_exp_id-async:False|DEBUG|[STOP]
+2022-03-15 07:19:36,506|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290|DEBUG|Constructing run from dto. type: automl.model_test, source: automl, props: {'azureml.runsource': 'automl', 'parentRunId': 'AutoML_a89a9f74-1c71-40d5-8793-ada81ec1c63e_66', '_azureml.ComputeTargetType': 'amlcompute', 'ContentSnapshotId': '3bf422ec-d661-408d-bddf-e6c7cea8376f', 'ProcessInfoFile': 'azureml-logs/process_info.json', 'ProcessStatusFile': 'azureml-logs/process_status.json', 'inference_results': "['ExperimentRun/dcid.b857aec4-23ae-44a5-9259-23887b192290/predictions/predictions.csv']"}
+2022-03-15 07:19:36,507|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunContextManager|DEBUG|Valid logs dir, setting up content loader
+2022-03-15 07:19:36,505|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient.get_by_exp_id-async:False|DEBUG|[STOP]
+2022-03-15 07:19:36,508|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290|DEBUG|Constructing run from dto. type: automl.model_test, source: automl, props: {'azureml.runsource': 'automl', 'parentRunId': 'AutoML_a89a9f74-1c71-40d5-8793-ada81ec1c63e_66', '_azureml.ComputeTargetType': 'amlcompute', 'ContentSnapshotId': '3bf422ec-d661-408d-bddf-e6c7cea8376f', 'ProcessInfoFile': 'azureml-logs/process_info.json', 'ProcessStatusFile': 'azureml-logs/process_status.json', 'inference_results': "['ExperimentRun/dcid.b857aec4-23ae-44a5-9259-23887b192290/predictions/predictions.csv']"}
+2022-03-15 07:19:36,508|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunContextManager|DEBUG|Valid logs dir, setting up content loader
+2022-03-15 07:19:36,508|azureml.WorkerPool|DEBUG|[START]
+2022-03-15 07:19:36,509|azureml.TrackFolders|DEBUG|[START]
+2022-03-15 07:19:36,511|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunHistoryFacade.RunClient.get_by_exp_id-async:False|DEBUG|[STOP]
+2022-03-15 07:19:36,511|azureml|DEBUG|Executing history release.
+2022-03-15 07:19:36,512|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290|DEBUG|Constructing run from dto. type: automl.model_test, source: automl, props: {'azureml.runsource': 'automl', 'parentRunId': 'AutoML_a89a9f74-1c71-40d5-8793-ada81ec1c63e_66', '_azureml.ComputeTargetType': 'amlcompute', 'ContentSnapshotId': '3bf422ec-d661-408d-bddf-e6c7cea8376f', 'ProcessInfoFile': 'azureml-logs/process_info.json', 'ProcessStatusFile': 'azureml-logs/process_status.json', 'inference_results': "['ExperimentRun/dcid.b857aec4-23ae-44a5-9259-23887b192290/predictions/predictions.csv']"}
+2022-03-15 07:19:36,512|azureml.history._tracking.PythonWorkingDirectory.workingdir|DEBUG|Uploading tracked directories: [], excluding ['azureml-logs/driver_log']
+2022-03-15 07:19:36,512|azureml._SubmittedRun#b857aec4-23ae-44a5-9259-23887b192290.RunContextManager|DEBUG|Valid logs dir, setting up content loader
+2022-03-15 07:19:36,512|azureml.history._tracking.PythonWorkingDirectory.workingdir|DEBUG|Calling track for pyfs
+2022-03-15 07:19:36,512|azureml.TrackFolders|DEBUG|[STOP]
+2022-03-15 07:19:36,512|azureml.HistoryTrackingWorkerPool.WorkerPoolShutdown|DEBUG|[START]
+2022-03-15 07:19:36,512|azureml.HistoryTrackingWorkerPool.WorkerPoolShutdown|DEBUG|[STOP]
+2022-03-15 07:19:36,512|azureml.WorkerPool|DEBUG|[STOP]

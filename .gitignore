@@ -5,11 +5,7 @@ dist/*
 MANIFEST
 model/wormhole_random_forest_basic_v2.joblib
 model/wormhole_random_forest_v2.joblib
-data/sim_training/gridmet/eto.csv
-data/sim_training/gridmet/pr.csv
-data/sim_training/gridmet/rmax.csv
-data/sim_training/gridmet/rmin.csv
-data/sim_training/gridmet/tmmn.csv
-data/sim_training/gridmet/tmmx.csv
-data/sim_training/gridmet/vpd.csv
-data/sim_training/gridmet/vs.csv
+data/sim_training/*
+data/sim_testing/*
+model/wormhole_20222003194621.joblib
+model/*
