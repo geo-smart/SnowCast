@@ -17,13 +17,16 @@ print(homedir)
 # read grid cell
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
 # read grid cell
-submission_format_file = f"{github_dir}/data/snowcast_provided/submission_format.csv"
+submission_format_file = f"{github_dir}/data/snowcast_provided/submission_format_eval.csv"
 submission_format_df = pd.read_csv(submission_format_file, header=0, index_col=0)
+
+print("submission_format_df shape: ", submission_format_df.shape)
 
 all_cell_coords_file = f"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv"
 all_cell_coords_df = pd.read_csv(all_cell_coords_file, header=0, index_col=0)
 
-start_date = test_start_date
+#start_date = "2022-04-20"#test_start_date
+start_date = findLastStopDate(f"{github_dir}/data/sat_testing/sentinel1","%Y-%m-%d %H:%M:%S")
 end_date = test_end_date
 
 org_name = 'sentinel1'
@@ -53,7 +56,7 @@ for current_cell_id in submission_format_df.index:
       latitude = all_cell_coords_df['lat'][current_cell_id]
 
       # identify a 500 meter buffer around our Point Of Interest (POI)
-      poi = ee.Geometry.Point(longitude, latitude).buffer(1)
+      poi = ee.Geometry.Point(longitude, latitude).buffer(10)
 
       viirs = ee.ImageCollection(product_name) \
           	.filterDate(start_date, end_date) \
@@ -85,10 +88,9 @@ for current_cell_id in submission_format_df.index:
       
     except Exception as e:
       
-      print(e)
+      #print(e)
       pass
     
-all_cell_df.to_csv(final_csv_file)  
-
+all_cell_df.to_csv(final_csv_file)
 
 
