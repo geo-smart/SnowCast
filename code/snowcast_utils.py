@@ -10,6 +10,7 @@ import geojson
 import numpy as np
 import os.path
 import math
+import datetime
 
 today = date.today()
 
@@ -38,7 +39,7 @@ def calculateDistance(lat1, lon1, lat2, lon2):
 
 def create_cell_location_csv():
   # read grid cell
-  gridcells_file = f"{github_dir}/data/snowcast_provided/grid_cells.geojson"
+  gridcells_file = f"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson"
   all_cell_coords_file = f"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv"
   if os.path.exists(all_cell_coords_file):
     os.remove(all_cell_coords_file)
@@ -58,8 +59,30 @@ def create_cell_location_csv():
   grid_coords_df.to_csv(all_cell_coords_file, index=False)
   #np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=",")
   #print(grid_coords_np.shape)
-    
+  
+def get_latest_date_from_an_array(arr, date_format):
+  return max(arr, key=lambda x: datetime.datetime.strptime(x, date_format))
+  
+  
+def findLastStopDate(target_testing_dir, data_format):
+  date_list = []
+  for filename in os.listdir(target_testing_dir):
+    f = os.path.join(target_testing_dir, filename)
+    # checking if it is a file
+    if os.path.isfile(f) and ".csv" in f:
+        pdf = pd.read_csv(f,header=0, index_col=0)
+        date_list = np.concatenate((date_list, pdf.index.unique()))
+  latest_date = get_latest_date_from_an_array(date_list, data_format)
+  print(latest_date)
+  date_time_obj = datetime.datetime.strptime(latest_date, data_format)
+  return date_time_obj.strftime("%Y-%m-%d")
 
 #create_cell_location_csv()
+findLastStopDate(f"{github_dir}/data/sim_testing/gridmet/", "%Y-%m-%d %H:%M:%S")
+#findLastStopDate(f"{github_dir}/data/sat_testing/sentinel1/", "%Y-%m-%d %H:%M:%S")
+#findLastStopDate(f"{github_dir}/data/sat_testing/modis/", "%Y-%m-%d")
+
+
+
       
 
