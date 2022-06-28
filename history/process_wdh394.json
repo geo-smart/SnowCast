@@ -1,0 +1,11 @@
+[{
+  "history_id" : "3h13rtrhzxu",
+  "history_input" : "\nfrom BaseHole import *\n\nclass KehanModel(BaseHole):\n\t\n  def preprocessing():\n    pass  \n  \n  def train():\n    pass\n  \n  def test():\n    pass",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/3h13rtrhzxu/model_create_kehan.py\", line 2, in <module>\n    from BaseHole import *\nModuleNotFoundError: No module named 'BaseHole'\n",
+  "history_begin_time" : 1654519486346,
+  "history_end_time" : 1654519486445,
+  "history_notes" : null,
+  "history_process" : "wdh394",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},]

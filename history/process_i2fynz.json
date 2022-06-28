@@ -1,0 +1,121 @@
+[{
+  "history_id" : "aslw9nt7uom",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit()  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1654521117157,
+  "history_end_time" : 1654521118961,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "2k746nwjlmf",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit()  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1647826118938,
+  "history_end_time" : 1647826120615,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5j0bd9slqr6",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit()  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1647225953750,
+  "history_end_time" : 1647225955516,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "u1c7tdtbguo",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit()  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1646693035831,
+  "history_end_time" : 1646693037497,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "0mng6wg8pce",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit()  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1646604649427,
+  "history_end_time" : 1646604651060,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "6kpcbdrlvyp",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "/Users/joe\nThe Base Model model performance for testing set\n--------------------------------------\nMAE is 7.792623252483023\nMSE is 145.6170249908291\nR2 score is -0.3497606523873109\nRMSE is 12.067187948765408\nThe Optimized model performance for testing set\n--------------------------------------\nMAE is 7.635033087628328\nMSE is 138.08187844135637\nR2 score is -0.2799154929831078\nRMSE is 11.750824585592126\n",
+  "history_begin_time" : 1646272339511,
+  "history_end_time" : 1646272347051,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "41zmy9i70ub",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"service_prediction.py\", line 3, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nModuleNotFoundError: No module named 'sklearn'\n",
+  "history_begin_time" : 1645977677449,
+  "history_end_time" : 1645977679115,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "je29f6",
+  "indicator" : "Done"
+},{
+  "history_id" : "0ld354sm3kh",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"service_prediction.py\", line 3, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nModuleNotFoundError: No module named 'sklearn'\n",
+  "history_begin_time" : 1645977446839,
+  "history_end_time" : 1645977448515,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "je29f6",
+  "indicator" : "Done"
+},{
+  "history_id" : "rby4m0etw7q",
+  "history_input" : "# Predict results using the model\n\nprint(\"feed data into the service and monitor the results\")\n\n",
+  "history_output" : "feed data into the service and monitor the results\n",
+  "history_begin_time" : 1642977868759,
+  "history_end_time" : 1642977868857,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "nvdos9yaf4j",
+  "history_input" : "# Predict results using the model\n\nprint(\"feed data into the service and monitor the results\")\n\n",
+  "history_output" : "feed data into the service and monitor the results\n",
+  "history_begin_time" : 1642969783156,
+  "history_end_time" : 1642969783288,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "4yf68c43e6s",
+  "history_input" : "# Predict results using the model\n\nprint(\"feed data into the service and monitor the results\")\n\n",
+  "history_output" : "feed data into the service and monitor the results\n",
+  "history_begin_time" : 1642455233709,
+  "history_end_time" : 1642455233817,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "pw8xdgyyboc",
+  "history_input" : "# Predict results using the model\n\nprint(\"feed data into the service and monitor the results\")\n\n",
+  "history_output" : "feed data into the service and monitor the results\n",
+  "history_begin_time" : 1642454685029,
+  "history_end_time" : 1642454685159,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},]

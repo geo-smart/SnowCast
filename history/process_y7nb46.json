@@ -1,0 +1,61 @@
+[{
+  "history_id" : "5015qfy5cre",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    pass\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1654519479687,
+  "history_end_time" : 1654519480238,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "CgiipV4WYENg",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    pass\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1650027007304,
+  "history_end_time" : 1650027007816,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "pHebA3vDwLUI",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    pass\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1650027000157,
+  "history_end_time" : 1650027001050,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "239dcugypk8",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    pass\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1647826058808,
+  "history_end_time" : 1647826059207,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "v238rbq0nsl",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nclass BaseHole:\n  \n  def __init__():\n    self.classifier = get_model()\n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    \n  \n  def preprocessing():\n    pass\n  \n  def train():\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test():\n    self.test_y = self.classifier.predict(self.test_x)\n  \n  def validate():\n    pass\n  \n  def predict():\n    pass\n  \n  def get_model():\n    pass\n  \n  def post_processing():\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1647225906888,
+  "history_end_time" : 1647225907007,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "qhefmcf7ctt",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nclass BaseHole:\n  \n  def __init__():\n    pass\n  \n  def preprocessing():\n    pass\n  \n  def train():\n    pass\n  \n  def test():\n    pass\n  \n  def validate():\n    pass\n  \n  def predict():\n    pass\n  \n  def get_model():\n    pass\n  \n  def post_processing():\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1646692937957,
+  "history_end_time" : 1646692938187,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},]
