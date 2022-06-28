@@ -1,0 +1,121 @@
+[{
+  "history_id" : "0egexl46mmc",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1654519479356,
+  "history_end_time" : 1654519479452,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "0li9a6sqh07",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1647826055757,
+  "history_end_time" : 1647826056791,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "qurbxks71qm",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1647225905083,
+  "history_end_time" : 1647225905189,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "elz9kn7vx9t",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1646692933054,
+  "history_end_time" : 1646692933265,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "3b6f1yzn486",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1646604591236,
+  "history_end_time" : 1646604591348,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "xmkh74ocq31",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1646269656012,
+  "history_end_time" : 1646269656331,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "22387rg46ig",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : null,
+  "history_begin_time" : 1645977639153,
+  "history_end_time" : 1645977670459,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "je29f6",
+  "indicator" : "Done"
+},{
+  "history_id" : "886ud6vxi5e",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "rm: cannot remove '/home/zsun/idjcvRcyvRGH4R217cUR64p5wb.tar': No such file or directory\nCreate LSTM\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_associate_station_grid_cell.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/exploratory_data_analysis.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_exporters_sentinel_cloudfree_fast.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_terrainFeatures.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_exporters_sentinel_kenya_non_crop.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/text_to_csv_2020.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/GetEmissionsData.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_integration.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/ml_airnow_20.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/TrainModel_LSTM.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/scripts_export.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/test123.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_gee_sentinel1_station_only.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_config.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/SVR Model.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/snowex_nsidc_search.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_exporters_sentinel_region.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/text_to_csv_2021.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/model_test.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/prepare_training_dataset.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_processors_base.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_exporters_base.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_exporters_sentinel_base.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_sentinel2.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_gee_sentinel2.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/generate_snow_map.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/pre_processing.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_exporters_sentinel_cloudfree_cloudfree.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/testpython2.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/Random Forest Model.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/snowex_nsidc_download_api.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/scripts_process.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_gee_modis.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_analysis.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/snow_rf_train.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/service_prediction.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/read_sentinel_1.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/prediction_autokeras.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/model_train_validate.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_gee_modis_station_only.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_modis.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/ml_airnow_21.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/data_gee_sentinel1.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/prediction_xgboost.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_exporters_sentinel_cloudfree_constants.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_exporters_sentinel_cloudfree_utils.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb/src_processors_pv_kenya.py': No such file or directory\nrm: cannot remove '/home/zsun/gw-workspace/idjcvRcyvRGH4R217cUR64p5wb': No such file or directory\n",
+  "history_begin_time" : 1645977432490,
+  "history_end_time" : 1645977433844,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "je29f6",
+  "indicator" : "Done"
+},{
+  "history_id" : "bu0t929z1a3",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1642977852044,
+  "history_end_time" : 1642977852446,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "jkyzrgyhust",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1642969771395,
+  "history_end_time" : 1642969771510,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "3evg0ldmi5e",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1642455225330,
+  "history_end_time" : 1642455225422,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "vuwfyp6evrq",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1642454672931,
+  "history_end_time" : 1642454673345,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},]

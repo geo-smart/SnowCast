@@ -1,0 +1,501 @@
+[{
+  "history_id" : "6nicq7vbza8",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.203561191693155\nMSE is 50.99415099184198\nR2 score is 0.6779060041878945\nRMSE is 7.141018904319045\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220606084506.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.43054335565739366\nMSE is 2.2887179839619325\nR2 score is 0.9842579805723218\nRMSE is 1.5128509457186892\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220606084508.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1654519498613,
+  "history_end_time" : 1654519509274,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "H43wiTm8hbFj",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.07890877297061\nMSE is 48.56392696373862\nR2 score is 0.6872142056438963\nRMSE is 6.968782315709009\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221305163803.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.4361397603101961\nMSE is 2.2877380405357766\nR2 score is 0.9848497330004263\nRMSE is 1.5125270379519755\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221305163806.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1652474275699,
+  "history_end_time" : 1652474286700,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "IapQSkPr3STY",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/IapQSkPr3STY/model_train_validate.py\", line 6, in <module>\n    worm_holes = [RandomForestHole(), XGBoostHole()]\n  File \"/Users/joe/gw-workspace/IapQSkPr3STY/base_hole.py\", line 13, in __init__\n    self.classifier = self.get_model()\n  File \"/Users/joe/gw-workspace/IapQSkPr3STY/model_creation_xgboost.py\", line 41, in get_model\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse',\nTypeError: __init__() got an unexpected keyword argument 'min_impurity_split'\n",
+  "history_begin_time" : 1652474221471,
+  "history_end_time" : 1652474223755,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "s1uhIZdxfx91",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/s1uhIZdxfx91/model_train_validate.py\", line 2, in <module>\n    from model_creation_xgboost import XGBoostHole\n  File \"/Users/joe/gw-workspace/s1uhIZdxfx91/model_creation_xgboost.py\", line 37\n    n_estimators = 25))])\n                       ^\nSyntaxError: unmatched ']'\n",
+  "history_begin_time" : 1652474163284,
+  "history_end_time" : 1652474173135,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "kXOtbYZO8OGC",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.065728477755234\nMSE is 48.2948731630496\nR2 score is 0.6856272313591527\nRMSE is 6.9494512850332\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221904110111.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.137080812441694\nMSE is 49.96145913874328\nR2 score is 0.6688060211913391\nRMSE is 7.06834203606074\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221904110117.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1650380462657,
+  "history_end_time" : 1650380477900,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "9ZHC6tRjMgx6",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.095463321096489\nMSE is 47.579651669962274\nR2 score is 0.6816023135926306\nRMSE is 6.897800495082637\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222703183552.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.129476344708435\nMSE is 48.32644814396868\nR2 score is 0.6679012109365912\nRMSE is 6.951722674558349\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222703183558.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1648420545392,
+  "history_end_time" : 1648420559010,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "owmwewp9zeb",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.151995653910758\nMSE is 48.84320344740991\nR2 score is 0.6752739935564012\nRMSE is 6.988791272273763\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222003212759.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.0574664071665465\nMSE is 48.280790267629406\nR2 score is 0.6743835486074472\nRMSE is 6.948437973215952\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222003212805.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1647826071678,
+  "history_end_time" : 1647826085725,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "zyFb0LULYN0n",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.143717714495908\nMSE is 50.19396493657084\nR2 score is 0.6766038497729239\nRMSE is 7.084769928273666\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222003204331.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.117516936856461\nMSE is 50.82857285572978\nR2 score is 0.6654308100591635\nRMSE is 7.129416024873971\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222003204337.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1647823403819,
+  "history_end_time" : 1647823417772,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "7RK7MrpH76WU",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.125970725177354\nMSE is 48.23326287897702\nR2 score is 0.6831359378774795\nRMSE is 6.9450171258951565\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222003204027.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.166691473317962\nMSE is 49.44774418002816\nR2 score is 0.6750962494312818\nRMSE is 7.031908999697604\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222003204033.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1647823220237,
+  "history_end_time" : 1647823233697,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "D2nsrPWTgUCY",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/D2nsrPWTgUCY/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/joe/gw-workspace/D2nsrPWTgUCY/model_creation_rf.py\", line 28, in <module>\n    class XGBoostHole(RandomForestHole):\nNameError: name 'RandomForestHole' is not defined\n",
+  "history_begin_time" : 1647823091372,
+  "history_end_time" : 1647823092848,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "LipNLBODxHii",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/LipNLBODxHii/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/joe/gw-workspace/LipNLBODxHii/model_creation_rf.py\", line 28, in <module>\n    class XGBoostHole(RandomForestHole):\nNameError: name 'RandomForestHole' is not defined\n",
+  "history_begin_time" : 1647823035091,
+  "history_end_time" : 1647823036935,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "pYy2OnzZ4GDI",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/pYy2OnzZ4GDI/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/joe/gw-workspace/pYy2OnzZ4GDI/model_creation_rf.py\", line 28, in <module>\n    class XGBoostHole(RandomForestHole):\nNameError: name 'RandomForestHole' is not defined\n",
+  "history_begin_time" : 1647822986583,
+  "history_end_time" : 1647822991765,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "BpgHdeIlVctW",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.218730655260439\nMSE is 51.07967215768084\nR2 score is 0.671447817244972\nRMSE is 7.1470044184735775\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222003194621.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1647819966160,
+  "history_end_time" : 1647819981745,
+  "history_notes" : "7.15",
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "VkCVTjB4OThS",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.129116053375989\nMSE is 50.11280830925134\nR2 score is 0.6882545533325461\nRMSE is 7.079040069758847\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221503020050.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1647324043652,
+  "history_end_time" : 1647324050915,
+  "history_notes" : "rmse 7.07",
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "hb7kVF9CfI12",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/hb7kVF9CfI12/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/joe/gw-workspace/hb7kVF9CfI12/model_creation_rf.py\", line 23, in <module>\n    from base_hole import BaseHole\n  File \"/Users/joe/gw-workspace/hb7kVF9CfI12/base_hole.py\", line 6, in <module>\n    homedir = os.path.expanduser('~')\nNameError: name 'os' is not defined\n",
+  "history_begin_time" : 1647324015721,
+  "history_end_time" : 1647324017113,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "kZoO0H73EgKa",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.160965181631953\nMSE is 50.50917820913422\nR2 score is 0.6860467860354179\nRMSE is 7.106980948977858\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/kZoO0H73EgKa/model_train_validate.py\", line 16, in <module>\n    hole.save()\n  File \"/Users/joe/gw-workspace/kZoO0H73EgKa/base_hole.py\", line 21, in save\n    self.save_file = f\"{github_dir}/model/wormhole_{date_time}.joblib\"\nNameError: name 'github_dir' is not defined\n",
+  "history_begin_time" : 1647323974198,
+  "history_end_time" : 1647323981655,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "scVRPO0bJqcZ",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.038846164697928\nMSE is 45.49185770626036\nR2 score is 0.680756884929024\nRMSE is 6.744765207645138\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/scVRPO0bJqcZ/model_train_validate.py\", line 16, in <module>\n    hole.save()\n  File \"/Users/joe/gw-workspace/scVRPO0bJqcZ/base_hole.py\", line 19, in save\n    now = datetime.now()\nAttributeError: module 'datetime' has no attribute 'now'\n",
+  "history_begin_time" : 1647323903667,
+  "history_end_time" : 1647323910998,
+  "history_notes" : "rmse 6.74",
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "1kHLnpo0MPAM",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.155195696803924\nMSE is 48.00957948462618\nR2 score is 0.692269307000389\nRMSE is 6.928894535539286\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/1kHLnpo0MPAM/model_train_validate.py\", line 16, in <module>\n    hole.save()\n  File \"/Users/joe/gw-workspace/1kHLnpo0MPAM/base_hole.py\", line 18, in save\n    now = datetime.now()\nNameError: name 'datetime' is not defined\n",
+  "history_begin_time" : 1647323869031,
+  "history_end_time" : 1647323877324,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Rspkda0UB8Ty",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 3.5016222761826414\nMSE is 29.72856837831215\nR2 score is 0.8029163944171555\nRMSE is 5.452391069825435\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/Rspkda0UB8Ty/model_train_validate.py\", line 16, in <module>\n    hole.save()\n  File \"/Users/joe/gw-workspace/Rspkda0UB8Ty/base_hole.py\", line 18, in save\n    now = datetime.now()\nNameError: name 'datetime' is not defined\n",
+  "history_begin_time" : 1647323171322,
+  "history_end_time" : 1647323222803,
+  "history_notes" : "rmse 5.45",
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "iDtQQxMNGTl0",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 3.4875861875553085\nMSE is 29.326763472978463\nR2 score is 0.8148994315143879\nRMSE is 5.415419048695905\nSaving model to None\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/iDtQQxMNGTl0/model_train_validate.py\", line 16, in <module>\n    hole.save()\n  File \"/Users/joe/gw-workspace/iDtQQxMNGTl0/base_hole.py\", line 19, in save\n    joblib.dump(self.classifier, self.save_file)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 447, in dump\n    raise ValueError(\nValueError: Second argument should be a filename or a file-like object, None (type <class 'NoneType'>) was given.\n",
+  "history_begin_time" : 1647323050852,
+  "history_end_time" : 1647323100611,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "RjTHiH3B6StB",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/RjTHiH3B6StB/model_train_validate.py\", line 13, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/RjTHiH3B6StB/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\nAttributeError: 'RandomForestHole' object has no attribute 'classifier'\n",
+  "history_begin_time" : 1647322984998,
+  "history_end_time" : 1647322987161,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "rDT3Iv4wa4AO",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/rDT3Iv4wa4AO/model_train_validate.py\", line 5, in <module>\n    worm_holes = [RandomForestHole()]\n  File \"/Users/joe/gw-workspace/rDT3Iv4wa4AO/model_creation_rf.py\", line 40, in __init__\n    self.save_file = f\"{github_dir}/model/wormhole_randomforest_{date_time}.joblib\"\nNameError: name 'date_time' is not defined\n",
+  "history_begin_time" : 1647322937716,
+  "history_end_time" : 1647322939938,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "3FBWfNzZdiYK",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 3.583036444064258\nMSE is 30.685343967227652\nR2 score is 0.7960756121181622\nRMSE is 5.5394353473280695\nSaving model to None\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/3FBWfNzZdiYK/model_train_validate.py\", line 16, in <module>\n    hole.save()\n  File \"/Users/joe/gw-workspace/3FBWfNzZdiYK/base_hole.py\", line 19, in save\n    joblib.dump(self.classifier, self.save_file)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 447, in dump\n    raise ValueError(\nValueError: Second argument should be a filename or a file-like object, None (type <class 'NoneType'>) was given.\n",
+  "history_begin_time" : 1647322665265,
+  "history_end_time" : 1647322715513,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "DN63m5NctqSW",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/DN63m5NctqSW/model_train_validate.py\", line 15, in <module>\n    hole.evaluate()\n  File \"/Users/joe/gw-workspace/DN63m5NctqSW/model_creation_rf.py\", line 61, in evaluate\n    print(\"The {} model performance for testing set\".format(model_name))\nNameError: name 'model_name' is not defined\n",
+  "history_begin_time" : 1647322540653,
+  "history_end_time" : 1647322590900,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "nkmLdjHkz62a",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/nkmLdjHkz62a/model_train_validate.py\", line 15, in <module>\n    hole.evaluate()\n  File \"/Users/joe/gw-workspace/nkmLdjHkz62a/model_creation_rf.py\", line 57, in evaluate\n    mse = metrics.mean_squared_error(self.test_y, elf.test_y_results)\nNameError: name 'elf' is not defined\n",
+  "history_begin_time" : 1647322462021,
+  "history_end_time" : 1647322512271,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "oawv7bglUcje",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/oawv7bglUcje/model_train_validate.py\", line 13, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/oawv7bglUcje/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 346, in fit\n    self._final_estimator.fit(Xt, y, **fit_params_last_step)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 331, in fit\n    y, expanded_class_weight = self._validate_y_class_weight(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 559, in _validate_y_class_weight\n    check_classification_targets(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/multiclass.py\", line 183, in check_classification_targets\n    raise ValueError(\"Unknown label type: %r\" % y_type)\nValueError: Unknown label type: 'continuous'\n",
+  "history_begin_time" : 1647322347244,
+  "history_end_time" : 1647322349242,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "kgCUONlnnfsh",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nfloat64\nfloat64\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/kgCUONlnnfsh/model_train_validate.py\", line 11, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/kgCUONlnnfsh/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 346, in fit\n    self._final_estimator.fit(Xt, y, **fit_params_last_step)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 331, in fit\n    y, expanded_class_weight = self._validate_y_class_weight(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 559, in _validate_y_class_weight\n    check_classification_targets(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/multiclass.py\", line 183, in check_classification_targets\n    raise ValueError(\"Unknown label type: %r\" % y_type)\nValueError: Unknown label type: 'continuous'\n",
+  "history_begin_time" : 1647322318111,
+  "history_end_time" : 1647322320501,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "tAkugOz9D7uh",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x[:5])\n  print(hole.train_y[:5])\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\n[[ 2.01900000e+03  3.00000000e+00  7.10000000e+01  5.17600000e+03\n  -8.38054602e+00  9.25625522e-01  7.82459006e+00  9.94700603e+01\n   6.01647960e+01  2.65232605e+02  2.74755403e+02  9.81018143e-02\n   3.50000000e+00 -1.15794937e+02  4.64945180e+01  9.79970640e+02\n   2.73752412e+02  2.19874097e-02  1.42262600e+01  6.54451280e-02\n  -9.97856170e-01]\n [ 2.01500000e+03  1.20000000e+01  3.49000000e+02  3.61209811e+03\n   1.00000000e+04  1.89209455e-01  0.00000000e+00  9.87963758e+01\n   8.01823159e+01  2.57539480e+02  2.61523187e+02  2.22724318e-02\n   6.87408472e+00 -1.07844847e+02  4.47991260e+01  2.89349980e+03\n   3.49439086e+02  1.55373528e-05  1.25610620e+01  9.83060609e-01\n  -1.83280764e-01]\n [ 2.01900000e+03  4.00000000e+00  9.20000000e+01  1.06600000e+03\n   1.00000000e+04  1.70000005e+00  3.20000005e+00  7.35999985e+01\n   4.40000000e+01  2.67799988e+02  2.75700012e+02  2.59999990e-01\n   2.79999995e+00 -1.05599058e+02  4.01993470e+01  2.85962480e+03\n   6.96847371e+01 -8.94997694e-02  1.48716470e+01  3.47185481e-01\n   9.37796482e-01]\n [ 2.01800000e+03  1.20000000e+01  3.59000000e+02  3.76700000e+03\n   1.00000000e+04  3.88966123e-01  1.01424848e+00  1.00000000e+02\n   5.34998269e+01  2.61107825e+02  2.71778015e+02  1.25586443e-01\n   2.70000005e+00 -1.14501362e+02  4.61408745e+01  1.93652190e+03\n   5.97989986e+01 -1.33451848e-02  1.40611850e+01  5.03035052e-01\n   8.64266011e-01]\n [ 2.01900000e+03  4.00000000e+00  9.20000000e+01  4.56800000e+03\n  -9.63042741e+00  1.76312442e+00  4.63124435e-01  9.04524956e+01\n   4.65387842e+01  2.66484366e+02  2.76520622e+02  2.05249775e-01\n   3.00000000e+00 -1.13396435e+02  4.44154020e+01  2.33714970e+03\n   2.70550252e+02 -1.05618984e-01  1.67707560e+01  9.60355459e-03\n  -9.99953885e-01]]\n[11.2  2.3 18.4 15.4 11. ]\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/tAkugOz9D7uh/model_train_validate.py\", line 11, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/tAkugOz9D7uh/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 346, in fit\n    self._final_estimator.fit(Xt, y, **fit_params_last_step)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 331, in fit\n    y, expanded_class_weight = self._validate_y_class_weight(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 559, in _validate_y_class_weight\n    check_classification_targets(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/multiclass.py\", line 183, in check_classification_targets\n    raise ValueError(\"Unknown label type: %r\" % y_type)\nValueError: Unknown label type: 'continuous'\n",
+  "history_begin_time" : 1647322220577,
+  "history_end_time" : 1647322223225,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "zqeZswBbx2Nn",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x[:5])\n  print(hole.train_y[:5])\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\n[[ 2.01500000e+03  1.20000000e+01  3.49000000e+02  3.26800000e+03\n   1.00000000e+04  1.29820228e-01  2.34515090e+00  1.00000000e+02\n   9.21021279e+01  2.61356249e+02  2.66678569e+02  0.00000000e+00\n   4.06060333e+00 -1.11420141e+02  4.16852895e+01  2.44227640e+03\n   2.08651167e+01 -2.50794550e-02  7.15174060e+00  9.34421494e-01\n   3.56169163e-01]\n [ 2.01500000e+03  6.00000000e+00  1.67000000e+02 -2.61400000e+03\n   1.00000000e+04  4.56648493e+00  3.11973858e+00  7.23330078e+01\n   2.96954498e+01  2.78544189e+02  2.92071411e+02  8.45173776e-01\n   2.09636140e+00 -1.05230750e+02  3.73567700e+01  3.21373880e+03\n   3.31043700e+02 -1.07458624e-01  2.22398740e+01  8.74989222e-01\n  -4.84142398e-01]\n [ 2.01700000e+03  1.20000000e+01  3.39000000e+02  3.56416410e+03\n   1.00000000e+04  1.39999998e+00  0.00000000e+00  6.34172236e+01\n   2.06267720e+01  2.63849599e+02  2.76541921e+02  3.53523633e-01\n   3.67972432e+00 -1.20043969e+02  3.87081560e+01  2.40631960e+03\n   2.38255172e+02 -1.11759498e-02  6.17980400e+00 -5.26137160e-01\n  -8.50399723e-01]\n [ 2.01900000e+03  1.00000000e+00  8.00000000e+00  4.40700000e+03\n   1.00000000e+04  1.20000005e+00  8.99999976e-01  7.55000000e+01\n   4.35999985e+01  2.64000000e+02  2.72700012e+02  2.09999993e-01\n   6.19999981e+00 -1.05599058e+02  4.01993470e+01  2.85962480e+03\n   6.96847371e+01 -8.94997694e-02  1.48716470e+01  3.47185481e-01\n   9.37796482e-01]\n [ 2.01700000e+03  1.00000000e+00  1.00000000e+01  3.24600000e+03\n   1.00000000e+04  1.23780138e+00  3.18659592e+00  8.70604613e+01\n   4.74219857e+01  2.63189007e+02  2.72913393e+02  1.75670205e-01\n   1.33000002e+01 -1.07602301e+02  3.98760970e+01  2.81695900e+03\n   2.39076539e+02  7.44702750e-03  1.17966900e+01 -5.13892557e-01\n  -8.57854556e-01]]\n[3.6 0.  1.6 7.8 7.6]\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/zqeZswBbx2Nn/model_train_validate.py\", line 11, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/zqeZswBbx2Nn/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 346, in fit\n    self._final_estimator.fit(Xt, y, **fit_params_last_step)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 331, in fit\n    y, expanded_class_weight = self._validate_y_class_weight(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 559, in _validate_y_class_weight\n    check_classification_targets(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/multiclass.py\", line 183, in check_classification_targets\n    raise ValueError(\"Unknown label type: %r\" % y_type)\nValueError: Unknown label type: 'continuous'\n",
+  "history_begin_time" : 1647321921952,
+  "history_end_time" : 1647321923697,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Ei09w9ckupGx",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.head())\n  print(hole.train_y.head())\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/Ei09w9ckupGx/model_train_validate.py\", line 9, in <module>\n    print(hole.train_x.head())\nAttributeError: 'numpy.ndarray' object has no attribute 'head'\n",
+  "history_begin_time" : 1647321900045,
+  "history_end_time" : 1647321902588,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "VqvUF9oYv54p",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.head())\n  print(hole.train_y.head())\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\n       year   m  doy         ndsi  ...  curvature      slope  eastness  northness\n18493  2015   3   62  4573.256637  ...   0.009815   7.238287 -0.929053  -0.369947\n100    2013   1    1  4458.000000  ...  -0.089500  14.871647  0.347185   0.937796\n53216  2019   4  120  3337.000000  ...   0.085256  25.538372 -0.683727   0.729738\n15918  2014  12  357  1155.000000  ...  -0.088112  19.799643 -0.962919   0.269792\n52493  2019   4  106  5667.000000  ...  -0.004077   7.655918  0.084855  -0.996393\n[5 rows x 21 columns]\n18493     9.7\n100       4.9\n53216    23.6\n15918     7.9\n52493    35.6\nName: swe, dtype: float64\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/VqvUF9oYv54p/model_train_validate.py\", line 11, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/VqvUF9oYv54p/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 346, in fit\n    self._final_estimator.fit(Xt, y, **fit_params_last_step)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 331, in fit\n    y, expanded_class_weight = self._validate_y_class_weight(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 559, in _validate_y_class_weight\n    check_classification_targets(y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/multiclass.py\", line 183, in check_classification_targets\n    raise ValueError(\"Unknown label type: %r\" % y_type)\nValueError: Unknown label type: 'continuous'\n",
+  "history_begin_time" : 1647321740812,
+  "history_end_time" : 1647321743199,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "WJhbxJgjZNnh",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.head())\n  print(hole.train_y.head())\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\n       year  m  doy         ndsi  ...  curvature      slope  eastness  northness\n21108  2015  5  132  7625.434855  ...  -0.005256  13.040473  0.588463   0.808524\n2454   2013  3   64  4266.000000  ...  -0.057565  18.859854 -0.848999  -0.528395\n35514  2017  3   80    92.000000  ...   0.047158  18.039375  0.998029   0.062754\n776    2013  1   15  1842.517499  ...  -0.053401  12.006842  0.506369  -0.862317\n39255  2017  6  178  3610.000000  ...  -0.105333  19.838879  0.125944   0.992037\n[5 rows x 21 columns]\n21108    18.3\n2454     42.9\n35514    10.0\n776      31.8\n39255     0.0\nName: swe, dtype: float64\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/WJhbxJgjZNnh/model_train_validate.py\", line 11, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/WJhbxJgjZNnh/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 346, in fit\n    self._final_estimator.fit(Xt, y, **fit_params_last_step)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 304, in fit\n    X, y = self._validate_data(X, y, multi_output=True,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/base.py\", line 433, in _validate_data\n    X, y = check_X_y(X, y, **check_params)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 63, in inner_f\n    return f(*args, **kwargs)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 871, in check_X_y\n    X = check_array(X, accept_sparse=accept_sparse,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 63, in inner_f\n    return f(*args, **kwargs)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 720, in check_array\n    _assert_all_finite(array,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 103, in _assert_all_finite\n    raise ValueError(\nValueError: Input contains NaN, infinity or a value too large for dtype('float32').\n",
+  "history_begin_time" : 1647321597537,
+  "history_end_time" : 1647321599453,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "KbRhlhWRveT8",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/KbRhlhWRveT8/model_train_validate.py\", line 9, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/KbRhlhWRveT8/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 346, in fit\n    self._final_estimator.fit(Xt, y, **fit_params_last_step)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 304, in fit\n    X, y = self._validate_data(X, y, multi_output=True,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/base.py\", line 433, in _validate_data\n    X, y = check_X_y(X, y, **check_params)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 63, in inner_f\n    return f(*args, **kwargs)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 871, in check_X_y\n    X = check_array(X, accept_sparse=accept_sparse,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 63, in inner_f\n    return f(*args, **kwargs)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 720, in check_array\n    _assert_all_finite(array,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 103, in _assert_all_finite\n    raise ValueError(\nValueError: Input contains NaN, infinity or a value too large for dtype('float32').\n",
+  "history_begin_time" : 1647321544369,
+  "history_end_time" : 1647321547045,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "mqf38Cf1STVB",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/mqf38Cf1STVB/model_train_validate.py\", line 9, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/mqf38Cf1STVB/base_hole.py\", line 25, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 346, in fit\n    self._final_estimator.fit(Xt, y, **fit_params_last_step)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 304, in fit\n    X, y = self._validate_data(X, y, multi_output=True,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/base.py\", line 433, in _validate_data\n    X, y = check_X_y(X, y, **check_params)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 63, in inner_f\n    return f(*args, **kwargs)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 871, in check_X_y\n    X = check_array(X, accept_sparse=accept_sparse,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 63, in inner_f\n    return f(*args, **kwargs)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 720, in check_array\n    _assert_all_finite(array,\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 103, in _assert_all_finite\n    raise ValueError(\nValueError: Input contains NaN, infinity or a value too large for dtype('float32').\n",
+  "history_begin_time" : 1647319068850,
+  "history_end_time" : 1647319070649,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "DJBoaHRmCgYq",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/DJBoaHRmCgYq/model_train_validate.py\", line 8, in <module>\n    hole.preprocessing()\n  File \"/Users/joe/gw-workspace/DJBoaHRmCgYq/model_creation_rf.py\", line 40, in preprocessing\n    all_ready_pd = pd.read_csv(all_ready_file, header=0, index_col=0)\nNameError: name 'all_ready_file' is not defined\n",
+  "history_begin_time" : 1647319033058,
+  "history_end_time" : 1647319034770,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "XqAF8Rgawl6R",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/joe/gw-workspace/XqAF8Rgawl6R/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/joe/gw-workspace/XqAF8Rgawl6R/model_creation_rf.py\", line 29, in <module>\n    class RandomForestHole(BaseHole):\n  File \"/Users/joe/gw-workspace/XqAF8Rgawl6R/model_creation_rf.py\", line 32, in RandomForestHole\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\nNameError: name 'now' is not defined\n",
+  "history_begin_time" : 1647318992919,
+  "history_end_time" : 1647318995152,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Eb0r5VoVBwYa",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.train()\n  hole.validate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/Eb0r5VoVBwYa/model_train_validate.py\", line 8, in <module>\n    hole.train()\n  File \"/Users/joe/gw-workspace/Eb0r5VoVBwYa/base_hole.py\", line 18, in train\n    self.classifier.fit(self.train_x, self.train_y)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 341, in fit\n    Xt = self._fit(X, y, **fit_params_steps)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 303, in _fit\n    X, fitted_transformer = fit_transform_one_cached(\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/joblib/memory.py\", line 349, in __call__\n    return self.func(*args, **kwargs)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py\", line 754, in _fit_transform_one\n    res = transformer.fit_transform(X, y, **fit_params)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/base.py\", line 699, in fit_transform\n    return self.fit(X, **fit_params).transform(X)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/preprocessing/_data.py\", line 730, in fit\n    return self.partial_fit(X, y, sample_weight)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/preprocessing/_data.py\", line 766, in partial_fit\n    X = self._validate_data(X, accept_sparse=('csr', 'csc'),\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/base.py\", line 421, in _validate_data\n    X = check_array(X, **check_params)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 63, in inner_f\n    return f(*args, **kwargs)\n  File \"/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 687, in check_array\n    raise ValueError(\nValueError: Expected 2D array, got scalar array instead:\narray=nan.\nReshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.\n",
+  "history_begin_time" : 1647226972369,
+  "history_end_time" : 1647226973806,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "atiqoQ4NO81o",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.train()\n  hole.validate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/atiqoQ4NO81o/model_train_validate.py\", line 5, in <module>\n    worm_holes = [RandomForestHole()]\n  File \"/Users/joe/gw-workspace/atiqoQ4NO81o/base_hole.py\", line 7, in __init__\n    self.classifier = self.get_model()\nTypeError: get_model() takes 0 positional arguments but 1 was given\n",
+  "history_begin_time" : 1647226865526,
+  "history_end_time" : 1647226866944,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "iDDOPDLbb78i",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.train()\n  hole.validate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/iDDOPDLbb78i/model_train_validate.py\", line 5, in <module>\n    worm_holes = [RandomForestHole()]\n  File \"/Users/joe/gw-workspace/iDDOPDLbb78i/base_hole.py\", line 7, in __init__\n    self.classifier = get_model()\nNameError: name 'get_model' is not defined\n",
+  "history_begin_time" : 1647226830574,
+  "history_end_time" : 1647226832051,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "KErl5f95bm31",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.train()\n  hole.validate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/KErl5f95bm31/model_train_validate.py\", line 5, in <module>\n    worm_holes = [RandomForestHole()]\nTypeError: __init__() takes 0 positional arguments but 1 was given\n",
+  "history_begin_time" : 1647226775059,
+  "history_end_time" : 1647226776546,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "4gjckzjp79s",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.train()\n  hole.validate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/4gjckzjp79s/model_train_validate.py\", line 5, in <module>\n    worm_holes = [RandomForestHole()]\nTypeError: __init__() takes 0 positional arguments but 1 was given\n",
+  "history_begin_time" : 1647225919852,
+  "history_end_time" : 1647225921519,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "eezr1gu2m4o",
+  "history_input" : "from model_creation_rf import RandomForestHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole()]\n\nfor hole in worm_holes:\n  hole.train()\n  hole.validate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nTraceback (most recent call last):\n  File \"/Users/joe/gw-workspace/jdYkZArCK7rqu7mGSqClNwd88O/model_train_validate.py\", line 5, in <module>\n    worm_holes = [RandomForestHole()]\nTypeError: __init__() takes 0 positional arguments but 1 was given\n",
+  "history_begin_time" : 1646692947793,
+  "history_end_time" : 1646692949376,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "00ek6y19e5w",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1646604617080,
+  "history_end_time" : 1646604617219,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "fa0fntuykku",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1646272308255,
+  "history_end_time" : 1646272308492,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "v7n0jdixsjl",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1645977671061,
+  "history_end_time" : 1645977672079,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "je29f6",
+  "indicator" : "Done"
+},{
+  "history_id" : "1rqp5fpgbid",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1645977439454,
+  "history_end_time" : 1645977440509,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "je29f6",
+  "indicator" : "Done"
+},{
+  "history_id" : "3a1xyt2wufr",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1642977860422,
+  "history_end_time" : 1642977860541,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "65c3yu4ryya",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1642969774772,
+  "history_end_time" : 1642969774929,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "6fpdz2ttswo",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1642455228342,
+  "history_end_time" : 1642455228463,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "fzt6qh681sa",
+  "history_input" : "# Train Model\n\nprint(\"Train Models\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1642454676510,
+  "history_end_time" : 1642454676709,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},]
