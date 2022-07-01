@@ -47,7 +47,7 @@ def viirs_map(viirs, poi):
 
 def create_df(start_date, end_date, poi):
     viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).filter(
-    ee.Filter.listContains('transmitterReceiverPolarisation', var_name)).select(var_name)
+        ee.Filter.listContains('transmitterReceiverPolarisation', var_name)).select(var_name)
     poi_reduced_imgs = viirs_map(viirs, poi)
     nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date', column_name]).values().get(0)
     # dont forget we need to call the callback method "getInfo" to retrieve the data

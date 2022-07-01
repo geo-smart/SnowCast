@@ -7,7 +7,7 @@ import os.path
 import ee
 import pandas as pd
 
-# exit()  # comment to download new files
+exit()  # comment to download new files
 
 try:
     ee.Initialize()
@@ -113,5 +113,6 @@ def main():
             pd.concat(all_cells_df[column_name]).to_csv(f"{dfolder}/{column_name}.csv")
 
     print("finished")
+
 
 main()

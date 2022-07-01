@@ -49,16 +49,17 @@ def viirs_map(viirs, poi):
 
     def maskClouds(img):
         qa = img.select(var_name)
-        cloudBitMask = 2**10
+        cloudBitMask = 2 ** 10
         # cirrusBitMask = 2**11
-        mask = qa.bitwiseAnd(cloudBitMask).eq(0)  #.and(qa.bitwiseAnd(cirrusBitMask).eq(0))
+        mask = qa.bitwiseAnd(cloudBitMask).eq(0)  # .and(qa.bitwiseAnd(cirrusBitMask).eq(0))
         return img.updateMask(mask).divide(10000).copyProperties(img, ['system:time_start'])
 
     return viirs.map(maskClouds).map(poi_mean)
 
 
 def create_df(start_date, end_date, poi):
-    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',5))  #.select(var_name)
+    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).filter(
+        ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 5))  # .select(var_name)
     poi_reduced_imgs = viirs_map(viirs, poi)
     nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date', column_name]).values().get(0)
     # dont forget we need to call the callback method "getInfo" to retrieve the data

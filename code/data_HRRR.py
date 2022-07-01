@@ -1,21 +1,14 @@
-import io
-from datetime import date, timedelta
+import tempfile
 
-import xarray as xr
+import geojson
+import geopandas as gpd
+import pandas as pd
 import requests
-import cartopy.crs as ccrs
-import cartopy.feature as cfeature
-import matplotlib.pyplot as plt
-import cmocean
+import xarray as xr
+
 
 # Not used directly, but used via xarray
-import cfgrib
 
-import datetime
-import geopandas as gpd
-import geojson
-import tempfile
-import pandas as pd
 
 def get_range(index, variable):
     # You can see it has a 1-indexed base line number, staring byte position, date, variable, atmosphere level,
@@ -40,15 +33,14 @@ def get_range(index, variable):
     return range_start, range_end
 
 
-
 # Constants for creating the full URL
 blob_container = "https://noaahrrr.blob.core.windows.net/hrrr"
 sector = "conus"
 
 # cycle = 12         # noon, 
-cycle = 00        #CC is the model cycle runtime (i.e. 00, 01, 02, 03) 
+cycle = 00  # CC is the model cycle runtime (i.e. 00, 01, 02, 03)
 # forecast_hour = 1   # offset from cycle time
-product = "wrfsfcf" # 2D surface levels
+product = "wrfsfcf"  # 2D surface levels
 
 # Put it all together
 # file_path = f"hrrr.t{cycle:02}z.{product}{forecast_hour:02}.grib2"
@@ -64,8 +56,6 @@ out_dir = data_dir + 'HRRR/'
 gridcells_file = '/home/jovyan/SWE/SnowCast/data/station_gridcell/grid_cells.geojson'
 station_file = data_dir + 'station_gridcell/ground_measures_metadata.csv'
 
-
-
 # Load metadata
 gridcellsGPD = gpd.read_file(gridcells_file)
 gridcells = geojson.load(open(gridcells_file))
@@ -73,12 +63,11 @@ station = pd.read_csv(station_file)
 
 use_proj = gridcellsGPD.crs
 
-variable_list = [":TMP:surface",":ASNOW:surface", ":SNOWC:surface", ":SNOD:surface",":WEASD:surface"]
-variable_names = ["t",'asnow','snowc','sde','sdwe']
+variable_list = [":TMP:surface", ":ASNOW:surface", ":SNOWC:surface", ":SNOD:surface", ":WEASD:surface"]
+variable_names = ["t", 'asnow', 'snowc', 'sde', 'sdwe']
 K_to_C = -273.15
 
-
-#version 1 - 30 Sept 2014
+# version 1 - 30 Sept 2014
 # version 2 - 23 Aug 2016
 # version 3 - 12 July 2018
 # version 4 - IMPLEMENTED 12z Wed 2 Dec 2020 
@@ -86,22 +75,20 @@ K_to_C = -273.15
 start_date = "2021-10-01"
 end_date = "2021-12-31"
 
-
 # instantiate output panda dataframes
 df_gridcells = pd.DataFrame(columns=("cell_id", "date", "value"))
 df_station = pd.DataFrame(columns=("station_id", "date", "value"))
 
-
-# for each grid cell 
-gridcells_outfile = out_dir+'gridcells_meteo.csv'
+# for each grid cell
+gridcells_outfile = out_dir + 'gridcells_meteo.csv'
 station_outfile = out_dir + "station_meteo.csv"
 
 for idx_var in range(0, len(variable_list)):
-    
-    gridcells_outfile = out_dir+'gridcells_meteo' + variable_list[idx_var] + '.csv'
+
+    gridcells_outfile = out_dir + 'gridcells_meteo' + variable_list[idx_var] + '.csv'
     df_all = []
-    
-    for idx_date in pd.date_range(start=start_date,end=end_date):
+
+    for idx_date in pd.date_range(start=start_date, end=end_date):
         url = f"{blob_container}/hrrr.{idx_date:%Y%m%d}/{sector}/{file_path}"
         print(url)
         # Fetch the idx file by appending the .idx file extension to our already formatted URL
@@ -110,50 +97,48 @@ for idx_var in range(0, len(variable_list)):
 
         for idx_cell in range(0, len(gridcellsGPD)):
 
-            gridcell_boundary = gridcellsGPD.geometry[idx_cell:(idx_cell+1)]
+            gridcell_boundary = gridcellsGPD.geometry[idx_cell:(idx_cell + 1)]
             lat = gridcell_boundary.centroid.y.values
             lon = gridcell_boundary.centroid.x.values
 
-
             variable = variable_list[idx_var]
             file = tempfile.NamedTemporaryFile(prefix="tmp_", delete=False)
-            
+
             range_start, range_end = get_range(idx_data, variable)
-            
+
             headers = {"Range": f"bytes={range_start}-{range_end}"}
             resp = requests.get(url, headers=headers, stream=True)
 
             with file as f:
                 f.write(resp.content)
 
-            ds = xr.open_dataset(file.name, engine='cfgrib', 
-                                 backend_kwargs={'indexpath':''})
+            ds = xr.open_dataset(file.name, engine='cfgrib',
+                                 backend_kwargs={'indexpath': ''})
 
-            ds1 = ds.where(abs(ds.latitude - lat) == abs(ds.latitude.values - lat).min(), drop = True)
-            ds2 = ds1.where(abs(ds1.latitude - lon) == abs(ds1.latitude.values - lon).min(), drop = True)
+            ds1 = ds.where(abs(ds.latitude - lat) == abs(ds.latitude.values - lat).min(), drop=True)
+            ds2 = ds1.where(abs(ds1.latitude - lon) == abs(ds1.latitude.values - lon).min(), drop=True)
             if idx_var == 0:
                 value = ds2.t.values[0][0] + K_to_C
             else:
                 value = ds2[variable_names[idx_var]].values[0][0]
-                
-            temp = pd.DataFrame(data = {"cell_id": [gridcellsGPD["cell_id"][idx_cell]], 'date': [idx_date], "value": [value]})
-            if len(df_all)==0:
+
+            temp = pd.DataFrame(
+                data={"cell_id": [gridcellsGPD["cell_id"][idx_cell]], 'date': [idx_date], "value": [value]})
+            if len(df_all) == 0:
                 df_all = temp
             else:
                 df_all = pd.concat([df_all, temp])
-                
+
         df_all.to_csv(gridcells_outfile)
-            
-            
 
 # for each station location
 
 for idx_var in range(0, len(variable_list)):
-    
-    station_outfile = out_dir+'station_meteo' + variable_list[idx_var] + '.csv'
+
+    station_outfile = out_dir + 'station_meteo' + variable_list[idx_var] + '.csv'
     df_all = []
-    
-    for idx_date in pd.date_range(start=start_date,end=end_date):
+
+    for idx_date in pd.date_range(start=start_date, end=end_date):
         url = f"{blob_container}/hrrr.{idx_date:%Y%m%d}/{sector}/{file_path}"
         print(url)
         # Fetch the idx file by appending the .idx file extension to our already formatted URL
@@ -167,33 +152,30 @@ for idx_var in range(0, len(variable_list)):
 
             variable = variable_list[idx_var]
             file = tempfile.NamedTemporaryFile(prefix="tmp_", delete=False)
-            
+
             range_start, range_end = get_range(idx_data, variable)
-            
+
             headers = {"Range": f"bytes={range_start}-{range_end}"}
             resp = requests.get(url, headers=headers, stream=True)
 
             with file as f:
                 f.write(resp.content)
 
-            ds = xr.open_dataset(file.name, engine='cfgrib', 
-                                 backend_kwargs={'indexpath':''})
+            ds = xr.open_dataset(file.name, engine='cfgrib',
+                                 backend_kwargs={'indexpath': ''})
 
-            ds1 = ds.where(abs(ds.latitude - lat) == abs(ds.latitude.values - lat).min(), drop = True)
-            ds2 = ds1.where(abs(ds1.latitude - lon) == abs(ds1.latitude.values - lon).min(), drop = True)
+            ds1 = ds.where(abs(ds.latitude - lat) == abs(ds.latitude.values - lat).min(), drop=True)
+            ds2 = ds1.where(abs(ds1.latitude - lon) == abs(ds1.latitude.values - lon).min(), drop=True)
             if idx_var == 0:
                 value = ds2.t.values[0][0] + K_to_C
             else:
                 value = ds2[variable_names[idx_var]].values[0][0]
-                
-            temp = pd.DataFrame(data = {"station_id": [station["station_id"][idx_cell]], 'date': [idx_date], "value": [value]})
-            if len(df_all)==0:
+
+            temp = pd.DataFrame(
+                data={"station_id": [station["station_id"][idx_cell]], 'date': [idx_date], "value": [value]})
+            if len(df_all) == 0:
                 df_all = temp
             else:
                 df_all = pd.concat([df_all, temp])
-                
-        df_all.to_csv(station_outfile)
-            
-            
 
-            
+        df_all.to_csv(station_outfile)
