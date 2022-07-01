@@ -22,7 +22,7 @@ start_date = '2021-01-01'
 end_date = '2021-12-31'
 column_name = None
 var_name = None
-columns = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']
+variables = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']
 
 # Directory Information
 homedir = os.path.expanduser('~')
@@ -47,7 +47,7 @@ def viirs_map(viirs, poi):
 
 
 def create_df(start_date, end_date, poi):
-    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date)
+    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).select(var_name)
     poi_reduced_imgs = viirs_map(viirs, poi)
     nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date', column_name]).values().get(0)
     # dont forget we need to call the callback method "getInfo" to retrieve the data
@@ -62,26 +62,25 @@ def main():
 
     all_cells_df = {
         column_var: []  # list of pandas dataframes
-        for column_var in columns
+        for column_var in variables
     }
 
     # Removes duplicate indices
-    scmd = set(station_cell_mapper_df.index)
+    scmd = set(station_cell_mapper_df['cell_id'])
 
-    for ind in scmd:
+    for ind, current_cell_id in enumerate(scmd):
 
         # Location information
-        current_cell_id = station_cell_mapper_df['cell_id'][ind]
         longitude = station_cell_mapper_df['lon'][ind]
         latitude = station_cell_mapper_df['lat'][ind]
 
         print(f"{ind}/{len(scmd)}: collecting {current_cell_id}")  # logging
 
-        # Identify a 500 meter buffer around our Point Of Interest (POI)
+        # Identify a 1000 meter buffer around our Point Of Interest (POI)
         poi = ee.Geometry.Point(longitude, latitude).buffer(1000)
 
-        for column_name in columns:
-            var_name = column_name
+        for var_name in variables:
+            column_name = var_name
 
             try:
                 single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
@@ -109,10 +108,10 @@ def main():
 
     print("\n\nsaving combined csv files")
 
-    for column_name, dfs in all_cells_df:
-        pd.concat(dfs).to_csv(f"{dfolder}/{column_name}.csv")
+    for column_name in all_cells_df:
+        if len(all_cells_df[column_name]) > 0:
+            pd.concat(all_cells_df[column_name]).to_csv(f"{dfolder}/{column_name}.csv")
 
     print("finished")
-
 
 main()

@@ -7,7 +7,7 @@ import os.path
 import ee
 import pandas as pd
 
-# exit()  # comment to download new files
+exit()  # comment to download new files
 
 try:
     ee.Initialize()
@@ -40,7 +40,7 @@ except FileExistsError:
 # Functions
 def viirs_map(viirs, poi):
     def poi_mean(img):
-        reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=1000)
+        reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=30)
         mean = reducer.get(var_name)
         return img.set('date', img.date().format()).set(column_name, mean)
 
@@ -48,7 +48,7 @@ def viirs_map(viirs, poi):
 
 
 def create_df(start_date, end_date, poi):
-    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date)
+    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).select(var_name)
     poi_reduced_imgs = viirs_map(viirs, poi)
     nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date', column_name]).values().get(0)
     # dont forget we need to call the callback method "getInfo" to retrieve the data
@@ -57,13 +57,12 @@ def create_df(start_date, end_date, poi):
 
 def main():
     station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
-    scmd = set(station_cell_mapper_df.index)
+    scmd = set(station_cell_mapper_df['cell_id'])
 
     all_cell_df = []
-    for ind in scmd:
+    for ind, current_cell_id in enumerate(scmd):
         try:
-            current_cell_id = station_cell_mapper_df['cell_id'][ind]
-            print(f"{ind}/{len(scmd)}: collecting {current_cell_id}")  # logging
+            print(f"{ind + 1}/{len(scmd)}: collecting {current_cell_id}")  # logging
             print(f"\ton column {column_name}")  # logging
             single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
 
@@ -74,12 +73,11 @@ def main():
             longitude = station_cell_mapper_df['lon'][ind]
             latitude = station_cell_mapper_df['lat'][ind]
 
-            # identify a 500 meter buffer around our Point Of Interest (POI)
+            # identify a 30 meter buffer around our Point Of Interest (POI)
             poi = ee.Geometry.Point(longitude, latitude).buffer(30)
 
             df1 = create_df(start_date1, end_date1, poi)
             df2 = create_df(start_date2, end_date2, poi)
-
             df = pd.concat([df1, df2])
 
             df['date'] = pd.to_datetime(df['date'])
