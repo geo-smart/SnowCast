@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import planetary_computer
 import requests
+import rioxarray
 import xarray
 import xrspatial
 from pyproj import Proj, transform
