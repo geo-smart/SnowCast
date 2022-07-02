@@ -18,7 +18,7 @@ except Exception:
 # Data information
 org_name = 'gridmet'
 product_name = 'IDAHO_EPSCOR/GRIDMET'
-start_date = '2021-01-01'
+start_date = '2013-01-01'
 end_date = '2021-12-31'
 column_name = None
 var_name = None

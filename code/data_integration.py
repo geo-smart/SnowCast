@@ -6,38 +6,40 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-print("integrating datasets into one dataset")
-# pd.set_option('display.max_columns', None)
+print("Integrating all datasets into one dataset:")  # logging
 
-# read the grid geometry file
-homedir = os.path.expanduser('~')
-print(homedir)
-github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-# read grid cell
-gridcells_file = f"{github_dir}/data/snowcast_provided/grid_cells.geojson"
-model_dir = f"{github_dir}/model/"
-training_feature_file = f"{github_dir}/data/snowcast_provided/ground_measures_train_features.csv"
-testing_feature_file = f"{github_dir}/data/snowcast_provided/ground_measures_test_features.csv"
-train_labels_file = f"{github_dir}/data/snowcast_provided/train_labels.csv"
-ground_measure_metadata_file = f"{github_dir}/data/snowcast_provided/ground_measures_metadata.csv"
-station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
+# Directories
+homedir                         = os.path.expanduser('~')
+github_dir                      = f"{homedir}/Documents/GitHub/SnowCast"
+gridcells_file                  = f"{github_dir}/data/snowcast_provided/grid_cells.geojson"
+model_dir                       = f"{github_dir}/model/"
 
-# example_mod_file = f"{github_dir}/data/modis/mod10a1_ndsi_f191fe19-0e81-4bc9-9980-29738a05a49b.csv"
+training_feature_file           = f"{github_dir}/data/snowcast_provided/ground_measures_train_features.csv"
+testing_feature_file            = f"{github_dir}/data/snowcast_provided/ground_measures_test_features.csv"
+train_labels_file               = f"{github_dir}/data/snowcast_provided/train_labels.csv"
+ground_measure_metadata_file    = f"{github_dir}/data/snowcast_provided/ground_measures_metadata.csv"
+
+station_cell_mapper_file        = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
+
+all_mod_file                    = f"{github_dir}/data/ready_for_training/modis_all.csv"
+all_sentinel1_file              = f"{github_dir}/data/ready_for_training/sentinel1_all.csv"
+all_sentinel2_file              = f"{github_dir}/data/ready_for_training/" + "sentinel2_{var}_all.csv"  # to be formatted
+all_gridmet_file                = f"{github_dir}/data/ready_for_training/" + "gridmet_{var}_all.csv"  # to be formatted
 
 
+print(f"\t{homedir=}")  # logging
+print(f"\t{github_dir=}")  # logging
+
+
+# Pandas dataframes
 training_feature_pd = pd.read_csv(training_feature_file, header=0, index_col=0)
 testing_feature_pd = pd.read_csv(testing_feature_file, header=0, index_col=0)
 train_labels_pd = pd.read_csv(train_labels_file, header=0, index_col=0)
-# print(training_feature_pd.head())
 
 station_cell_mapper_pd = pd.read_csv(station_cell_mapper_file, header=0, index_col=0)
 
 
-# print(station_cell_mapper_pd.head())
-
-# example_mod_pd = pd.read_csv(example_mod_file, header=0, index_col=0)
-# print(example_mod_pd.shape)
-def getDateStr(x):
+def get_date_str(x):
     return x.split(" ")[0]
 
 
@@ -45,7 +47,6 @@ def integrate_modis():
     """
     Integrate all MODIS data into mod_all.csv
     """
-    all_mod_file = f"{github_dir}/data/ready_for_training/modis_all.csv"
     if os.path.isfile(all_mod_file):
         return
     dates = pd.date_range(start='1/1/2013', end='12/31/2021', freq='D').astype(str)
@@ -71,7 +72,6 @@ def integrate_sentinel1():
     """
     Integrate all Sentinel 1 data into sentinel1_all.csv
     """
-    all_sentinel1_file = f"{github_dir}/data/ready_for_training/sentinel1_all.csv"
     if os.path.isfile(all_sentinel1_file):
         return
     dates = pd.date_range(start='1/1/2013', end='12/31/2021', freq='D').astype(str)
@@ -115,7 +115,6 @@ def integrate_gridmet():
     for var in var_list:
         gridmet_all_df = pd.DataFrame(columns=["date"])
         gridmet_all_df['date'] = dates
-        all_gridmet_file = f"{github_dir}/data/ready_for_training/gridmet_{var}_all.csv"
         if os.path.isfile(all_gridmet_file):
             return
         for ind in station_cell_mapper_pd.index:
@@ -140,6 +139,43 @@ def integrate_gridmet():
         print(gridmet_all_df.shape)
         gridmet_all_df.to_csv(all_gridmet_file)
 
+def integrate_sentinel2():
+    """
+    Integrate all sentinel2 data into sentinel.csv
+    """
+
+    dates = pd.date_range(start='2017-03-28', end='12/31/2021', freq='D').astype(str)
+
+    # print(mod_all_df.head())
+    var_list = ['swir_1', 'swir_2', 'blue']
+
+    for var in var_list:
+        sentinel2_all_df = pd.DataFrame(columns=["date"])
+        sentinel2_all_df['date'] = dates
+        if os.path.isfile(all_sentinel2_file):
+            return
+        for ind in station_cell_mapper_pd.index:
+            current_cell_id = station_cell_mapper_pd["cell_id"][ind]
+            print(current_cell_id)
+            sentinel2_single_file = f"{github_dir}/data/sim_training/sentinel2/{var}_{current_cell_id}.csv"
+            if os.path.isfile(sentinel2_single_file) and current_cell_id not in sentinel2_all_df:
+                sentinel2_single_pd = pd.read_csv(sentinel2_single_file, header=0)
+                sentinel2_single_pd = sentinel2_single_pd[["date", var]]
+                sentinel2_single_pd = sentinel2_single_pd.rename(columns={var: current_cell_id})
+                # sentinel1_single_pd['date'] = sentinel1_single_pd['date'].astype('datetime64[ns]')
+                sentinel2_single_pd['date'] = pd.to_datetime(sentinel2_single_pd['date']).dt.round("D").astype(str)
+                print("sentinel2_single_pd: ", sentinel2_single_pd.head())
+                print("sentinel2_single_pd check value: ", sentinel2_single_pd[sentinel2_single_pd["date"] == "2015-04-01"])
+                sentinel2_single_pd = sentinel2_single_pd.drop_duplicates(subset=['date'],
+                                                                      keep='first')  # this will remove all the other values of the same day
+
+                sentinel2_all_df = pd.merge(sentinel2_all_df, sentinel2_single_pd, how='left', on="date")
+                print("sentinel2_all_df check value: ", sentinel2_all_df[sentinel2_all_df["date"] == "2015-04-01"])
+                print("sentinel2_all_df: ", sentinel2_all_df.shape)
+
+        print(sentinel2_all_df.shape)
+        sentinel2_all_df.to_csv(all_sentinel2_file)
+
 
 def prepare_training_csv():
     """
@@ -152,6 +188,9 @@ def prepare_training_csv():
     gridMET model:
       input columns: [m, doy, tmmn, tmmx, pr, vpd, eto, rmax, rmin, vs]
       output column: [swe]
+    Sentinel2 model:
+      input columns: [m, doy, swir_1, swir_2, blue]
+      output column: [swe]
     """
     all_ready_file = f"{github_dir}/data/ready_for_training/all_ready.csv"
     if os.path.isfile(all_ready_file):
@@ -159,8 +198,10 @@ def prepare_training_csv():
 
     all_mod_file = f"{github_dir}/data/ready_for_training/modis_all.csv"
     modis_all_pd = pd.read_csv(all_mod_file, header=0)
+
     all_sentinel1_file = f"{github_dir}/data/ready_for_training/sentinel1_all.csv"
     sentinel1_all_pd = pd.read_csv(all_sentinel1_file, header=0)
+
     all_gridmet_eto_file = f"{github_dir}/data/ready_for_training/gridmet_eto_all.csv"
     gridmet_eto_all_pd = pd.read_csv(all_gridmet_eto_file, header=0, index_col=0)
     all_gridmet_pr_file = f"{github_dir}/data/ready_for_training/gridmet_pr_all.csv"
@@ -178,6 +219,13 @@ def prepare_training_csv():
     all_gridmet_vs_file = f"{github_dir}/data/ready_for_training/gridmet_vs_all.csv"
     gridmet_vs_all_pd = pd.read_csv(all_gridmet_vs_file, header=0, index_col=0)
 
+    all_sentinel2_swir_1_file = f"{github_dir}/data/ready_for_training/sentinel2_swir_1_all.csv"
+    sentinel2_swir_1_all_pd = pd.read_csv(all_sentinel2_swir_1_file, header=0, index_col=0)
+    all_sentinel2_swir_2_file = f"{github_dir}/data/ready_for_training/sentinel2_swir_2_all.csv"
+    sentinel2_swir_2_all_pd = pd.read_csv(all_sentinel2_swir_2_file, header=0, index_col=0)
+    all_sentinel2_blue_file = f"{github_dir}/data/ready_for_training/sentinel2_blue_all.csv"
+    sentinel2_blue_all_pd = pd.read_csv(all_sentinel2_blue_file, header=0, index_col=0)
+
     grid_terrain_file = f"{github_dir}/data/terrain/gridcells_terrainData.csv"
     grid_terrain_pd = pd.read_csv(grid_terrain_file, header=0, index_col=1)
 
@@ -188,7 +236,7 @@ def prepare_training_csv():
 
     all_training_pd = pd.DataFrame(
         columns=["cell_id", "year", "m", "doy", "ndsi", "grd", "eto", "pr", "rmax", "rmin", "tmmn", "tmmx", "vpd", "vs",
-                 "lat", "lon", "elevation", "aspect", "curvature", "slope", "eastness", "northness", "swe"])
+                 "lat", "lon", "elevation", "aspect", "curvature", "slope", "eastness", "northness", "swe", "swir_1", "swir_2", "blue"])
     all_training_pd = all_training_pd.reset_index()
     for index, row in modis_all_pd.iterrows():
         dt = datetime.strptime(row['date'], '%Y-%m-%d')
@@ -210,6 +258,9 @@ def prepare_training_csv():
                 tmmx = gridmet_tmmx_all_pd.loc[index, cell_id]
                 vpd = gridmet_vpd_all_pd.loc[index, cell_id]
                 vs = gridmet_vs_all_pd.loc[index, cell_id]
+                swir_1 = sentinel2_swir_1_all_pd.loc[index, cell_id]
+                swir_2 = sentinel2_swir_2_all_pd.loc[index, cell_id]
+                blue = sentinel2_blue_all_pd.loc[index, cell_id]
                 lat = grid_terrain_pd.loc[cell_id, "Longitude [deg]"]
                 lon = grid_terrain_pd.loc[cell_id, "Latitude [deg]"]
                 elevation = grid_terrain_pd.loc[cell_id, "Elevation [m]"]
@@ -222,9 +273,9 @@ def prepare_training_csv():
                 if not np.isnan(swe):
                     json_kv = {"cell_id": cell_id, "year": year, "m": month, "doy": doy, "ndsi": ndsi, "grd": grd,
                                "eto": eto, "pr": pr, "rmax": rmax, "rmin": rmin, "tmmn": tmmn, "tmmx": tmmx, "vpd": vpd,
-                               "vs": vs, "lat": lat, "lon": lon, "elevation": elevation, "aspect": aspect,
+                               "vs": vs, "swir_1": swir_1, "swir_2": swir_2, "blue": blue, "lat": lat, "lon": lon, "elevation": elevation, "aspect": aspect,
                                "curvature": curvature, "slope": slope, "eastness": eastness, "northness": northness,
-                               "swe": swe}
+                               "swe": swe, }
                     # print(json_kv)
                     all_training_pd = all_training_pd.append(json_kv, ignore_index=True)
 
@@ -254,7 +305,7 @@ def prepare_training_csv():
 
 # exit() # done already
 
-# integrate_modis()
+integrate_modis()
 # integrate_sentinel1()
 # integrate_gridmet()
 # prepare_training_csv()
