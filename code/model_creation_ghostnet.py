@@ -1,5 +1,3 @@
 # GhostNet
 
 print("Create GhostNet")
-
-

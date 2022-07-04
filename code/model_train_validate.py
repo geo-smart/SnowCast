@@ -6,15 +6,14 @@ print("Train Models")
 worm_holes = [RandomForestHole(), XGBoostHole()]
 
 for hole in worm_holes:
-  hole.preprocessing()
-  print(hole.train_x.dtype)
-  print(hole.train_y.dtype)
-  print(hole.train_x.shape)
-  print(hole.train_y.shape)
-  hole.train()
-  hole.test()
-  hole.evaluate()
-  hole.save()
-  
-print("Finished training and validating all the models.")
+    hole.preprocessing()
+    print(hole.train_x.dtype)
+    print(hole.train_y.dtype)
+    print(hole.train_x.shape)
+    print(hole.train_y.shape)
+    hole.train()
+    hole.test()
+    hole.evaluate()
+    hole.save()
 
+print("Finished training and validating all the models.")

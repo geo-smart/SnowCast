@@ -15,14 +15,15 @@ except Exception:
     ee.Authenticate()  # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
     ee.Initialize()
 
-# Data information
-org_name = 'gridmet'
-product_name = 'IDAHO_EPSCOR/GRIDMET'
-start_date = '2013-01-01'
+# Data Information
+org_name = 'sentinel2'
+product_name = 'COPERNICUS/S2_SR'
+start_date = '2017-03-28'
 end_date = '2021-12-31'
-column_name = None
+variables = ['B11', 'B12', 'B2']
+columns = ['swir_1', 'swir_2', 'blue']
 var_name = None
-variables = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']
+column_name = None
 
 # Directory Information
 homedir = os.path.expanduser('~')
@@ -39,15 +40,26 @@ except FileExistsError:
 # Functions
 def viirs_map(viirs, poi):
     def poi_mean(img):
-        reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=1000)
+        reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=30)
         mean = reducer.get(var_name)
-        return img.set('date', img.date().format()).set(column_name, mean)
+        # print(img.date())
+        # print(img.id().getInfo())
+        date = img.date().format()
+        return img.set('date', date).set(column_name, mean)
 
-    return viirs.map(poi_mean)
+    def maskClouds(img):
+        qa = img.select(var_name)
+        cloudBitMask = 2 ** 10
+        # cirrusBitMask = 2**11
+        mask = qa.bitwiseAnd(cloudBitMask).eq(0)  # .and(qa.bitwiseAnd(cirrusBitMask).eq(0))
+        return img.updateMask(mask).divide(10000).copyProperties(img, ['system:time_start'])
+
+    return viirs.map(maskClouds).map(poi_mean)
 
 
 def create_df(start_date, end_date, poi):
-    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).select(var_name)
+    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).filter(
+        ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 5))  # .select(var_name)
     poi_reduced_imgs = viirs_map(viirs, poi)
     nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date', column_name]).values().get(0)
     # dont forget we need to call the callback method "getInfo" to retrieve the data
@@ -62,7 +74,7 @@ def main():
 
     all_cells_df = {
         column_var: []  # list of pandas dataframes
-        for column_var in variables
+        for column_var in columns
     }
 
     # Removes duplicate indices
@@ -76,18 +88,20 @@ def main():
 
         print(f"{ind}/{len(scmd)}: collecting {current_cell_id}")  # logging
 
-        # Identify a 1000 meter buffer around our Point Of Interest (POI)
-        poi = ee.Geometry.Point(longitude, latitude).buffer(1000)
+        # identify a 30 meter buffer around our Point Of Interest (POI)
+        poi = ee.Geometry.Point(longitude, latitude).buffer(30)
 
-        for var_name in variables:
-            column_name = var_name
+        for index in range(len(columns)):
+
+            var_name = variables[index]
+            column_name = columns[index]
 
             try:
                 single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
                 print(f"\ton column {column_name}")  # logging
 
                 if os.path.exists(single_csv_file):
-                    print("\t\texists skipping..")  # logging
+                    print("\t\texists skipping..")
                     continue
 
                 df = create_df(start_date, end_date, poi)
@@ -102,9 +116,9 @@ def main():
 
                 all_cells_df[column_name].append(df)
 
-                print("\t\tfinished")  # logging
+                print("\t\tfinished")
             except Exception as e:
-                print(f"\t\t{e}")  # logging
+                print(f"\t\t{e}")
 
     print("\n\nsaving combined csv files")
 
