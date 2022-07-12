@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, LSTM
+from tensorflow.keras.layers import Dense, Dropout, LSTM, GRU
 
 import numpy as np
 import pandas as pd
@@ -30,7 +30,7 @@ from keras import optimizers
 homedir = os.path.expanduser('~')
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
 
-class LSTM_Model:
+class GRU_Model:
   
     all_ready_file = f"{github_dir}/data/ready_for_training/all_ready.csv"
   
@@ -54,10 +54,10 @@ class LSTM_Model:
     def train(self):
         # Model Creation
         model = Sequential()
-        model.add(LSTM(128, input_shape=(self.X_train.shape[1:]), activation='relu', return_sequences=True))
+        model.add(GRU(128, input_shape=(self.X_train.shape[1:]), activation='relu', return_sequences=True))
         model.add(Dropout(0.2))
 
-        model.add(LSTM(128, activation='relu'))
+        model.add(GRU(128, activation='relu'))
         model.add(Dropout(0.1))
 
         model.add(Dense(32, activation='relu'))
