@@ -64,6 +64,9 @@ class GRU_Model:
 
         model.add(Dense(1))
         
+
+        
+        
         # Model Compilation
         model.compile(optimizer=optimizers.Adam(learning_rate=0.0001),
                 loss='mse',
@@ -72,6 +75,8 @@ class GRU_Model:
         # Model Fitting
         history = model.fit(self.X_train, self.y_train, validation_data=(self.X_test, self.y_test), batch_size=64, epochs=200)
         
+        model.save('gru_v4')
+
         # summarize history for loss
         plt.plot(history.history['loss'])
         plt.plot(history.history['val_loss'])
