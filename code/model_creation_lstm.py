@@ -66,7 +66,7 @@ class LSTM_Model:
         model.add(Dense(1))
         
         # Model Compilation
-        model.compile(optimizer=optimizers.Adam(lr=0.0001),
+        model.compile(optimizer=optimizers.Adam(learning_rate=0.0001),
                 loss='mse',
                 metrics=['mae'])
         
