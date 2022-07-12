@@ -53,10 +53,10 @@ class GRU_Model:
         model.add(GRU(128, input_shape=(self.X_train.shape[1:]), activation='relu', return_sequences=True))
         model.add(Dropout(0.2))
 
-        model.add(GRU(128, activation='relu'))
+        model.add(GRU(128, activation='tanh'))
         model.add(Dropout(0.1))
 
-        model.add(Dense(32, activation='relu'))
+        model.add(Dense(32, activation='tanh'))
         model.add(Dropout(0.2))
 
         model.add(Dense(1))
