@@ -70,7 +70,7 @@ class GRU_Model:
                 metrics=['mae'])
         
         # Model Fitting
-        history = model.fit(self.X_train, self.y_train, validation_data=(self.X_test, self.y_test), batch_size=64, epochs=60)
+        history = model.fit(self.X_train, self.y_train, validation_data=(self.X_test, self.y_test), batch_size=64, epochs=200)
         
         # summarize history for loss
         plt.plot(history.history['loss'])
