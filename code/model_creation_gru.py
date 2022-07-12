@@ -1,7 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, LSTM, GRU
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -14,9 +13,6 @@ from sklearn import tree
 import joblib
 import os
 from pathlib import Path
-import json
-import geopandas as gpd
-import geojson
 import os.path
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestRegressor
