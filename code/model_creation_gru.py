@@ -25,6 +25,9 @@ from keras import optimizers
 
 homedir = os.path.expanduser('~')
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
+physical_devices = tf.config.experimental.list_physical_devices('GPU')
+config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
+
 
 class GRU_Model:
   
@@ -50,7 +53,7 @@ class GRU_Model:
     def train(self):
         # Model Creation
         model = Sequential()
-        model.add(GRU(128, input_shape=(self.X_train.shape[1:]), activation='relu', return_sequences=True))
+        model.add(GRU(128, input_shape=(self.X_train.shape[1:]), activation='tanh', return_sequences=True))
         model.add(Dropout(0.2))
 
         model.add(GRU(128, activation='tanh'))
@@ -67,7 +70,7 @@ class GRU_Model:
                 metrics=['mae'])
         
         # Model Fitting
-        history = model.fit(self.X_train, self.y_train, validation_data=(self.X_test, self.y_test), batch_size=64, epochs=1)
+        history = model.fit(self.X_train, self.y_train, validation_data=(self.X_test, self.y_test), batch_size=64, epochs=60)
         
         # summarize history for loss
         plt.plot(history.history['loss'])
