@@ -36,8 +36,8 @@ class RandomForestHole(BaseHole):
     all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)
     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000
     train, test = train_test_split(all_ready_pd, test_size=0.2)
-    self.train_x, self.train_y = train[['year','m','doy','ndsi','grd','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','lat','lon','elevation','aspect','curvature','slope','eastness','northness']].to_numpy().astype('float'), train['swe'].to_numpy().astype('float')
-    self.test_x, self.test_y = test[['year','m','doy','ndsi','grd','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','lat','lon','elevation','aspect','curvature','slope','eastness','northness']].to_numpy().astype('float'), test['swe'].to_numpy().astype('float')
+    self.train_x, self.train_y = train[['year', 'm', 'doy','ndsi','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','elevation','aspect','curvature','slope','eastness','northness']].to_numpy().astype('float'), train['swe'].to_numpy().astype('float')
+    self.test_x, self.test_y = test[['year', 'm', 'doy','ndsi','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','elevation','aspect','curvature','slope','eastness','northness']].to_numpy().astype('float'), test['swe'].to_numpy().astype('float')
   
   def get_model(self):
     rfc_pipeline = Pipeline(steps = [

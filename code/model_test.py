@@ -39,9 +39,9 @@ test_ready_file = f"{github_dir}/data/ready_for_testing/all_ready_3.csv"
 test_ready_pd = pd.read_csv(test_ready_file, header=0, index_col=0)
 submission_file = f"{github_dir}/data/snowcast_provided/submission_format_eval.csv"
 submission_pd = pd.read_csv(submission_file, header=0, index_col=0)
-predicted_file = f"{homedir}/Documents/GitHub/SnowCast/data/results/wormhole_output_4.csv"
+predicted_file = f"{homedir}/Documents/GitHub/SnowCast/data/results/wormhole_output_6.csv"
 
-train_cols = ['year','m','doy','ndsi','grd','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','lat','lon','elevation','aspect','curvature','slope','eastness','northness']
+train_cols = ['year', 'm', 'doy','ndsi','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','elevation','aspect','curvature','slope','eastness','northness']
 
 print(test_ready_pd.shape)
 pd_to_clean = test_ready_pd[train_cols]
@@ -62,7 +62,15 @@ print("train feature shape: ", all_features.shape)
 #base_model = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic_v2.joblib")
 #base_model = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic_v2.joblib")
 
-best_random = joblib.load(f"{homedir}/Documents/GitHub/SnowCast/model/wormhole_20221305163806.joblib")
+# use the model with all inputs
+# best_random = joblib.load(f"{homedir}/Documents/GitHub/SnowCast/model/wormhole_20221305163806.joblib")
+# model without GRD
+#best_random = joblib.load(f"{homedir}/Documents/GitHub/SnowCast/model/wormhole_20222706233520.joblib")
+# model without GRD, lat, lon
+best_random = joblib.load(f"{homedir}/Documents/GitHub/SnowCast/model/wormhole_20222906081434.joblib")
+
+
+
 y_predicted = best_random.predict(all_features)
 print(y_predicted) #first got daily prediction
 
@@ -70,16 +78,34 @@ target_dates = ["2022-01-13","2022-01-20","2022-01-27","2022-02-03","2022-02-10"
 print("taregt date list: ", len(target_dates))
 
 daily_predictions = pd.DataFrame(columns = target_dates, index = submission_pd.index)
+
+target_dates_with_results = []
+latest_doy = 0
 for i in range(len(y_predicted)):
   doy = all_features[i][2]
   #print(doy)
   ndate = turn_doy_to_date(2022, doy)
+  if latest_doy < doy:
+    latest_doy = doy
   if ndate in target_dates:
     cell_id = test_ready_pd["cell_id"].iloc[i]
     daily_predictions.at[cell_id, ndate] = y_predicted[i]
+    if ndate not in target_dates_with_results:
+      target_dates_with_results.append(ndate)
   #print(ndate, cell_id)
   #print(y_predicted[i])
   
+for i in range(len(y_predicted)):
+  doy = all_features[i][2]
+  if doy == latest_doy:
+    
+    for target_d in target_dates:
+	
+      if target_d not in target_dates_with_results:
+        cell_id = test_ready_pd["cell_id"].iloc[i]
+        daily_predictions.at[cell_id, target_d] = y_predicted[i]
+      
+
 print(daily_predictions.shape)
 #daily_predictions = daily_predictions[["2022-01-13"]]
 
