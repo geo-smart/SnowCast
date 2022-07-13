@@ -52,30 +52,30 @@ class GRU_Model:
     
     def train(self):
         # Model Creation
-        model = Sequential()
-        model.add(GRU(128, input_shape=(self.X_train.shape[1:]), activation='tanh', return_sequences=True))
-        model.add(Dropout(0.2))
+        self.model = Sequential()
+        self.model.add(GRU(128, input_shape=(self.X_train.shape[1:]), activation='tanh', return_sequences=True))
+        self.model.add(Dropout(0.2))
 
-        model.add(GRU(128, activation='tanh'))
-        model.add(Dropout(0.1))
+        self.model.add(GRU(128, activation='tanh'))
+        self.model.add(Dropout(0.1))
 
-        model.add(Dense(32, activation='tanh'))
-        model.add(Dropout(0.2))
+        self.model.add(Dense(32, activation='tanh'))
+        self.model.add(Dropout(0.2))
 
-        model.add(Dense(1))
+        self.model.add(Dense(1))
         
 
         
         
         # Model Compilation
-        model.compile(optimizer=optimizers.Adam(learning_rate=0.0001),
+        self.model.compile(optimizer=optimizers.Adam(learning_rate=0.0001),
                 loss='mse',
                 metrics=['mae'])
         
         # Model Fitting
-        history = model.fit(self.X_train, self.y_train, validation_data=(self.X_test, self.y_test), batch_size=64, epochs=200)
+        history = self.model.fit(self.X_train, self.y_train, validation_data=(self.X_test, self.y_test), batch_size=64, epochs=200)
         
-        model.save('gru_v4')
+        self.model.save('gru_v4')
 
         # summarize history for loss
         plt.plot(history.history['loss'])
