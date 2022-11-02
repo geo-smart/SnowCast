@@ -1,4 +1,34 @@
 [{
+  "history_id" : "woa8m0qkc6w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410736808,
+  "history_end_time" : 1667410736808,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jbrpqgrhyr0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410652232,
+  "history_end_time" : 1667410704838,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lw3bf3nkth5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410544330,
+  "history_end_time" : 1667410624019,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "5015qfy5cre",
   "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    pass\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
   "history_output" : "",

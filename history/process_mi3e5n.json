@@ -1,4 +1,14 @@
 [{
+  "history_id" : "00r8jfuilk4",
+  "history_input" : "# Find the best model\nprint(\"model comparison script\")\nprint(\"hello world\")",
+  "history_output" : "model comparison script\nhello world\n",
+  "history_begin_time" : 1667410807270,
+  "history_end_time" : 1667410807425,
+  "history_notes" : null,
+  "history_process" : "mi3e5n",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
   "history_id" : "wn5yccdz9g3",
   "history_input" : "# Find the best model\nprint(\"model comparison script\")\nprint(\"hello world\")",
   "history_output" : "model comparison script\nhello world\n",
@@ -198,4 +208,14 @@
   "history_process" : "mi3e5n",
   "host_id" : "100001",
   "indicator" : "Done"
+},{
+  "history_id" : "ti1adh8te7e",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1667410703745,
+  "history_notes" : null,
+  "history_process" : "mi3e5n",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },]

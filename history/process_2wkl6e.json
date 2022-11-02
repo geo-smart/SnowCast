@@ -1,4 +1,14 @@
 [{
+  "history_id" : "xt6t35bodpe",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667410808925,
+  "history_end_time" : 1667410809071,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
   "history_id" : "jh9ydimw0cm",
   "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
   "history_output" : "deploy model to service\n",
@@ -118,4 +128,14 @@
   "history_process" : "2wkl6e",
   "host_id" : "100001",
   "indicator" : "Done"
+},{
+  "history_id" : "hjle1g5ytv6",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1667410703752,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },]

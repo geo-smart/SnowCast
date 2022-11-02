@@ -1,4 +1,34 @@
 [{
+  "history_id" : "nm2f3fivf2e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410736820,
+  "history_end_time" : 1667410736820,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x8ybux4fsps",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410652239,
+  "history_end_time" : 1667410705872,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qv4iornz9ru",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410544341,
+  "history_end_time" : 1667410624026,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "xnp8macj97a",
   "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
   "history_output" : "",

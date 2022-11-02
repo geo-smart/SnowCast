@@ -1,118 +1,104 @@
-# Reminder that if you are installing libraries in a Google Colab instance you will be prompted to restart your kernel
 
-# Standard Library
+import json
+import pandas as pd
+import ee
+import seaborn as sns
+import matplotlib.pyplot as plt
+import os
+import geopandas as gpd
+import geojson
+import numpy as np
 import os.path
 
-# 3rd Party Packages
-import ee
-import pandas as pd
-
-exit()  # comment to download new files
+exit() # uncomment to download new files
 
 try:
     ee.Initialize()
-except Exception:
-    ee.Authenticate()  # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
+except Exception as e:
+    ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
     ee.Initialize()
 
-# Data information
+# read the grid geometry file
+homedir = os.path.expanduser('~')
+print(homedir)
+# read grid cell
+github_dir = f"{homedir}/Documents/GitHub/SnowCast"
+# read grid cell
+station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
+station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
+
+#org_name = 'modis'
+#product_name = f'MODIS/006/MOD10A1'
+#var_name = 'NDSI'
+#column_name = 'mod10a1_ndsi'
+
 org_name = 'gridmet'
 product_name = 'IDAHO_EPSCOR/GRIDMET'
 start_date = '2013-01-01'
 end_date = '2021-12-31'
-column_name = None
-var_name = None
-variables = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']
 
-# Directory Information
-homedir = os.path.expanduser('~')
-github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
-dfolder = f"{homedir}/Documents/GitHub/SnowCast/data/sim_training/{org_name}/"
+var_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']
 
-try:
-    os.makedirs(dfolder)
-except FileExistsError:
-    pass
+for var in var_list:
 
+    var_name = var
+    column_name = var
 
-# Functions
-def viirs_map(viirs, poi):
-    def poi_mean(img):
-        reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=1000)
-        mean = reducer.get(var_name)
-        return img.set('date', img.date().format()).set(column_name, mean)
+    dfolder = f"{homedir}/Documents/GitHub/SnowCast/data/sim_training/{org_name}/"
+    if not os.path.exists(dfolder):
+        os.makedirs(dfolder)
 
-    return viirs.map(poi_mean)
+    all_cell_df = pd.DataFrame(columns = ['date', column_name, 'cell_id', 'latitude', 'longitude'])
 
+    for ind in station_cell_mapper_df.index:
 
-def create_df(start_date, end_date, poi):
-    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).select(var_name)
-    poi_reduced_imgs = viirs_map(viirs, poi)
-    nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date', column_name]).values().get(0)
-    # dont forget we need to call the callback method "getInfo" to retrieve the data
-    return pd.DataFrame(nested_list.getInfo(), columns=['date', column_name])
+        try:
 
+          current_cell_id = station_cell_mapper_df['cell_id'][ind]
+          print("collecting ", current_cell_id)
+          single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
 
-def main():
-    global column_name, var_name
+          if os.path.exists(single_csv_file):
+              print("exists skipping..")
+              continue
 
-    # Read the Grid Geometry File
-    station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
+          longitude = station_cell_mapper_df['lon'][ind]
+          latitude = station_cell_mapper_df['lat'][ind]
 
-    all_cells_df = {
-        column_var: []  # list of pandas dataframes
-        for column_var in variables
-    }
+          # identify a 500 meter buffer around our Point Of Interest (POI)
+          poi = ee.Geometry.Point(longitude, latitude).buffer(1000)
+          viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).select(var_name)
 
-    # Removes duplicate indices
-    scmd = set(station_cell_mapper_df['cell_id'])
-
-    for ind, current_cell_id in enumerate(scmd):
-
-        # Location information
-        longitude = station_cell_mapper_df['lon'][ind]
-        latitude = station_cell_mapper_df['lat'][ind]
-
-        print(f"{ind}/{len(scmd)}: collecting {current_cell_id}")  # logging
-
-        # Identify a 1000 meter buffer around our Point Of Interest (POI)
-        poi = ee.Geometry.Point(longitude, latitude).buffer(1000)
-
-        for var_name in variables:
-            column_name = var_name
-
-            try:
-                single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
-                print(f"\ton column {column_name}")  # logging
-
-                if os.path.exists(single_csv_file):
-                    print("\t\texists skipping..")  # logging
-                    continue
-
-                df = create_df(start_date, end_date, poi)
-
-                df['date'] = pd.to_datetime(df['date'])
-                df.set_index('date', inplace=True)
-
-                df['cell_id'] = current_cell_id
-                df['latitude'] = latitude
-                df['longitude'] = longitude
-                df.to_csv(single_csv_file)
-
-                all_cells_df[column_name].append(df)
-
-                print("\t\tfinished")  # logging
-            except Exception as e:
-                print(f"\t\t{e}")  # logging
-
-    print("\n\nsaving combined csv files")
-
-    for column_name in all_cells_df:
-        if len(all_cells_df[column_name]) > 0:
-            pd.concat(all_cells_df[column_name]).to_csv(f"{dfolder}/{column_name}.csv")
-
-    print("finished")
+          def poi_mean(img):
+              reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=1000)
+              mean = reducer.get(var_name)
+              return img.set('date', img.date().format()).set(column_name,mean)
 
 
-main()
+          poi_reduced_imgs = viirs.map(poi_mean)
+
+          nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date',column_name]).values().get(0)
+
+          # dont forget we need to call the callback method "getInfo" to retrieve the data
+          df = pd.DataFrame(nested_list.getInfo(), columns=['date',column_name])
+
+          df['date'] = pd.to_datetime(df['date'])
+          df = df.set_index('date')
+
+          df['cell_id'] = current_cell_id
+          df['latitude'] = latitude
+          df['longitude'] = longitude
+          df.to_csv(single_csv_file)
+
+          df_list = [all_cell_df, df]
+          all_cell_df = pd.concat(df_list) # merge into big dataframe
+
+        except Exception as e:
+
+          print(e)
+          pass
+    
+    all_cell_df.to_csv(f"{dfolder}/{column_name}.csv")  
+
+
+

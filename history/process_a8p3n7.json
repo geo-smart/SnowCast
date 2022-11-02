@@ -1,4 +1,34 @@
 [{
+  "history_id" : "go4bnci61re",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410736810,
+  "history_end_time" : 1667410736810,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cguefesrtj1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410652234,
+  "history_end_time" : 1667410704839,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xnn28ee24vc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410544331,
+  "history_end_time" : 1667410624020,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "w2xuketpgey",
   "history_input" : "\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\nexit() # uncomment to download new files\n\ntry:\n    ee.Initialize()\nexcept Exception as e:\n    ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.\n    ee.Initialize()\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\n# read grid cell\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n# read grid cell\nstation_cell_mapper_file = f\"{github_dir}/data/ready_for_training/station_cell_mapping.csv\"\nstation_cell_mapper_df = pd.read_csv(station_cell_mapper_file)\n\n#org_name = 'modis'\n#product_name = f'MODIS/006/MOD10A1'\n#var_name = 'NDSI'\n#column_name = 'mod10a1_ndsi'\n\norg_name = 'gridmet'\nproduct_name = 'IDAHO_EPSCOR/GRIDMET'\nstart_date = '2013-01-01'\nend_date = '2021-12-31'\n\nvar_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']\n\nfor var in var_list:\n\n    var_name = var\n    column_name = var\n\n    dfolder = f\"{homedir}/Documents/GitHub/SnowCast/data/sim_training/{org_name}/\"\n    if not os.path.exists(dfolder):\n        os.makedirs(dfolder)\n\n    all_cell_df = pd.DataFrame(columns = ['date', column_name, 'cell_id', 'latitude', 'longitude'])\n\n    for ind in station_cell_mapper_df.index:\n\n        try:\n\n          current_cell_id = station_cell_mapper_df['cell_id'][ind]\n          print(\"collecting \", current_cell_id)\n          single_csv_file = f\"{dfolder}/{column_name}_{current_cell_id}.csv\"\n\n          if os.path.exists(single_csv_file):\n              print(\"exists skipping..\")\n              continue\n\n          longitude = station_cell_mapper_df['lon'][ind]\n          latitude = station_cell_mapper_df['lat'][ind]\n\n          # identify a 500 meter buffer around our Point Of Interest (POI)\n          poi = ee.Geometry.Point(longitude, latitude).buffer(1000)\n          viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).select(var_name)\n\n          def poi_mean(img):\n              reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=1000)\n              mean = reducer.get(var_name)\n              return img.set('date', img.date().format()).set(column_name,mean)\n\n\n          poi_reduced_imgs = viirs.map(poi_mean)\n\n          nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(2), ['date',column_name]).values().get(0)\n\n          # dont forget we need to call the callback method \"getInfo\" to retrieve the data\n          df = pd.DataFrame(nested_list.getInfo(), columns=['date',column_name])\n\n          df['date'] = pd.to_datetime(df['date'])\n          df = df.set_index('date')\n\n          df['cell_id'] = current_cell_id\n          df['latitude'] = latitude\n          df['longitude'] = longitude\n          df.to_csv(single_csv_file)\n\n          df_list = [all_cell_df, df]\n          all_cell_df = pd.concat(df_list) # merge into big dataframe\n\n        except Exception as e:\n\n          print(e)\n          pass\n    \n    all_cell_df.to_csv(f\"{dfolder}/{column_name}.csv\")  \n\n\n",
   "history_output" : "",

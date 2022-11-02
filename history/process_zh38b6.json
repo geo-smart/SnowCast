@@ -1,4 +1,34 @@
 [{
+  "history_id" : "y8ypti41j6f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410736833,
+  "history_end_time" : 1667410736833,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "508t44jh67q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410652241,
+  "history_end_time" : 1667410705878,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5x4yfodzk90",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410544345,
+  "history_end_time" : 1667410624028,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "axq9mdvdenx",
   "history_input" : "from datetime import date\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\nimport math\nimport datetime\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"\"\ntrain_end_date = \"\"\n\ntest_start_date = \"2022-01-01\"\ntest_end_date = d1\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1-lat2)**2 + (lon1-lon2)**2)\n\ndef create_cell_location_csv():\n  # read grid cell\n  gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n  all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n  if os.path.exists(all_cell_coords_file):\n    os.remove(all_cell_coords_file)\n\n  grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n  print(grid_coords_df.head())\n  gridcells = geojson.load(open(gridcells_file))\n  for idx,cell in enumerate(gridcells['features']):\n    \n    current_cell_id = cell['properties']['cell_id']\n    cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n    cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n    grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n    \n  #grid_coords_np = grid_coords_df.to_numpy()\n  #print(grid_coords_np.shape)\n  grid_coords_df.to_csv(all_cell_coords_file, index=False)\n  #np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n  #print(grid_coords_np.shape)\n  \ndef get_latest_date_from_an_array(arr, date_format):\n  return max(arr, key=lambda x: datetime.datetime.strptime(x, date_format))\n  \n  \ndef findLastStopDate(target_testing_dir, data_format):\n  date_list = []\n  for filename in os.listdir(target_testing_dir):\n    f = os.path.join(target_testing_dir, filename)\n    # checking if it is a file\n    if os.path.isfile(f) and \".csv\" in f:\n        pdf = pd.read_csv(f,header=0, index_col=0)\n        date_list = np.concatenate((date_list, pdf.index.unique()))\n  latest_date = get_latest_date_from_an_array(date_list, data_format)\n  print(latest_date)\n  date_time_obj = datetime.datetime.strptime(latest_date, data_format)\n  return date_time_obj.strftime(\"%Y-%m-%d\")\n\n#create_cell_location_csv()\nfindLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n\n\n\n      \n",
   "history_output" : "\nprocess hasn't exited",

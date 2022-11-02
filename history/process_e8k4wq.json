@@ -1,4 +1,174 @@
 [{
+  "history_id" : "wtufhixfeu0",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.105625218444874\nMSE is 45.669782534279314\nR2 score is 0.68327487785553\nRMSE is 6.757942181927818\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220211133904.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.46375898836800344\nMSE is 2.6666096137645394\nR2 score is 0.9822915038321627\nRMSE is 1.632975692949696\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220211133907.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1667410736990,
+  "history_end_time" : 1667410747881,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "fxx13ybkcft",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.14442421090607\nMSE is 49.710727838543626\nR2 score is 0.6654336104871295\nRMSE is 7.050583510500647\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220211133741.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.455077106098\nMSE is 2.8739226706908703\nR2 score is 0.9811431660638491\nRMSE is 1.6952647789330344\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220211133745.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1667410652789,
+  "history_end_time" : 1667410703777,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "x39nloe7wzn",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.198570981363081\nMSE is 50.632819141363726\nR2 score is 0.6727793020794377\nRMSE is 7.1156741874093505\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220211133554.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.42436085653860633\nMSE is 2.283468987222418\nR2 score is 0.9847250838126669\nRMSE is 1.5111151469105253\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220211133557.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1667410545078,
+  "history_end_time" : 1667410624002,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a4MW35g4IwFG",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  print(\"====>\\nCurrent model: \", type(hole).__name__)\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\n====>\nCurrent model:  RandomForestHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 5.059939356440706\nMSE is 72.59673862422159\nR2 score is 0.5135065047055689\nRMSE is 8.520371976869413\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220209121837.joblib\n====>\nCurrent model:  XGBoostHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.7230843320408974\nMSE is 6.9318201581776515\nR2 score is 0.9544906365108541\nRMSE is 2.6328350039791046\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220209121840.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1662135509591,
+  "history_end_time" : 1662135520875,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "wicnxlgiM3F5",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  print(\"====>\\nCurrent model: \", type(hole).__name__)\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\n====>\nCurrent model:  RandomForestHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 5.008857025393912\nMSE is 69.922575263403\nR2 score is 0.5333643885787589\nRMSE is 8.361971972172773\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220209121712.joblib\n====>\nCurrent model:  XGBoostHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.714348519562928\nMSE is 7.158644114821994\nR2 score is 0.9529868656244506\nRMSE is 2.675564261015234\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220209121715.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1662135424361,
+  "history_end_time" : 1662135435992,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "X4PKQQ9u0z89",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  print(\"====>\\nCurrent model: \", type(hole).__name__)\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\n====>\nCurrent model:  RandomForestHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.9323229001647855\nMSE is 66.50160297125021\nR2 score is 0.540170964600661\nRMSE is 8.154851499031126\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220209121640.joblib\n====>\nCurrent model:  XGBoostHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.7055657384561248\nMSE is 7.661758733873811\nR2 score is 0.9507183569569525\nRMSE is 2.7679882105734865\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220209121643.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1662135389969,
+  "history_end_time" : 1662135404065,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "OFdbrEkGAW5R",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  print(\"====>\\nCurrent model: \", type(hole).__name__)\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\n====>\nCurrent model:  RandomForestHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.9381209111760604\nMSE is 70.41551504665873\nR2 score is 0.5342809740622851\nRMSE is 8.391395297961997\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221807104848.joblib\n====>\nCurrent model:  XGBoostHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.7378155622136149\nMSE is 8.010838992862178\nR2 score is 0.9467629462261309\nRMSE is 2.8303425575117545\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221807104851.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1658155721921,
+  "history_end_time" : 1658155732130,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "8HyxXx9WpmCH",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  print(\"Current model: \", type(hole).__name__)\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nCurrent model:  RandomForestHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.997683026019188\nMSE is 70.53643127336615\nR2 score is 0.5406485999387515\nRMSE is 8.398596982434992\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221807104642.joblib\nCurrent model:  XGBoostHole\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.7487859534719867\nMSE is 8.628166534631653\nR2 score is 0.9465002202840876\nRMSE is 2.937374088302621\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221807104645.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1658155594716,
+  "history_end_time" : 1658155605848,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Eqk8ULw7ccQi",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 5.001701370732412\nMSE is 68.09186991248166\nR2 score is 0.5481628067927394\nRMSE is 8.251779802714179\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221807104456.joblib\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.6583089531195017\nMSE is 5.6609722410997545\nR2 score is 0.9627606455607072\nRMSE is 2.37927977360792\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221807104459.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1658155488242,
+  "history_end_time" : 1658155499460,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "WZawcmiKKhhE",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.95038812457553\nMSE is 67.22059880133791\nR2 score is 0.5378446075385668\nRMSE is 8.198816914734584\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221807103054.joblib\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.6633494007754763\nMSE is 5.483102651656679\nR2 score is 0.9647131543404297\nRMSE is 2.3416025819204846\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20221807103057.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1658154645362,
+  "history_end_time" : 1658154657689,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "pjAnOA1mvx6o",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/joe/gw-workspace/pjAnOA1mvx6o/model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1658154619008,
+  "history_end_time" : 1658154620986,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "UK5tlsVZOl64",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/joe/gw-workspace/UK5tlsVZOl64/model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1658154484138,
+  "history_end_time" : 1658154496595,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "p4ixBfGqUGF6",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 5.00071862206977\nMSE is 72.44741494511618\nR2 score is 0.5277241153385532\nRMSE is 8.51160472209067\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222906082242.joblib\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.6569087063799879\nMSE is 5.941571785689106\nR2 score is 0.9609344239563875\nRMSE is 2.437533955802279\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222906082244.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656505354791,
+  "history_end_time" : 1656505364755,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "eDqLAX5tbr8E",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 16)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.7879658577988256\nMSE is 65.45033909908751\nR2 score is 0.5717182903769649\nRMSE is 8.090138385657411\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222906082023.joblib\nfloat64\nfloat64\n(45389, 16)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.8209709199859097\nMSE is 9.431586918047232\nR2 score is 0.9371835472885548\nRMSE is 3.0710888814958177\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222906082025.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656505216142,
+  "history_end_time" : 1656505225742,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Ho94QKnDD4lC",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/arraysetops.py:583: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison\n  mask |= (ar1 == a)\n/Users/joe\n\nStream closed",
+  "history_begin_time" : 1656505189574,
+  "history_end_time" : 1656505205348,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "eIvTXE14ZmD9",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 5.041534377537223\nMSE is 73.21191545499894\nR2 score is 0.5426726030633469\nRMSE is 8.556396172162609\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222906081434.joblib\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.6938706379978941\nMSE is 6.7528803882622475\nR2 score is 0.9560473422998184\nRMSE is 2.598630483208847\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222906081436.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656504865975,
+  "history_end_time" : 1656504876828,
+  "history_notes" : "2022-06-29 08:14:36",
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "XvSJ5nKOizgo",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 20)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.066648616289089\nMSE is 44.79697141641268\nR2 score is 0.6967490806396991\nRMSE is 6.693053967839545\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222706233517.joblib\nfloat64\nfloat64\n(45389, 20)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.45530701445189503\nMSE is 2.64894859693338\nR2 score is 0.983119883396531\nRMSE is 1.627559091687113\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222706233520.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656387308226,
+  "history_end_time" : 1656387320892,
+  "history_notes" : "2022-06-27 23:35:20",
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
   "history_id" : "6nicq7vbza8",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.203561191693155\nMSE is 50.99415099184198\nR2 score is 0.6779060041878945\nRMSE is 7.141018904319045\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220606084506.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.43054335565739366\nMSE is 2.2887179839619325\nR2 score is 0.9842579805723218\nRMSE is 1.5128509457186892\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220606084508.joblib\nFinished training and validating all the models.\n",
