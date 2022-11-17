@@ -1,0 +1,51 @@
+[{
+  "history_id" : "2rqe3vnwsj9",
+  "history_input" : "import os\n\nprint(\"get ucla data and stuff\")\n#https://nsidc.org/data/wus_ucla_sr/versions/1",
+  "history_output" : "get ucla data and stuff\n",
+  "history_begin_time" : 1667411146923,
+  "history_end_time" : 1667411147010,
+  "history_notes" : null,
+  "history_process" : "3r5rpn",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "8bi5n12jlfj",
+  "history_input" : "import os\n\nprint(\"get ucla data and stuff\")\n#https://nsidc.org/data/wus_ucla_sr/versions/1",
+  "history_output" : "get ucla data and stuff\n",
+  "history_begin_time" : 1667410697922,
+  "history_end_time" : 1667410698004,
+  "history_notes" : null,
+  "history_process" : "3r5rpn",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "r0u9jsnh4or",
+  "history_input" : "import os\n\nprint(\"get ucla data and stuff\")\n#https://nsidc.org/data/wus_ucla_sr/versions/1",
+  "history_output" : "get ucla data and stuff\n",
+  "history_begin_time" : 1667410661444,
+  "history_end_time" : 1667410690576,
+  "history_notes" : null,
+  "history_process" : "3r5rpn",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pmg9f8o6ntm",
+  "history_input" : "import os\n\nprint(\"get ucla data and stuff\")\n#https://nsidc.org/data/wus_ucla_sr/versions/1",
+  "history_output" : "get ucla data and stuff\n",
+  "history_begin_time" : 1667410576588,
+  "history_end_time" : 1667410651126,
+  "history_notes" : null,
+  "history_process" : "3r5rpn",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ucyib84j4u3",
+  "history_input" : "import os\n\nprint(\"get ucla data and stuff\")\n#https://nsidc.org/data/wus_ucla_sr/versions/1",
+  "history_output" : "get ucla data and stuff\n",
+  "history_begin_time" : 1667410384804,
+  "history_end_time" : 1667410556071,
+  "history_notes" : null,
+  "history_process" : "3r5rpn",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},]

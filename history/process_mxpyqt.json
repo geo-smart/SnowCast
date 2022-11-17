@@ -1,4 +1,64 @@
 [{
+  "history_id" : "63kdd4jhmxt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667434821977,
+  "history_end_time" : 1667434821977,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gmp3fry82xe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912873,
+  "history_end_time" : 1667420912873,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jaggh8xz8lf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420799791,
+  "history_end_time" : 1667420799791,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ccln7v4yvjk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667412122206,
+  "history_end_time" : 1667412122206,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2c6olq0eurt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667411534147,
+  "history_end_time" : 1667411534147,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fnonp339nqv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667411146167,
+  "history_end_time" : 1667411146167,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
   "history_id" : "24694dceogw",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -9,11 +69,41 @@
   "host_id" : "100001",
   "indicator" : "Skipped"
 },{
+  "history_id" : "a7lmrekn3w9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410696428,
+  "history_end_time" : 1667410696428,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5v61wp06yyw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410660487,
+  "history_end_time" : 1667410690572,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "qjqipre5ech",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1667410652144,
   "history_end_time" : 1667410703740,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yicd4hdnfci",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410575660,
+  "history_end_time" : 1667410651119,
   "history_notes" : null,
   "history_process" : "mxpyqt",
   "host_id" : "100001",
@@ -28,6 +118,326 @@
   "history_process" : "mxpyqt",
   "host_id" : "100001",
   "indicator" : "Stopped"
+},{
+  "history_id" : "w1eeivy2as9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667410384338,
+  "history_end_time" : 1667410556062,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a6983ztrjps",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1667409178319,
+  "history_end_time" : 1667409178840,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "v98djziuelc",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1657574447357,
+  "history_end_time" : 1657574448086,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "a7o2eplzryg",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1657137842136,
+  "history_end_time" : 1657137842832,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "9gmg9sdiqn1",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656529468681,
+  "history_end_time" : 1656529469385,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "3pik4lc905m",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656523432494,
+  "history_end_time" : 1656523432638,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "4y6hxkxzuge",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656443561093,
+  "history_end_time" : 1656443561196,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "zgfy9d5uo4l",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656443331603,
+  "history_end_time" : 1656443331712,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "069shv4xea1",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656439580511,
+  "history_end_time" : 1656439580638,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "4wcfoumvxn5",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656439445605,
+  "history_end_time" : 1656439445716,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "yb8fltgbu6b",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656439249980,
+  "history_end_time" : 1656439250050,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "vthcxnvepjk",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656439108058,
+  "history_end_time" : 1656439108226,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "eps3ns3puap",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656438432001,
+  "history_end_time" : 1656438432636,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "1eccy1tov20",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656438188440,
+  "history_end_time" : 1656438188567,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "bkbwwin51es",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656437721014,
+  "history_end_time" : 1656437721245,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "x3njppem2lf",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656362524341,
+  "history_end_time" : 1656362524543,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "g1id6lracac",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656361462983,
+  "history_end_time" : 1656361463109,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "2bkropv4nge",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656361418027,
+  "history_end_time" : 1656361418133,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "g1b3p18df26",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656361404718,
+  "history_end_time" : 1656361404839,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "dk8r4qq33ip",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656361165147,
+  "history_end_time" : 1656361165938,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "2ucse6hlrp9",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656360838994,
+  "history_end_time" : 1656360839705,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "cwudh02mhsm",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656360781401,
+  "history_end_time" : 1656360781510,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "movonmx8dms",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1656360758097,
+  "history_end_time" : 1656360758221,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "h8qcvvud7gd",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1656360650399,
+  "history_end_time" : 1656360651206,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "bmmco8vwxbk",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656360392916,
+  "history_end_time" : 1656360393022,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "4o1j6jr54sf",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656360351587,
+  "history_end_time" : 1656360351752,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5ln7cbac9oz",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656360283011,
+  "history_end_time" : 1656360283130,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "25wpt2bpoca",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656360130007,
+  "history_end_time" : 1656360130166,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "i0zbjja8st6",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656349568698,
+  "history_end_time" : 1656349568792,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "wsa9glesp5p",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656349417170,
+  "history_end_time" : 1656349417262,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "kjsceye1br2",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1656348494820,
+  "history_end_time" : 1656348495495,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "1iamwthhdkv",
+  "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",
+  "history_output" : "Create LSTM\n",
+  "history_begin_time" : 1655310349923,
+  "history_end_time" : 1655310350149,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Done"
 },{
   "history_id" : "0egexl46mmc",
   "history_input" : "# Create LSTM model\n\nprint(\"Create LSTM\")\n\n",

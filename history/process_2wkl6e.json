@@ -1,9 +1,319 @@
 [{
+  "history_id" : "4gkxsaiguai",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667434834077,
+  "history_end_time" : 1667434834166,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "dg2y4kd86qr",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667420917178,
+  "history_end_time" : 1667420917246,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "obvw7pma51n",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667420803823,
+  "history_end_time" : 1667420803890,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ijlguutr0jy",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667412125506,
+  "history_end_time" : 1667412125570,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "99pjj3uefvb",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667411536082,
+  "history_end_time" : 1667411536168,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ht7o51jrmp4",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667411150266,
+  "history_end_time" : 1667411150347,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
   "history_id" : "xt6t35bodpe",
   "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
   "history_output" : "deploy model to service\n",
   "history_begin_time" : 1667410808925,
   "history_end_time" : 1667410809071,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5bxsbtxz478",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667410701289,
+  "history_end_time" : 1667410701377,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "nrsetm4zqto",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1667409187092,
+  "history_end_time" : 1667409187113,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "thiosjra47e",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1657143806341,
+  "history_end_time" : 1657143806464,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "yyfx0lsp5oz",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656532035368,
+  "history_end_time" : 1656532035481,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "7h4km8we9cp",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656447724663,
+  "history_end_time" : 1656447724759,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ynyea2v2ft7",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656443791782,
+  "history_end_time" : 1656443791890,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "h6037mtzppa",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656443790016,
+  "history_end_time" : 1656443790130,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "q8a671l0mb5",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656443784185,
+  "history_end_time" : 1656443784298,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "cxcabkwxtyy",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656439641926,
+  "history_end_time" : 1656439642025,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "kc75kme1ein",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656439329205,
+  "history_end_time" : 1656439329334,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "aqr7ijqnxh2",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656439185729,
+  "history_end_time" : 1656439185800,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5tb83pbu9td",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656362552525,
+  "history_end_time" : 1656362552590,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "iyj968erogc",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656361489585,
+  "history_end_time" : 1656361489684,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "mq89y7gb72y",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1656361443499,
+  "history_end_time" : 1656361443581,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "8b72ri4lw4o",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656361443484,
+  "history_end_time" : 1656361443579,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "p5q5dxg61kx",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656360858232,
+  "history_end_time" : 1656360858341,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ei09cful5nn",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656360797126,
+  "history_end_time" : 1656360797228,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "k1jpjycvioy",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656360776245,
+  "history_end_time" : 1656360776350,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "l3r1b7sll35",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656360663257,
+  "history_end_time" : 1656360663365,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "09voew7gyds",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656360399775,
+  "history_end_time" : 1656360399873,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "o5oikszz54p",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656360360534,
+  "history_end_time" : 1656360360631,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5vws8mcyctm",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656360290978,
+  "history_end_time" : 1656360291079,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "r0de6tjf0qt",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656349578070,
+  "history_end_time" : 1656349578148,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "fe6u7by8hly",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1656348510051,
+  "history_end_time" : 1656348510131,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5v4ndl8jexo",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1655310366024,
+  "history_end_time" : 1655310366140,
   "history_notes" : null,
   "history_process" : "2wkl6e",
   "host_id" : "100001",
@@ -128,6 +438,36 @@
   "history_process" : "2wkl6e",
   "host_id" : "100001",
   "indicator" : "Done"
+},{
+  "history_id" : "ej51j36opl0",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1667410556065,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rjckmke9x7m",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1667410651121,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "o418kct2t38",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1667410690573,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },{
   "history_id" : "hjle1g5ytv6",
   "history_input" : null,

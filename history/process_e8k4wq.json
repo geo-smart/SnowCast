@@ -1,4 +1,64 @@
 [{
+  "history_id" : "plsww24utlu",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:400: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nC:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:416: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.197181915680008\nMSE is 50.18926554720519\nR2 score is 0.6665453498809817\nRMSE is 7.084438266172215\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20220211192029.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.47747585477618104\nMSE is 3.12266663482552\nR2 score is 0.9790149640832964\nRMSE is 1.7671068543881323\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20220211192030.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1667434822100,
+  "history_end_time" : 1667434831216,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "9oy4pu597t8",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\9oy4pu597t8\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\9oy4pu597t8\\model_creation_rf.py\", line 4, in <module>\n    import matplotlib.pyplot as plt\nModuleNotFoundError: No module named 'matplotlib'\n",
+  "history_begin_time" : 1667420913113,
+  "history_end_time" : 1667420914408,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "vwbn6yd0zcy",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\vwbn6yd0zcy\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\vwbn6yd0zcy\\model_creation_rf.py\", line 3, in <module>\n    import pandas as pd\nModuleNotFoundError: No module named 'pandas'\n",
+  "history_begin_time" : 1667420799858,
+  "history_end_time" : 1667420801063,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "pup4cftp2yo",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\pup4cftp2yo\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\pup4cftp2yo\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nModuleNotFoundError: No module named 'sklearn'\n",
+  "history_begin_time" : 1667412122386,
+  "history_end_time" : 1667412122464,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "vao43wwn8ts",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py:148: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service\n  from . import _distributor_init\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 22, in <module>\n    from . import multiarray\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\multiarray.py\", line 12, in <module>\n    from . import overrides\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\overrides.py\", line 7, in <module>\n    from numpy.core._multiarray_umath import (\nImportError: DLL load failed while importing _multiarray_umath: The specified module could not be found.\nDuring handling of the above exception, another exception occurred:\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\vao43wwn8ts\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\vao43wwn8ts\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\base.py\", line 13, in <module>\n    import numpy as np\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py\", line 150, in <module>\n    from . import core\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 48, in <module>\n    raise ImportError(msg)\nImportError: \nIMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\nImporting the numpy C-extensions failed. This error can happen for\nmany reasons, often due to issues with your setup or how NumPy was\ninstalled.\nWe have compiled some common reasons and troubleshooting tips at:\n    https://numpy.org/devdocs/user/troubleshooting-importerror.html\nPlease note and check the following:\n  * The Python version is: Python3.9 from \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\python.exe\"\n  * The NumPy version is: \"1.21.5\"\nand make sure that they are the versions you expect.\nPlease carefully study the documentation linked above for further help.\nOriginal error was: DLL load failed while importing _multiarray_umath: The specified module could not be found.\n",
+  "history_begin_time" : 1667411534801,
+  "history_end_time" : 1667411534934,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "zufwmd5vbgu",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py:148: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service\n  from . import _distributor_init\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 22, in <module>\n    from . import multiarray\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\multiarray.py\", line 12, in <module>\n    from . import overrides\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\overrides.py\", line 7, in <module>\n    from numpy.core._multiarray_umath import (\nImportError: DLL load failed while importing _multiarray_umath: The specified module could not be found.\nDuring handling of the above exception, another exception occurred:\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\zufwmd5vbgu\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\zufwmd5vbgu\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\base.py\", line 13, in <module>\n    import numpy as np\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py\", line 150, in <module>\n    from . import core\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 48, in <module>\n    raise ImportError(msg)\nImportError: \nIMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\nImporting the numpy C-extensions failed. This error can happen for\nmany reasons, often due to issues with your setup or how NumPy was\ninstalled.\nWe have compiled some common reasons and troubleshooting tips at:\n    https://numpy.org/devdocs/user/troubleshooting-importerror.html\nPlease note and check the following:\n  * The Python version is: Python3.9 from \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\python.exe\"\n  * The NumPy version is: \"1.21.5\"\nand make sure that they are the versions you expect.\nPlease carefully study the documentation linked above for further help.\nOriginal error was: DLL load failed while importing _multiarray_umath: The specified module could not be found.\n",
+  "history_begin_time" : 1667411148837,
+  "history_end_time" : 1667411148962,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
   "history_id" : "wtufhixfeu0",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.105625218444874\nMSE is 45.669782534279314\nR2 score is 0.68327487785553\nRMSE is 6.757942181927818\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220211133904.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.46375898836800344\nMSE is 2.6666096137645394\nR2 score is 0.9822915038321627\nRMSE is 1.632975692949696\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20220211133907.joblib\nFinished training and validating all the models.\n",
@@ -8,6 +68,26 @@
   "history_process" : "e8k4wq",
   "host_id" : "100001",
   "indicator" : "Done"
+},{
+  "history_id" : "4cl0i3c0jc8",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py:148: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service\n  from . import _distributor_init\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 22, in <module>\n    from . import multiarray\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\multiarray.py\", line 12, in <module>\n    from . import overrides\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\overrides.py\", line 7, in <module>\n    from numpy.core._multiarray_umath import (\nImportError: DLL load failed while importing _multiarray_umath: The specified module could not be found.\nDuring handling of the above exception, another exception occurred:\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\4cl0i3c0jc8\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\4cl0i3c0jc8\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\base.py\", line 13, in <module>\n    import numpy as np\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py\", line 150, in <module>\n    from . import core\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 48, in <module>\n    raise ImportError(msg)\nImportError: \nIMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\nImporting the numpy C-extensions failed. This error can happen for\nmany reasons, often due to issues with your setup or how NumPy was\ninstalled.\nWe have compiled some common reasons and troubleshooting tips at:\n    https://numpy.org/devdocs/user/troubleshooting-importerror.html\nPlease note and check the following:\n  * The Python version is: Python3.9 from \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\python.exe\"\n  * The NumPy version is: \"1.21.5\"\nand make sure that they are the versions you expect.\nPlease carefully study the documentation linked above for further help.\nOriginal error was: DLL load failed while importing _multiarray_umath: The specified module could not be found.\n",
+  "history_begin_time" : 1667410699287,
+  "history_end_time" : 1667410699419,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "q2ly5siu3k1",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1667410663661,
+  "history_end_time" : 1667410690575,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },{
   "history_id" : "fxx13ybkcft",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
@@ -28,6 +108,26 @@
   "history_process" : "e8k4wq",
   "host_id" : "100001",
   "indicator" : "Stopped"
+},{
+  "history_id" : "cf13863mzvg",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py:148: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service\n  from . import _distributor_init\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 22, in <module>\n    from . import multiarray\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\multiarray.py\", line 12, in <module>\n    from . import overrides\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\overrides.py\", line 7, in <module>\n    from numpy.core._multiarray_umath import (\nImportError: DLL load failed while importing _multiarray_umath: The specified module could not be found.\nDuring handling of the above exception, another exception occurred:\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\cf13863mzvg\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\cf13863mzvg\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\base.py\", line 13, in <module>\n    import numpy as np\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py\", line 150, in <module>\n    from . import core\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 48, in <module>\n    raise ImportError(msg)\nImportError: \nIMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\nImporting the numpy C-extensions failed. This error can happen for\nmany reasons, often due to issues with your setup or how NumPy was\ninstalled.\nWe have compiled some common reasons and troubleshooting tips at:\n    https://numpy.org/devdocs/user/troubleshooting-importerror.html\nPlease note and check the following:\n  * The Python version is: Python3.9 from \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\python.exe\"\n  * The NumPy version is: \"1.21.5\"\nand make sure that they are the versions you expect.\nPlease carefully study the documentation linked above for further help.\nOriginal error was: DLL load failed while importing _multiarray_umath: The specified module could not be found.\n",
+  "history_begin_time" : 1667410386948,
+  "history_end_time" : 1667410556066,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "btzxybbubk9",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1667409184018,
+  "history_end_time" : 1667409184040,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
 },{
   "history_id" : "a4MW35g4IwFG",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  print(\"====>\\nCurrent model: \", type(hole).__name__)\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
@@ -119,6 +219,36 @@
   "host_id" : null,
   "indicator" : "Failed"
 },{
+  "history_id" : "krywk611iys",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.13161949244986\nMSE is 48.60448200593561\nR2 score is 0.6771655026307917\nRMSE is 6.971691473805737\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20221107165108.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.44766619668664986\nMSE is 2.6316546247796975\nR2 score is 0.9831274320413487\nRMSE is 1.6222375364846227\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20221107165110.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1657576259102,
+  "history_end_time" : 1657576270765,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "q0z8wbcyfyt",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.169576721193228\nMSE is 48.09556817709816\nR2 score is 0.6835230666920102\nRMSE is 6.9350968397779535\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20220607150758.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.46768364469510937\nMSE is 2.8373056397603094\nR2 score is 0.9813088111172747\nRMSE is 1.6844303606146231\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20220607150800.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1657138069625,
+  "history_end_time" : 1657138081320,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "4l99fq65fke",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.038446733747033\nMSE is 47.25978060617237\nR2 score is 0.6834252166441317\nRMSE is 6.874574940036101\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222906140451.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.4493093937257759\nMSE is 2.859233105481143\nR2 score is 0.9805186391692294\nRMSE is 1.6909267002094275\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222906140453.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656529482953,
+  "history_end_time" : 1656529494257,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
   "history_id" : "p4ixBfGqUGF6",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 5.00071862206977\nMSE is 72.44741494511618\nR2 score is 0.5277241153385532\nRMSE is 8.51160472209067\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222906082242.joblib\nfloat64\nfloat64\n(45389, 18)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.6569087063799879\nMSE is 5.941571785689106\nR2 score is 0.9609344239563875\nRMSE is 2.437533955802279\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222906082244.joblib\nFinished training and validating all the models.\n",
@@ -159,6 +289,76 @@
   "host_id" : null,
   "indicator" : "Done"
 },{
+  "history_id" : "budqhyce4er",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.072224812702801\nMSE is 47.52230271347808\nR2 score is 0.6989491251726063\nRMSE is 6.893642195057565\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806141642.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.4104190165668049\nMSE is 2.3065929094994706\nR2 score is 0.9850793681183763\nRMSE is 1.5187471512728743\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806141644.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656443792905,
+  "history_end_time" : 1656443804864,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "di0evnr3wkz",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.029073882010048\nMSE is 46.524276162425416\nR2 score is 0.6871089528606455\nRMSE is 6.820870630823122\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806141624.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.47381247796969533\nMSE is 2.8272960544589343\nR2 score is 0.9818898607339759\nRMSE is 1.6814565276744249\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806141627.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656443774535,
+  "history_end_time" : 1656443788171,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "pratx0166t0",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1656443771217,
+  "history_end_time" : 1656443780449,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "lfugtzdiprt",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.139557485071955\nMSE is 50.06634676324299\nR2 score is 0.6708888940847872\nRMSE is 7.075757681212874\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806141617.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.44343857948538096\nMSE is 2.6825210994888966\nR2 score is 0.9825136569872146\nRMSE is 1.6378403766817133\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806141619.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656443767470,
+  "history_end_time" : 1656443780435,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "656iks9gu0c",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.148516746145203\nMSE is 49.613778921296685\nR2 score is 0.6777508313966667\nRMSE is 7.04370491441093\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806130651.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.5159072083186556\nMSE is 3.7274257018857946\nR2 score is 0.976796586217216\nRMSE is 1.9306542160329474\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806130653.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656439602416,
+  "history_end_time" : 1656439614110,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ukda60h5n3i",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.083289397850709\nMSE is 47.65040704948272\nR2 score is 0.6798886709039358\nRMSE is 6.9029274260622735\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806130111.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.4641232816355399\nMSE is 2.75981353516038\nR2 score is 0.9813877213450335\nRMSE is 1.661268652313761\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806130113.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656439262251,
+  "history_end_time" : 1656439274353,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "wgnbu6h0t0w",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.142168212648218\nMSE is 51.344100616805875\nR2 score is 0.664744043323737\nRMSE is 7.165479789714425\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806125852.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.4692364293267626\nMSE is 2.54417721210786\nR2 score is 0.9834573385153429\nRMSE is 1.5950477146806172\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222806125854.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656439123055,
+  "history_end_time" : 1656439134823,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
   "history_id" : "XvSJ5nKOizgo",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 20)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.066648616289089\nMSE is 44.79697141641268\nR2 score is 0.6967490806396991\nRMSE is 6.693053967839545\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222706233517.joblib\nfloat64\nfloat64\n(45389, 20)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.45530701445189503\nMSE is 2.64894859693338\nR2 score is 0.983119883396531\nRMSE is 1.627559091687113\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_20222706233520.joblib\nFinished training and validating all the models.\n",
@@ -168,6 +368,156 @@
   "history_process" : "e8k4wq",
   "host_id" : null,
   "indicator" : "Done"
+},{
+  "history_id" : "jtzk1m2bpnv",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.116510792687905\nMSE is 49.21351244319645\nR2 score is 0.6598987349640897\nRMSE is 7.015234311353859\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222706154225.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.44129044765598374\nMSE is 2.7629336672541416\nR2 score is 0.9810318013300118\nRMSE is 1.6622074681742174\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222706154227.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656362536506,
+  "history_end_time" : 1656362547874,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "886dpsgeksh",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.142149644070472\nMSE is 49.412078116040405\nR2 score is 0.6853644609871845\nRMSE is 7.029372526480611\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222706152443.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.43239575255552537\nMSE is 2.4066393310715535\nR2 score is 0.9838324458215387\nRMSE is 1.551334693440314\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222706152445.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656361474556,
+  "history_end_time" : 1656361486127,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "r351cnp6h00",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1656361430393,
+  "history_end_time" : 1656361439589,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "csuohrgmk8a",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\ensemble\\_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 4.113186884407268\nMSE is 48.7631757720967\nR2 score is 0.6798286547810732\nRMSE is 6.983063494777682\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222706152356.joblib\nfloat64\nfloat64\n(45389, 21)\n(45389,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.4606816179062484\nMSE is 3.2252247212724723\nR2 score is 0.9793197377015809\nRMSE is 1.79589106609295\nSaving model to C:\\Users\\BLi/Documents/GitHub/SnowCast/model/wormhole_20222706152359.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1656361427752,
+  "history_end_time" : 1656361439578,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "wj26al68bqo",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\wj26al68bqo\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\wj26al68bqo\\model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1656360851433,
+  "history_end_time" : 1656360853416,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "bbrh2rvggfj",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\bbrh2rvggfj\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\bbrh2rvggfj\\model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1656360791636,
+  "history_end_time" : 1656360793690,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "886fy415qqs",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\886fy415qqs\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\886fy415qqs\\model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1656360770397,
+  "history_end_time" : 1656360772563,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "l4vxsij8zse",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1656360658292,
+  "history_end_time" : 1656360659235,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "ngn6envx1ni",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py:142: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service\n  from . import _distributor_init\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 23, in <module>\n    from . import multiarray\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\multiarray.py\", line 10, in <module>\n    from . import overrides\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\overrides.py\", line 6, in <module>\n    from numpy.core._multiarray_umath import (\nImportError: DLL load failed while importing _multiarray_umath: The specified module could not be found.\nDuring handling of the above exception, another exception occurred:\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\ngn6envx1ni\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\ngn6envx1ni\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\base.py\", line 13, in <module>\n    import numpy as np\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py\", line 144, in <module>\n    from . import core\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 49, in <module>\n    raise ImportError(msg)\nImportError: \nIMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\nImporting the numpy C-extensions failed. This error can happen for\nmany reasons, often due to issues with your setup or how NumPy was\ninstalled.\nWe have compiled some common reasons and troubleshooting tips at:\n    https://numpy.org/devdocs/user/troubleshooting-importerror.html\nPlease note and check the following:\n  * The Python version is: Python3.9 from \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\python.exe\"\n  * The NumPy version is: \"1.22.3\"\nand make sure that they are the versions you expect.\nPlease carefully study the documentation linked above for further help.\nOriginal error was: DLL load failed while importing _multiarray_umath: The specified module could not be found.\n",
+  "history_begin_time" : 1656360398261,
+  "history_end_time" : 1656360398410,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "cui0eioxv9x",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py:142: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service\n  from . import _distributor_init\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 23, in <module>\n    from . import multiarray\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\multiarray.py\", line 10, in <module>\n    from . import overrides\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\overrides.py\", line 6, in <module>\n    from numpy.core._multiarray_umath import (\nImportError: DLL load failed while importing _multiarray_umath: The specified module could not be found.\nDuring handling of the above exception, another exception occurred:\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\cui0eioxv9x\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\cui0eioxv9x\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\base.py\", line 13, in <module>\n    import numpy as np\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py\", line 144, in <module>\n    from . import core\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 49, in <module>\n    raise ImportError(msg)\nImportError: \nIMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\nImporting the numpy C-extensions failed. This error can happen for\nmany reasons, often due to issues with your setup or how NumPy was\ninstalled.\nWe have compiled some common reasons and troubleshooting tips at:\n    https://numpy.org/devdocs/user/troubleshooting-importerror.html\nPlease note and check the following:\n  * The Python version is: Python3.9 from \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\python.exe\"\n  * The NumPy version is: \"1.22.3\"\nand make sure that they are the versions you expect.\nPlease carefully study the documentation linked above for further help.\nOriginal error was: DLL load failed while importing _multiarray_umath: The specified module could not be found.\n",
+  "history_begin_time" : 1656360358867,
+  "history_end_time" : 1656360359011,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "2nm9de25ql6",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py:142: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service\n  from . import _distributor_init\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 23, in <module>\n    from . import multiarray\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\multiarray.py\", line 10, in <module>\n    from . import overrides\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\overrides.py\", line 6, in <module>\n    from numpy.core._multiarray_umath import (\nImportError: DLL load failed while importing _multiarray_umath: The specified module could not be found.\nDuring handling of the above exception, another exception occurred:\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\2nm9de25ql6\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\2nm9de25ql6\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\base.py\", line 13, in <module>\n    import numpy as np\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py\", line 144, in <module>\n    from . import core\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 49, in <module>\n    raise ImportError(msg)\nImportError: \nIMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\nImporting the numpy C-extensions failed. This error can happen for\nmany reasons, often due to issues with your setup or how NumPy was\ninstalled.\nWe have compiled some common reasons and troubleshooting tips at:\n    https://numpy.org/devdocs/user/troubleshooting-importerror.html\nPlease note and check the following:\n  * The Python version is: Python3.9 from \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\python.exe\"\n  * The NumPy version is: \"1.22.3\"\nand make sure that they are the versions you expect.\nPlease carefully study the documentation linked above for further help.\nOriginal error was: DLL load failed while importing _multiarray_umath: The specified module could not be found.\n",
+  "history_begin_time" : 1656360288219,
+  "history_end_time" : 1656360288378,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "ic2zfddxwhf",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\ic2zfddxwhf\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\ic2zfddxwhf\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nModuleNotFoundError: No module named 'sklearn'\n",
+  "history_begin_time" : 1656360137654,
+  "history_end_time" : 1656360137796,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "x3kz6l0a5v7",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\x3kz6l0a5v7\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\x3kz6l0a5v7\\model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nModuleNotFoundError: No module named 'sklearn'\n",
+  "history_begin_time" : 1656349576269,
+  "history_end_time" : 1656349576358,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "qg4vojz9utl",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1656348502837,
+  "history_end_time" : 1656348502923,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "10796z8ofo4",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/jensen/gw-workspace/10796z8ofo4/model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nModuleNotFoundError: No module named 'sklearn'\n",
+  "history_begin_time" : 1655310359805,
+  "history_end_time" : 1655310359879,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
 },{
   "history_id" : "6nicq7vbza8",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
@@ -668,4 +1018,14 @@
   "history_process" : "e8k4wq",
   "host_id" : "100001",
   "indicator" : "Done"
+},{
+  "history_id" : "cicgcw0q3ea",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1667410651123,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },]

@@ -1,0 +1,271 @@
+[{
+  "history_id" : "7mcpbts9xc1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912872,
+  "history_end_time" : 1667420912872,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gmp3fry82xe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912873,
+  "history_end_time" : 1667420912873,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lbc5fl69cpi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912873,
+  "history_end_time" : 1667420912873,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "o0ew209p4en",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912874,
+  "history_end_time" : 1667420912874,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tmn7szbz14w",
+  "history_input" : "# Find the best model\nprint(\"model comparison script\")\nprint(\"hello world\")",
+  "history_output" : "model comparison script\nhello world\n",
+  "history_begin_time" : 1667420916421,
+  "history_end_time" : 1667420916496,
+  "history_notes" : null,
+  "history_process" : "mi3e5n",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "whs5wsascrh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912875,
+  "history_end_time" : 1667420912875,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dg2y4kd86qr",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1667420917178,
+  "history_end_time" : 1667420917246,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "dt62ze1g0jq",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit()  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\dt62ze1g0jq\\service_prediction.py\", line 6, in <module>\n    import matplotlib.pyplot as plt\nModuleNotFoundError: No module named 'matplotlib'\n",
+  "history_begin_time" : 1667420917505,
+  "history_end_time" : 1667420918817,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "9oy4pu597t8",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.dtype)\n  print(hole.train_y.dtype)\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\9oy4pu597t8\\model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"C:\\Users\\BLi\\gw-workspace\\9oy4pu597t8\\model_creation_rf.py\", line 4, in <module>\n    import matplotlib.pyplot as plt\nModuleNotFoundError: No module named 'matplotlib'\n",
+  "history_begin_time" : 1667420913113,
+  "history_end_time" : 1667420914408,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "v4kb8zb7yot",
+  "history_input" : "# Test models\n\n# Random Forest model creation and save to file\n\nfrom sklearn.ensemble import RandomForestRegressor,ExtraTreesRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom datetime import datetime\n\ndef turn_doy_to_date(year, doy):\n  doy = int(doy)\n  doy = str(doy)\n  doy.rjust(3 + len(doy), '0')\n  #res = datetime.strptime(str(year) + \"-\" + doy, \"%Y-%j\").strftime(\"%m/%d/%Y\")\n  res = datetime.strptime(str(year) + \"-\" + doy, \"%Y-%j\").strftime(\"%Y-%m-%d\")\n  return res\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\ntest_ready_file = f\"{github_dir}/data/ready_for_testing/all_ready_3.csv\"\ntest_ready_pd = pd.read_csv(test_ready_file, header=0, index_col=0)\nsubmission_file = f\"{github_dir}/data/snowcast_provided/submission_format_eval.csv\"\nsubmission_pd = pd.read_csv(submission_file, header=0, index_col=0)\npredicted_file = f\"{homedir}/Documents/GitHub/SnowCast/data/results/wormhole_output_4.csv\"\n\ntrain_cols = ['year','m','doy','ndsi','grd','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','lat','lon','elevation','aspect','curvature','slope','eastness','northness']\n\nprint(test_ready_pd.shape)\npd_to_clean = test_ready_pd[train_cols]\nprint(\"PD shape: \", pd_to_clean.shape)\n\ndoy_list = test_ready_pd[\"doy\"].unique()\nprint(doy_list)\n\ndate_list = [turn_doy_to_date(2022, doy_list[i]) for i in range(len(doy_list)) ]\nprint(date_list)\n\nall_features = pd_to_clean.to_numpy()\nall_features = np.nan_to_num(all_features)\nprint(\"train feature shape: \", all_features.shape)\n#all_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\n#all_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\n#base_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic_v2.joblib\")\n#base_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic_v2.joblib\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/SnowCast/model/wormhole_20221305163806.joblib\")\ny_predicted = best_random.predict(all_features)\nprint(y_predicted) #first got daily prediction\n\ntarget_dates = [\"2022-01-13\",\"2022-01-20\",\"2022-01-27\",\"2022-02-03\",\"2022-02-10\",\"2022-02-17\",\"2022-02-24\",\"2022-03-03\",\"2022-03-10\",\"2022-03-17\",\"2022-03-24\",\"2022-03-31\",\"2022-04-07\",\"2022-04-14\",\"2022-04-21\",\"2022-04-28\",\"2022-05-05\",\"2022-05-12\",\"2022-05-19\",\"2022-05-26\",\"2022-06-02\",\"2022-06-09\",\"2022-06-16\",\"2022-06-23\",\"2022-06-30\"]\nprint(\"taregt date list: \", len(target_dates))\n\ndaily_predictions = pd.DataFrame(columns = target_dates, index = submission_pd.index)\nfor i in range(len(y_predicted)):\n  doy = all_features[i][2]\n  #print(doy)\n  ndate = turn_doy_to_date(2022, doy)\n  if ndate in target_dates:\n    cell_id = test_ready_pd[\"cell_id\"].iloc[i]\n    daily_predictions.at[cell_id, ndate] = y_predicted[i]\n  #print(ndate, cell_id)\n  #print(y_predicted[i])\n  \nprint(daily_predictions.shape)\n#daily_predictions = daily_predictions[[\"2022-01-13\"]]\n\nif os.path.exists(predicted_file):\n  os.remove(predicted_file)\n  \ndaily_predictions.fillna(0.0, inplace=True)\ndaily_predictions.to_csv(predicted_file, date_format=\"%Y-%d-%m\")\n\n\n# turn daily into weekly using mean values\n\n\n\n\n\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\v4kb8zb7yot\\model_test.py\", line 8, in <module>\n    import matplotlib.pyplot as plt\nModuleNotFoundError: No module named 'matplotlib'\n",
+  "history_begin_time" : 1667420914912,
+  "history_end_time" : 1667420916172,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "szhwk5a8cix",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912879,
+  "history_end_time" : 1667420912879,
+  "history_notes" : null,
+  "history_process" : "urd0nk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3e2w7rtkm7k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912879,
+  "history_end_time" : 1667420912879,
+  "history_notes" : null,
+  "history_process" : "525l8q",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xviph7ro7uz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912880,
+  "history_end_time" : 1667420912880,
+  "history_notes" : null,
+  "history_process" : "7temiv",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "91r55xunaj1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912880,
+  "history_end_time" : 1667420912880,
+  "history_notes" : null,
+  "history_process" : "rmxece",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bvn4ececzh6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912880,
+  "history_end_time" : 1667420912880,
+  "history_notes" : null,
+  "history_process" : "illwc1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "59nrk6nheza",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912881,
+  "history_end_time" : 1667420912881,
+  "history_notes" : null,
+  "history_process" : "sjs5by",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "970xj6eoxml",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912881,
+  "history_end_time" : 1667420912881,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3a1v1aj2iv0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912881,
+  "history_end_time" : 1667420912881,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "aom6sqnfz2h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912882,
+  "history_end_time" : 1667420912882,
+  "history_notes" : null,
+  "history_process" : "smsdr0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4nix0f5j1mt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912882,
+  "history_end_time" : 1667420912882,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rmw7fnbaehk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912883,
+  "history_end_time" : 1667420912883,
+  "history_notes" : null,
+  "history_process" : "b63prf",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dxgam5c03tu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912883,
+  "history_end_time" : 1667420912883,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5p4f0lke2ti",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912883,
+  "history_end_time" : 1667420912883,
+  "history_notes" : null,
+  "history_process" : "wdh394",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tzoksg4rjb4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912884,
+  "history_end_time" : 1667420912884,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zgujr4mgpeh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912884,
+  "history_end_time" : 1667420912884,
+  "history_notes" : null,
+  "history_process" : "ilbqzg",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jlmximfmi3c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912885,
+  "history_end_time" : 1667420912885,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "n19aozynsfd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1667420912885,
+  "history_end_time" : 1667420912885,
+  "history_notes" : null,
+  "history_process" : "do86ae",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+}]
