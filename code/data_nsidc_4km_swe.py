@@ -34,7 +34,8 @@ station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
 # open nsidc data file (netCDF)
 # crs, lat, lon, time, time_str, DEPTH, SWE, SWE_MASK
 # change to make it work
-nsidc_data_file = f"{homedir}/Documents/Geoweaver/4km_SWE_Depth_WY2019_v01.nc"
+end_year = 2019
+nsidc_data_file = f"{homedir}/Documents/Geoweaver/4km_SWE_Depth_WY{end_year}_v01.nc"
 nsidc_data_ds = nc.Dataset(nsidc_data_file)
 
 print(nsidc_data_ds)
@@ -47,7 +48,7 @@ for var in nsidc_data_ds.variables.values():
 org_name = 'nsidc'
 product_name = 'NSIDC'
 start_date = '2018-10-01'
-end_date = '2019-08-31'
+end_date = '2019-09-30'
 
 dfolder = f"{homedir}/Documents/GitHub/SnowCast/data/sim_training/{org_name}/"
 if not os.path.exists(dfolder):
@@ -170,7 +171,7 @@ for ind, current_cell_id in enumerate(scmd):
     # all_cells_df.to_csv(f"{dfolder}/test.csv", mode='a', header=False, index=False)
 
 # uncomment to bulk write at end of program
-all_cells_df.to_csv(f"{dfolder}/test.csv")
+all_cells_df.to_csv(f"{dfolder}/{end_year}nsidc_data.csv")
 
 print("finished")
 

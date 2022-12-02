@@ -10,7 +10,7 @@ import geojson
 import numpy as np
 import os.path
 
-exit() # uncomment to download new files
+# exit() # uncomment to download new files
 
 try:
     ee.Initialize()
@@ -34,8 +34,8 @@ station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
 
 org_name = 'gridmet'
 product_name = 'IDAHO_EPSCOR/GRIDMET'
-start_date = '2013-01-01'
-end_date = '2021-12-31'
+start_date = '2018-10-01'
+end_date = '2019-09-30'
 
 var_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']
 
