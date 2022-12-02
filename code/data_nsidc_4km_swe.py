@@ -35,7 +35,7 @@ station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
 # crs, lat, lon, time, time_str, DEPTH, SWE, SWE_MASK
 # change to make it work
 end_year = 2019
-nsidc_data_file = f"{homedir}/Documents/Geoweaver/4km_SWE_Depth_WY{end_year}_v01.nc"
+nsidc_data_file = f"{homedir}/Documents/data/4km_SWE_Depth_WY{end_year}_v01.nc"
 nsidc_data_ds = nc.Dataset(nsidc_data_file)
 
 print(nsidc_data_ds)
@@ -174,4 +174,3 @@ for ind, current_cell_id in enumerate(scmd):
 all_cells_df.to_csv(f"{dfolder}/{end_year}nsidc_data.csv")
 
 print("finished")
-

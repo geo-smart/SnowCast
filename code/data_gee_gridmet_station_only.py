@@ -1,4 +1,3 @@
-
 import json
 import pandas as pd
 import ee
@@ -99,6 +98,3 @@ for var in var_list:
           pass
     
     all_cell_df.to_csv(f"{dfolder}/{column_name}.csv")  
-
-
-

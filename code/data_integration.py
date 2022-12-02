@@ -11,7 +11,7 @@ import geopandas as gpd
 import geojson
 import numpy as np
 import os.path
-from datetime import datetime
+from datetime import datetime,timedelta
 
 print("integrating datasets into one dataset")
 # pd.set_option('display.max_columns', None)
@@ -35,7 +35,11 @@ station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_m
 training_feature_pd = pd.read_csv(training_feature_file, header=0, index_col=0)
 testing_feature_pd = pd.read_csv(testing_feature_file, header=0, index_col=0)
 train_labels_pd = pd.read_csv(train_labels_file, header=0, index_col=0)
-# print(training_feature_pd.head())
+print(train_labels_pd.head())
+# if "2ca6a37f-67f5-4905-864b-ddf98d956ebb" in train_labels_pd.index and "2013-01-02" in train_labels_pd.columns:
+#   print("Check one value: ", train_labels_pd.loc["2ca6a37f-67f5-4905-864b-ddf98d956ebb"]["2013-01-02"])
+# else:
+#   print("Key not existed")
 
 station_cell_mapper_pd = pd.read_csv(station_cell_mapper_file, header=0, index_col=0)
 
@@ -265,8 +269,9 @@ def prepare_training_csv_nsidc():
     input columns: [m, doy, tmmn, tmmx, pr, vpd, eto, rmax, rmin, vs]
     output column: [swe]
   """
-    all_ready_file = f"{github_dir}/data/ready_for_training/all_ready.csv"
+    all_ready_file = f"{github_dir}/data/ready_for_training/all_ready_new.csv"
     if os.path.isfile(all_ready_file):
+        print("The file already exists. Exiting..")
         return
     all_gridmet_eto_file = f"{github_dir}/data/ready_for_training/gridmet_eto_all.csv"
     gridmet_eto_all_pd = pd.read_csv(all_gridmet_eto_file, header=0, index_col=0)
@@ -301,14 +306,14 @@ def prepare_training_csv_nsidc():
     print("testing_feature_pd size: ", testing_feature_pd.shape)
     all_valid_columns = gridmet_eto_all_pd.columns.values
     all_training_pd = pd.DataFrame(
-        columns=["cell_id", "year", "m", "doy", "eto", "pr", "rmax", "rmin", "tmmn", "tmmx", "vpd", "vs", "lat", "lon",
-                 "elevation", "aspect", "curvature", "slope", "eastness", "northness", "swe", "depth"])
+        columns=["cell_id", "year", "m", "day", "eto", "pr", "rmax", "rmin", "tmmn", "tmmx", "vpd", "vs", "lat", "lon",
+                 "elevation", "aspect", "curvature", "slope", "eastness", "northness", "swe_0719", "depth_0719", "swe_snotel"])
     all_training_pd = all_training_pd.reset_index()
     for index, row in nsidc_all_pd.iterrows():
         month = row['Month']
         year = row['Year']
-        doy = row['Day']
-        print(f"Dealing {year} {month} {doy}")
+        day = row['Day']
+        print(f"Dealing {year} {month} {day}")
         lat = row['Lat']
         lon = row['Lon']
         print("lat lon: ", lat, " ", lon)
@@ -332,8 +337,18 @@ def prepare_training_csv_nsidc():
         slope = grid_terrain_pd.loc[ind, "Slope [deg]"]
         eastness = grid_terrain_pd.loc[ind, "Eastness [unitCirc.]"]
         northness = grid_terrain_pd.loc[ind, "Northness [unitCirc.]"]
+        cdate = datetime(year=int(year), month=int(month), day=int(day))
+        current_date = cdate.strftime("%Y-%m-%d")
+        
+        if cell_id in train_labels_pd.index and current_date in train_labels_pd.columns:
+#           print("Check one value: ", train_labels_pd.loc[cell_id][current_date])
+          swe_snotel = train_labels_pd.loc[cell_id][current_date]
+        else:
+          swe_snotel = -1
+#           print("Key not existed")
+
         if not np.isnan(swe):
-            json_kv = {"cell_id":cell_id,"year":year, "m":month, "doy": doy, "eto":eto, "pr":pr, "rmax":rmax, "rmin":rmin, "tmmn":tmmn, "tmmx":tmmx, "vpd":vpd, "vs":vs, "lat":lat, "lon":lon, "elevation":elevation, "aspect":aspect, "curvature":curvature, "slope":slope, "eastness":eastness, "northness":northness, "swe":swe, "depth":depth}
+            json_kv = {"cell_id":cell_id,"year":year, "m":month, "day": day, "eto":eto, "pr":pr, "rmax":rmax, "rmin":rmin, "tmmn":tmmn, "tmmx":tmmx, "vpd":vpd, "vs":vs, "lat":lat, "lon":lon, "elevation":elevation, "aspect":aspect, "curvature":curvature, "slope":slope, "eastness":eastness, "northness":northness, "swe_0719":swe, "depth_0719":depth, "swe_snotel": swe_snotel}
             print(json_kv)
             all_training_pd = all_training_pd.append(json_kv, ignore_index=True)
             print(all_training_pd.shape)

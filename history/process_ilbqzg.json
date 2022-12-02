@@ -1,59 +1,19 @@
 [{
-  "history_id" : "ay9wp3otwd8",
+  "history_id" : "t2x2ki3v271",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
-  "history_begin_time" : 1667434821998,
-  "history_end_time" : 1667434821998,
+  "history_begin_time" : 1670019638914,
+  "history_end_time" : 1670019638914,
   "history_notes" : null,
   "history_process" : "ilbqzg",
   "host_id" : "100001",
   "indicator" : "Skipped"
 },{
-  "history_id" : "zgujr4mgpeh",
+  "history_id" : "6foljy1p8od",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
-  "history_begin_time" : 1667420912884,
-  "history_end_time" : 1667420912884,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Skipped"
-},{
-  "history_id" : "tuo24cboo2k",
-  "history_input" : "No code saved",
-  "history_output" : "Skipped",
-  "history_begin_time" : 1667420799807,
-  "history_end_time" : 1667420799807,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Skipped"
-},{
-  "history_id" : "w93nyj63hab",
-  "history_input" : "No code saved",
-  "history_output" : "Skipped",
-  "history_begin_time" : 1667412122217,
-  "history_end_time" : 1667412122217,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Skipped"
-},{
-  "history_id" : "9awf8d0xivg",
-  "history_input" : "No code saved",
-  "history_output" : "Skipped",
-  "history_begin_time" : 1667411534157,
-  "history_end_time" : 1667411534157,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Skipped"
-},{
-  "history_id" : "io3vhm99d03",
-  "history_input" : "No code saved",
-  "history_output" : "Skipped",
-  "history_begin_time" : 1667411146179,
-  "history_end_time" : 1667411146179,
+  "history_begin_time" : 1667484654216,
+  "history_end_time" : 1667484654216,
   "history_notes" : null,
   "history_process" : "ilbqzg",
   "host_id" : "100001",
@@ -69,41 +29,11 @@
   "host_id" : "100001",
   "indicator" : "Skipped"
 },{
-  "history_id" : "l8d70y4rc85",
-  "history_input" : "No code saved",
-  "history_output" : "Skipped",
-  "history_begin_time" : 1667410696442,
-  "history_end_time" : 1667410696442,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Skipped"
-},{
-  "history_id" : "6noc4ud6mll",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "",
-  "history_begin_time" : 1667410661444,
-  "history_end_time" : 1667410690576,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Stopped"
-},{
   "history_id" : "l1hyqepos8r",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1667410652249,
   "history_end_time" : 1667410705882,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "asknymcb4xx",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "",
-  "history_begin_time" : 1667410576588,
-  "history_end_time" : 1667410651126,
   "history_notes" : null,
   "history_process" : "ilbqzg",
   "host_id" : "100001",
@@ -118,84 +48,4 @@
   "history_process" : "ilbqzg",
   "host_id" : "100001",
   "indicator" : "Stopped"
-},{
-  "history_id" : "w4tsltqzqis",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py:148: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service\n  from . import _distributor_init\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 22, in <module>\n    from . import multiarray\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\multiarray.py\", line 12, in <module>\n    from . import overrides\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\overrides.py\", line 7, in <module>\n    from numpy.core._multiarray_umath import (\nImportError: DLL load failed while importing _multiarray_umath: The specified module could not be found.\nDuring handling of the above exception, another exception occurred:\nTraceback (most recent call last):\n  File \"C:\\Users\\BLi\\gw-workspace\\w4tsltqzqis\\all_dependencies.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\sklearn\\base.py\", line 13, in <module>\n    import numpy as np\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\__init__.py\", line 150, in <module>\n    from . import core\n  File \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\lib\\site-packages\\numpy\\core\\__init__.py\", line 48, in <module>\n    raise ImportError(msg)\nImportError: \nIMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!\nImporting the numpy C-extensions failed. This error can happen for\nmany reasons, often due to issues with your setup or how NumPy was\ninstalled.\nWe have compiled some common reasons and troubleshooting tips at:\n    https://numpy.org/devdocs/user/troubleshooting-importerror.html\nPlease note and check the following:\n  * The Python version is: Python3.9 from \"C:\\Users\\BLi\\anaconda3\\envs\\snowcast\\python.exe\"\n  * The NumPy version is: \"1.21.5\"\nand make sure that they are the versions you expect.\nPlease carefully study the documentation linked above for further help.\nOriginal error was: DLL load failed while importing _multiarray_umath: The specified module could not be found.\n",
-  "history_begin_time" : 1667410385038,
-  "history_end_time" : 1667410556070,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "irvf9kq6c2p",
-  "history_input" : null,
-  "history_output" : "Authentication Failed. Wrong Password.",
-  "history_begin_time" : 1667409178319,
-  "history_end_time" : 1667409178840,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Failed"
-},{
-  "history_id" : "m77rfi5tdhz",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "",
-  "history_begin_time" : 1657574447357,
-  "history_end_time" : 1657574452526,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Done"
-},{
-  "history_id" : "r46vwic247w",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "",
-  "history_begin_time" : 1657137843227,
-  "history_end_time" : 1657137843926,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Failed"
-},{
-  "history_id" : "djptonczm70",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "",
-  "history_begin_time" : 1656529468667,
-  "history_end_time" : 1656529471739,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Done"
-},{
-  "history_id" : "r8bm9jxskgx",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "",
-  "history_begin_time" : 1656523431891,
-  "history_end_time" : 1656523436171,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Done"
-},{
-  "history_id" : "1d3wr4iu044",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "",
-  "history_begin_time" : 1656443771512,
-  "history_end_time" : 1656443774103,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Failed"
-},{
-  "history_id" : "w0f3hmxa1ez",
-  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\n\n#pd.set_option('display.max_columns', None)\n",
-  "history_output" : "",
-  "history_begin_time" : 1656443340744,
-  "history_end_time" : 1656443343166,
-  "history_notes" : null,
-  "history_process" : "ilbqzg",
-  "host_id" : "100001",
-  "indicator" : "Done"
 },]

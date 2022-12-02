@@ -63,5 +63,3 @@ class RandomForestHole(BaseHole):
     print('R2 score is {}'.format(r2))
     print('RMSE is {}'.format(rmse))
     return {"mae":mae, "mse": mse, "r2": r2, "rmse": rmse}
-  
-
