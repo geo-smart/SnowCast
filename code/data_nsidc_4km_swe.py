@@ -9,6 +9,12 @@ Broxton, P., X. Zeng, and N. Dawson. 2019. Daily 4 km Gridded SWE and Snow Depth
 Assimilated In-Situ and Modeled Data over the Conterminous US, Version 1. 2019-2021.
 Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center.
 https://doi.org/10.5067/0GGPB220EX6A. 11/02/2022.
+
+To enable wget to directly download netcdf from NSIDC, use:
+
+echo 'machine urs.earthdata.nasa.gov login <uid> password <password>' >> ~/.netrc
+chmod 0600 ~/.netrc
+
 """
 
 from math import cos, asin, sqrt, radians
@@ -35,6 +41,7 @@ station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
 # crs, lat, lon, time, time_str, DEPTH, SWE, SWE_MASK
 # change to make it work
 end_year = 2019
+# https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0719_SWE_Snow_Depth_v1/4km_SWE_Depth_WY2019_v01.nc
 nsidc_data_file = f"{homedir}/Documents/data/4km_SWE_Depth_WY{end_year}_v01.nc"
 nsidc_data_ds = nc.Dataset(nsidc_data_file)
 
@@ -128,49 +135,53 @@ def find_nearest_2(find_lat, find_lng):
     return curr_min_lat_idx, curr_min_lon_idx
 
 
-# generate valid pairs, or just load if they already exist
-if not os.path.exists(f"{dfolder}/valid_pairs.npy"):
-    print("file doesn't exist, generating new")
-    gen_pairs()
-lat_lon_pairs = np.load(f"{dfolder}/valid_pairs.npy")
-lat_lon_pairs_rad = np.array([[radians(x[0]), radians(x[1])] for x in lat_lon_pairs])
+def turn_nsidc_nc_to_csv():
+    # generate valid pairs, or just load if they already exist
+    if not os.path.exists(f"{dfolder}/valid_pairs.npy"):
+        print("file doesn't exist, generating new")
+        gen_pairs()
+    lat_lon_pairs = np.load(f"{dfolder}/valid_pairs.npy")
+    lat_lon_pairs_rad = np.array([[radians(x[0]), radians(x[1])] for x in lat_lon_pairs])
 
-# comment out if bulk writing!!
-# all_cells_df.to_csv(f"{dfolder}/test.csv", index=False)
+    # comment out if bulk writing!!
+    # all_cells_df.to_csv(f"{dfolder}/test.csv", index=False)
 
-for ind, current_cell_id in enumerate(scmd):
-    # comment out if bulk writing
-    # all_cells_df = pd.DataFrame(columns=columns)
+    for ind, current_cell_id in enumerate(scmd):
+        # comment out if bulk writing
+        # all_cells_df = pd.DataFrame(columns=columns)
 
-    # Location information
-    longitude = station_cell_mapper_df['lon'][ind]
-    latitude = station_cell_mapper_df['lat'][ind]
+        # Location information
+        longitude = station_cell_mapper_df['lon'][ind]
+        latitude = station_cell_mapper_df['lat'][ind]
 
-    print(latitude)
-    print(longitude)
+    #     print(latitude)
+    #     print(longitude)
 
-    # find closest lat long
-    lat_val, lon_val = find_nearest_2(latitude, longitude)
-    lat_idx = np.where(lat == lat_val)[0]
-    lon_idx = np.where(lon == lon_val)[0]
-    print(lat_val)
-    print(lon_val)
+        # find closest lat long
+        lat_val, lon_val = find_nearest_2(latitude, longitude)
+        lat_idx = np.where(lat == lat_val)[0]
+        lon_idx = np.where(lon == lon_val)[0]
+    #     print(lat_val)
+    #     print(lon_val)
 
-    depth_time = depth[:, lat_idx, lon_idx]
-    swe_time = swe[:, lat_idx, lon_idx]
+        depth_time = depth[:, lat_idx, lon_idx]
+        swe_time = swe[:, lat_idx, lon_idx]
 
-    for ele in time:
-        time_index = int(ele.data - days_1900_start)
-        time_index_dt = datetime.datetime(1900, 1, 1, 0, 0) + datetime.timedelta(int(ele.data))
-        depth_val = depth_time[time_index][0][0]
-        swe_val = swe_time[time_index][0][0]
+        for ele in time:
+            time_index = int(ele.data - days_1900_start)
+            time_index_dt = datetime.datetime(1900, 1, 1, 0, 0) + datetime.timedelta(int(ele.data))
+            depth_val = depth_time[time_index][0][0]
+            swe_val = swe_time[time_index][0][0]
 
-        all_cells_df.loc[len(all_cells_df.index)] = [time_index_dt.year, time_index_dt.month, time_index_dt.day, lat_val, lon_val, swe_val, depth_val]
+            all_cells_df.loc[len(all_cells_df.index)] = [time_index_dt.year, time_index_dt.month, time_index_dt.day, lat_val, lon_val, swe_val, depth_val]
 
-    # comment out if bulk writing
-    # all_cells_df.to_csv(f"{dfolder}/test.csv", mode='a', header=False, index=False)
+        # comment out if bulk writing
+        # all_cells_df.to_csv(f"{dfolder}/test.csv", mode='a', header=False, index=False)
 
-# uncomment to bulk write at end of program
-all_cells_df.to_csv(f"{dfolder}/{end_year}nsidc_data.csv")
+    # uncomment to bulk write at end of program
+    all_cells_df.to_csv(f"{dfolder}/{end_year}nsidc_data.csv")
 
-print("finished")
+    print("finished")
+
+# call this method to extract the 
+turn_nsidc_nc_to_csv()

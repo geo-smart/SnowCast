@@ -313,10 +313,10 @@ def prepare_training_csv_nsidc():
         month = row['Month']
         year = row['Year']
         day = row['Day']
-        print(f"Dealing {year} {month} {day}")
+#         print(f"Dealing {year} {month} {day}")
         lat = row['Lat']
         lon = row['Lon']
-        print("lat lon: ", lat, " ", lon)
+#         print("lat lon: ", lat, " ", lon)
         ind, cell_id = loc_closest_gridcell_id(lat, lon, all_valid_columns)
         swe = row['SWE']
         depth = row['Depth']
@@ -349,9 +349,9 @@ def prepare_training_csv_nsidc():
 
         if not np.isnan(swe):
             json_kv = {"cell_id":cell_id,"year":year, "m":month, "day": day, "eto":eto, "pr":pr, "rmax":rmax, "rmin":rmin, "tmmn":tmmn, "tmmx":tmmx, "vpd":vpd, "vs":vs, "lat":lat, "lon":lon, "elevation":elevation, "aspect":aspect, "curvature":curvature, "slope":slope, "eastness":eastness, "northness":northness, "swe_0719":swe, "depth_0719":depth, "swe_snotel": swe_snotel}
-            print(json_kv)
+#             print(json_kv)
             all_training_pd = all_training_pd.append(json_kv, ignore_index=True)
-            print(all_training_pd.shape)
+#             print(all_training_pd.shape)
 
     print(all_training_pd.shape)
     all_training_pd.to_csv(all_ready_file)
