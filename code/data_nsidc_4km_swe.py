@@ -44,13 +44,13 @@ end_year = 2019
 # https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0719_SWE_Snow_Depth_v1/4km_SWE_Depth_WY2019_v01.nc
 nsidc_data_file = f"{homedir}/Documents/data/4km_SWE_Depth_WY{end_year}_v01.nc"
 nsidc_data_ds = nc.Dataset(nsidc_data_file)
-
+'''
 print(nsidc_data_ds)
 for dim in nsidc_data_ds.dimensions.values():
     print(dim)
 for var in nsidc_data_ds.variables.values():
     print(var)
-
+'''
 # dates based on Water Year 2019 (not normal year)
 org_name = 'nsidc'
 product_name = 'NSIDC'
@@ -124,6 +124,12 @@ def gen_pairs():
 # use balltree to find closest neighbors, convert to radians first so the haversine thing works correctly
 # (that's why there's a separate rad thing)
 def find_nearest_2(find_lat, find_lng):
+    # generate valid pairs, or just load if they already exist
+    if not os.path.exists(f"{dfolder}/valid_pairs.npy"):
+        print("file doesn't exist, generating new")
+        gen_pairs()
+    lat_lon_pairs = np.load(f"{dfolder}/valid_pairs.npy")
+    lat_lon_pairs_rad = np.array([[radians(x[0]), radians(x[1])] for x in lat_lon_pairs])
     ball_tree = sk.BallTree(lat_lon_pairs_rad, metric="haversine")
 
     dist, ind = ball_tree.query([(radians(find_lat), radians(find_lng))], return_distance=True)
@@ -136,12 +142,7 @@ def find_nearest_2(find_lat, find_lng):
 
 
 def turn_nsidc_nc_to_csv():
-    # generate valid pairs, or just load if they already exist
-    if not os.path.exists(f"{dfolder}/valid_pairs.npy"):
-        print("file doesn't exist, generating new")
-        gen_pairs()
-    lat_lon_pairs = np.load(f"{dfolder}/valid_pairs.npy")
-    lat_lon_pairs_rad = np.array([[radians(x[0]), radians(x[1])] for x in lat_lon_pairs])
+    
 
     # comment out if bulk writing!!
     # all_cells_df.to_csv(f"{dfolder}/test.csv", index=False)
@@ -158,7 +159,7 @@ def turn_nsidc_nc_to_csv():
     #     print(longitude)
 
         # find closest lat long
-        lat_val, lon_val = find_nearest_2(latitude, longitude)
+        lat_val, lon_val = find_nearest_2(latitude, longitude, )
         lat_idx = np.where(lat == lat_val)[0]
         lon_idx = np.where(lon == lon_val)[0]
     #     print(lat_val)

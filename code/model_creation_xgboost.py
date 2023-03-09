@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error as mse
 from sklearn import metrics 
 from sklearn import tree
 import joblib
@@ -38,7 +38,7 @@ class XGBoostHole(RandomForestHole):
                                        n_estimators = 25))])
     #return rfc_pipeline
   	"""
-    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse',
+    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',
                     max_depth=None, max_features='auto', max_leaf_nodes=None,
                     max_samples=None, min_impurity_decrease=0.0,
                     #min_impurity_split=None, 

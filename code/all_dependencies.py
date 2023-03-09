@@ -21,6 +21,7 @@ from sklearn.model_selection import RandomizedSearchCV
 import json
 import pandas as pd
 import ee
+import eeauth 
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os

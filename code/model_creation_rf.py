@@ -1,4 +1,3 @@
-from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -25,7 +24,7 @@ from sklearn.model_selection import train_test_split
 from datetime import datetime
 
 homedir = os.path.expanduser('~')
-github_dir = f"{homedir}/Documents/GitHub/SnowCast"
+github_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')
 
 class RandomForestHole(BaseHole):
   

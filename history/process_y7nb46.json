@@ -1,4 +1,1264 @@
 [{
+  "history_id" : "ATO4bjohBIyF",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1678328061363,
+  "history_end_time" : 1678328064394,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "rGS5lWvEMxVL",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1678328045262,
+  "history_end_time" : 1678328048417,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "0eg65dnjg0g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678326965047,
+  "history_end_time" : 1678326965047,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ngzlolo9z3q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312067607,
+  "history_end_time" : 1678312067607,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cnbkp5r7kac",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312030749,
+  "history_end_time" : 1678312065071,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "e8w79ogg3ib",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312001422,
+  "history_end_time" : 1678312026548,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5qu492y9dnu",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1678283483000,
+  "history_end_time" : 1678283513133,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "3y24g9ya2b4",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1678241822862,
+  "history_end_time" : 1678241825950,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "zak7x5r2o2j",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1678241791978,
+  "history_end_time" : 1678241816102,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "q1nrzst2uml",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1678206364588,
+  "history_end_time" : 1678206378247,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4m34e4lt97e",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1678206136261,
+  "history_end_time" : 1678206143085,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "c05rqbptdtu",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1678201913612,
+  "history_end_time" : 1678201916911,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "63q81w1jw5e",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : 1678201866877,
+  "history_end_time" : 1678201866877,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Running"
+},{
+  "history_id" : "6r6589i69t3",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1678201569457,
+  "history_end_time" : 1678201572595,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "yr85wp2q349",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1678201337081,
+  "history_end_time" : 1678201516413,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bw4c8lo37gd",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1678155184548,
+  "history_end_time" : 1678155187651,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "y9fsh8x9fof",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1678144726296,
+  "history_end_time" : 1678154846232,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bke5bxmog9m",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1677858933433,
+  "history_end_time" : 1677867648548,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7gp3j996na2",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1677858759111,
+  "history_end_time" : 1677858774197,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "mc96ferf2dk",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1677809676102,
+  "history_end_time" : 1677809682130,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "33h2i8ec9yu",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1677809402478,
+  "history_end_time" : 1677809408821,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "zi06jjaiwft",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1677808076092,
+  "history_end_time" : 1677808079309,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "fx0fkrvd7y3",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1677797432786,
+  "history_end_time" : 1677797436098,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "0ru2cmlws9l",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1677796345057,
+  "history_end_time" : 1677796349663,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "lzpqc6e3ika",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1677792978589,
+  "history_end_time" : 1677792982220,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "4a85mpoaz5n",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1677791587737,
+  "history_end_time" : 1677791865863,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qyuliv3pjmq",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1677787474401,
+  "history_end_time" : 1677787479544,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "afm4u3izw9z",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1677787275669,
+  "history_end_time" : 1677787278824,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "9i5h1nwaie4",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1677785995004,
+  "history_end_time" : 1677786042635,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ltj0fhpxpij",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1677784288284,
+  "history_end_time" : 1677784516780,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6lldxnua72n",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "Running",
+  "history_begin_time" : 1677784205977,
+  "history_end_time" : 1677784272021,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "p8wverjj81a",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677782901809,
+  "history_end_time" : 1677782901809,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3id6xb3tf80",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677781745172,
+  "history_end_time" : 1677781745172,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jlo3f0bd92z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677719046586,
+  "history_end_time" : 1677719046586,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "iavqy35ysof",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677718179107,
+  "history_end_time" : 1677718179107,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3x7spts7roq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677679556264,
+  "history_end_time" : 1677679556265,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5fxazsxi7hm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677679507372,
+  "history_end_time" : 1677679549075,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "nqgel9fpwhk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636286844,
+  "history_end_time" : 1677636286844,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zow3hcd1cp5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636150371,
+  "history_end_time" : 1677636150371,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "egocbigu3j7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636137228,
+  "history_end_time" : 1677636142812,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pqe35e2br54",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636063762,
+  "history_end_time" : 1677636063762,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cbh84uo4wb8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677635881825,
+  "history_end_time" : 1677635881825,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7ippbpox3xi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677617762787,
+  "history_end_time" : 1677617762787,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "caqiyhxwgew",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677606170887,
+  "history_end_time" : 1677606170887,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3z4jatz449g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677606114184,
+  "history_end_time" : 1677606114184,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1jbu15xxb4g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677525426369,
+  "history_end_time" : 1677525426369,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mqo0abky02n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462325766,
+  "history_end_time" : 1677462325766,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f2utualgk0m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462312189,
+  "history_end_time" : 1677462312189,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6y2faoexs6u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462311538,
+  "history_end_time" : 1677462311538,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gsu0jd2b0jr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677428742733,
+  "history_end_time" : 1677428742733,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8tq4b44iwxl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677428687338,
+  "history_end_time" : 1677428687338,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bGqmnc81mksC",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1677427269983,
+  "history_end_time" : 1677427273151,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "wcwnu4n9glb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677426262849,
+  "history_end_time" : 1677426262849,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nszxlba8rkj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677379889798,
+  "history_end_time" : 1677379889798,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1vvcsy038j4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677379837798,
+  "history_end_time" : 1677379837798,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "v06ct8e5pka",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352477981,
+  "history_end_time" : 1677352477981,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vcfcrnqd4hh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352389913,
+  "history_end_time" : 1677352389913,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "abrag2zmqlm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352335854,
+  "history_end_time" : 1677352335854,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zq8wqtnzpin",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677344119944,
+  "history_end_time" : 1677344119944,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cgu34c1dqki",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677282602798,
+  "history_end_time" : 1677282602798,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2xklv3fou2s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273712226,
+  "history_end_time" : 1677273712226,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "18usxvblaza",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273698741,
+  "history_end_time" : 1677273703950,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wzhibg8knng",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273673906,
+  "history_end_time" : 1677273679534,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "w31vihkdrz0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273657791,
+  "history_end_time" : 1677273665452,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pbgj3w2ate1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273535998,
+  "history_end_time" : 1677273535998,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "s15smpyb0ro",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273519099,
+  "history_end_time" : 1677273525487,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "oe6ov955nzv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273371296,
+  "history_end_time" : 1677273371296,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dd08de5q3fw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273340433,
+  "history_end_time" : 1677273345441,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jbn6ux1e4us",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273323486,
+  "history_end_time" : 1677273332232,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tbp4hgdgunn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273146651,
+  "history_end_time" : 1677273146651,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zggsh0q0vw8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273100226,
+  "history_end_time" : 1677273134489,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "io9q3a75qva",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677201275677,
+  "history_end_time" : 1677201275677,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xsav9en8yfi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677192311048,
+  "history_end_time" : 1677192311048,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "y5g14wmf0dh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677192268367,
+  "history_end_time" : 1677192268367,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ir9cierib0p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677191916729,
+  "history_end_time" : 1677191916729,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tiv3n536kf5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677184296682,
+  "history_end_time" : 1677184296682,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ml22r8n4s9m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677184173538,
+  "history_end_time" : 1677184173538,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gwt9wtk4jly",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677113476454,
+  "history_end_time" : 1677113476454,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k3q9uxc46hl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677108238607,
+  "history_end_time" : 1677108238607,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h6sb4mkv111",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677108212511,
+  "history_end_time" : 1677108229727,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "m222uv8p63l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107869801,
+  "history_end_time" : 1677107869801,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qud7sunx5mn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107757952,
+  "history_end_time" : 1677107757952,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wjztsecut1f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107718296,
+  "history_end_time" : 1677107718296,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "hkbjv0zwrof",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107637154,
+  "history_end_time" : 1677107705674,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9f08q2w3jp6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107604020,
+  "history_end_time" : 1677107608762,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ammlkzu45uq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107556517,
+  "history_end_time" : 1677107562720,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "83ce2c4ump2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107524986,
+  "history_end_time" : 1677107538161,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6h08jn3awhp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107501084,
+  "history_end_time" : 1677107501084,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ev6t8qi1zae",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107474153,
+  "history_end_time" : 1677107474153,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "v5fy1b0uo5g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106516094,
+  "history_end_time" : 1677106516094,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vp4n0hi8fa7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106477047,
+  "history_end_time" : 1677106477047,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vbhx909lcvx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106431039,
+  "history_end_time" : 1677106431039,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "45vr6qjhxva",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106134887,
+  "history_end_time" : 1677106147559,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8eyuhdit42r",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106010993,
+  "history_end_time" : 1677106010993,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "G8JOVC3BCB4n",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "",
+  "history_begin_time" : 1677031252667,
+  "history_end_time" : 1677031255220,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "A0EwRuf0QG3Q",
+  "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \n                     \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \n                     \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), \\\n  \t\t\t\t\t\t\t\ttrain[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), \\\n    \t\t\t\t\t\t\ttest[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
+  "history_output" : "  File \"base_hole.py\", line 54\n    train[['swe_snotel']].to_numpy().astype('float')\n    ^\nIndentationError: unexpected indent\n",
+  "history_begin_time" : 1677031175655,
+  "history_end_time" : 1677031176913,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "l7260isbxuz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030843562,
+  "history_end_time" : 1677030843562,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "708o9n3inbi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030771143,
+  "history_end_time" : 1677030771143,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7rbusibrdih",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030672638,
+  "history_end_time" : 1677030672638,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k432820z2ra",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030563111,
+  "history_end_time" : 1677030563111,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "u9cj1kkqv9u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677025528655,
+  "history_end_time" : 1677025528655,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zidp8xvr99b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677025467290,
+  "history_end_time" : 1677025467290,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7ym1ascu7t6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677017826412,
+  "history_end_time" : 1677017826412,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1o1uv5ntiys",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677017218418,
+  "history_end_time" : 1677017218418,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wjca876jnv5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016681306,
+  "history_end_time" : 1677016681306,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xhuy8n5ptzz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016142993,
+  "history_end_time" : 1677016142993,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "92qauvrig0h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016063955,
+  "history_end_time" : 1677016063955,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8xwirrlf6pg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677015787636,
+  "history_end_time" : 1677015787636,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mcswb901m8q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677015739941,
+  "history_end_time" : 1677015739941,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "88p4tfieqxu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014884948,
+  "history_end_time" : 1677014884948,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4o31w0429eo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014795608,
+  "history_end_time" : 1677014795608,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "a1lynswmqnm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014228033,
+  "history_end_time" : 1677014228033,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zn2di98ztrk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677013908425,
+  "history_end_time" : 1677013908425,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mqxy7cr3vur",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677013833021,
+  "history_end_time" : 1677013833021,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7k6qpw4b1ud",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677011873062,
+  "history_end_time" : 1677011873062,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jlgrg4c5og8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677008198559,
+  "history_end_time" : 1677008198559,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ut21vnsam87",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677008163665,
+  "history_end_time" : 1677008163665,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6mmjyq66e7h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001999582,
+  "history_end_time" : 1677001999582,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ku4wm9d7hah",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001732239,
+  "history_end_time" : 1677001732239,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zwwvi2kiuru",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001593820,
+  "history_end_time" : 1677001593820,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7a9s9ez3qco",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677000536794,
+  "history_end_time" : 1677000536794,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2cvq9lpqs6i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676999722112,
+  "history_end_time" : 1676999722112,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "yb51al",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9lnmf4hjafq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676999599105,
+  "history_end_time" : 1676999599105,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "paz7wl4opcw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676862212341,
+  "history_end_time" : 1676862212341,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "19a6es396pj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676329536247,
+  "history_end_time" : 1676329536247,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "95hipxk5xp9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676329491758,
+  "history_end_time" : 1676329491758,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
   "history_id" : "8dn32vg7pxq",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -108,4 +1368,174 @@
   "history_process" : "y7nb46",
   "host_id" : "100001",
   "indicator" : "Done"
+},{
+  "history_id" : "8w07q6ap5z9",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785383327,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3ds1rfn39cx",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529427,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qx68aikuxj1",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677796528249,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "u3k84gvxz90",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677797113220,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "54h1pkko0xl",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809171454,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rsksqwojonq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809306580,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qwyaj747hln",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809554680,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qawf5zwbpvo",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809573425,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "njctd9elco5",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809840739,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "0q6q7gzeekx",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958291196,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xyp2jskk145",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958754114,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1c79v5p546y",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958849880,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bdh60j8gid9",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958952858,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "r631tjohulw",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959583133,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8co4d0hyujl",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959722624,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tx069jilsdq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201687051,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8m4b01y9x50",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201703967,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
 },]

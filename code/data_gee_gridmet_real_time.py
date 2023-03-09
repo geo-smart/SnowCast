@@ -12,12 +12,12 @@ import os.path
 from datetime import date
 from snowcast_utils import *
 import traceback
+import eeauth as e
 
-
-# exit() # uncomment to download new files
+#exit() # done, uncomment if you want to download new files.
 
 try:
-    ee.Initialize()
+    ee.Initialize(e.creds())
 except Exception as e:
     ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
     ee.Initialize()
@@ -29,6 +29,7 @@ print(homedir)
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
 # read grid cell
 submission_format_file = f"{github_dir}/data/snowcast_provided/submission_format_eval.csv"
+
 submission_format_df = pd.read_csv(submission_format_file, header=0, index_col=0)
 all_cell_coords_file = f"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv"
 all_cell_coords_pd = pd.read_csv(all_cell_coords_file, header=0, index_col=0)
@@ -62,14 +63,15 @@ reduced_column_list.extend(var_list)
 
 all_cell_df = pd.DataFrame(columns = column_list)
 
+
 count = 0
 
 for current_cell_id in submission_format_df.index:
 
   try:
     count+=1
-    print(f"=> Collected GridMet data for {count} cells")
-    print("collecting ", current_cell_id)
+    #print(f"=> Collected GridMet data for {count} cells") #uncomment to print
+    #print("collecting ", current_cell_id) #uncomment to print
     #single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
 
     #if os.path.exists(single_csv_file):
@@ -114,6 +116,7 @@ for current_cell_id in submission_format_df.index:
     df_list = [all_cell_df, df]
     all_cell_df = pd.concat(df_list) # merge into big dataframe
     
+    #print(all_cell_df)
     #if count % 4 == 0:
 
   except Exception as e:
@@ -122,6 +125,8 @@ for current_cell_id in submission_format_df.index:
     pass
 
 all_cell_df.to_csv(f"{dfolder}/all_vars_{start_date}_{end_date}.csv")  
+print('DONE')
+
 
 
 

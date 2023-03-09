@@ -1,0 +1,281 @@
+[{
+  "history_id" : "s3nj63y18l8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6zjqpq3ad0z",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a218uhuy9h8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "76k7t7tcrvq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ktzl9i29tza",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "mi3e5n",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1o8uij6khn1",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xjapsb5584p",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "q6i4liuzn6q",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qemou93j6ia",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dfyja43t3do",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vxq84plxswm",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "urd0nk",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "72395embuxq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "525l8q",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jphqgnkhmyi",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529425,
+  "history_notes" : null,
+  "history_process" : "7temiv",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "x15zvel86rm",
+  "history_input" : "import json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\nimport math\n\n#pd.set_option('display.max_columns', None)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n# read grid cell\ngridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells.geojson\"\nmodel_dir = f\"{github_dir}/model/\"\ntraining_feature_file = f\"{github_dir}/data/snowcast_provided/ground_measures_train_features.csv\"\ntesting_feature_file = f\"{github_dir}/data/snowcast_provided/ground_measures_test_features.csv\"\ntrain_labels_file = f\"{github_dir}/data/snowcast_provided/train_labels.csv\"\nground_measure_metadata_file = f\"{github_dir}/data/snowcast_provided/ground_measures_metadata.csv\"\n\nready_for_training_folder = f\"{github_dir}/data/ready_for_training/\"\n\nresult_mapping_file = f\"{ready_for_training_folder}station_cell_mapping.csv\"\n\n\nif os.path.exists(result_mapping_file):\n    exit()\n\n\ngridcells = geojson.load(open(gridcells_file))\ntraining_df = pd.read_csv(training_feature_file, header=0)\ntesting_df = pd.read_csv(testing_feature_file, header=0)\nground_measure_metadata_df = pd.read_csv(ground_measure_metadata_file, header=0)\ntrain_labels_df = pd.read_csv(train_labels_file, header=0)\n\nprint(\"training: \", training_df.head())\nprint(\"testing: \", testing_df.head())\nprint(\"ground measure metadata: \", ground_measure_metadata_df.head())\nprint(\"training labels: \", train_labels_df.head())\n\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1-lat2)**2 + (lon1-lon2)**2)\n  \n# prepare the training data\n\nstation_cell_mapper_df = pd.DataFrame(columns = [\"station_id\", \"cell_id\", \"lat\", \"lon\"])\n\nground_measure_metadata_df = ground_measure_metadata_df.reset_index()  # make sure indexes pair with number of rows\nfor index, row in ground_measure_metadata_df.iterrows():\n  \t\n    print(row['station_id'], row['name'], row['latitude'], row['longitude'])\n    station_lat = row['latitude']\n    station_lon = row['longitude']\n    \n    shortest_dis = 999\n    associated_cell_id = None\n    associated_lat = None\n    associated_lon = None\n    \n    for idx,cell in enumerate(gridcells['features']):\n    \n      current_cell_id = cell['properties']['cell_id']\n\n      #print(\"collecting \", current_cell_id)\n      cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n      cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n\n      dist = calculateDistance(station_lat, station_lon, cell_lat, cell_lon)\n\n      if dist < shortest_dis:\n        associated_cell_id = current_cell_id\n        shortest_dis = dist\n        associated_lat = cell_lat\n        associated_lon = cell_lon\n    \n    station_cell_mapper_df.loc[len(station_cell_mapper_df.index)] = [row['station_id'], associated_cell_id, associated_lat, associated_lon]\n    \nprint(station_cell_mapper_df.head())\nstation_cell_mapper_df.to_csv(f\"{ready_for_training_folder}station_cell_mapping.csv\")\n    \n\n\n      \n",
+  "history_output" : "/home/chetana\n",
+  "history_begin_time" : 1677785507727,
+  "history_end_time" : 1677785529426,
+  "history_notes" : null,
+  "history_process" : "rmxece",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "l775568w6ie",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529426,
+  "history_notes" : null,
+  "history_process" : "illwc1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "z9waze7tn4d",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529427,
+  "history_notes" : null,
+  "history_process" : "sjs5by",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3ds1rfn39cx",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529427,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dt21yn99a3q",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529428,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cjntghjdfp0",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529429,
+  "history_notes" : null,
+  "history_process" : "smsdr0",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yiuda2zewmi",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529429,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "taqpngvkjf6",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529430,
+  "history_notes" : null,
+  "history_process" : "b63prf",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "mwo41if51k5",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529430,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "v2wxhzqtr77",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529430,
+  "history_notes" : null,
+  "history_process" : "wdh394",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "00zzrmkejow",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529431,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zs7ns4w33z7",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529431,
+  "history_notes" : null,
+  "history_process" : "ilbqzg",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "mgvsaga824i",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529432,
+  "history_notes" : null,
+  "history_process" : "do86ae",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dl6z6f035cl",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529432,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9rsjvvfcyut",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529433,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+}]
