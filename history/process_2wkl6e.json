@@ -1,4 +1,24 @@
 [{
+  "history_id" : "zdf56w22yyg",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1678497654726,
+  "history_end_time" : 1678497657421,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "2ucdtlzg2in",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1678330790468,
+  "history_end_time" : 1678330793154,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
   "history_id" : "babqku2d94y",
   "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
   "history_output" : "deploy model to service\n",

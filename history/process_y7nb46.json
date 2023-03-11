@@ -1,4 +1,24 @@
 [{
+  "history_id" : "7kkbxdz8f7b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678497028112,
+  "history_end_time" : 1678497028112,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wrv8s5zze6m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678330214169,
+  "history_end_time" : 1678330214169,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
   "history_id" : "ATO4bjohBIyF",
   "history_input" : "'''\nThe wrapper for all the snowcast_wormhole predictors\n'''\nimport os\nimport joblib\nfrom datetime import datetime\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass BaseHole:\n  \n  all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new.csv\"\n  \n  def __init__(self):\n    self.classifier = self.get_model()\n    self.holename = self.__class__.__name__ \n    self.train_x = None\n    self.train_y = None\n    self.test_x = None\n    self.test_y = None\n    self.test_y_results = None\n    self.save_file = None\n    \n  def save(self):\n    now = datetime.now()\n    date_time = now.strftime(\"%Y%d%m%H%M%S\")\n    self.save_file = f\"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib\"\n    print(f\"Saving model to {self.save_file}\")\n    joblib.dump(self.classifier, self.save_file)\n  \n  def preprocessing(self):\n    all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)\n    input_columns = [\"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\"]\n    \n    all_cols = input_columns\n    all_cols.append(\"swe_snotel\")\n    print(\"all columns: \", all_cols)\n    print(type(i) for i in all_cols)\n    all_ready_pd = all_ready_pd[all_cols]\n#     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000\n    all_ready_pd = all_ready_pd[all_ready_pd[\"swe_snotel\"]!=-1]\n    all_ready_pd = all_ready_pd.dropna()\n    train, test = train_test_split(all_ready_pd, test_size=0.2)\n#     \"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\",\"vpd\", \"vs\", \"lat\", \"lon\",\n#                  \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"swe_snotel\"\n    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')\n    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')\n  \n  def train(self):\n    self.classifier.fit(self.train_x, self.train_y)\n  \n  def test(self):\n    self.test_y_results = self.classifier.predict(self.test_x)\n    return self.test_y_results\n  \n  def predict(self, input_x):\n    return self.classifier.predict(input_x)\n  \n  def evaluate(self):\n    pass\n  \n  def get_model(self):\n    pass\n  \n  def post_processing(self):\n    pass",
   "history_output" : "",
