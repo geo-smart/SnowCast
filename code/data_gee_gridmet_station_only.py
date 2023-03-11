@@ -8,20 +8,23 @@ import geopandas as gpd
 import geojson
 import numpy as np
 import os.path
+import eeauth as e
 
-# exit() # uncomment to download new files
+#exit() # uncomment to download new files
+'''service_account = 'eartheginegcloud@earthengine58. iam.gserviceaccount.com'
+creds = ee.ServiceAccountCredentials(service_account, '/home/chetana/bhargavi-creds.json')'''
 
 try:
-    ee.Initialize()
+  ee.Initialize(e.creds())
 except Exception as e:
-    ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
+    ee.Authenticate()# this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
     ee.Initialize()
-
+    
 # read the grid geometry file
 homedir = os.path.expanduser('~')
 print(homedir)
 # read grid cell
-github_dir = f"{homedir}/Documents/GitHub/SnowCast"
+github_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')
 # read grid cell
 station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
 station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
@@ -54,7 +57,7 @@ for var in var_list:
         try:
 
           current_cell_id = station_cell_mapper_df['cell_id'][ind]
-          print("collecting ", current_cell_id)
+          #print("collecting ", current_cell_id)
           single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
 
           if os.path.exists(single_csv_file):
@@ -97,4 +100,4 @@ for var in var_list:
           print(e)
           pass
     
-    all_cell_df.to_csv(f"{dfolder}/{column_name}.csv")  
+    all_cell_df.to_csv(f"{dfolder}/{column_name}.csv") 

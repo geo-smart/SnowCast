@@ -20,7 +20,7 @@ import os.path
 import math
 from sklearn.model_selection import RandomizedSearchCV
 
-exit()  # for now, the workflow is not ready yet
+#exit()  # for now, the workflow is not ready yet
 
 # read the grid geometry file
 
@@ -52,10 +52,11 @@ def evaluate(model, test_features, y_test, model_name):
     print('RMSE is {}'.format(rmse))
     
     return y_predicted
-
+''' 
 base_model = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib")
 basic_predicted_values = evaluate(base_model, all_features, all_labels, "Base Model")
 
 best_random = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib")
-random_predicted_values = evaluate(best_random, all_features, all_labels, "Optimized")
 
+random_predicted_values = evaluate(best_random, all_features, all_labels, "Optimized")
+'''

@@ -36,24 +36,24 @@ class BaseHole:
   
   def preprocessing(self):
     all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)
-    input_columns = ["year", "m", "day", "eto", "pr", "rmax", "rmin", "tmmn", "tmmx", "vpd", "vs", 
-                     "lat", "lon", "elevation", "aspect", "curvature", "slope", "eastness", 
-                     "northness", "swe_0719", "depth_0719"]
+    input_columns = ["year", "m", "day", "eto", "pr", "rmax", "rmin", "tmmn", "tmmx", "vpd", "vs", "lat", "lon", "elevation", "aspect", "curvature", "slope", "eastness", "northness", "swe_0719", "depth_0719"]
     
     all_cols = input_columns
     all_cols.append("swe_snotel")
     print("all columns: ", all_cols)
+    print(type(i) for i in all_cols)
     all_ready_pd = all_ready_pd[all_cols]
 #     all_ready_pd = all_ready_pd.fillna(10000) # replace all nan with 10000
     all_ready_pd = all_ready_pd[all_ready_pd["swe_snotel"]!=-1]
     all_ready_pd = all_ready_pd.dropna()
+    print("all ready df columns used for traing: ",all_ready_pd.columns)
+    print("all ready df columns shape: ",all_ready_pd.shape)
     train, test = train_test_split(all_ready_pd, test_size=0.2)
-#     "cell_id", "year", "m", "day", "eto", "pr", "rmax", "rmin", "tmmn", "tmmx", "vpd", "vs", "lat", "lon",
+#     "cell_id", "year", "m", "day", "eto", "pr", "rmax", "rmin", "tmmn", "tmmx","vpd", "vs", "lat", "lon",
 #                  "elevation", "aspect", "curvature", "slope", "eastness", "northness", "swe_0719", "depth_0719", "swe_snotel"
-    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), \
-  								train[['swe_snotel']].to_numpy().astype('float')
-    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), \
-    							test[['swe_snotel']].to_numpy().astype('float')
+    print("Training data columns: ",train.columns)
+    self.train_x, self.train_y = train[input_columns].to_numpy().astype('float'), train[['swe_snotel']].to_numpy().astype('float')
+    self.test_x, self.test_y = test[input_columns].to_numpy().astype('float'), test[['swe_snotel']].to_numpy().astype('float')
   
   def train(self):
     self.classifier.fit(self.train_x, self.train_y)

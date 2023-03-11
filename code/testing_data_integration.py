@@ -77,8 +77,12 @@ def integrate_modis():
     if os.path.isfile(f) and ".csv" in f:
       print(f)
       old_modis_pd = pd.read_csv(f, header = 0)
-      old_modis_pd = old_modis_pd.drop(columns=['date'])
-      old_modis_pd.rename(columns = {'Unnamed: 0':'date'}, inplace = True)
+      print(old_modis_pd.columns)
+      #old_modis_pd = old_modis_pd.drop(columns=['date'])
+      
+      #old_modis_pd.rename(columns = {'Unnamed: 0':'date'}, inplace = True)
+      
+      
       #cell_id_list = old_modis_pd["cell_id"].unique()
       #cell_id_list = np.insert(cell_id_list, 0, "data")
       cell_id_list = submission_format_pd.index
@@ -104,6 +108,7 @@ def integrate_modis():
   #s1_pd.loc[:, ~s1_pd.columns.str.match('Unnamed')]
   #print(new_modis_pd.head())
   new_modis_pd.to_csv(all_mod_file)
+  print("DONE-integration of modis")
 
   
 def integrate_sentinel1():
@@ -120,9 +125,11 @@ def integrate_sentinel1():
     f = os.path.join(ready_sentinel1_file, filename)
     if os.path.isfile(f) and ".csv" in f:
       print(f)
+      
       old_s1_pd = pd.read_csv(f, header = 0)
-      old_s1_pd = old_s1_pd.drop(columns=['date'])
-      old_s1_pd.rename(columns = {'Unnamed: 0':'date'}, inplace = True)
+      print(old_s1_pd.columns)
+      #old_s1_pd = old_s1_pd.drop(columns=['date'])
+      #old_s1_pd.rename(columns = {'Unnamed: 0':'date'}, inplace = True)
       #s1_pd.loc[:, ~s1_pd.columns.str.match('Unnamed')]
 
       #cell_id_list = old_s1_pd["cell_id"].unique()
@@ -146,6 +153,7 @@ def integrate_sentinel1():
         new_s1_pd.at[sdate, cellid] = float(grd)
   
   new_s1_pd.to_csv(all_sentinel1_file)
+  print("DONE-integration of sentinels1")
 
 def integrate_gridmet():
   """
@@ -188,6 +196,7 @@ def integrate_gridmet():
             new_var_pd.at[sdate, cellid] = float(newval)
   
     new_var_pd.to_csv(all_single_var_file)
+    print("DONE-integration of gridmet")
   
   
 def prepare_testing_csv():
@@ -323,6 +332,7 @@ def prepare_testing_csv():
   
   #print("Head", all_testing_pd.head())
   all_testing_pd.to_csv(all_ready_file)
+  print("created: ", all_ready_3.csv)
   
   
   

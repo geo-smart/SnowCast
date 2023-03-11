@@ -12,11 +12,12 @@ import geopandas as gpd
 import geojson
 import numpy as np
 import os.path
+import eeauth as e
 
-exit() # done, uncomment if you want to download new files.
+#exit() # done, uncomment if you want to download new files.
 
 try:
-    ee.Initialize()
+    ee.Initialize(e.creds())
 except Exception as e:
     ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
     ee.Initialize()

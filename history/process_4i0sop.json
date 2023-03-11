@@ -1,4 +1,1204 @@
 [{
+  "history_id" : "shf7crm0mls",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678497028131,
+  "history_end_time" : 1678497028131,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2ogbwecmll2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678330214192,
+  "history_end_time" : 1678330214192,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xtfibdoe926",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678326965071,
+  "history_end_time" : 1678326965071,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6vemntiap92",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312067619,
+  "history_end_time" : 1678312067619,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "c1rr7a2co9d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312030762,
+  "history_end_time" : 1678312065073,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tod7q4kymhl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312001446,
+  "history_end_time" : 1678312026549,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1f2z8nifo4c",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1678283522538,
+  "history_end_time" : 1678283525953,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "o0w9tdjojam",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1678241835184,
+  "history_end_time" : 1678241838661,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "x8yuh4712je",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1678241828170,
+  "history_end_time" : 1678241831742,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "dnprwp03q24",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1678201936674,
+  "history_end_time" : 1678201940320,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "5g3bvursgyy",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1678201350243,
+  "history_end_time" : 1678201516415,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a8xr90n5vl0",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1678155236322,
+  "history_end_time" : 1678155239981,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "pmmb4y0cc0p",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1678144758471,
+  "history_end_time" : 1678154846233,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3iutu2bouy9",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677858949228,
+  "history_end_time" : 1677867648607,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6p1x4uzaywq",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677858784605,
+  "history_end_time" : 1677858788112,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "1312jdq2wlo",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677809724239,
+  "history_end_time" : 1677809728070,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "dgem1b1kde7",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677809435194,
+  "history_end_time" : 1677809439900,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "180w5yyi98n",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1677797443585,
+  "history_end_time" : 1677797446347,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "u7xv7dvd96f",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677797149456,
+  "history_end_time" : 1677797153205,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "465n7pwmvgz",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677792995575,
+  "history_end_time" : 1677792999276,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "crhkvykmoyl",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677791604183,
+  "history_end_time" : 1677791865865,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ib5qzu9rc8s",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677787491592,
+  "history_end_time" : 1677787495393,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "tgk4sic9dz0",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677787287723,
+  "history_end_time" : 1677787291404,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "ga82foimn93",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1677786016146,
+  "history_end_time" : 1677786042646,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "e86iv97rumd",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677784303899,
+  "history_end_time" : 1677784516784,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "06n1sq4920a",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='squared_error',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1677784218240,
+  "history_end_time" : 1677784272024,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tcx8b7gwgoq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677782901818,
+  "history_end_time" : 1677782901818,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lsnz9arrw5e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677781745180,
+  "history_end_time" : 1677781745180,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ba7sb79n9xl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677719046597,
+  "history_end_time" : 1677719046597,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8u9dvvoio6l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677718179118,
+  "history_end_time" : 1677718179118,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "js8cbxheftw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677679556269,
+  "history_end_time" : 1677679556269,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2u93wyq0r0l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677679507379,
+  "history_end_time" : 1677679549085,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yh3g1x02azp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636286879,
+  "history_end_time" : 1677636286879,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "culktaymz7l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636150379,
+  "history_end_time" : 1677636150379,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f5l3at834t2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636137244,
+  "history_end_time" : 1677636142812,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jlawcgrhw3s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636063781,
+  "history_end_time" : 1677636063781,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uyjixskaf6l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677635881847,
+  "history_end_time" : 1677635881847,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vh5y3hi0bt8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677617762806,
+  "history_end_time" : 1677617762806,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rub5o38fi2z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677606170901,
+  "history_end_time" : 1677606170901,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wz7of4wsb9o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677606114217,
+  "history_end_time" : 1677606114217,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "sb5q4xa72nc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677525426544,
+  "history_end_time" : 1677525426544,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tk5fj02henb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462325776,
+  "history_end_time" : 1677462325776,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "y2ntfgq0z7j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462312300,
+  "history_end_time" : 1677462312300,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8cxe8w1tf2t",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462311693,
+  "history_end_time" : 1677462311693,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bama3WNFqDWF",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1677429040214,
+  "history_end_time" : 1677429044388,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "xhoeyk08r4f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677428742747,
+  "history_end_time" : 1677428742747,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bh8ur7vbido",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677428687352,
+  "history_end_time" : 1677428687352,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "626z5nri8sr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677426262915,
+  "history_end_time" : 1677426262915,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "462fvjmkrvj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677379889815,
+  "history_end_time" : 1677379889815,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "eei21vz7x18",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677379837817,
+  "history_end_time" : 1677379837817,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "39xze3ltupv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352478012,
+  "history_end_time" : 1677352478012,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ecn7a7gofc6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352389922,
+  "history_end_time" : 1677352389922,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2aw1z0cd1qo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352335870,
+  "history_end_time" : 1677352335870,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9cl4uo7h8m8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677344119970,
+  "history_end_time" : 1677344119970,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cgeo5z8ypdd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677282602852,
+  "history_end_time" : 1677282602852,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w7f3i2smofu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273712234,
+  "history_end_time" : 1677273712234,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3zgohf71g9l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273698749,
+  "history_end_time" : 1677273703950,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "p48aw6maa46",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273673913,
+  "history_end_time" : 1677273679535,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pogvuch6l0w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273657803,
+  "history_end_time" : 1677273665452,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ywzcb2raipy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273536010,
+  "history_end_time" : 1677273536010,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vxg68cb0awh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273519110,
+  "history_end_time" : 1677273525488,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "addp280mq2b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273371304,
+  "history_end_time" : 1677273371304,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lvaabrou4g9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273340437,
+  "history_end_time" : 1677273345441,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "67kex5or427",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273323490,
+  "history_end_time" : 1677273332233,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "en47hhgf1ve",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273146660,
+  "history_end_time" : 1677273146660,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1riomt4i43u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273100234,
+  "history_end_time" : 1677273134490,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fsv8ugoqcwa",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677201275742,
+  "history_end_time" : 1677201275742,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h36kp9jtozu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677192311066,
+  "history_end_time" : 1677192311066,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2aynj3qowm6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677192268372,
+  "history_end_time" : 1677192268372,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k8v3y81lpar",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677191916738,
+  "history_end_time" : 1677191916738,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "u33ercp7055",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677184296692,
+  "history_end_time" : 1677184296692,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xb9se3i6bky",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677184173550,
+  "history_end_time" : 1677184173550,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "kqqt73s5g9q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677113476462,
+  "history_end_time" : 1677113476462,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ym86vjj0i7j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677108238622,
+  "history_end_time" : 1677108238622,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "glc0mf5zt0o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677108212537,
+  "history_end_time" : 1677108229732,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "2zie1k5mcok",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107869808,
+  "history_end_time" : 1677107869808,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1oln9to9usy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107757957,
+  "history_end_time" : 1677107757957,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "s3ewpflyp34",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107718302,
+  "history_end_time" : 1677107718302,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gq1pg7pt7m9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107637161,
+  "history_end_time" : 1677107705676,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xp1onec5uxa",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107604028,
+  "history_end_time" : 1677107608762,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rnyb3sv7h0j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107556524,
+  "history_end_time" : 1677107562720,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bt9m7zap38w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107524996,
+  "history_end_time" : 1677107538162,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "s3qzz99kd37",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107501091,
+  "history_end_time" : 1677107501091,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "scwwnkz6wkv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107474160,
+  "history_end_time" : 1677107474160,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zmdkl8hz6lf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106516102,
+  "history_end_time" : 1677106516102,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bl2nbsxwqpi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106477058,
+  "history_end_time" : 1677106477058,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bzqpqxnb58b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106431048,
+  "history_end_time" : 1677106431048,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ti3h74crf23",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106134900,
+  "history_end_time" : 1677106147561,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pnit8a11gfe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106011026,
+  "history_end_time" : 1677106011026,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cbaT3eZeoSMP",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass XGBoostHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse',\n                    max_depth=None, max_features='auto', max_leaf_nodes=None,\n                    max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "",
+  "history_begin_time" : 1677076731727,
+  "history_end_time" : 1677076754989,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "33nn0ma9nis",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030843631,
+  "history_end_time" : 1677030843631,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ptvv7vjtig7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030771157,
+  "history_end_time" : 1677030771157,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "19od7ufrakv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030672648,
+  "history_end_time" : 1677030672648,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1o8d1xrimzv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030563273,
+  "history_end_time" : 1677030563273,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vhzwhkub0ab",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677025528668,
+  "history_end_time" : 1677025528668,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wkbc2xsshga",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677025467482,
+  "history_end_time" : 1677025467482,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "prgkmcu0b03",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677017826420,
+  "history_end_time" : 1677017826420,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "hf3darbt9cb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677017218427,
+  "history_end_time" : 1677017218427,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "osrl7y9z0yc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016681318,
+  "history_end_time" : 1677016681318,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zkgjnln0vj1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016143001,
+  "history_end_time" : 1677016143001,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ynx18w0fidj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016063961,
+  "history_end_time" : 1677016063961,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4c9sew6vr34",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677015787647,
+  "history_end_time" : 1677015787647,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qgnkwgyjf8m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677015739954,
+  "history_end_time" : 1677015739954,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zagubfia8r5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014884966,
+  "history_end_time" : 1677014884966,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ok9gvc8gtbg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014795633,
+  "history_end_time" : 1677014795633,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jsek64nbk8q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014228071,
+  "history_end_time" : 1677014228071,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "sbrtl26qpxc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677013908439,
+  "history_end_time" : 1677013908439,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xyaqak652by",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677013833049,
+  "history_end_time" : 1677013833049,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "v1cv39atdzr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677011873081,
+  "history_end_time" : 1677011873081,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p17si1l2yk4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677008198586,
+  "history_end_time" : 1677008198586,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h1n2bnqsq5i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677008163923,
+  "history_end_time" : 1677008163923,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rqwr5d64y14",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001999591,
+  "history_end_time" : 1677001999591,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "us36bjys1zg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001732251,
+  "history_end_time" : 1677001732251,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x3c37ooeizl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001593850,
+  "history_end_time" : 1677001593850,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "frukk56o3i1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677000536805,
+  "history_end_time" : 1677000536805,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bi6f7l2cco3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676999722134,
+  "history_end_time" : 1676999722134,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "yb51al",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cvvg99nns6s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676999599141,
+  "history_end_time" : 1676999599141,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4hjx810gj9p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676862212375,
+  "history_end_time" : 1676862212375,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tm9u4gr7zx1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676329536256,
+  "history_end_time" : 1676329536256,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "snvovx4nqv2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676329491783,
+  "history_end_time" : 1676329491783,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
   "history_id" : "26gh354nzbp",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -68,4 +1268,194 @@
   "history_process" : "4i0sop",
   "host_id" : "100001",
   "indicator" : "Done"
+},{
+  "history_id" : "if2zumo39py",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785383329,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yiuda2zewmi",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529429,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "e0ovefaxxq8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677796528249,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tk81wp8y3v3",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677797113223,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "javspwruiq0",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809171456,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rg4bs3b78u3",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809306583,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4fi5sjnv35h",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809554684,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "b9q5unk7egf",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809573428,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "namo4bj8htq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809840744,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fsapglvfnvc",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958291199,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "mabwwrrm13t",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958754120,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "t1qpidxrzwd",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958849882,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4zpc2wos30g",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958952861,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "g26o0f627uo",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959583137,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "s4lqujg2oz8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959722631,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ai126rxmkxg",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201687054,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vg1w6myditz",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201703970,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kjnlg99rrmj",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678206143100,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "h85hb3delxa",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678206378254,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
 },]

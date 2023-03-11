@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error as mse
 from sklearn import metrics 
 from sklearn import tree
 import joblib
@@ -35,35 +35,53 @@ def turn_doy_to_date(year, doy):
 homedir = os.path.expanduser('~')
 print(homedir)
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-test_ready_file = f"{github_dir}/data/ready_for_testing/all_ready_3.csv"
+test_ready_file = f"{github_dir}/data/ready_for_testing/all_ready_2.csv"
 test_ready_pd = pd.read_csv(test_ready_file, header=0, index_col=0)
 submission_file = f"{github_dir}/data/snowcast_provided/submission_format_eval.csv"
 submission_pd = pd.read_csv(submission_file, header=0, index_col=0)
 predicted_file = f"{homedir}/Documents/GitHub/SnowCast/data/results/wormhole_output_4.csv"
 
-train_cols = ['year','m','doy','ndsi','grd','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','lat','lon','elevation','aspect','curvature','slope','eastness','northness']
+'''
+train_cols_test = ['year','m','doy','ndsi','grd','eto','pr','rmax','rmin','tmmn','tmmx','vpd','vs','lat','lon','elevation','aspect','curvature','slope','eastness','northness']
+'''
+train_cols=['year', 'm', 'doy', 'ndsi', 'grd', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe']
 
-print(test_ready_pd.shape)
+
+print("all_read file shape: ", test_ready_pd.shape)
+print(test_ready_pd.columns)
 pd_to_clean = test_ready_pd[train_cols]
-print("PD shape: ", pd_to_clean.shape)
+print("renaming the columns of allready and saving it int PD shape: ", pd_to_clean.shape)
+print(pd_to_clean.columns)
 
 doy_list = test_ready_pd["doy"].unique()
-print(doy_list)
+print("DOY: ",doy_list)
 
 date_list = [turn_doy_to_date(2022, doy_list[i]) for i in range(len(doy_list)) ]
-print(date_list)
+print("Date: ", date_list)
 
 all_features = pd_to_clean.to_numpy()
 all_features = np.nan_to_num(all_features)
+
 print("train feature shape: ", all_features.shape)
 #all_features = pd_to_clean[["year", "m", "doy", "ndsi"]].to_numpy()
 #all_labels = pd_to_clean[["swe"]].to_numpy().ravel()
 
 #base_model = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic_v2.joblib")
 #base_model = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic_v2.joblib")
+# Get the most recent file based on creation time
+folder_path = f"{github_dir}/model"
+files = os.listdir(folder_path)
 
-best_random = joblib.load(f"{homedir}/Documents/GitHub/SnowCast/model/wormhole_20221305163806.joblib")
+# Filter out directories and non-files
+files = [f for f in files if os.path.isfile(os.path.join(folder_path, f))]
+
+# Get the most recent file based on creation time
+most_recent_file = max(files, key=lambda f: os.path.getctime(os.path.join(folder_path, f)))
+print(most_recent_file)
+best_random = joblib.load(f"{github_dir}/model/{most_recent_file}")
+
 y_predicted = best_random.predict(all_features)
+
 print(y_predicted) #first got daily prediction
 
 target_dates = ["2022-01-13","2022-01-20","2022-01-27","2022-02-03","2022-02-10","2022-02-17","2022-02-24","2022-03-03","2022-03-10","2022-03-17","2022-03-24","2022-03-31","2022-04-07","2022-04-14","2022-04-21","2022-04-28","2022-05-05","2022-05-12","2022-05-19","2022-05-26","2022-06-02","2022-06-09","2022-06-16","2022-06-23","2022-06-30"]

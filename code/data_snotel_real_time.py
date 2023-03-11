@@ -1,38 +1,31 @@
-from datetime import datetime
-from metloom.pointdata import SnotelPointData
 
+import requests
+import pandas as pd
+from bs4 import BeautifulSoup
 
-# Write first python in Geoweaver
-import os
-import urllib.request, urllib.error, urllib.parse
-import sys
-print(sys.path)
-
-try:
-    from BeautifulSoup import BeautifulSoup
-except ImportError:
-    from bs4 import BeautifulSoup
-
-nohrsc_url_format_string = "https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day}"
-
+nohrsc_url_format_string = "https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day} "
 test_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)
 
-print(test_noaa_query_url)
+print(f"url: {test_noaa_query_url}")
 
-response = urllib.request.urlopen(test_noaa_query_url)
-webContent = response.read().decode('UTF-8')
+response = requests.get(test_noaa_query_url, headers={'User-Agent': 'Mozilla'})
+parsed_html = BeautifulSoup(response.text, features='lxml')
+container_div = parsed_html.find("div", attrs={'class': 'container'})
+if container_div:
+    container_div = container_div.get_text()
+else:
+    print("could not find div the class 'container'")
 
-print(webContent)
+live_stats = parsed_html.find_all('table', attrs={'class': 'gray_data_table'})
+tables = pd.read_html(str(live_stats))
 
-
-parsed_html = BeautifulSoup(webContent)
-print(parsed_html.body.find('div', attrs={'class':'container'}).text)
-
-
-
-#snotel_point = SnotelPointData("713:CO:SNTL", "MyStation")
-#df = snotel_point.get_daily_data(
-#    datetime(2020, 1, 2), datetime(2020, 1, 20),
-#    [snotel_point.ALLOWED_VARIABLES.SWE]
-#)
-#print(df)
+table_sequence = [
+        'Raw Snowfall Observations',
+        'Snow Depth',
+        'Snow Water Equivalent Observations',
+        'Raw Precipitation Observations'
+    ]
+for idx, t in enumerate(tables):
+    print(table_sequence[idx])
+    print(t)
+    print('--------------------')

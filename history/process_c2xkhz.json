@@ -1,4 +1,1414 @@
 [{
+  "history_id" : "xeb5sawn70z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678497028014,
+  "history_end_time" : 1678497028014,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2ejwpdbgcm6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678330214071,
+  "history_end_time" : 1678330214071,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k18uk4dwdpf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678326964845,
+  "history_end_time" : 1678326964845,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h99ead68qec",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312067570,
+  "history_end_time" : 1678312067570,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t82jpuak7vh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312030701,
+  "history_end_time" : 1678312065065,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rw6ksl9vij8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678312001313,
+  "history_end_time" : 1678312026532,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vuqqdbkc216",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1678283516301,
+  "history_end_time" : 1678283519788,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "9liqxa057bu",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1678241828351,
+  "history_end_time" : 1678241831864,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "s08y29kvif0",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1678241821461,
+  "history_end_time" : 1678241824908,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "19za86dhhd7",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1678206371249,
+  "history_end_time" : 1678206377673,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hwouzwuvblj",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1678206141852,
+  "history_end_time" : 1678206144818,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "2bt2zym7lox",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1678201930640,
+  "history_end_time" : 1678201934466,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "dmketivsqrf",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : null,
+  "history_begin_time" : 1678201867441,
+  "history_end_time" : 1678201866046,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Running"
+},{
+  "history_id" : "0sfqh526ru3",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1678201344767,
+  "history_end_time" : 1678201516402,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hlbmn1dt884",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1678155216697,
+  "history_end_time" : 1678155220290,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "27u4s85lni6",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1678144751304,
+  "history_end_time" : 1678154846066,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qtln9hxtcl7",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1677858943885,
+  "history_end_time" : 1677867647863,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dmxdc33es4a",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1677858776289,
+  "history_end_time" : 1677858781510,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "a14ogs77s0e",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1677809717771,
+  "history_end_time" : 1677809721581,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "12wicwf9blm",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1677809428932,
+  "history_end_time" : 1677809432799,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "if9osv8i7z6",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1677797437203,
+  "history_end_time" : 1677797442689,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "bpfld228njv",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1677796559760,
+  "history_end_time" : 1677796565219,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "nub4sfuexdp",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1677792988149,
+  "history_end_time" : 1677792992162,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "5iek3xt7kv9",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1677791597326,
+  "history_end_time" : 1677791865848,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sxdnltjm4du",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1677787484623,
+  "history_end_time" : 1677787489885,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "gavnowi4xqm",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1677787282295,
+  "history_end_time" : 1677787285839,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "2rs58h22hf6",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1677786010772,
+  "history_end_time" : 1677786042612,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "x2punxatm7v",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1677784296938,
+  "history_end_time" : 1677784516758,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ofywcf1uvt9",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Running",
+  "history_begin_time" : 1677784212688,
+  "history_end_time" : 1677784272012,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "nt3bojj8cmg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677782901788,
+  "history_end_time" : 1677782901788,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "337pccri8v8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677781745146,
+  "history_end_time" : 1677781745146,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "a7qhrr25rq6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677719046559,
+  "history_end_time" : 1677719046559,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ze29rv6c3hy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677718179056,
+  "history_end_time" : 1677718179056,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dwigi9hzxkl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677679556248,
+  "history_end_time" : 1677679556248,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wl2yjfkaqo6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677679507342,
+  "history_end_time" : 1677679549075,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sy5xtzsa8b4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636286793,
+  "history_end_time" : 1677636286793,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8mxg7d86tcj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636150331,
+  "history_end_time" : 1677636150331,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "asijov2meqn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636137187,
+  "history_end_time" : 1677636142803,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qk8g64y25uz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677636063716,
+  "history_end_time" : 1677636063716,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qne476qs8r0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677635881756,
+  "history_end_time" : 1677635881756,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "TnQSrnK2iVwK",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1677634369621,
+  "history_end_time" : 1677634373179,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "9rqkyo8ki2r",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677617762731,
+  "history_end_time" : 1677617762731,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f2veasfms6c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677606170831,
+  "history_end_time" : 1677606170831,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7g2b7sgbmsy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677606114038,
+  "history_end_time" : 1677606114038,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ud2lmxkdq97",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677525425823,
+  "history_end_time" : 1677525425823,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "umai9anzqv9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462325736,
+  "history_end_time" : 1677462325736,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "18w0way3eeg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462311402,
+  "history_end_time" : 1677462311402,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "73r9goltsx9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677462264979,
+  "history_end_time" : 1677462264979,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x0wox9e8mjg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677428742665,
+  "history_end_time" : 1677428742665,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6iw53dto70a",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677428687265,
+  "history_end_time" : 1677428687265,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fn74yflfwn7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677426262640,
+  "history_end_time" : 1677426262640,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ipnuh2nr95a",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677379889747,
+  "history_end_time" : 1677379889747,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "i5hfwdzs4y4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677379837728,
+  "history_end_time" : 1677379837728,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "a58jawck7lq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352477920,
+  "history_end_time" : 1677352477920,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mjmfhdicx7u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352389852,
+  "history_end_time" : 1677352389852,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nwbxa7nw93r",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677352335790,
+  "history_end_time" : 1677352335790,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cbc4b1s1362",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677344119841,
+  "history_end_time" : 1677344119841,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mjpdtrgmemr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677282602427,
+  "history_end_time" : 1677282602427,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xehqbgwc50t",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273712197,
+  "history_end_time" : 1677273712197,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ddsu5ndnzy9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273698717,
+  "history_end_time" : 1677273703950,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "j25frbdaby2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273673886,
+  "history_end_time" : 1677273679526,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1fuprudpyv7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273657765,
+  "history_end_time" : 1677273665445,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kxt91gdeiqm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273535968,
+  "history_end_time" : 1677273535968,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tdkkic6jpb4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273519075,
+  "history_end_time" : 1677273525481,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a1zr34pjnob",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273371272,
+  "history_end_time" : 1677273371272,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0ofq6gb43qv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273340404,
+  "history_end_time" : 1677273345432,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "55ffuzxqorx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273323453,
+  "history_end_time" : 1677273332224,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6ecjawn70m0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273146607,
+  "history_end_time" : 1677273146607,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h8c8yeabsd2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677273100163,
+  "history_end_time" : 1677273134472,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kjmmvnd6g9o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677201275258,
+  "history_end_time" : 1677201275258,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mq1g8d6k99h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677192311022,
+  "history_end_time" : 1677192311022,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mdddimgdnpw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677192268345,
+  "history_end_time" : 1677192268345,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ypcgn9111sq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677191916687,
+  "history_end_time" : 1677191916687,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "myhhhfmglgm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677184296652,
+  "history_end_time" : 1677184296652,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qcu4k8ev8mt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677184173487,
+  "history_end_time" : 1677184173487,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "427xce757p4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677113476420,
+  "history_end_time" : 1677113476420,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "LWJaiM4UUSFT",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "",
+  "history_begin_time" : 1677108518882,
+  "history_end_time" : 1677108521780,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "mimarkxpzfl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677108238559,
+  "history_end_time" : 1677108238559,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6rgokpli3n8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677108212408,
+  "history_end_time" : 1677108228691,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5utp8sibpcd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107869781,
+  "history_end_time" : 1677107869781,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xaf8cjytyqm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107757931,
+  "history_end_time" : 1677107757931,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "e1ujnyv3hgr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107718278,
+  "history_end_time" : 1677107718278,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "on1rmj4ngwy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107637129,
+  "history_end_time" : 1677107705668,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "izo3sjjlksy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107603993,
+  "history_end_time" : 1677107608756,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tfcihf0zlbs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107556494,
+  "history_end_time" : 1677107562709,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "q15vz6dnnz6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107524960,
+  "history_end_time" : 1677107538153,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3mkt71e0i0d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107501064,
+  "history_end_time" : 1677107501064,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "d2osfkc7dix",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677107474123,
+  "history_end_time" : 1677107474123,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f05ynlipl8k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106516066,
+  "history_end_time" : 1677106516066,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t3v2a97mb48",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106477015,
+  "history_end_time" : 1677106477015,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xml0rd1rv3n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106430998,
+  "history_end_time" : 1677106430998,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "hkmtx745y17",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106134839,
+  "history_end_time" : 1677106147541,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4grwiovs4wd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677106010880,
+  "history_end_time" : 1677106010880,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1cU0YJZq8WYZ",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 22, in <module>\n    from base_hole import BaseHole\n  File \"/home/chetana/gw-workspace/1cU0YJZq8WYZ/base_hole.py\", line 54\n    train[['swe_snotel']].to_numpy().astype('float')\n    ^\nIndentationError: unexpected indent\n",
+  "history_begin_time" : 1677031067419,
+  "history_end_time" : 1677031070281,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "wg6tjlsnn24",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030843378,
+  "history_end_time" : 1677030843378,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bd60fomt5ga",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030771107,
+  "history_end_time" : 1677030771107,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "15shgumzw7k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030672594,
+  "history_end_time" : 1677030672594,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qcyascewhds",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677030561759,
+  "history_end_time" : 1677030561759,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xhloet59iq9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677025528614,
+  "history_end_time" : 1677025528614,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wfh91ttvtlf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677025466013,
+  "history_end_time" : 1677025466013,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5opu9mtm8v3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677017826385,
+  "history_end_time" : 1677017826385,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tbo2t3tp2w7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677017218392,
+  "history_end_time" : 1677017218392,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bhq7sg8s4n1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016681279,
+  "history_end_time" : 1677016681279,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "o437tnxh623",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016142963,
+  "history_end_time" : 1677016142963,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lkp022d0w2w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677016063925,
+  "history_end_time" : 1677016063925,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yf2534fbfko",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677015787611,
+  "history_end_time" : 1677015787611,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9wllzvcskjk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677015739906,
+  "history_end_time" : 1677015739906,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bknd5hh4j2k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014884878,
+  "history_end_time" : 1677014884878,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0o8kl8j4quu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014795513,
+  "history_end_time" : 1677014795513,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3z7pp4tl2gi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677014227896,
+  "history_end_time" : 1677014227896,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k3nnhc0vxg5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677013908368,
+  "history_end_time" : 1677013908368,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w7k6l7obaog",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677013832945,
+  "history_end_time" : 1677013832945,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0x5hDI4Zv4oj",
+  "history_input" : "import sys\nprint(sys.path)\n'''import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}'''",
+  "history_output" : "['/home/chetana/gw-workspace/0x5hDI4Zv4oj', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python2.7/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/usr/local/lib/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages']\n",
+  "history_begin_time" : 1677013383405,
+  "history_end_time" : 1677013384672,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "4EzYarn1DzgT",
+  "history_input" : "import sys\nprint(sys.path)\n'''import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "  File \"model_creation_rf.py\", line 56\n    \n    ^\nSyntaxError: EOF while scanning triple-quoted string literal\n",
+  "history_begin_time" : 1677013370114,
+  "history_end_time" : 1677013371318,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "wfkofrlpt84",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677011872962,
+  "history_end_time" : 1677011872962,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "pJFbc1DEgN7X",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 2, in <module>\n    import pandas as pd\nImportError: No module named pandas\n",
+  "history_begin_time" : 1677011840297,
+  "history_end_time" : 1677011841654,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Z6eslOjRbtMK",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 2, in <module>\n    import pandas as pd\nImportError: No module named pandas\n",
+  "history_begin_time" : 1677011838919,
+  "history_end_time" : 1677011840197,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "zsvNyPhPGWi9",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 2, in <module>\n    import pandas as pd\nImportError: No module named pandas\n",
+  "history_begin_time" : 1677011823846,
+  "history_end_time" : 1677011825139,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "ka20zsEZOtgG",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 2, in <module>\n    import pandas as pd\nImportError: No module named pandas\n",
+  "history_begin_time" : 1677011814266,
+  "history_end_time" : 1677011816368,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "RnsloZgdm84C",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nImportError: No module named sklearn.ensemble\n",
+  "history_begin_time" : 1677011755457,
+  "history_end_time" : 1677011756712,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "CzOQVUqwJ96U",
+  "history_input" : "pip install scikit-learn\n'''from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}'''",
+  "history_output" : "  File \"model_creation_rf.py\", line 1\n    pip install scikit-learn\n              ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1677011608913,
+  "history_end_time" : 1677011610146,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "ByRmka9welz5",
+  "history_input" : "#from sklearn.ensemble import RandomForestRegressor\nfrom sklearn import *\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 2, in <module>\n    from sklearn import *\nImportError: No module named sklearn\n",
+  "history_begin_time" : 1677011517665,
+  "history_end_time" : 1677011518861,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Ee1un3G5QtJe",
+  "history_input" : "#from sklearn.ensemble import RandomForestRegressor\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 2, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nImportError: No module named sklearn.ensemble\n",
+  "history_begin_time" : 1677011495773,
+  "history_end_time" : 1677011497050,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "74dMVy8iYr8I",
+  "history_input" : "#from sklearn.ensemble import RandomForestRegressor\nfrom sklearn import *\nimport ensemble.RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 2, in <module>\n    from sklearn import *\nImportError: No module named sklearn\n",
+  "history_begin_time" : 1677011321688,
+  "history_end_time" : 1677011322945,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "690TtQx5H8tC",
+  "history_input" : "#from sklearn.ensemble import RandomForestRegressor\nfrom sklearn import ensemble.RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "  File \"model_creation_rf.py\", line 2\n    from sklearn import ensemble.RandomForestRegressor\n                                ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1677011299353,
+  "history_end_time" : 1677011300608,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "GOVCNNArSvMv",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nImportError: No module named sklearn.ensemble\n",
+  "history_begin_time" : 1677011258207,
+  "history_end_time" : 1677011259545,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "LLbqSi1gfu1e",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = os.path.join(homedir, 'Documents', 'GitHub', 'SnowCast')\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_rf.py\", line 1, in <module>\n    from sklearn.ensemble import RandomForestRegressor\nImportError: No module named sklearn.ensemble\n",
+  "history_begin_time" : 1677010830776,
+  "history_end_time" : 1677010832208,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "sHBD11t0LtH6",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f'{homedir}/Documents/GitHub/SnowCast'\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "  File \"model_creation_rf.py\", line 28\n    github_dir = f'{homedir}/Documents/GitHub/SnowCast'\n                                                      ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1677010343778,
+  "history_end_time" : 1677010345131,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "3IW9hjNBGI2N",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f'{homedir}/Documents/GitHub/SnowCast'\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "  File \"model_creation_rf.py\", line 28\n    github_dir = f'{homedir}/Documents/GitHub/SnowCast'\n                                                      ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1677009499658,
+  "history_end_time" : 1677009500915,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "RTA6LmGZVkS5",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\n\nhomedir = os.path.expanduser('~')\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nclass RandomForestHole(BaseHole):\n  \n  def get_model(self):\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    return rfc_pipeline\n\n  def evaluate(self):\n    mae = metrics.mean_absolute_error(self.test_y, self.test_y_results)\n    mse = metrics.mean_squared_error(self.test_y, self.test_y_results)\n    r2 = metrics.r2_score(self.test_y, self.test_y_results)\n    rmse = math.sqrt(mse)\n\n    print(\"The random forest model performance for testing set\")\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    return {\"mae\":mae, \"mse\": mse, \"r2\": r2, \"rmse\": rmse}",
+  "history_output" : "  File \"model_creation_rf.py\", line 28\n    github_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n                                                      ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1677008746926,
+  "history_end_time" : 1677008748401,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "6dk3b2gb30e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677008198514,
+  "history_end_time" : 1677008198514,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tznsqw5ihx0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677008162523,
+  "history_end_time" : 1677008162523,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uhi1icbk1wk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001999525,
+  "history_end_time" : 1677001999525,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "q7l87ze0f10",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001732191,
+  "history_end_time" : 1677001732191,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dwgpscw97kw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677001593719,
+  "history_end_time" : 1677001593719,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cscsga0z4ae",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677000536724,
+  "history_end_time" : 1677000536724,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2ivgnhzp71i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676999722039,
+  "history_end_time" : 1676999722039,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "yb51al",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dgn9w1jxohg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676999598980,
+  "history_end_time" : 1676999598980,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f1hcf4rz9hb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676862212217,
+  "history_end_time" : 1676862212217,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "428xb6awv0g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676329536183,
+  "history_end_time" : 1676329536183,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nxelhaoiq2p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676329491679,
+  "history_end_time" : 1676329491679,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
   "history_id" : "jt1kka002zj",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -478,4 +1888,174 @@
   "history_process" : "c2xkhz",
   "host_id" : "100001",
   "indicator" : "Done"
+},{
+  "history_id" : "ayxd3c8t2qf",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785383312,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a218uhuy9h8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4lmu1pn2bsi",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677796528249,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fz2rwh92jp9",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677797113209,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "trr6ppi2el3",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809171446,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wv2r49w2apc",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809306567,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "61r5u0w6tmq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809554660,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vs1rhtovckh",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809573401,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6mjr84iy512",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809840704,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jx5e0bc12qq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958291171,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "o87dc78w9kx",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958754095,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jc59sh8y2rc",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958849864,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "onayojri8q4",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958952845,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1ovm1r5b5hi",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959583109,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zszq29sjzp1",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959722590,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vco2p04dqgp",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201687034,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "z4adkcfoopq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201703953,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
 },]
