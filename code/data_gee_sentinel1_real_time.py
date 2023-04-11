@@ -4,10 +4,9 @@
 
 from all_dependencies import *
 from snowcast_utils import *
-import eeauth as e
 
 try:
-    ee.Initialize(e.creds())
+    ee.Initialize()
 except Exception as e:
     ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
     ee.Initialize()
@@ -59,11 +58,12 @@ for current_cell_id in submission_format_df.index:
       # identify a 500 meter buffer around our Point Of Interest (POI)
       poi = ee.Geometry.Point(longitude, latitude).buffer(10)
 
-      viirs = (ee.ImageCollection(product_name)
-               .filterDate(start_date, end_date)
-               .filterBounds(poi)
-             .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV'))
-               .select('VV'))
+      viirs = ee.ImageCollection(product_name) \
+          	.filterDate(start_date, end_date) \
+            .filterBounds(poi) \
+          	.filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV')) \
+      		.select('VV')
+      
       def poi_mean(img):
           reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi)
           mean = reducer.get(var_name)

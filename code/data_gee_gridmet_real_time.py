@@ -1,132 +1,82 @@
-
-import json
 import pandas as pd
-import ee
-import seaborn as sns
-import matplotlib.pyplot as plt
-import os
-import geopandas as gpd
-import geojson
-import numpy as np
-import os.path
-from datetime import date
-from snowcast_utils import *
-import traceback
-import eeauth as e
-
-#exit() # done, uncomment if you want to download new files.
-
-try:
-    ee.Initialize(e.creds())
-except Exception as e:
-    ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
-    ee.Initialize()
-
-# read the grid geometry file
-homedir = os.path.expanduser('~')
-print(homedir)
-# read grid cell
-github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-# read grid cell
-submission_format_file = f"{github_dir}/data/snowcast_provided/submission_format_eval.csv"
-
-submission_format_df = pd.read_csv(submission_format_file, header=0, index_col=0)
-all_cell_coords_file = f"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv"
-all_cell_coords_pd = pd.read_csv(all_cell_coords_file, header=0, index_col=0)
-
-print(submission_format_df.shape)
-
-#org_name = 'modis'
-#product_name = f'MODIS/006/MOD10A1'
-#var_name = 'NDSI'
-#column_name = 'mod10a1_ndsi'
-
-org_name = 'gridmet'
-product_name = 'IDAHO_EPSCOR/GRIDMET'
-#start_date = "2022-04-20"#test_start_date
-start_date = findLastStopDate(f"{github_dir}/data/sim_testing/{org_name}/", "%Y-%m-%d %H:%M:%S")
-end_date = test_end_date
-#start_date = "2022-04-06"
-#end_date = "2022-04-18"
-
-var_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']
+import xarray as xr
+from loaders import ProgressLoader
+from datetime import datetime, timedelta
 
 
-dfolder = f"{homedir}/Documents/GitHub/SnowCast/data/sim_testing/{org_name}/"
-if not os.path.exists(dfolder):
-  os.makedirs(dfolder)
-  
-column_list = ['date', 'cell_id', 'latitude', 'longitude']
-column_list.extend(var_list)
-reduced_column_list = ['date']
-reduced_column_list.extend(var_list)
+start_date = datetime(2000, 1, 1)
+end_date = datetime(2000, 1, 2)
 
-all_cell_df = pd.DataFrame(columns = column_list)
+filename = "output.csv"
+header_written = False
 
+all_cell_coords_path = "data/all_cell_coords_file.csv"
+all_cell_coords_df = pd.read_csv(all_cell_coords_path)
 
-count = 0
+submission_eval_path = "data/submission_format_eval.csv"
+submission_eval_df = pd.read_csv(submission_eval_path)
 
-for current_cell_id in submission_format_df.index:
+df = pd.DataFrame(columns=['date', 'tmmx', 'tmmn', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs', 'cell_id', 'latitude',
+                           'longitude'])
 
-  try:
-    count+=1
-    #print(f"=> Collected GridMet data for {count} cells") #uncomment to print
-    #print("collecting ", current_cell_id) #uncomment to print
-    #single_csv_file = f"{dfolder}/{column_name}_{current_cell_id}.csv"
+loader = ProgressLoader(total=len(submission_eval_df) * (int((end_date - start_date).days) + 1))
 
-    #if os.path.exists(single_csv_file):
-    #  os.remove(single_csv_file)
-    #  print("exists skipping..")
-    #  continue
+for idx, row in submission_eval_df.iterrows():
+    longitude = all_cell_coords_df['lon'][idx]
+    latitude = all_cell_coords_df['lat'][idx]
 
-    longitude = all_cell_coords_pd['lon'][current_cell_id]
-    latitude = all_cell_coords_pd['lat'][current_cell_id]
+    for n in range((end_date - start_date).days + 1):
+        current_date = start_date + timedelta(n)
+        data_files = {
+            'tmmx': xr.open_dataset(f'data/tmmx_{current_date.year}.nc'),
+            'tmmn': xr.open_dataset(f'data/tmmn_{current_date.year}.nc'),
+            'pr': xr.open_dataset(f'data/pr_{current_date.year}.nc'),
+            'vpd': xr.open_dataset(f'data/vpd_{current_date.year}.nc'),
+            'pet': xr.open_dataset(f'data/pet_{current_date.year}.nc'),
+            'rmax': xr.open_dataset(f'data/rmax_{current_date.year}.nc'),
+            'rmin': xr.open_dataset(f'data/rmin_{current_date.year}.nc'),
+            'vs': xr.open_dataset(f'data/vs_{current_date.year}.nc'),
+        }
+        row_builder = {
+            'date': current_date,
+            'cell_id': all_cell_coords_df['cell_id'][idx],
+            'latitude': latitude,
+            'longitude': longitude,
+        }
 
-    # identify a 500 meter buffer around our Point Of Interest (POI)
-    poi = ee.Geometry.Point(longitude, latitude).buffer(1000)
-    viirs = ee.ImageCollection(product_name).filterDate(start_date, end_date).filterBounds(poi).select(var_list)
+        for variable, data in data_files.items():
+            selector = str()
 
-    def poi_mean(img):
-      reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=1000)
-      img = img.set('date', img.date().format());
-      for var in var_list:
-        column_name = var
-        mean = reducer.get(column_name)
-        img = img.set(column_name,mean)
-      return img
+            if variable == "tmmx" or variable == "tmmn":
+                selector = "air_temperature"
+            if variable == "pr":
+                selector = "precipitation_amount"
+            if variable == "vpd":
+                selector = "mean_vapor_pressure_deficit"
+            if variable == "pet":
+                selector = "potential_evapotranspiration"
+            if variable == "rmax" or variable == "rmin":
+                selector = "relative_humidity"
+            if variable == "vs":
+                selector = "wind_speed"
 
+            tmp = data.sel(lat=latitude, lon=longitude, day=current_date, method='nearest')
+            val = tmp[selector].values
+            row_builder[variable] = val
+            # values = data.sel(lat=latitude, lon=longitude, day=current_date, method='nearest')[selector].values
+            # row_builder[variable] = values.item() if np.isscalar(values) else values[0]
+        df = df.append(row_builder, ignore_index=True)
+        if not header_written:
+            with open(filename, 'w') as f:
+                f.write('date,cell_id,latitude,longitude,tmmx,tmmn,pr,vpd,pet,rmax,rmin,vs\n')
+                header_written = True
+        print(row_builder)
+        # write row to file
+        with open(filename, 'a') as f:
+            f.write(
+                f"{row_builder['date']},{row_builder['cell_id']},{row_builder['latitude']},{row_builder['longitude']},{row_builder['tmmx']},{row_builder['tmmn']},{row_builder['pr']},{row_builder['vpd']},{row_builder['pet']},{row_builder['rmax']},{row_builder['rmin']},{row_builder['vs']}\n")
 
-    poi_reduced_imgs = viirs.map(poi_mean)
-
-    nested_list = poi_reduced_imgs.reduceColumns(ee.Reducer.toList(9), reduced_column_list).values().get(0)
-
-    # dont forget we need to call the callback method "getInfo" to retrieve the data
-    df = pd.DataFrame(nested_list.getInfo(), columns=reduced_column_list)
-
-    df['date'] = pd.to_datetime(df['date'])
-    df = df.set_index('date')
-
-    df['cell_id'] = current_cell_id
-    df['latitude'] = latitude
-    df['longitude'] = longitude
-    #df.to_csv(single_csv_file)
-
-    #print(df.head())
-    
-    df_list = [all_cell_df, df]
-    all_cell_df = pd.concat(df_list) # merge into big dataframe
-    
-    #print(all_cell_df)
-    #if count % 4 == 0:
-
-  except Exception as e:
-    print(traceback.format_exc())
-    print("Failed: ", e)
-    pass
-
-all_cell_df.to_csv(f"{dfolder}/all_vars_{start_date}_{end_date}.csv")  
-print('DONE')
-
-
+        loader.progress()
+# df.to_csv('test.csv', index=False)
 
 

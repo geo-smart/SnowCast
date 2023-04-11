@@ -1,4 +1,34 @@
 [{
+  "history_id" : "ki2x427vrqv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679442743730,
+  "history_end_time" : 1679442743730,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "be000x8ibv3",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/home/chetana/gw-workspace/be000x8ibv3/model_creation_rf.py\", line 2, in <module>\n    import pandas as pd\n",
+  "history_begin_time" : 1679332593308,
+  "history_end_time" : 1679332596587,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Failed"
+},{
+  "history_id" : "8z9do8ewdiu",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1678748553753,
+  "history_end_time" : 1678748555367,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
   "history_id" : "taitgqe9p4x",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f0994c6f580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.10220976077627292\nMSE is 0.09558901582589618\nR2 score is 0.9997310124915789\nRMSE is 0.3091747334856071\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231103011949.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f0994c6f430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/taitgqe9p4x/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.008346055979659275\nMSE is 0.0020597302798982366\nR2 score is 0.9999932798673553\nRMSE is 0.045384251452439274\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231103011950.joblib\nFinished training and validating all the models.\n",
@@ -357,6 +387,16 @@
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
+  "indicator" : "Failed"
+},{
+  "history_id" : "7d1xupm1eg0",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/gokulprathin/gw-workspace/7d1xupm1eg0/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/gokulprathin/gw-workspace/7d1xupm1eg0/model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1677582854350,
+  "history_end_time" : 1677582857715,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
   "indicator" : "Failed"
 },{
   "history_id" : "8iu3kabfmnb",
@@ -1239,6 +1279,86 @@
   "host_id" : "100001",
   "indicator" : "Failed"
 },{
+  "history_id" : "d3ib9r9b5fy",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/gokulprathin/gw-workspace/d3ib9r9b5fy/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/gokulprathin/gw-workspace/d3ib9r9b5fy/model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1676063620879,
+  "history_end_time" : 1676063631657,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "b945g9008y1",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/gokulprathin/gw-workspace/b945g9008y1/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/gokulprathin/gw-workspace/b945g9008y1/model_creation_rf.py\", line 15, in <module>\n    import geopandas as gpd\nModuleNotFoundError: No module named 'geopandas'\n",
+  "history_begin_time" : 1675783791156,
+  "history_end_time" : 1675783797467,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "GB6uXJ7Jaq3T",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/GB6uXJ7Jaq3T/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0769607809462483\nMSE is 0.05901174665945447\nR2 score is 0.9998064466258989\nRMSE is 0.24292333494222917\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20230301185713.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0054045801526868276\nMSE is 0.0006947192536047508\nR2 score is 0.9999977530247074\nRMSE is 0.02635752745620785\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20230301185713.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1672790230390,
+  "history_end_time" : 1672790234209,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "dfqi8merlzt",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/dfqi8merlzt/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0712868139662187\nMSE is 0.05075834739549261\nR2 score is 0.9998303827787403\nRMSE is 0.2252961326687447\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20222512193631.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.010462256149294196\nMSE is 0.004409071246819277\nR2 score is 0.9999848981666244\nRMSE is 0.06640083769666824\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20222512193631.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1672014988936,
+  "history_end_time" : 1672014991783,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ebglvw390si",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/ebglvw390si/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.11251534425630226\nMSE is 0.0959225541149272\nR2 score is 0.9997364830372392\nRMSE is 0.3097136647210245\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20222412235953.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.007690415606461686\nMSE is 0.001494514843087153\nR2 score is 0.999995368280364\nRMSE is 0.0386589555353886\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20222412235954.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1671944391666,
+  "history_end_time" : 1671944394456,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "10mi85sgeea",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/10mi85sgeea/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09293667306017624\nMSE is 0.10145752175529063\nR2 score is 0.9996924355772523\nRMSE is 0.3185239735958514\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20221212235025.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.006423240033944422\nMSE is 0.001216368956742977\nR2 score is 0.9999962801992777\nRMSE is 0.03487648142721649\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20221212235026.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1670910623319,
+  "history_end_time" : 1670910626255,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "zoe5hlzjayq",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/zoe5hlzjayq/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.07952067896157462\nMSE is 0.06366527377581417\nR2 score is 0.999805724091789\nRMSE is 0.25231978474906436\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20221212234830.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.005848176420711594\nMSE is 0.0010156191687871491\nR2 score is 0.9999969227537053\nRMSE is 0.03186878047222939\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20221212234830.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1670910507981,
+  "history_end_time" : 1670910510725,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ofgl3udxdx7",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/ofgl3udxdx7/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09077613524730431\nMSE is 0.08225702124048138\nR2 score is 0.9997554204726409\nRMSE is 0.2868048487046225\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20221212234437.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.007999151823596888\nMSE is 0.0024498210347752188\nR2 score is 0.9999927820557197\nRMSE is 0.049495666828271126\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20221212234438.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1670910275642,
+  "history_end_time" : 1670910278432,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
   "history_id" : "WogxEf6EhZ88",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/WogxEf6EhZ88/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09895586689358928\nMSE is 0.08288206647447116\nR2 score is 0.9997476081111475\nRMSE is 0.28789245643898204\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20221112011946.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.00870907548771886\nMSE is 0.006146308736216998\nR2 score is 0.9999831073898042\nRMSE is 0.07839839753602747\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20221112011947.joblib\nFinished training and validating all the models.\n",
@@ -2059,331 +2179,11 @@
   "host_id" : "100001",
   "indicator" : "Done"
 },{
-  "history_id" : "q0tcjh7n0na",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677107538157,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "jlkqnu6yj9w",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677107562714,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "5yyr2530h4k",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677107608759,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "sc5peq1grcr",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677107705671,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "fadzjbdzgju",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273134480,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "049ay289ex3",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273345437,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "pq3su2cjm7h",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273525482,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "yet9lhgmq1h",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273679530,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "rrvj6mg69uv",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273703950,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "y2fqflxogd9",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677636142808,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "zrjaifr44xl",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677679549075,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "ag0pzfs74rm",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677784272019,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "t5xirgbfobf",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677784516774,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "x7n8ckn6wvs",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677785383323,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "qemou93j6ia",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677785529412,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "08s63esjfy2",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677786042628,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "5qv06mxy703",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677791865856,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "9n7ux874dok",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677796528249,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "zv1e726tf6a",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677797113214,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
   "history_id" : "mgel2417uco",
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
   "history_end_time" : 1677809171449,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "9xarg1gsfqo",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809306573,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "bposf9tfips",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809554668,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "ldznmicq0il",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809573412,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "rwld53xdzqh",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809840721,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "4104xbggjiq",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677867648131,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "91s09zu2k4r",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677958291184,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "9p4y36l07ac",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677958754102,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "mezx4x7lfmh",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677958849871,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "nwf9o3svq6g",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677958952852,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "sv07f93cuvg",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677959583118,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "wocsk6j6d4f",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677959722604,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "uz479nzgurk",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1678201516409,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "bcuwh45tqg0",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1678201687043,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
@@ -2399,11 +2199,321 @@
   "host_id" : "45wlwr",
   "indicator" : "Stopped"
 },{
+  "history_id" : "5qv06mxy703",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677791865856,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qemou93j6ia",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zv1e726tf6a",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677797113214,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rwld53xdzqh",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809840721,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fadzjbdzgju",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273134480,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wocsk6j6d4f",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959722604,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sc5peq1grcr",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677107705671,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sv07f93cuvg",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959583118,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
   "history_id" : "ujxwgv4q25w",
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
   "history_end_time" : 1678206143053,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rrvj6mg69uv",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273703950,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6f098a5s9tk",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678312026541,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zrjaifr44xl",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677679549075,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4104xbggjiq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677867648131,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bcuwh45tqg0",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201687043,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "mezx4x7lfmh",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958849871,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yet9lhgmq1h",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273679530,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ldznmicq0il",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809573412,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "08s63esjfy2",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677786042628,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9xarg1gsfqo",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809306573,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "049ay289ex3",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273345437,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "nwf9o3svq6g",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958952852,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "91s09zu2k4r",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958291184,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "x7n8ckn6wvs",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785383323,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5yyr2530h4k",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677107608759,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jlkqnu6yj9w",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677107562714,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pq3su2cjm7h",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273525482,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "q0tcjh7n0na",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677107538157,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bposf9tfips",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809554668,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "y2fqflxogd9",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677636142808,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "t5xirgbfobf",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677784516774,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9n7ux874dok",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677796528249,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "uz479nzgurk",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201516409,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
@@ -2419,11 +2529,21 @@
   "host_id" : "45wlwr",
   "indicator" : "Stopped"
 },{
-  "history_id" : "6f098a5s9tk",
+  "history_id" : "9p4y36l07ac",
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
-  "history_end_time" : 1678312026541,
+  "history_end_time" : 1677958754102,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ag0pzfs74rm",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677784272019,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",

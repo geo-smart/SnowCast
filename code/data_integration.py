@@ -14,14 +14,12 @@ import os.path
 from datetime import datetime,timedelta
 
 print("integrating datasets into one dataset")
-# pd.set_option('display.max_columns', None)'''
+# pd.set_option('display.max_columns', None)
 
 # read the grid geometry file
 homedir = os.path.expanduser('~')
 print(homedir)
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-file = f'{github_dir}/data/snowcast_provided/grid_cells.geojson'
-
 # read grid cell
 gridcells_file = f"{github_dir}/data/snowcast_provided/grid_cells.geojson"
 model_dir = f"{github_dir}/model/"
@@ -31,8 +29,8 @@ train_labels_file = f"{github_dir}/data/snowcast_provided/train_labels.csv"
 ground_measure_metadata_file = f"{github_dir}/data/snowcast_provided/ground_measures_metadata.csv"
 station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
 
-
 # example_mod_file = f"{github_dir}/data/modis/mod10a1_ndsi_f191fe19-0e81-4bc9-9980-29738a05a49b.csv"
+
 
 training_feature_pd = pd.read_csv(training_feature_file, header=0, index_col=0)
 testing_feature_pd = pd.read_csv(testing_feature_file, header=0, index_col=0)
@@ -380,10 +378,11 @@ def prepare_training_csv_nsidc():
   """
 
 
-# exit() # done already
+exit() # done already
 
 # integrate_modis()
 # integrate_sentinel1()
 # integrate_gridmet()
 # prepare_training_csv()
+
 prepare_training_csv_nsidc()
