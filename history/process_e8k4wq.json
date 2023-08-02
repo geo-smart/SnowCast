@@ -1,4 +1,534 @@
 [{
+  "history_id" : "k1vrmetl5un",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1689632038300,
+  "history_end_time" : 1689632039740,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "1wt0yrk7m7a",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/home/chetana/gw-workspace/1wt0yrk7m7a/model_creation_rf.py\", line 35\n    df['date'] = pd.to_datetime(df['date']).astype('int64') / 10**9X = df.drop('swe_value', axis=1)\n                                                                   ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1689631641862,
+  "history_end_time" : 1689631644152,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "07li8uld028",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1689135066106,
+  "history_end_time" : 1689135069117,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "hp0f029yfyv",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/home/chetana/gw-workspace/hp0f029yfyv/model_creation_rf.py\", line 5, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1688416681665,
+  "history_end_time" : 1688416822947,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4nuh00uckog",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/home/chetana/gw-workspace/4nuh00uckog/model_creation_rf.py\", line 5, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1688416644524,
+  "history_end_time" : 1688416660666,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "0mnhFjExBjDR",
+  "history_input" : "# this process will train multiple ML models on the prepared csv and validate them on the pre-separated validation dataset, and output the metrics.\n\nfrom model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/home/chetana/gw-workspace/0mnhFjExBjDR/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f5fd80b5900>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09531567363412687\nMSE is 0.09980181469726754\nR2 score is 0.9996934413394774\nRMSE is 0.31591425212748403\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20232606220940.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f5fd7d6f120>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0064597116200319745\nMSE is 0.000988814249363831\nR2 score is 0.9999967233613378\nRMSE is 0.03144541698505254\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20232606220941.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1687817352410,
+  "history_end_time" : 1687817382249,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "fejj9rvuc67",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/fejj9rvuc67/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fa3b8295200>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08896847922223779\nMSE is 0.0894091593135618\nR2 score is 0.9997033308917558\nRMSE is 0.2990136440257565\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20232306150741.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fa3ca1ecc10>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.009579304495349817\nMSE is 0.002884697201017779\nR2 score is 0.9999903814149576\nRMSE is 0.053709377216811766\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20232306150741.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1687547259063,
+  "history_end_time" : 1687547262172,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5sfmdsie8w2",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1687463692644,
+  "history_end_time" : 1687463694088,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "zwu6lt5uw41",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1687463645261,
+  "history_end_time" : 1687463646700,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "deqf31junym",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "sh: /home/chetana/anaconda3/condabin/python: No such file or directory\n",
+  "history_begin_time" : 1686235972306,
+  "history_end_time" : 1686235985409,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "262hnv8hzi3",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/home/chetana/gw-workspace/262hnv8hzi3/model_creation_rf.py\", line 28\n    github_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n                                                      ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1686235542298,
+  "history_end_time" : 1686235543454,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Done"
+},{
+  "history_id" : "boakjhpx7v4",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "sh: /home/chetana/anaconda3/condabin/python: No such file or directory\n",
+  "history_begin_time" : 1686235463325,
+  "history_end_time" : 1686235482623,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4kmbcgynhrm",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Running",
+  "history_begin_time" : 1686235421331,
+  "history_end_time" : 1686235424152,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Done"
+},{
+  "history_id" : "g2rgslxhmg6",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/home/chetana/gw-workspace/g2rgslxhmg6/model_creation_rf.py\", line 28\n    github_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n                                                      ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1686153671766,
+  "history_end_time" : 1686153674155,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Done"
+},{
+  "history_id" : "ka1opsz7ago",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1681516931475,
+  "history_end_time" : 1681516932946,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "cyallz5pmqj",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1681039712827,
+  "history_end_time" : 1681039714264,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "yw1u5c1a4r0",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1681039694858,
+  "history_end_time" : 1681039697760,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ng1myvsj16d",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1681007824389,
+  "history_end_time" : 1681007825812,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "ki2x427vrqv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679442743730,
+  "history_end_time" : 1679442743730,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "be000x8ibv3",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/home/chetana/gw-workspace/be000x8ibv3/model_creation_rf.py\", line 2, in <module>\n    import pandas as pd\n",
+  "history_begin_time" : 1679332593308,
+  "history_end_time" : 1679332596587,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Failed"
+},{
+  "history_id" : "2weoe8ujkpj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679191258474,
+  "history_end_time" : 1679191258474,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "2jifky",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0czhvzbhmg5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679091534915,
+  "history_end_time" : 1679091744925,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "10kl9p09lxi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679091525168,
+  "history_end_time" : 1679091533643,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "z6rhindv9zb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887964044,
+  "history_end_time" : 1678888215691,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3ttludh2whv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887944904,
+  "history_end_time" : 1678887946442,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jtlcnya49fm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678886689925,
+  "history_end_time" : 1678887010620,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yfkl2pw4kra",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884557478,
+  "history_end_time" : 1678884986354,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "c3zkgabdhh4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884501828,
+  "history_end_time" : 1678884535323,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ngtrwnjtwha",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f6da24d4740>\n",
+  "history_begin_time" : 1678884208248,
+  "history_end_time" : 1678884438323,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kdmcovrf85u",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f77cb9ca740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n",
+  "history_begin_time" : 1678884125647,
+  "history_end_time" : 1678884140248,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rfveb6gzcvs",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f98c49e3740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n",
+  "history_begin_time" : 1678884040315,
+  "history_end_time" : 1678884045156,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "xe4mnqk8yhz",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f5d7d333740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09782042928795706\nMSE is 0.10755329671730411\nR2 score is 0.9997082795969444\nRMSE is 0.32795319287560554\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231503122949.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f5d7d3335f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/xe4mnqk8yhz/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.005658184902475575\nMSE is 0.0010485979643766062\nR2 score is 0.9999966005475848\nRMSE is 0.03238206238608971\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231503122950.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678883383363,
+  "history_end_time" : 1678883775428,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "uqnx4u5ghpa",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f8e059e5740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09082004594647702\nMSE is 0.08942141901512454\nR2 score is 0.9997316154397683\nRMSE is 0.29903414356077224\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231403012027.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f8e059e55f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/uqnx4u5ghpa/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.00851738761664053\nMSE is 0.0029529974554705607\nR2 score is 0.9999912883001094\nRMSE is 0.05434148926437847\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231403012028.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678756819991,
+  "history_end_time" : 1678756827911,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "8z9do8ewdiu",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1678748553753,
+  "history_end_time" : 1678748555367,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "up2hcwl11fx",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f3d41e96740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0942573930167152\nMSE is 0.07871596703222984\nR2 score is 0.9997554423460847\nRMSE is 0.28056365950035267\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303225005.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f3d41e965f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/up2hcwl11fx/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.006412213740473666\nMSE is 0.0009888159457165974\nR2 score is 0.9999970106312054\nRMSE is 0.03144544395801397\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303225006.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678747799027,
+  "history_end_time" : 1678747806203,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "5Uhkcxf7FWFt",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f10d7df0740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08710110520414292\nMSE is 0.08498764981605278\nR2 score is 0.9997476447560125\nRMSE is 0.2915264135821191\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303215045.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f10d7df05f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/5Uhkcxf7FWFt/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.007601357082289989\nMSE is 0.0016441679389311479\nR2 score is 0.999995280089202\nRMSE is 0.04054834076668425\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303215045.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678744239859,
+  "history_end_time" : 1678744245469,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "U0fsd6TfVoeo",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fc32c11a740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08637679072302279\nMSE is 0.06763094445647816\nR2 score is 0.999787792692596\nRMSE is 0.2600595017615741\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303215022.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fc32c11a5f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/U0fsd6TfVoeo/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.008324003392720441\nMSE is 0.0014922256149278233\nR2 score is 0.9999951800798444\nRMSE is 0.03862933619579585\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303215023.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678744217248,
+  "history_end_time" : 1678744222956,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "cvpJQtmtgkCS",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f3e4d3fb740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08552045284339002\nMSE is 0.08342499332386365\nR2 score is 0.9997224426376728\nRMSE is 0.2888338507236706\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303215010.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f3e4d3fb5f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/cvpJQtmtgkCS/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.008873621713332534\nMSE is 0.005368914334181331\nR2 score is 0.9999832984168183\nRMSE is 0.07327287584216502\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303215011.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678744204967,
+  "history_end_time" : 1678744210544,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "m35mB4M6Dboe",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f74de100740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.07567520131370033\nMSE is 0.050093215321721195\nR2 score is 0.9998352032799099\nRMSE is 0.22381513648929377\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303215002.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f74de1005f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/m35mB4M6Dboe/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.007036471586105729\nMSE is 0.0009754198473282394\nR2 score is 0.9999967932180939\nRMSE is 0.031231712206157374\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303215003.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678744197090,
+  "history_end_time" : 1678744203002,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "3iofHYrqQeLJ",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\n",
+  "history_begin_time" : 1678744193549,
+  "history_end_time" : 1678744197106,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "6OA3oWg5QuVm",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f92c91f4740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09378321814681828\nMSE is 0.11044669662856546\nR2 score is 0.9996536858183317\nRMSE is 0.332335217255959\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303214951.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f92c91f45f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/6OA3oWg5QuVm/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.00804580152673364\nMSE is 0.004534135708227184\nR2 score is 0.99998655183147\nRMSE is 0.06733599118025355\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303214951.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678744185818,
+  "history_end_time" : 1678744191459,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "vq0noaxjd1d",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f2557184740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.10329911592211911\nMSE is 0.11660093148796673\nR2 score is 0.9996533922858593\nRMSE is 0.3414687855250707\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303214206.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f25571845f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/vq0noaxjd1d/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.010318066157776657\nMSE is 0.00455367005937228\nR2 score is 0.9999871274463212\nRMSE is 0.06748088662260063\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303214207.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678743720009,
+  "history_end_time" : 1678743727001,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "4xq4e845jfn",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f60c7e81740>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.07402964339585609\nMSE is 0.05545696812216161\nR2 score is 0.9998207796371227\nRMSE is 0.23549303200341537\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303212326.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f60c7e815f0>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/4xq4e845jfn/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.009520780322323313\nMSE is 0.003751773536895529\nR2 score is 0.9999875480890539\nRMSE is 0.06125172272594077\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303212327.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678742599578,
+  "history_end_time" : 1678742606932,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "JAk2YM5upmuw",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f46b8a50580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08898555477993916\nMSE is 0.07211511630964984\nR2 score is 0.9997846008480877\nRMSE is 0.2685425782062313\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303202319.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f46b8a50430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/JAk2YM5upmuw/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.006269720101797353\nMSE is 0.0007215538592026969\nR2 score is 0.9999976271674427\nRMSE is 0.026861754581610952\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303202320.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678738993645,
+  "history_end_time" : 1678738999900,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "1LGgJYXrR9nL",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f8b49c2c580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08044052211870108\nMSE is 0.07421142348025263\nR2 score is 0.9997652592429691\nRMSE is 0.27241773708819444\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303163821.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f8b49c2c430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/1LGgJYXrR9nL/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.006364715860915613\nMSE is 0.0006050839694656438\nR2 score is 0.9999981115526902\nRMSE is 0.024598454615394925\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303163822.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678725495913,
+  "history_end_time" : 1678725502016,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "h0pljsmg2ub",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f79bedb5580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0901895865207397\nMSE is 0.09420358309836911\nR2 score is 0.9997152126854896\nRMSE is 0.30692602219161724\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303163731.joblib\n",
+  "history_begin_time" : 1678725444071,
+  "history_end_time" : 1678725450469,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "do0fIHEPmowm",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fc140e7f580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09089395016111959\nMSE is 0.10751888500003028\nR2 score is 0.9996760018144912\nRMSE is 0.3279007243054371\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231303163729.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fc140e7f430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/do0fIHEPmowm/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.012312977099251322\nMSE is 0.0047759754028838235\nR2 score is 0.9999844642179503\nRMSE is 0.06910843221260213\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231303163730.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678725443891,
+  "history_end_time" : 1678725450450,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "g2mtosxljci",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fb6751e8580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.07668934941916258\nMSE is 0.06508547012611708\nR2 score is 0.9997951857475564\nRMSE is 0.2551185413217101\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231203193246.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fb6751e8430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/g2mtosxljci/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.010185750636148629\nMSE is 0.0049494240882103\nR2 score is 0.9999845018017313\nRMSE is 0.07035214345142797\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231203193247.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678649560059,
+  "history_end_time" : 1678649567264,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "e0753dub0cn",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fe177d68580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08329760770162105\nMSE is 0.056737511707490494\nR2 score is 0.9998314677513183\nRMSE is 0.23819637215434347\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231203191320.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fe177d68430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/e0753dub0cn/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.005926208651415441\nMSE is 0.0011864537743850514\nR2 score is 0.9999965717923346\nRMSE is 0.03444493829846486\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231203191321.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678648393145,
+  "history_end_time" : 1678648401531,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "mi95qc6hbkh",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f7b15d39580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.1053379751555079\nMSE is 0.09600842551402232\nR2 score is 0.999714773465968\nRMSE is 0.3098522640130653\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231103200434.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f7b15d39430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/mi95qc6hbkh/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.008845631891449523\nMSE is 0.003641619168786938\nR2 score is 0.9999886548396173\nRMSE is 0.06034582975473068\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231103200434.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678565067979,
+  "history_end_time" : 1678565074516,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "yn1xyvafb2b",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f5d147bd580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08585022496518357\nMSE is 0.07046791633643901\nR2 score is 0.9997816371142078\nRMSE is 0.2654579370379402\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231103195705.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f5d147bd430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/yn1xyvafb2b/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0069304495335195835\nMSE is 0.0009062111959287744\nR2 score is 0.999997302073036\nRMSE is 0.030103341939538446\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231103195706.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678564619111,
+  "history_end_time" : 1678564625675,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "998w3bxwtj5",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f1d93a7b580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08081000287792857\nMSE is 0.07214316986586689\nR2 score is 0.9997776925517066\nRMSE is 0.26859480610366776\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231103180216.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f1d93a7b430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/998w3bxwtj5/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.005641221374063021\nMSE is 0.001466865988125564\nR2 score is 0.999995472451529\nRMSE is 0.03829968652777153\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231103180217.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678557730519,
+  "history_end_time" : 1678557898784,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "Rjv6HjZSAKBG",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f8caed09580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08889768345767642\nMSE is 0.08153599530617013\nR2 score is 0.9997509949127894\nRMSE is 0.2855450845421264\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231103023941.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f8caed09430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/Rjv6HjZSAKBG/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.007833757421559041\nMSE is 0.0023444664970312364\nR2 score is 0.9999924508210352\nRMSE is 0.0484196912116469\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231103023942.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1678502371148,
+  "history_end_time" : 1678502381693,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
   "history_id" : "taitgqe9p4x",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(\"Training_X model shape:\",hole.train_x.shape)\n  print(\"Training_Y model shape:\",hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f0994c6f580>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.10220976077627292\nMSE is 0.09558901582589618\nR2 score is 0.9997310124915789\nRMSE is 0.3091747334856071\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20231103011949.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f0994c6f430>\nall ready df columns used for traing:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nall ready df columns shape:  (5892, 22)\nTraining data columns:  Index(['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd',\n       'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope',\n       'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel'],\n      dtype='object')\nTraining_X model shape: (4713, 22)\nTraining_Y model shape: (4713, 1)\n/home/chetana/gw-workspace/taitgqe9p4x/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.008346055979659275\nMSE is 0.0020597302798982366\nR2 score is 0.9999932798673553\nRMSE is 0.045384251452439274\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20231103011950.joblib\nFinished training and validating all the models.\n",
@@ -357,6 +887,16 @@
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
+  "indicator" : "Failed"
+},{
+  "history_id" : "7d1xupm1eg0",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/gokulprathin/gw-workspace/7d1xupm1eg0/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/gokulprathin/gw-workspace/7d1xupm1eg0/model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1677582854350,
+  "history_end_time" : 1677582857715,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
   "indicator" : "Failed"
 },{
   "history_id" : "8iu3kabfmnb",
@@ -1239,6 +1779,86 @@
   "host_id" : "100001",
   "indicator" : "Failed"
 },{
+  "history_id" : "d3ib9r9b5fy",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/gokulprathin/gw-workspace/d3ib9r9b5fy/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/gokulprathin/gw-workspace/d3ib9r9b5fy/model_creation_rf.py\", line 16, in <module>\n    import geojson\nModuleNotFoundError: No module named 'geojson'\n",
+  "history_begin_time" : 1676063620879,
+  "history_end_time" : 1676063631657,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "b945g9008y1",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/Users/gokulprathin/gw-workspace/b945g9008y1/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/Users/gokulprathin/gw-workspace/b945g9008y1/model_creation_rf.py\", line 15, in <module>\n    import geopandas as gpd\nModuleNotFoundError: No module named 'geopandas'\n",
+  "history_begin_time" : 1675783791156,
+  "history_end_time" : 1675783797467,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "GB6uXJ7Jaq3T",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/GB6uXJ7Jaq3T/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0769607809462483\nMSE is 0.05901174665945447\nR2 score is 0.9998064466258989\nRMSE is 0.24292333494222917\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20230301185713.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0054045801526868276\nMSE is 0.0006947192536047508\nR2 score is 0.9999977530247074\nRMSE is 0.02635752745620785\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20230301185713.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1672790230390,
+  "history_end_time" : 1672790234209,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "dfqi8merlzt",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/dfqi8merlzt/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0712868139662187\nMSE is 0.05075834739549261\nR2 score is 0.9998303827787403\nRMSE is 0.2252961326687447\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20222512193631.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.010462256149294196\nMSE is 0.004409071246819277\nR2 score is 0.9999848981666244\nRMSE is 0.06640083769666824\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20222512193631.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1672014988936,
+  "history_end_time" : 1672014991783,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ebglvw390si",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/ebglvw390si/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.11251534425630226\nMSE is 0.0959225541149272\nR2 score is 0.9997364830372392\nRMSE is 0.3097136647210245\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20222412235953.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.007690415606461686\nMSE is 0.001494514843087153\nR2 score is 0.999995368280364\nRMSE is 0.0386589555353886\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20222412235954.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1671944391666,
+  "history_end_time" : 1671944394456,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "10mi85sgeea",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/10mi85sgeea/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09293667306017624\nMSE is 0.10145752175529063\nR2 score is 0.9996924355772523\nRMSE is 0.3185239735958514\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20221212235025.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.006423240033944422\nMSE is 0.001216368956742977\nR2 score is 0.9999962801992777\nRMSE is 0.03487648142721649\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20221212235026.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1670910623319,
+  "history_end_time" : 1670910626255,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "zoe5hlzjayq",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/zoe5hlzjayq/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.07952067896157462\nMSE is 0.06366527377581417\nR2 score is 0.999805724091789\nRMSE is 0.25231978474906436\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20221212234830.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.005848176420711594\nMSE is 0.0010156191687871491\nR2 score is 0.9999969227537053\nRMSE is 0.03186878047222939\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20221212234830.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1670910507981,
+  "history_end_time" : 1670910510725,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ofgl3udxdx7",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/ofgl3udxdx7/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09077613524730431\nMSE is 0.08225702124048138\nR2 score is 0.9997554204726409\nRMSE is 0.2868048487046225\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20221212234437.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.007999151823596888\nMSE is 0.0024498210347752188\nR2 score is 0.9999927820557197\nRMSE is 0.049495666828271126\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20221212234438.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1670910275642,
+  "history_end_time" : 1670910278432,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
   "history_id" : "WogxEf6EhZ88",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/pipeline.py:394: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self._final_estimator.fit(Xt, y, **fit_params_last_step)\n/Users/joe/gw-workspace/WogxEf6EhZ88/base_hole.py:59: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/Users/l21-n02609-comm/opt/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:396: FutureWarning: Criterion 'mse' was deprecated in v1.0 and will be removed in version 1.2. Use `criterion='squared_error'` which is equivalent.\n  warn(\nTrain Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.09895586689358928\nMSE is 0.08288206647447116\nR2 score is 0.9997476081111475\nRMSE is 0.28789245643898204\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20221112011946.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.00870907548771886\nMSE is 0.006146308736216998\nR2 score is 0.9999831073898042\nRMSE is 0.07839839753602747\nSaving model to /Users/joe/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20221112011947.joblib\nFinished training and validating all the models.\n",
@@ -2059,331 +2679,11 @@
   "host_id" : "100001",
   "indicator" : "Done"
 },{
-  "history_id" : "q0tcjh7n0na",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677107538157,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "jlkqnu6yj9w",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677107562714,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "5yyr2530h4k",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677107608759,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "sc5peq1grcr",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677107705671,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "fadzjbdzgju",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273134480,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "049ay289ex3",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273345437,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "pq3su2cjm7h",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273525482,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "yet9lhgmq1h",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273679530,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "rrvj6mg69uv",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677273703950,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "y2fqflxogd9",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677636142808,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "zrjaifr44xl",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677679549075,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "ag0pzfs74rm",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677784272019,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "t5xirgbfobf",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677784516774,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "x7n8ckn6wvs",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677785383323,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "qemou93j6ia",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677785529412,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "08s63esjfy2",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677786042628,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "5qv06mxy703",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677791865856,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "9n7ux874dok",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677796528249,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "zv1e726tf6a",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677797113214,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
   "history_id" : "mgel2417uco",
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
   "history_end_time" : 1677809171449,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "9xarg1gsfqo",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809306573,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "bposf9tfips",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809554668,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "ldznmicq0il",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809573412,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "rwld53xdzqh",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809840721,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "4104xbggjiq",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677867648131,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "91s09zu2k4r",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677958291184,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "9p4y36l07ac",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677958754102,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "mezx4x7lfmh",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677958849871,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "nwf9o3svq6g",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677958952852,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "sv07f93cuvg",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677959583118,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "wocsk6j6d4f",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677959722604,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "uz479nzgurk",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1678201516409,
-  "history_notes" : null,
-  "history_process" : "e8k4wq",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "bcuwh45tqg0",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1678201687043,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
@@ -2399,11 +2699,321 @@
   "host_id" : "45wlwr",
   "indicator" : "Stopped"
 },{
+  "history_id" : "5qv06mxy703",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677791865856,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qemou93j6ia",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529412,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zv1e726tf6a",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677797113214,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rwld53xdzqh",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809840721,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fadzjbdzgju",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273134480,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wocsk6j6d4f",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959722604,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sc5peq1grcr",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677107705671,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sv07f93cuvg",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677959583118,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
   "history_id" : "ujxwgv4q25w",
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
   "history_end_time" : 1678206143053,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rrvj6mg69uv",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273703950,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6f098a5s9tk",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678312026541,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zrjaifr44xl",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677679549075,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4104xbggjiq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677867648131,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bcuwh45tqg0",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201687043,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "mezx4x7lfmh",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958849871,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yet9lhgmq1h",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273679530,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ldznmicq0il",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809573412,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "08s63esjfy2",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677786042628,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9xarg1gsfqo",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809306573,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "049ay289ex3",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273345437,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "nwf9o3svq6g",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958952852,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "91s09zu2k4r",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677958291184,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "x7n8ckn6wvs",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785383323,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5yyr2530h4k",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677107608759,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jlkqnu6yj9w",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677107562714,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pq3su2cjm7h",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677273525482,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "q0tcjh7n0na",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677107538157,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bposf9tfips",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809554668,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "y2fqflxogd9",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677636142808,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "t5xirgbfobf",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677784516774,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9n7ux874dok",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677796528249,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "uz479nzgurk",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201516409,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
@@ -2419,13 +3029,173 @@
   "host_id" : "45wlwr",
   "indicator" : "Stopped"
 },{
-  "history_id" : "6f098a5s9tk",
+  "history_id" : "9p4y36l07ac",
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
-  "history_end_time" : 1678312026541,
+  "history_end_time" : 1677958754102,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ag0pzfs74rm",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677784272019,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4us1ihhwod1",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1686237909483,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sgw5xgujno5",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1682984800280,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6isty9f6eq8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678744167059,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vlreggr5wc2",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678557923635,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jowzk8fmx6w",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678749935976,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bof9i5t6upg",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678756684687,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wudi8zzcsf3",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678746792995,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zzi717ip15q",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678887836226,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "z4hp2aqhvmd",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678725408336,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vvlbpjlk30c",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678648341605,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pa4pvak5fgq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678743615530,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "989zdhv00a8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678742571500,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "d3mh9jwzcd1",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1688416572962,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1hgnc13aa9m",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1688416848465,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8gukhye2m3r",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1688416907365,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "jf7wuu",
   "indicator" : "Stopped"
 },]
