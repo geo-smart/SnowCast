@@ -38,7 +38,7 @@ class BaseHole:
     all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)
     input_columns = ["year", "m", "day", "eto", "pr", "rmax", "rmin", "tmmn", "tmmx", "vpd", "vs", 
                      "lat", "lon", "elevation", "aspect", "curvature", "slope", "eastness", 
-                     "northness", "swe_0719", "depth_0719"]
+                     "northness", "modis_ndsi","model_snow_cover"]
     
     all_cols = input_columns
     all_cols.append("swe_snotel")

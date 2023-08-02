@@ -1,4 +1,374 @@
 [{
+  "history_id" : "0GPTEq69olB5",
+  "history_input" : "import dask.dataframe as dd\nfrom dask_ml.model_selection import train_test_split\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a Dask DataFrame (Assuming the target variable is named 'target')\ndata = dd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = dd.to_datetime(data['date'])\n\ndata['date'] = dd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata = data.drop('date', axis=1)\ndata = data.dropna(subset=['swe_value'])\ncolumn_means = data.mean()\ndata = data.fillna(column_means)\n\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\nmodel.fit(X_train, y_train)\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask_ml/model_selection/_split.py:462: FutureWarning: The default value for 'shuffle' must be specified when splitting DataFrames. In the future DataFrames will automatically be shuffled within blocks prior to splitting. Specify 'shuffle=True' to adopt the future behavior now, or 'shuffle=False' to retain the previous behavior.\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/0GPTEq69olB5/model_creation_et.py\", line 27, in <module>\n    model.fit(X_train, y_train)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 345, in fit\n    X, y = self._validate_data(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/base.py\", line 584, in _validate_data\n    X, y = check_X_y(X, y, **check_params)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 1106, in check_X_y\n    X = check_array(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 879, in check_array\n    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/_array_api.py\", line 185, in _asarray_with_order\n    array = numpy.asarray(array, order=order, dtype=dtype)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask/dataframe/core.py\", line 599, in __array__\n    x = np.array(self._computed)\nnumpy.core._exceptions._ArrayMemoryError: Unable to allocate 17.8 GiB for an array with shape (125800448, 19) and data type float64\n",
+  "history_begin_time" : 1690608867593,
+  "history_end_time" : 1690609370894,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "2oxKExkdXgAE",
+  "history_input" : "import dask.dataframe as dd\nfrom dask_ml.model_selection import train_test_split\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a Dask DataFrame (Assuming the target variable is named 'target')\ndata = dd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = dd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata = data.drop('date', axis=1)\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into small chunks (adjust chunk_size based on available memory)\nchunk_size = 100000  # You may need to adjust this value based on your system's memory capacity\nX_chunks = [X.compute().iloc[i:i + chunk_size] for i in range(0, len(X), chunk_size)]\ny_chunks = [y.compute().iloc[i:i + chunk_size] for i in range(0, len(y), chunk_size)]\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model with the initial chunk\nmodel.fit(X_chunks[0], y_chunks[0])\n\n# Save the trained model after initial training\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Perform incremental learning on the remaining chunks\nfor i in range(1, len(X_chunks)):\n    model.n_estimators += 10  # Increment n_estimators for each chunk\n    model.fit(X_chunks[i], y_chunks[i])\n\n# Save the trained model after incremental learning\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Split the data into a separate test set\nX_test, y_test = train_test_split(X_chunks[-1], y_chunks[-1], test_size=0.2, random_state=42)\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/2oxKExkdXgAE/model_creation_et.py\", line 23, in <module>\n    X_chunks = [X.compute().iloc[i:i + chunk_size] for i in range(0, len(X), chunk_size)]\n  File \"/home/chetana/gw-workspace/2oxKExkdXgAE/model_creation_et.py\", line 23, in <listcomp>\n    X_chunks = [X.compute().iloc[i:i + chunk_size] for i in range(0, len(X), chunk_size)]\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask/dataframe/dispatch.py\", line 68, in concat\n    return func(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask/dataframe/backends.py\", line 667, in concat_pandas\n    out = pd.concat(dfs3, join=join, sort=False)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/util/_decorators.py\", line 331, in wrapper\n    return func(*args, **kwargs)\n  File \"<__array_function__ internals>\", line 180, in concatenate\nnumpy.core._exceptions._ArrayMemoryError: Unable to allocate 17.6 GiB for an array with shape (15, 157282561) and data type float64\n",
+  "history_begin_time" : 1690602019835,
+  "history_end_time" : 1690602894751,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "eF7GGgv9wMf3",
+  "history_input" : "import dask.dataframe as dd\nfrom dask_ml.model_selection import train_test_split\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a Dask DataFrame (Assuming the target variable is named 'target')\ndata = dd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = dd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata = data.drop('date', axis=1)\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into training and test sets using Dask\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model with the initial training set\nmodel.fit(X_train, y_train)\n\n# Save the trained model after initial training\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Load the model to perform incremental learning in batches\nmodel = joblib.load('/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Perform incremental learning on the remaining data\nbatch_size = 1000\nfor i in range(0, len(X_train), batch_size):\n    X_batch = X_train.iloc[i:i+batch_size]\n    y_batch = y_train.iloc[i:i+batch_size]\n    model.fit(X_batch, y_batch)\n\n# Save the trained model after incremental learning\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask_ml/model_selection/_split.py:462: FutureWarning: The default value for 'shuffle' must be specified when splitting DataFrames. In the future DataFrames will automatically be shuffled within blocks prior to splitting. Specify 'shuffle=True' to adopt the future behavior now, or 'shuffle=False' to retain the previous behavior.\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/eF7GGgv9wMf3/model_creation_et.py\", line 28, in <module>\n    model.fit(X_train, y_train)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/ensemble/_forest.py\", line 345, in fit\n    X, y = self._validate_data(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/base.py\", line 584, in _validate_data\n    X, y = check_X_y(X, y, **check_params)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 1106, in check_X_y\n    X = check_array(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/validation.py\", line 879, in check_array\n    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/_array_api.py\", line 185, in _asarray_with_order\n    array = numpy.asarray(array, order=order, dtype=dtype)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask/dataframe/core.py\", line 599, in __array__\n    x = np.array(self._computed)\nnumpy.core._exceptions._ArrayMemoryError: Unable to allocate 17.8 GiB for an array with shape (125834411, 19) and data type float64\n",
+  "history_begin_time" : 1690601270988,
+  "history_end_time" : 1690601582198,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "fVChoQSreHyt",
+  "history_input" : "import dask.dataframe as dd\nfrom dask_ml.model_selection import train_test_split\nfrom dask_ml.wrappers import Incremental\nimport joblib\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\n\n# Load your dataset into a Dask DataFrame (Assuming the target variable is named 'target')\ndata = dd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = dd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata = data.drop('date', axis=1)\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into a small initial training set and a larger pool\nX_train_init, X_pool, y_train_init, y_pool = train_test_split(X, y, test_size=0.9, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor wrapped in Incremental\nmodel = Incremental(ExtraTreesRegressor(n_estimators=100, random_state=42))\n\n# Train the model with the initial training set\nmodel.fit(X_train_init, y_train_init)\n\n# The remaining data (X_pool, y_pool) can be used for incremental learning\n# For example, you can loop over the remaining data in smaller batches and update the model\nbatch_size = 1000\nfor i in range(0, len(X_pool), batch_size):\n    X_batch = X_pool.iloc[i:i+batch_size]\n    y_batch = y_pool.iloc[i:i+batch_size]\n    # Perform incremental learning\n    model.partial_fit(X_batch, y_batch)\n\n# Save the trained model after incremental learning\nmodel.steps[-1][1].n_jobs = 1  # Ensure n_jobs = 1 to avoid potential issues with joblib.dump\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Split the data into a separate test set\nX_test, y_test = train_test_split(X_pool, y_pool, test_size=0.2, random_state=42)\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask_ml/model_selection/_split.py:462: FutureWarning: The default value for 'shuffle' must be specified when splitting DataFrames. In the future DataFrames will automatically be shuffled within blocks prior to splitting. Specify 'shuffle=True' to adopt the future behavior now, or 'shuffle=False' to retain the previous behavior.\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/fVChoQSreHyt/model_creation_et.py\", line 29, in <module>\n    model.fit(X_train_init, y_train_init)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask_ml/wrappers.py\", line 579, in fit\n    self._fit_for_estimator(estimator, X, y, **fit_kwargs)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask_ml/wrappers.py\", line 563, in _fit_for_estimator\n    result = fit(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/dask_ml/_partial.py\", line 98, in fit\n    raise ValueError(msg.format(type(model)))\nValueError: The class '<class 'sklearn.ensemble._forest.ExtraTreesRegressor'>' does not implement 'partial_fit'.\n",
+  "history_begin_time" : 1690601225728,
+  "history_end_time" : 1690601233258,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "ixqC9z45MoTa",
+  "history_input" : "import dask.dataframe as dd\nfrom dask_ml.model_selection import train_test_split\nfrom dask_ml.wrappers import Incremental\nimport joblib\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\n\n# Load your dataset into a Dask DataFrame (Assuming the target variable is named 'target')\ndata = dd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = dd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata = data.drop('date', axis=1)\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into a small initial training set and a larger pool\nX_train_init, X_pool, y_train_init, y_pool = train_test_split(X, y, test_size=0.9, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor wrapped in Incremental\nmodel = Incremental(ExtraTreesRegressor(n_estimators=100, random_state=42))\n\n# Train the model with the initial training set\nmodel.fit(X_train_init, y_train_init)\n\n# The remaining data (X_pool, y_pool) can be used for incremental learning\n# For example, you can loop over the remaining data in smaller batches and update the model\nbatch_size = 1000\nfor i in range(0, len(X_pool), batch_size):\n    X_batch = X_pool.iloc[i:i+batch_size]\n    y_batch = y_pool.iloc[i:i+batch_size]\n    # Perform incremental learning\n    model.partial_fit(X_batch, y_batch)\n\n# Save the trained model after incremental learning\nmodel.steps[-1][1].n_jobs = 1  # Ensure n_jobs = 1 to avoid potential issues with joblib.dump\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Split the data into a separate test set\nX_test, y_test = train_test_split(X_pool, y_pool, test_size=0.2, random_state=42)\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/ixqC9z45MoTa/model_creation_et.py\", line 2, in <module>\n    from dask_ml.model_selection import train_test_split\nModuleNotFoundError: No module named 'dask_ml'\n",
+  "history_begin_time" : 1690601139207,
+  "history_end_time" : 1690601153621,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "jjIg5Pl53i1w",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport dask.dataframe as dd\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\nfrom scipy import sparse\n\n# Load your dataset into a Dask DataFrame (Assuming the target variable is named 'target')\ndata = dd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = dd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata = data.drop('date', axis=1)\n\n# Convert the Dask DataFrame to a Pandas DataFrame\ndata = data.compute()\n\nprint('feature order:', list(data.keys()))\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Convert X to a sparse matrix if it contains many zero values\nX_sparse = sparse.csr_matrix(X)  # Use sparse.csr_matrix for compressed sparse row format\n\n# Split the data into a small initial training set and a larger pool\nX_train_init, X_pool, y_train_init, y_pool = train_test_split(X_sparse, y, test_size=0.9, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model with the initial training set\nmodel.fit(X_train_init, y_train_init)\n\n# The remaining data (X_pool, y_pool) can be used for incremental learning\n# For example, you can loop over the remaining data in smaller batches and update the model\nbatch_size = 1000\nfor i in range(0, len(X_pool), batch_size):\n    X_batch = X_pool[i:i+batch_size]\n    y_batch = y_pool.iloc[i:i+batch_size]\n    # Perform incremental learning with numpy instead of model.partial_fit\n    model.n_estimators += 10  # Increment n_estimators for each batch\n    model.fit(X_batch, y_batch)\n\n# Save the trained model after incremental learning\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Split the data into a separate test set\nX_test, y_test = train_test_split(X_pool, y_pool, test_size=0.2, random_state=42)\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "feature order: ['lat', 'lon', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'swe_value', 'slope', 'curvature', 'aspect', 'eastness', 'northness', 'year', 'month', 'day', 'day_of_week']\nTraceback (most recent call last):\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/scipy/sparse/_compressed.py\", line 79, in __init__\n    arg1 = np.asarray(arg1)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 2070, in __array__\n    return np.asarray(self._values, dtype=dtype)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/frame.py\", line 958, in _values\n    self._consolidate_inplace()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5980, in _consolidate_inplace\n    self._protect_consolidate(f)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5968, in _protect_consolidate\n    result = f()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5978, in f\n    self._mgr = self._mgr.consolidate()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 686, in consolidate\n    bm._consolidate_inplace()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 1873, in _consolidate_inplace\n    self.blocks, self.refs = _consolidate_with_refs(self.blocks, self.refs)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 2350, in _consolidate_with_refs\n    merged_blocks, consolidated = _merge_blocks(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 2388, in _merge_blocks\n    new_values = new_values[argsort]\nnumpy.core._exceptions._ArrayMemoryError: Unable to allocate 4.69 GiB for an array with shape (4, 157282561) and data type int64\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/jjIg5Pl53i1w/model_creation_et.py\", line 30, in <module>\n    X_sparse = sparse.csr_matrix(X)  # Use sparse.csr_matrix for compressed sparse row format\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/scipy/sparse/_compressed.py\", line 81, in __init__\n    raise ValueError(\"unrecognized {}_matrix constructor usage\"\nValueError: unrecognized csr_matrix constructor usage\n",
+  "history_begin_time" : 1690600623346,
+  "history_end_time" : 1690601093473,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "bUprvU4W0AnJ",
+  "history_input" : "import numpy as np\nimport pandas as pd\nimport dask.dataframe as dd\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\nfrom scipy import sparse\n\n# Load your dataset into a Dask DataFrame (Assuming the target variable is named 'target')\ndata = dd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = dd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata = data.drop('date', axis=1)\n\n# Convert the Dask DataFrame to a Pandas DataFrame\ndata = data.compute()\n\nprint('feature order:', list(data.keys()))\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into a small initial training set and a larger pool\nX_train_init, X_pool, y_train_init, y_pool = train_test_split(X, y, test_size=0.9, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model with the initial training set\nmodel.fit(X_train_init, y_train_init)\n\n# The remaining data (X_pool, y_pool) can be used for incremental learning\n# For example, you can loop over the remaining data in smaller batches and update the model\nbatch_size = 1000\nfor i in range(0, len(X_pool), batch_size):\n    X_batch = X_pool.iloc[i:i+batch_size]\n    y_batch = y_pool.iloc[i:i+batch_size]\n    model.partial_fit(X_batch, y_batch)\n\n# Save the trained model after incremental learning\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Split the data into a separate test set\nX_test, y_test = train_test_split(X_pool, y_pool, test_size=0.2, random_state=42)\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "feature order: ['lat', 'lon', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'swe_value', 'slope', 'curvature', 'aspect', 'eastness', 'northness', 'year', 'month', 'day', 'day_of_week']\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/bUprvU4W0AnJ/model_creation_et.py\", line 30, in <module>\n    X_train_init, X_pool, y_train_init, y_pool = train_test_split(X, y, test_size=0.9, random_state=42)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/model_selection/_split.py\", line 2585, in train_test_split\n    return list(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/model_selection/_split.py\", line 2587, in <genexpr>\n    (_safe_indexing(a, train), _safe_indexing(a, test)) for a in arrays\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/__init__.py\", line 354, in _safe_indexing\n    return _pandas_indexing(X, indices, indices_dtype, axis=axis)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/__init__.py\", line 196, in _pandas_indexing\n    return X.take(key, axis=axis)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 3871, in take\n    return self._take(indices, axis)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 3884, in _take\n    self._consolidate_inplace()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5980, in _consolidate_inplace\n    self._protect_consolidate(f)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5968, in _protect_consolidate\n    result = f()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5978, in f\n    self._mgr = self._mgr.consolidate()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 686, in consolidate\n    bm._consolidate_inplace()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 1873, in _consolidate_inplace\n    self.blocks, self.refs = _consolidate_with_refs(self.blocks, self.refs)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 2350, in _consolidate_with_refs\n    merged_blocks, consolidated = _merge_blocks(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 2388, in _merge_blocks\n    new_values = new_values[argsort]\nnumpy.core._exceptions._ArrayMemoryError: Unable to allocate 4.69 GiB for an array with shape (4, 157282561) and data type int64\n",
+  "history_begin_time" : 1690599663437,
+  "history_end_time" : 1690600090410,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "xeDnisnyxmwF",
+  "history_input" : "import numpy as np\nimport pandas as pd\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a pandas DataFrame (Assuming the target variable is named 'target')\ndata = pd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = pd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata.drop('date', axis=1, inplace=True)\n\nprint('feature order:', list(data.keys()))\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into a small initial training set and a larger pool\nX_train_init, X_pool, y_train_init, y_pool = train_test_split(X, y, test_size=0.9, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model with the initial training set\nmodel.fit(X_train_init, y_train_init)\n\n# The remaining data (X_pool, y_pool) can be used for incremental learning\n# For example, you can loop over the remaining data in smaller batches and update the model\nbatch_size = 10000\nfor i in range(0, len(X_pool), batch_size):\n    X_batch = X_pool[i:i+batch_size]\n    y_batch = y_pool[i:i+batch_size]\n    model.partial_fit(X_batch, y_batch)\n\n# Save the trained model after incremental learning\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Split the data into a separate test set\nX_test, y_test = train_test_split(X_pool, y_pool, test_size=0.2, random_state=42)\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "sh: line 1:  4596 Killed                  /home/chetana/gridmet_test_run/pycrate/bin/python model_creation_et.py\n",
+  "history_begin_time" : 1690598943604,
+  "history_end_time" : 1690599490481,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "T4yTfk1DDCOL",
+  "history_input" : "import numpy as np\nimport pandas as pd\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a pandas DataFrame (Assuming the target variable is named 'target')\ndata = pd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = pd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata.drop('date', axis=1, inplace=True)\n\nprint('feature order:', list(data.keys()))\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into a small initial training set and a larger pool\nX_train_init, X_pool, y_train_init, y_pool = train_test_split(X, y, test_size=0.9, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model with the initial training set\nmodel.fit(X_train_init, y_train_init)\n\n# The remaining data (X_pool, y_pool) can be used for incremental learning\n# For example, you can loop over the remaining data in smaller batches and update the model\nbatch_size = 1000\nfor i in range(0, len(X_pool), batch_size):\n    X_batch = X_pool[i:i+batch_size]\n    y_batch = y_pool[i:i+batch_size]\n    model.partial_fit(X_batch, y_batch)\n\n# Save the trained model after incremental learning\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Split the data into a separate test set\nX_test, y_test = train_test_split(X_pool, y_pool, test_size=0.2, random_state=42)\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "",
+  "history_begin_time" : 1690598882203,
+  "history_end_time" : 1690598943609,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "aJb4B7Ivh3tl",
+  "history_input" : "from sklearn.model_selection import train_test_split\n\n# Split the data into a small initial training set and a larger pool\nX_train_init, X_pool, y_train_init, y_pool = train_test_split(X, y, test_size=0.9, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model with the initial training set\nmodel.fit(X_train_init, y_train_init)\n\n# The remaining data (X_pool, y_pool) can be used for incremental learning\n# For example, you can loop over the remaining data in smaller batches and update the model\nbatch_size = 100000\nfor i in range(0, len(X_pool), batch_size):\n    X_batch = X_pool[i:i+batch_size]\n    y_batch = y_pool[i:i+batch_size]\n    model.partial_fit(X_batch, y_batch)\n\n# Save the trained model after incremental learning\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/aJb4B7Ivh3tl/model_creation_et.py\", line 4, in <module>\n    X_train_init, X_pool, y_train_init, y_pool = train_test_split(X, y, test_size=0.9, random_state=42)\nNameError: name 'X' is not defined\n",
+  "history_begin_time" : 1690598724999,
+  "history_end_time" : 1690598731191,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "exFtmqlKnhGn",
+  "history_input" : "import numpy as np\nimport pandas as pd\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a pandas DataFrame (Assuming the target variable is named 'target')\ndata = pd.read_csv('/home/chetana/gridmet_test_run/model_training_cleaned.csv')\ndata['date'] = pd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata.drop('date', axis=1, inplace=True)\n# data.drop('station_elevation', inplace=True, errors='ignore')\n\nprint('feature order:', list(data.keys()))\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model\nmodel.fit(X_train, y_train)\n\n# Save the trained model\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)",
+  "history_output" : "feature order: ['lat', 'lon', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'swe_value', 'slope', 'curvature', 'aspect', 'eastness', 'northness', 'year', 'month', 'day', 'day_of_week']\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/exFtmqlKnhGn/model_creation_et.py\", line 26, in <module>\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/model_selection/_split.py\", line 2585, in train_test_split\n    return list(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/model_selection/_split.py\", line 2587, in <genexpr>\n    (_safe_indexing(a, train), _safe_indexing(a, test)) for a in arrays\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/__init__.py\", line 354, in _safe_indexing\n    return _pandas_indexing(X, indices, indices_dtype, axis=axis)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/sklearn/utils/__init__.py\", line 196, in _pandas_indexing\n    return X.take(key, axis=axis)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 3871, in take\n    return self._take(indices, axis)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 3884, in _take\n    self._consolidate_inplace()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5980, in _consolidate_inplace\n    self._protect_consolidate(f)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5968, in _protect_consolidate\n    result = f()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/generic.py\", line 5978, in f\n    self._mgr = self._mgr.consolidate()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 686, in consolidate\n    bm._consolidate_inplace()\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 1873, in _consolidate_inplace\n    self.blocks, self.refs = _consolidate_with_refs(self.blocks, self.refs)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 2350, in _consolidate_with_refs\n    merged_blocks, consolidated = _merge_blocks(\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/pandas/core/internals/managers.py\", line 2381, in _merge_blocks\n    new_values = np.vstack([b.values for b in blocks])  # type: ignore[misc]\n  File \"<__array_function__ internals>\", line 180, in vstack\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/numpy/core/shape_base.py\", line 282, in vstack\n    return _nx.concatenate(arrs, 0)\n  File \"<__array_function__ internals>\", line 180, in concatenate\nnumpy.core._exceptions._ArrayMemoryError: Unable to allocate 4.69 GiB for an array with shape (4, 157282561) and data type int64\n",
+  "history_begin_time" : 1690597078460,
+  "history_end_time" : 1690597751471,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "4qHeW6At3bIM",
+  "history_input" : "import numpy as np\nimport pandas as pd\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a pandas DataFrame (Assuming the target variable is named 'target')\ndata = pd.read_csv('/home/chetana/gridmet_test_run/final_training_data.csv')\ndata['date'] = pd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata.drop('date', axis=1, inplace=True)\ndata.drop('station_elevation', inplace=True, errors='ignore')\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model\nmodel.fit(X_train, y_train)\n\n# Save the trained model\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)",
+  "history_output" : "Mean Squared Error (MSE): 0.273139660484067\nRoot Mean Squared Error (RMSE): 0.522627649942162\nMean Absolute Error (MAE): 0.01861515633681594\nR-squared (R2): 0.9996713036422928\n",
+  "history_begin_time" : 1690183598760,
+  "history_end_time" : 1690188035224,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "6xjxMElJsQcT",
+  "history_input" : "import numpy as np\nimport pandas as pd\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a pandas DataFrame (Assuming the target variable is named 'target')\ndata = pd.read_csv('/home/chetana/gridmet_test_run/final_training_data.csv')\ndata['date'] = pd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata.drop('date', axis=1, inplace=True)\ndata.drop('station_elevation', inplace=True, errors='ignore')\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model\nmodel.fit(X_train, y_train)\n\n# Save the trained model\njoblib.dump(model, '/home/chetana/gridmet_test_run/model_creation_et.pkl')\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)",
+  "history_output" : "sh: line 1:  3498 Killed                  /home/chetana/gridmet_test_run/pycrate/bin/python model_creation_et.py\n",
+  "history_begin_time" : 1690181880290,
+  "history_end_time" : 1690182769094,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "CmqLU87uaBqg",
+  "history_input" : "import numpy as np\nimport pandas as pd\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nimport joblib\n\n# Load your dataset into a pandas DataFrame (Assuming the target variable is named 'target')\ndata = pd.read_csv('/home/chetana/gridmet_test_run/final_training_data.csv')\ndata['date'] = pd.to_datetime(data['date'])\n\ndata['year'] = data['date'].dt.year\ndata['month'] = data['date'].dt.month\ndata['day'] = data['date'].dt.day\ndata['day_of_week'] = data['date'].dt.dayofweek\ndata.drop('date', axis=1, inplace=True)\ndata.drop('station_elevation', inplace=True, errors='ignore')\n\n# Split the data into features (X) and target variable (y)\nX = data.drop('swe_value', axis=1)\ny = data['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Create an instance of the ExtraTreesRegressor\nmodel = ExtraTreesRegressor(n_estimators=100, random_state=42, n_jobs=-1)\n\n# Train the model\nmodel.fit(X_train, y_train)\n\n# Save the trained model\njoblib.dump(model, '/home/chetana/gridmet_test_run/extra_trees_model_new_cleaned.pkl')\n\n# Make predictions on the test set\ny_pred = model.predict(X_test)\n\n# Evaluate the model\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nrmse = np.sqrt(mse)\nmae = mean_absolute_error(y_test, y_pred)\nr2 = r2_score(y_test, y_pred)\n\nprint(\"Mean Squared Error (MSE):\", mse)\nprint(\"Root Mean Squared Error (RMSE):\", rmse)\nprint(\"Mean Absolute Error (MAE):\", mae)\nprint(\"R-squared (R2):\", r2)",
+  "history_output" : "",
+  "history_begin_time" : 1690181828675,
+  "history_end_time" : 1690181880397,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "9q73kepee06",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689632033812,
+  "history_end_time" : 1689632033812,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qwbpszj1zsd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636466,
+  "history_end_time" : 1689631636466,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "eysx0rzout5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689135058049,
+  "history_end_time" : 1689135058049,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "98ix1ruct8b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1688416860238,
+  "history_end_time" : 1688416907376,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "l3kafxzcge2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1688416833718,
+  "history_end_time" : 1688416848468,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7yjxs28gi5x",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1688416668379,
+  "history_end_time" : 1688416822957,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "t5rl94var9p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1688416628777,
+  "history_end_time" : 1688416660675,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cngsteuadza",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1688416567324,
+  "history_end_time" : 1688416575019,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "aujzoisawvb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1687546866701,
+  "history_end_time" : 1687546866701,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5s07joi429b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1687546866700,
+  "history_end_time" : 1687546866700,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8b93o7ohce1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1687463685023,
+  "history_end_time" : 1687463685023,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xofb5qnwgdu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1687463635418,
+  "history_end_time" : 1687463635418,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lfzvnwggrq7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1686236147017,
+  "history_end_time" : 1686237909495,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tird6r03tln",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1686235960974,
+  "history_end_time" : 1686235985414,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "z81kun8snlx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1686235529630,
+  "history_end_time" : 1686235529630,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fhts1fcqjkp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1686235448229,
+  "history_end_time" : 1686235482630,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qls83mskdpg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1686235402214,
+  "history_end_time" : 1686235424784,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gfajsrwlo41",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1686153654214,
+  "history_end_time" : 1686153654214,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5maeasyhj6k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1682984798068,
+  "history_end_time" : 1682984800295,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8yiga4qnyu6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1681516927642,
+  "history_end_time" : 1681516927642,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7uzioe97mtj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1681039707714,
+  "history_end_time" : 1681039707714,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "67e50unk58m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1681039689408,
+  "history_end_time" : 1681039697767,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "x6z5e26f3ce",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1681007820130,
+  "history_end_time" : 1681007820130,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
   "history_id" : "w3i8n0so6ut",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -39,6 +409,316 @@
   "host_id" : "jf7wuu",
   "indicator" : "Skipped"
 },{
+  "history_id" : "xirsz1q5mkk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679191258499,
+  "history_end_time" : 1679191258499,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "2jifky",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "n8l0wozhwym",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679191258498,
+  "history_end_time" : 1679191258498,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "2jifky",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0dlh0b65ied",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679091534992,
+  "history_end_time" : 1679091744970,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "m7frw6mvc7l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679091534989,
+  "history_end_time" : 1679091744970,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "momkreu5mym",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679091527588,
+  "history_end_time" : 1679091533673,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "t5b2qr1jxcc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679091527474,
+  "history_end_time" : 1679091533670,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vom43i7j3hr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887964100,
+  "history_end_time" : 1678888215698,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "m4d3q8trcw4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887964099,
+  "history_end_time" : 1678888215698,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3n2jdto12sr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887944952,
+  "history_end_time" : 1678887946446,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ahtayuj3p23",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887944952,
+  "history_end_time" : 1678887946446,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lrico30fenj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887287259,
+  "history_end_time" : 1678887836233,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4w39lx6pztw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887287256,
+  "history_end_time" : 1678887836233,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "by8meu20u7q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678886689975,
+  "history_end_time" : 1678887010629,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ez93uyks65b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678886689971,
+  "history_end_time" : 1678887010629,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jobhqqmxooe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884557547,
+  "history_end_time" : 1678884986358,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "p6pikyg4kzo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884557544,
+  "history_end_time" : 1678884986358,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lc7dh0bk1nt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884501901,
+  "history_end_time" : 1678884535354,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "iwksrzooy8u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884501896,
+  "history_end_time" : 1678884535354,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "do4voej56i9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884207346,
+  "history_end_time" : 1678884438334,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hr93w8dmntp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884207344,
+  "history_end_time" : 1678884438334,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9xd2br1kj51",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884125223,
+  "history_end_time" : 1678884140269,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1p8qdrfmnci",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884125219,
+  "history_end_time" : 1678884140269,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rj8jtb3f9ju",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884039393,
+  "history_end_time" : 1678884042290,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bqusxuoq0ap",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678884039391,
+  "history_end_time" : 1678884042290,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jodwh5h8gbl",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass ExtraTreeHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse', max_depth=None, '''max_features='auto',''' max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/jodwh5h8gbl/model_creation_et.py\", line 41\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse', max_depth=None, '''max_features='auto',''' max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0,\n                                                                                                                              ^\nSyntaxError: positional argument follows keyword argument\n",
+  "history_begin_time" : 1678883327449,
+  "history_end_time" : 1678883775458,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cwuekjmdf02",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678883288648,
+  "history_end_time" : 1678883775458,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cpr2c0kwo6r",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass ExtraTreeHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse', max_depth=None, '''max_features='auto',''' max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/cpr2c0kwo6r/model_creation_et.py\", line 41\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse', max_depth=None, '''max_features='auto',''' max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0,\n                                                                                                                              ^\nSyntaxError: positional argument follows keyword argument\n",
+  "history_begin_time" : 1678756761625,
+  "history_end_time" : 1678756762958,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "jsw29vfpu7a",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678756752348,
+  "history_end_time" : 1678756752348,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vjsry0r527p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678756683316,
+  "history_end_time" : 1678756684837,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sg16yn842et",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678749631735,
+  "history_end_time" : 1678749936029,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8lin9pzz4mo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678749631729,
+  "history_end_time" : 1678749936028,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
   "history_id" : "i3zmoilod8t",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -48,6 +728,346 @@
   "history_process" : "lbd6cp",
   "host_id" : "100001",
   "indicator" : "Skipped"
+},{
+  "history_id" : "7kpcfb9mu2i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678747245317,
+  "history_end_time" : 1678747245317,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ht7h5ztk5n5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678747245311,
+  "history_end_time" : 1678747245311,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tjra16hmblf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678746481227,
+  "history_end_time" : 1678746793060,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "igrpr0damup",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678746481216,
+  "history_end_time" : 1678746793059,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1hxpubqx1o2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743868500,
+  "history_end_time" : 1678744167107,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "40i1rmriogy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743868499,
+  "history_end_time" : 1678744167106,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ftbuf61nd2c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743629021,
+  "history_end_time" : 1678743629021,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r01ls4uw6ln",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743629019,
+  "history_end_time" : 1678743629019,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3nfv5zqd4yk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743144823,
+  "history_end_time" : 1678743615535,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "x1vt5lc2e3d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743144822,
+  "history_end_time" : 1678743615535,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qujqvj5dm0z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678742583290,
+  "history_end_time" : 1678742583290,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5q2qgz4w80d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678742583289,
+  "history_end_time" : 1678742583289,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nbe1lshvwta",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678742209486,
+  "history_end_time" : 1678742571511,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bbzgz2dpidl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678742209483,
+  "history_end_time" : 1678742571511,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "27f0v0pud9x",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678738707276,
+  "history_end_time" : 1678738707276,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "19er2t3yx1g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678738707274,
+  "history_end_time" : 1678738707274,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jigh9nl4t7u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678725425014,
+  "history_end_time" : 1678725425014,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "u40lgnasntg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678725424892,
+  "history_end_time" : 1678725424892,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f4e1hlra6gf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678723111834,
+  "history_end_time" : 1678725408358,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "53h8avrpx9p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678723111823,
+  "history_end_time" : 1678725408356,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "198bqxz7f5j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678649002073,
+  "history_end_time" : 1678649002073,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l9vzd1m2hgn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678649002070,
+  "history_end_time" : 1678649002070,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fdyq176fimx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678648366923,
+  "history_end_time" : 1678648366923,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h2eqa3wch4x",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678648366920,
+  "history_end_time" : 1678648366920,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ab1s92l6dds",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678648337357,
+  "history_end_time" : 1678648341661,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "k66k748cjga",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678648337344,
+  "history_end_time" : 1678648341660,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ptufi5ed55k",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass ExtraTreeHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse', max_depth=None, '''max_features='auto',''' max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/ptufi5ed55k/model_creation_et.py\", line 41\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse', max_depth=None, '''max_features='auto',''' max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0,\n                                                                                                                              ^\nSyntaxError: positional argument follows keyword argument\n",
+  "history_begin_time" : 1678564607188,
+  "history_end_time" : 1678564608540,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "ztn0nuiyjls",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678564567758,
+  "history_end_time" : 1678564567758,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gver70bqw8e",
+  "history_input" : "from sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error as mse\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom base_hole import BaseHole\nfrom sklearn.model_selection import train_test_split\nfrom datetime import datetime\nfrom model_creation_rf import RandomForestHole\nfrom sklearn.ensemble import ExtraTreesRegressor\n\nclass ExtraTreeHole(RandomForestHole):\n\n  def get_model(self):\n    \"\"\"\n    rfc_pipeline = Pipeline(steps = [\n      ('data_scaling', StandardScaler()),\n      ('model', RandomForestRegressor(max_depth = 15,\n                                       min_samples_leaf = 0.004,\n                                       min_samples_split = 0.008,\n                                       n_estimators = 25))])\n    #return rfc_pipeline\n  \t\"\"\"\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse', max_depth=None, '''max_features='auto',''' max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0,\n                    #min_impurity_split=None, \n                    min_samples_leaf=1,\n                    min_samples_split=2, min_weight_fraction_leaf=0.0,\n                    n_estimators=100, n_jobs=-1, oob_score=False,\n                    random_state=123, verbose=0, warm_start=False)\n    return etmodel\n\n\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/gver70bqw8e/model_creation_et.py\", line 41\n    etmodel = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse', max_depth=None, '''max_features='auto',''' max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0,\n                                                                                                                              ^\n",
+  "history_begin_time" : 1678564554066,
+  "history_end_time" : 1678564556718,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Failed"
+},{
+  "history_id" : "ulcflprd983",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678564538715,
+  "history_end_time" : 1678564538715,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nrebx1i5ifc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678557921962,
+  "history_end_time" : 1678557923651,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "682ra80i8pr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678557921959,
+  "history_end_time" : 1678557923651,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lrrc1qqwq5i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678557705831,
+  "history_end_time" : 1678557898800,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "80zg2e6vaos",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678557705828,
+  "history_end_time" : 1678557898797,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
 },{
   "history_id" : "jl5u26463i2",
   "history_input" : "No code saved",
@@ -2064,6 +3084,16 @@
   "history_output" : null,
   "history_begin_time" : null,
   "history_end_time" : 1677958952869,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ilag9pn5tin",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678756684831,
   "history_notes" : null,
   "history_process" : "lbd6cp",
   "host_id" : "45wlwr",
