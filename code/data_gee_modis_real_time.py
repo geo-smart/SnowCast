@@ -19,6 +19,15 @@ tile_list = ['h09v04', 'h10v04', 'h11v04', 'h08v04', 'h08v05', 'h09v05', 'h10v05
 
 
 def get_files(directory):
+    """
+    Get a list of files in a directory and its subdirectories.
+
+    Args:
+        directory (str): The directory to search for files.
+
+    Returns:
+        dict: A dictionary where keys are subdirectory names and values are lists of file paths.
+    """
     file_directory = list()
     complete_directory_structure = dict()
     for dirpath, dirnames, filenames in os.walk(directory):
@@ -31,6 +40,12 @@ def get_files(directory):
 
 
 def get_latest_date():
+    """
+    Retrieve the latest date from the MODIS data website.
+
+    Returns:
+        datetime: The latest date as a datetime object.
+    """
     all_rows = get_web_row_data()
 
     latest_date = None
@@ -48,6 +63,12 @@ def get_latest_date():
 
 
 def get_web_row_data():
+    """
+    Fetch and parse the MODIS data website content.
+
+    Returns:
+        list: A list of rows from the website's table.
+    """
     try:
         from BeautifulSoup import BeautifulSoup
     except ImportError:
@@ -68,6 +89,12 @@ def get_web_row_data():
 
 
 def download_recent_modis(date=None):
+    """
+    Download recent MODIS data.
+
+    Args:
+        date (datetime, optional): A specific date to download. Defaults to None.
+    """
     if date:
         latest_date_str = date.strftime("%Y.%m.%d")
     else:
@@ -93,6 +120,13 @@ def download_recent_modis(date=None):
 # merge_wrap_tif_into_western_us_tif()
 
 def hdf_tif_cvt(resource_path, destination_path):
+    """
+    Convert HDF files to GeoTIFF format.
+
+    Args:
+        resource_path (str): The path to the source HDF file.
+        destination_path (str): The path to save the converted GeoTIFF file.
+    """
     if not os.path.isfile(resource_path):
         raise Exception("HDF file not found")
 
@@ -118,12 +152,26 @@ def hdf_tif_cvt(resource_path, destination_path):
 
 
 def combine_geotiff_gdal(vrt_array, destination):
+    """
+    Combine GeoTIFF files using GDAL.
+
+    Args:
+        vrt_array (list): A list of GeoTIFF file paths to combine.
+        destination (str): The path to save the combined VRT and GeoTIFF files.
+    """
     subprocess.run(f"gdalbuildvrt {destination} {' '.join(vrt_array)}", shell=True)
     tif_name = destination.split('.vrt')[-2] + '.tif'
     subprocess.run(f"gdal_translate -of GTiff {destination} {tif_name}", shell=True)
 
 
 def hdf_tif_conversion(resource_path, destination_path):
+    """
+    Convert HDF files to GeoTIFF format using GDAL.
+
+    Args:
+        resource_path (str): The path to the source HDF file.
+        destination_path (str): The path to save the converted GeoTIFF file.
+    """
     hdf_dataset = gdal.Open(resource_path)
     if hdf_dataset is None:
         raise Exception("Could not open HDF dataset")
@@ -155,6 +203,13 @@ def hdf_tif_conversion(resource_path, destination_path):
 
 
 def download_modis_archive(*, start_date, end_date):
+    """
+    Download MODIS data for a specified date range.
+
+    Keyword Args:
+        start_date (datetime): The start date of the date range.
+        end_date (datetime): The end date of the date range.
+    """
     all_archive_dates = list()
 
     all_rows = get_web_row_data()
@@ -170,9 +225,15 @@ def download_modis_archive(*, start_date, end_date):
 
 
 def step_one_download_modis():
+  """
+  Step one of the main workflow: Download recent MODIS data.
+  """
   download_recent_modis()
                    
 def step_two_merge_modis_western_us():
+  """
+  Step two of the main workflow: Merge MODIS data for the western US.
+  """
   download_modis_archive(start_date=datetime(2022, 1, 1), end_date=datetime(2022, 12, 31))
 
   files = get_files(modis_downloaded_data)
@@ -213,16 +274,6 @@ def step_two_merge_modis_western_us():
 # main workflow is here:
 step_one_download_modis()
 step_two_merge_modis_western_us()
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,4 +1,654 @@
 [{
+  "history_id" : "gb8zd82zqrh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696863953122,
+  "history_end_time" : 1696863953122,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fbq6s5kq5kg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696862402853,
+  "history_end_time" : 1696862402853,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7tp179f23an",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696832263599,
+  "history_end_time" : 1696832263599,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "54xwxbavppr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696831867290,
+  "history_end_time" : 1696831867290,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "910zu9vnmc2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696830174124,
+  "history_end_time" : 1696830174124,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jtgsg2tkwes",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696787541809,
+  "history_end_time" : 1696787541809,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dv9ep664xtk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696786838103,
+  "history_end_time" : 1696786838103,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "kso3aujbxbi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696771780775,
+  "history_end_time" : 1696771780775,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2rdvah2u0nk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696602943857,
+  "history_end_time" : 1696602943857,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "H6IdOGIgaMPr",
+  "history_input" : "\"\"\"\nThis script trains and validates machine learning models for hole analysis.\n\nAttributes:\n    RandomForestHole (class): A class for training and using a Random Forest model.\n    XGBoostHole (class): A class for training and using an XGBoost model.\n    ETHole (class): A class for training and using an Extra Trees model.\n\nFunctions:\n    main(): The main function that trains and validates machine learning models for hole analysis.\n\"\"\"\n\nfrom model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\nfrom model_creation_et import ETHole\n\ndef main():\n    print(\"Train Models\")\n\n    # Choose the machine learning models to train (e.g., RandomForestHole, XGBoostHole, ETHole)\n    worm_holes = [ETHole()]\n\n    for hole in worm_holes:\n        # Perform preprocessing for the selected model\n        hole.preprocessing()\n        print(hole.train_x.shape)\n        print(hole.train_y.shape)\n        \n        # Train the machine learning model\n        hole.train()\n        \n        # Test the trained model\n        hole.test()\n        \n        # Evaluate the model's performance\n        hole.evaluate()\n        \n        # Save the trained model\n        hole.save()\n\n    print(\"Finished training and validating all the models.\")\n\nif __name__ == \"__main__\":\n    main()\n",
+  "history_output" : "today date = 2023-10-06\ntest start date:  2023-01-18\ntest end date:  2023-10-06\n/home/chetana\npreparing training data from csv:  /home/chetana/gridmet_test_run/final_merged_data_3yrs_cleaned.csv\nget swe statistics\ncount    1.008700e+06\nmean     3.333796e+00\nstd      5.245389e+00\nmin      0.000000e+00\n25%      0.000000e+00\n50%      0.000000e+00\n75%      6.300000e+00\nmax      2.260000e+01\nName: swe_value, dtype: float64\nrequired features: Index(['date', 'lat', 'lon', 'SWE', 'Flag', 'air_temperature_tmmn',\n       'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n       'relative_humidity_rmax', 'relative_humidity_rmin',\n       'precipitation_amount', 'air_temperature_tmmx', 'wind_speed',\n       'elevation', 'slope', 'curvature', 'aspect', 'eastness', 'northness'],\n      dtype='object')\ninput features and order:  Index(['date', 'lat', 'lon', 'SWE', 'Flag', 'air_temperature_tmmn',\n       'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n       'relative_humidity_rmax', 'relative_humidity_rmin',\n       'precipitation_amount', 'air_temperature_tmmx', 'wind_speed',\n       'elevation', 'slope', 'curvature', 'aspect', 'eastness', 'northness'],\n      dtype='object')\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.2418702240507661\nMSE is 0.1308238310622578\nR2 score is 0.9952542703472885\nRMSE is 0.3616957714188235\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_20230610044339.joblib\nTrain Models\npreparing training data from csv:  /home/chetana/gridmet_test_run/final_merged_data_3yrs_cleaned.csv\nget swe statistics\ncount    1.008700e+06\nmean     3.333796e+00\nstd      5.245389e+00\nmin      0.000000e+00\n25%      0.000000e+00\n50%      0.000000e+00\n75%      6.300000e+00\nmax      2.260000e+01\nName: swe_value, dtype: float64\nrequired features: Index(['date', 'lat', 'lon', 'SWE', 'Flag', 'air_temperature_tmmn',\n       'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n       'relative_humidity_rmax', 'relative_humidity_rmin',\n       'precipitation_amount', 'air_temperature_tmmx', 'wind_speed',\n       'elevation', 'slope', 'curvature', 'aspect', 'eastness', 'northness'],\n      dtype='object')\ninput features and order:  Index(['date', 'lat', 'lon', 'SWE', 'Flag', 'air_temperature_tmmn',\n       'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n       'relative_humidity_rmax', 'relative_humidity_rmin',\n       'precipitation_amount', 'air_temperature_tmmx', 'wind_speed',\n       'elevation', 'slope', 'curvature', 'aspect', 'eastness', 'northness'],\n      dtype='object')\n(806960, 19)\n(806960,)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.2418702240507661\nMSE is 0.1308238310622578\nR2 score is 0.9952542703472885\nRMSE is 0.3616957714188235\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_20230610044446.joblib\nFinished training and validating all the models.\n",
+  "history_begin_time" : 1696567353281,
+  "history_end_time" : 1696567487577,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "o1bbm9ju2f6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696432484296,
+  "history_end_time" : 1696432484296,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "94omc8it995",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696432299718,
+  "history_end_time" : 1696432482220,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "w83v7ekgpl1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695827991050,
+  "history_end_time" : 1695827991050,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "glb9535wegs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695827889153,
+  "history_end_time" : 1695827964200,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "y32zqg9ludz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695827855620,
+  "history_end_time" : 1695827866998,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "e8y11v5igve",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695696616088,
+  "history_end_time" : 1695696616088,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xxxe907tobj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695694257305,
+  "history_end_time" : 1695694257305,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ky8mlfrj7n5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695693585725,
+  "history_end_time" : 1695693585725,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4vq9zvhfz6x",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695693149326,
+  "history_end_time" : 1695693149326,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1w88kwa7d2n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695580915793,
+  "history_end_time" : 1695580915793,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5qpxz7tf6jj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695576291626,
+  "history_end_time" : 1695576291626,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fmfcfjpzh7m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695575930970,
+  "history_end_time" : 1695575930970,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dhat7m5l8o3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695535769169,
+  "history_end_time" : 1695535769169,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vlktoax9zg8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695535478664,
+  "history_end_time" : 1695535478664,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "og5e443bz93",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695535214002,
+  "history_end_time" : 1695535214002,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xdas7n46cyi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695534943546,
+  "history_end_time" : 1695534943546,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t0juu0d0wiu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695534671803,
+  "history_end_time" : 1695534671803,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6h10pnr26te",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695533024043,
+  "history_end_time" : 1695533024043,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3hmisril0ip",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695529187841,
+  "history_end_time" : 1695529187841,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jdx250u5dde",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695528505089,
+  "history_end_time" : 1695528505089,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "sd8elu70yyj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695515862323,
+  "history_end_time" : 1695515862323,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yl5vfa2d1sn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695506423805,
+  "history_end_time" : 1695506423805,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ijgazcz8iyg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695418741249,
+  "history_end_time" : 1695418741249,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0xegr0kxz37",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695417619652,
+  "history_end_time" : 1695417619652,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "runam6n6jv6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695417171256,
+  "history_end_time" : 1695417171256,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xgldo7g0aht",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695417052712,
+  "history_end_time" : 1695417052712,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "u4ugtegop75",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695416915934,
+  "history_end_time" : 1695416915934,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "a3ucbxqg1o6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695106488881,
+  "history_end_time" : 1695106488881,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "i78qxrvkouq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695106316068,
+  "history_end_time" : 1695106316068,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wqbjyc5lfj1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695054045002,
+  "history_end_time" : 1695054045002,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uitmzpmx1h1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695054019730,
+  "history_end_time" : 1695054032310,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bwjrnzi15k1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695053979862,
+  "history_end_time" : 1695054018257,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7z25bbo2b35",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695053793291,
+  "history_end_time" : 1695053793291,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gs6139tmzio",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695053733278,
+  "history_end_time" : 1695053733278,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "71o6bsjjait",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694971144763,
+  "history_end_time" : 1694972839679,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "w040f3nxre2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694970707850,
+  "history_end_time" : 1694970707850,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xuj11x5kvbh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694970594702,
+  "history_end_time" : 1694970594702,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "z7glr84ljyl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694970131438,
+  "history_end_time" : 1694970131438,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "z57oozxprso",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694969349921,
+  "history_end_time" : 1694969349921,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "o1sip7070cz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694905307598,
+  "history_end_time" : 1694905307598,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0kdto7lqwp8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694897887064,
+  "history_end_time" : 1694897887064,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h24mhWYDAVZW",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\nfrom model_creation_et import ETHole\n\nprint(\"Train Models\")\n\n#worm_holes = [RandomForestHole(), XGBoostHole()]\nworm_holes = [ETHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Mean Squared Error (MSE): 0.00014106954444090993\nRoot Mean Squared Error (RMSE): 0.01187727007527024\nMean Absolute Error (MAE): 0.00039741956038577596\nR-squared (R2): 0.9999989784965797\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/h24mhWYDAVZW/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\nImportError: cannot import name 'RandomForestHole' from 'model_creation_rf' (/home/chetana/gw-workspace/h24mhWYDAVZW/model_creation_rf.py)\n",
+  "history_begin_time" : 1694390661798,
+  "history_end_time" : 1694390815516,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "o1CxRKiYwBoe",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\nfrom model_creation_et import ETHole\n\nprint(\"Train Models\")\n\n#worm_holes = [RandomForestHole(), XGBoostHole()]\nworm_holes = [ETHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Mean Squared Error (MSE): 0.00014106954444090993\nRoot Mean Squared Error (RMSE): 0.01187727007527024\nMean Absolute Error (MAE): 0.00039741956038577596\nR-squared (R2): 0.9999989784965797\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/o1CxRKiYwBoe/model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\nImportError: cannot import name 'RandomForestHole' from 'model_creation_rf' (/home/chetana/gw-workspace/o1CxRKiYwBoe/model_creation_rf.py)\n",
+  "history_begin_time" : 1694390462762,
+  "history_end_time" : 1694390630694,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "1uds3tdzxdk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531335695,
+  "history_end_time" : 1691531335695,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "evnwq9aapbi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292505,
+  "history_end_time" : 1691531292505,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rmgd8acgo1g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531254356,
+  "history_end_time" : 1691531284887,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "v39ekvtoyso",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531163313,
+  "history_end_time" : 1691531163313,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "19h1o5l8soh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531120682,
+  "history_end_time" : 1691531120682,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5w9v78eydf7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531060660,
+  "history_end_time" : 1691531060660,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "an5jgq8pffh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530848170,
+  "history_end_time" : 1691530848170,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dxd9a2732gm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530717506,
+  "history_end_time" : 1691530721092,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8cytr7wjtyf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530689931,
+  "history_end_time" : 1691530716740,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lmuav05my28",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530620844,
+  "history_end_time" : 1691530622425,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "c30w3u8dchp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530616267,
+  "history_end_time" : 1691530616267,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rmzhn0okeq0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530599307,
+  "history_end_time" : 1691530614269,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
   "history_id" : "k1vrmetl5un",
   "history_input" : null,
   "history_output" : "Authentication Failed. Wrong Password.",
@@ -713,31 +1363,31 @@
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fa47695aeb0>\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.07381263447587931\nMSE is 0.058613880185901225\nR2 score is 0.9997920903862221\nRMSE is 0.2421030363004587\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20230303155336.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fa4768152e0>\n(4713, 22)\n(4713, 1)\n/home/chetana/gw-workspace/4o121deo5l6/base_hole.py:58: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.008312977099253526\nMSE is 0.00781739864291764\nR2 score is 0.9999773813925161\nRMSE is 0.08841605421481803\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20230303155337.joblib\nFinished training and validating all the models.\n",
   "history_begin_time" : 1677858810683,
-  "history_end_time" : 1677858817717,
+  "history_end_time" : 1694185596761,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
-  "indicator" : "Done"
+  "indicator" : "Stopped"
 },{
   "history_id" : "4igzqjd8gxy",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fd9d12d7eb0>\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.07637194959198114\nMSE is 0.059015930557343506\nR2 score is 0.999798355676233\nRMSE is 0.2429319463498852\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20230303021110.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7fd9d11922e0>\n(4713, 22)\n(4713, 1)\n/home/chetana/gw-workspace/4igzqjd8gxy/base_hole.py:58: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.0056878710771994115\nMSE is 0.0006032620865139981\nR2 score is 0.9999980986355449\nRMSE is 0.024561394229847745\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20230303021111.joblib\nFinished training and validating all the models.\n",
   "history_begin_time" : 1677809463715,
-  "history_end_time" : 1677809471178,
+  "history_end_time" : 1694185620792,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
-  "indicator" : "Done"
+  "indicator" : "Stopped"
 },{
   "history_id" : "gjeca5odijw",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
   "history_output" : "Train Models\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f3d737a7eb0>\n(4713, 22)\n(4713, 1)\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.08573720198123155\nMSE is 0.07849347946414327\nR2 score is 0.9997611152487754\nRMSE is 0.28016687788556177\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_RandomForestHole_20230203211301.joblib\nall columns:  ['year', 'm', 'day', 'eto', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'lat', 'lon', 'elevation', 'aspect', 'curvature', 'slope', 'eastness', 'northness', 'swe_0719', 'depth_0719', 'swe_snotel']\n<generator object BaseHole.preprocessing.<locals>.<genexpr> at 0x7f3d736622e0>\n(4713, 22)\n(4713, 1)\n/home/chetana/gw-workspace/gjeca5odijw/base_hole.py:58: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().\n  self.classifier.fit(self.train_x, self.train_y)\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/ensemble/_forest.py:413: FutureWarning: `max_features='auto'` has been deprecated in 1.1 and will be removed in 1.3. To keep the past behaviour, explicitly set `max_features=1.0` or remove this parameter as it is also the default value for RandomForestRegressors and ExtraTreesRegressors.\n  warn(\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.006556403731992199\nMSE is 0.0019445581000847088\nR2 score is 0.9999936617893993\nRMSE is 0.044097143899403606\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_XGBoostHole_20230203211301.joblib\nFinished training and validating all the models.\n",
   "history_begin_time" : 1677791575331,
-  "history_end_time" : 1677791582276,
+  "history_end_time" : 1694185610824,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
-  "indicator" : "Done"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1se4t3nm9op",
   "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
@@ -2703,7 +3353,7 @@
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
-  "history_end_time" : 1677791865856,
+  "history_end_time" : 1694185611211,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
@@ -2803,7 +3453,7 @@
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
-  "history_end_time" : 1678312026541,
+  "history_end_time" : 1694185586141,
   "history_notes" : null,
   "history_process" : "e8k4wq",
   "host_id" : "45wlwr",
