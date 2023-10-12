@@ -1,0 +1,431 @@
+[{
+  "history_id" : "9ncz40kaz03",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292091,
+  "history_end_time" : 1691531292091,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "kdisv5wzoo1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292329,
+  "history_end_time" : 1691531292329,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mbu18j04243",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292502,
+  "history_end_time" : 1691531292502,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w71h6508r7o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292504,
+  "history_end_time" : 1691531292504,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "evnwq9aapbi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292505,
+  "history_end_time" : 1691531292505,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jyhfla67usy",
+  "history_input" : "import joblib\nimport pandas as pd\nimport netCDF4 as nc\nfrom datetime import timedelta, datetime\nfrom sklearn.preprocessing import MinMaxScaler\nfrom snowcast_utils import convert_date_from_1900, test_start_date\n\nmodel = joblib.load('/home/chetana/gridmet_test_run/model_creation_et_3_yrs.pkl')\nnew_data = pd.read_csv(\"/home/chetana/gridmet_test_run/testing_all_ready.csv\")\nreference_nc_file = nc.Dataset('/home/chetana/gridmet_test_run/gridmet_climatology/etr_2023.nc')\n\nreference_date = datetime(1900, 1, 1)\nday = reference_nc_file.variables['day'][:]\n\n# day_value = day[-1]\nday_value = convert_date_from_1900(test_start_date)\nprint('current day count:', day_value)\n\nresult_date = reference_date + timedelta(days=day_value)\nnew_data['date'] = result_date.strftime(\"%Y-%m-%d\")\n\nnew_data['date'] = pd.to_datetime(new_data['date'])\n# Calculate the number of days since the year 1900\nreference_date = pd.to_datetime('1900-01-01')\nnew_data['days_since_reference'] = (new_data['date'] - reference_date).dt.days\n\nnew_data = new_data.dropna(subset=['SWE_x'])\ncolumn_means = new_data.mean()\nnew_data = new_data.fillna(column_means)\n\n# Create a new feature 'scaled_date' by applying Min-Max scaling to 'days_since_reference'\nscaler = MinMaxScaler()\nnew_datadata['scaled_date'] = scaler.fit_transform(new_data['days_since_reference'].values.reshape(-1, 1))\n\n\nnew_data.drop(['swe_change', 'snow_depth_change'], axis=1, inplace=True, errors='ignore')\nnew_data.drop('date', axis=1, inplace=True)\nnew_data.replace('--', pd.NA, inplace=True)\n\nnew_data.rename(columns={'Elevation': 'elevation', 'Slope': 'slope',\n                         'Aspect': 'aspect', 'Curvature': 'curvature',\n                         'Northness': 'northness', 'Eastness': 'eastness',\n                         'Latitude': 'lat', 'Longitude': 'lon'}, inplace=True)\n\n# Handle missing values by replacing with the mean of each column\nnumerical_columns = ['lat', 'lon', 'vpd', 'vs', 'pr', 'rmax', 'etr', 'tmmn', 'tmmx', 'rmin', 'elevation', 'slope',\n                     'aspect', 'curvature', 'northness', 'eastness']\nnew_data[numerical_columns] = new_data[numerical_columns].apply(pd.to_numeric, errors='coerce')\n\n# Calculate the mean of each column\nmean_values = new_data[numerical_columns].mean()\n\ncolumns_to_delete = [0, 4, 6, 8, 10, 12, 14, 16, 18, 19]\nnew_data.drop(new_data.columns[columns_to_delete], axis=1, inplace=True)\n\n# Fill missing data with mean values\n#new_data[numerical_columns] = new_data[numerical_columns].fillna(mean_values)\nnew_data.dropna(inplace=True)\n\n# ['date', 'lat', 'lon', 'etr', 'pr', 'rmax',\n#                     'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', \n#                     'elevation',\n#                     'slope', 'curvature', 'aspect', 'eastness',\n#                     'northness', 'Snow Water Equivalent (in) Start of Day Values']\n\ndesired_order = ['lat', 'lon', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs', 'elevation', 'slope', 'curvature', 'aspect', 'eastness', 'northness', 'AMSR_SWE', 'AMSR_Flag', 'year', 'month', 'day', 'day_of_week']\n\n# Reindex the DataFrame with the desired order of columns\nnew_data = new_data.reindex(columns=desired_order)\n\nnew_predictions = model.predict(new_data)\n\nnew_data['predicted_swe'] = new_predictions\n\nnew_data.to_csv('/home/chetana/gridmet_test_run/test_data_prediected.csv', index=False)\n\nprint(\"prediction successfully done\")",
+  "history_output" : "today date = 2023-08-08\n/home/chetana\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/jyhfla67usy/model_predict.py\", line 10, in <module>\n    reference_nc_file = nc.Dataset('/home/chetana/gridmet_test_run/gridmet_climatology/etr_2023.nc')\n  File \"src/netCDF4/_netCDF4.pyx\", line 2464, in netCDF4._netCDF4.Dataset.__init__\n  File \"src/netCDF4/_netCDF4.pyx\", line 2027, in netCDF4._netCDF4._ensure_nc_success\nFileNotFoundError: [Errno 2] No such file or directory: '/home/chetana/gridmet_test_run/gridmet_climatology/etr_2023.nc'\n",
+  "history_begin_time" : 1691531309486,
+  "history_end_time" : 1691531314652,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "13pg6fma8yg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292587,
+  "history_end_time" : 1691531292587,
+  "history_notes" : null,
+  "history_process" : "urd0nk",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ykqgunzrd1e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292588,
+  "history_end_time" : 1691531292588,
+  "history_notes" : null,
+  "history_process" : "525l8q",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8qb7b25xivc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292589,
+  "history_end_time" : 1691531292589,
+  "history_notes" : null,
+  "history_process" : "7temiv",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dzsuml06jkx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292591,
+  "history_end_time" : 1691531292591,
+  "history_notes" : null,
+  "history_process" : "rmxece",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ea432yt6p1f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292592,
+  "history_end_time" : 1691531292592,
+  "history_notes" : null,
+  "history_process" : "illwc1",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wtdumq05rjb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292593,
+  "history_end_time" : 1691531292593,
+  "history_notes" : null,
+  "history_process" : "sjs5by",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "chf6du8ppkt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292594,
+  "history_end_time" : 1691531292594,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nveeds7i0vi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292595,
+  "history_end_time" : 1691531292595,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "a7360lql9s1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292623,
+  "history_end_time" : 1691531292623,
+  "history_notes" : null,
+  "history_process" : "smsdr0",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l35vytvs7ae",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292625,
+  "history_end_time" : 1691531292625,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0kko9r6sn8n",
+  "history_input" : "import os\nimport pandas as pd\nimport netCDF4 as nc\nimport csv\nfrom datetime import datetime\n\n\ngridmet_var_mapping = {\n  \"etr\": \"potential_evapotranspiration\",\n  \"pr\":\"precipitation_amount\",\n  \"rmax\":\"relative_humidity\",\n  \"rmin\":\"relative_humidity\",\n  \"tmmn\":\"air_temperature\",\n  \"tmmx\":\"air_temperature\",\n  \"vpd\":\"mean_vapor_pressure_deficit\",\n  \"vs\":\"wind_speed\",\n}\n\n\ndem_csv = \"/home/chetana/gridmet_test_run/dem_all.csv\"\n\n\ndef get_current_year():\n    now = datetime.now()\n    current_year = now.year\n    return current_year\n\n\ndef get_file_name_from_path(file_path):\n    # Get the file name from the file path\n    file_name = os.path.basename(file_path)\n    return file_name\n\ndef get_var_from_file_name(file_name):\n    # Assuming the file name format is \"tmmm_year.csv\"\n    var_name = str(file_name.split('_')[0])\n    return var_name\n\ndef get_coordinates_of_template_tif():\n  \t# Load the CSV file and extract coordinates\n    coordinates = []\n    df = pd.read_csv(dem_csv)\n    for index, row in df.iterrows():\n        # Process each row here\n        lon, lat = float(row[\"Longitude\"]), float(row[\"Latitude\"])\n        coordinates.append((lon, lat))\n    return coordinates\n\ndef find_nearest_index(array, value):\n    # Find the index of the element in the array that is closest to the given value\n    return (abs(array - value)).argmin()\n\ndef get_nc_csv_by_coords_and_variable(nc_file, coordinates, var_name):\n    coordinates = get_coordinates_of_template_tif()\n    # get the netcdf file and generate the csv file for every coordinate in the dem_template.csv\n    new_lat_data = []\n    new_lon_data = []\n    new_var_data = []\n    # Read the NetCDF file\n    with nc.Dataset(nc_file) as nc_file:\n      # Get a list of all variables in the NetCDF file\n      variables = nc_file.variables.keys()\n\n      # Print the variables and their shapes\n      for variable in variables:\n        shape = nc_file.variables[variable].shape\n        print(f\"Variable: {variable}, Shape: {shape}\")\n      \n      # Get the values at each coordinate using rasterio's sample function\n      latitudes = nc_file.variables['lat'][:]\n      longitudes = nc_file.variables['lon'][:]\n      day = nc_file.variables['day'][:]\n      long_var_name = gridmet_var_mapping[var_name]\n      print(\"long var name: \", long_var_name)\n      var_col = nc_file.variables[long_var_name][:]\n      \n      print(f\"latitudes shape: {latitudes.shape}\")\n      print(f\"longitudes shape: {longitudes.shape}\")\n      print(f\"day shape: {day.shape}\")\n      print(f\"val col shape: {var_col.shape}\")\n      \n      day_index = day[day.shape[0]-1]\n      day_index = 44998\n      print('day_index:', day_index)\n      \n      for coord in coordinates:\n        lon, lat = coord\n        new_lat_data.append(lat)\n        new_lon_data.append(lon)\n        # Access the variables in the NetCDF file\n        # Find the nearest indices for the given coordinates\n        lon_index = find_nearest_index(longitudes, lon)\n        lat_index = find_nearest_index(latitudes, lat)\n        #day_index = find_nearest_index(day, day[day.shape[0]-1])\n        #print(f\"last day: {day_index}\")\n\n        # Get the value at the specified coordinates\n        the_value = var_col[day.shape[0]-1, lat_index, lon_index]  # Assuming data_variable is a 3D variable (time, lat, lon)\n        if the_value == \"--\":\n          the_value = -9999\n        new_var_data.append(the_value)\n        #print(f\"lon - {lon} lat - {lat} lon-index {lon_index} lat-index {lat_index} day-index {day_index} value - {the_value}\")\n    # Create the DataFrame\n    data = { 'Latitude': new_lat_data, 'Longitude': new_lon_data, var_name: new_var_data}\n    df = pd.DataFrame(data)\n    return df\n\ndef turn_gridmet_nc_to_csv(folder_path, dem_all_csv, testing_all_csv):\n    coordinates = get_coordinates_of_template_tif()\n    current_year = get_current_year()\n    for root, dirs, files in os.walk(folder_path):\n        for file_name in files:\n            var_name = get_var_from_file_name(file_name)\n            print(\"Variable name:\", var_name)\n            res_csv = f\"/home/chetana/gridmet_test_run/testing_output/{str(current_year)}_{var_name}.csv\"\n            if os.path.exists(res_csv):\n                os.remove(res_csv)\n                print(f\"remove old {res_csv}\")\n            \n            if str(current_year) in file_name :\n                # Perform operations on each file here\n                netcdf_file_path = os.path.join(root, file_name)\n                print(\"Processing file:\", netcdf_file_path)\n                file_name = get_file_name_from_path(netcdf_file_path)\n                print(\"File Name:\", file_name)\n\n                df = get_nc_csv_by_coords_and_variable(netcdf_file_path, coordinates, var_name)\n                df.to_csv(res_csv)\n            \ndef merge_all_gridmet_csv_into_one(gridmet_csv_folder, dem_all_csv, testing_all_csv):\n    # List of file paths for the CSV files\n    csv_files = []\n    for file in os.listdir(gridmet_csv_folder):\n        if file.endswith('.csv'):\n            csv_files.append(os.path.join(gridmet_csv_folder, file))\n\n    # Initialize an empty list to store all dataframes\n    dfs = []\n\n    # Read each CSV file into separate dataframes\n    for file in csv_files:\n        df = pd.read_csv(file, encoding='utf-8', index_col=False)\n        dfs.append(df)\n\n    dem_df = pd.read_csv(dem_all_csv, encoding='utf-8', index_col=False)\n    dfs.append(dem_df)\n    \n    # Merge the dataframes based on the latitude and longitude columns\n    merged_df = dfs[0]  # Start with the first dataframe\n    for i in range(1, len(dfs)):\n        merged_df = pd.merge(merged_df, dfs[i], on=['Latitude', 'Longitude'])\n    amsr_df = pd.read_csv('/home/chetana/gridmet_test_run/testing_ready_amsr.csv', index_col=False)\n    amsr_df.rename(columns={'lat': 'Latitude', 'lon': 'Longitude'}, inplace=True)\n    merged_df = pd.merge(merged_df, amsr_df, on=['Latitude', 'Longitude'])\n\n    # Save the merged dataframe to a new CSV file\n    merged_df.to_csv(testing_all_csv, index=False)\n    print(f\"All input csv files are merged to {testing_all_csv}\")\n    print(merged_df.head())\n\n    \n\nif __name__ == \"__main__\":\n    # Replace with the actual path to your folder\n    gridmet_csv_folder = \"/home/chetana/gridmet_test_run/gridmet_climatology/\"\n    #turn_gridmet_nc_to_csv(gridmet_csv_folder)\n    merge_all_gridmet_csv_into_one(\"/home/chetana/gridmet_test_run/testing_output/\",\n                                  \"/home/chetana/gridmet_test_run/dem_all.csv\",\n                                  \"/home/chetana/gridmet_test_run/testing_all_ready.csv\")\n\n",
+  "history_output" : "/home/chetana/gw-workspace/0kko9r6sn8n/testing_data_integration.py:151: FutureWarning: Passing 'suffixes' which cause duplicate columns {'Unnamed: 0_x'} in the result is deprecated and will raise a MergeError in a future version.\n  merged_df = pd.merge(merged_df, dfs[i], on=['Latitude', 'Longitude'])\n/home/chetana/gw-workspace/0kko9r6sn8n/testing_data_integration.py:151: FutureWarning: Passing 'suffixes' which cause duplicate columns {'Unnamed: 0_x'} in the result is deprecated and will raise a MergeError in a future version.\n  merged_df = pd.merge(merged_df, dfs[i], on=['Latitude', 'Longitude'])\n/home/chetana/gw-workspace/0kko9r6sn8n/testing_data_integration.py:151: FutureWarning: Passing 'suffixes' which cause duplicate columns {'Unnamed: 0_x'} in the result is deprecated and will raise a MergeError in a future version.\n  merged_df = pd.merge(merged_df, dfs[i], on=['Latitude', 'Longitude'])\nAll input csv files are merged to /home/chetana/gridmet_test_run/testing_all_ready.csv\n   Unnamed: 0_x  Latitude  Longitude  ...        date  AMSR_SWE AMSR_Flag\n0             0      49.0   -125.000  ...  2022-01-01         0       241\n1             1      49.0   -124.964  ...  2022-01-01         0       241\n2             2      49.0   -124.928  ...  2022-01-01         0       241\n3             3      49.0   -124.892  ...  2022-01-01         0       241\n4             4      49.0   -124.856  ...  2022-01-01         0       241\n\n[5 rows x 29 columns]\n",
+  "history_begin_time" : 1691531296531,
+  "history_end_time" : 1691531308804,
+  "history_notes" : null,
+  "history_process" : "b63prf",
+  "host_id" : "tq3z35",
+  "indicator" : "Done"
+},{
+  "history_id" : "d0ybqp3tq01",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292631,
+  "history_end_time" : 1691531292631,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "we2gkxaocaa",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292632,
+  "history_end_time" : 1691531292632,
+  "history_notes" : null,
+  "history_process" : "wdh394",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ipam91tf3n7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292633,
+  "history_end_time" : 1691531292633,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "m54xiklf5x4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292635,
+  "history_end_time" : 1691531292635,
+  "history_notes" : null,
+  "history_process" : "ilbqzg",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4jrqeekuvha",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292687,
+  "history_end_time" : 1691531292687,
+  "history_notes" : null,
+  "history_process" : "do86ae",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qy01mqdblrq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292706,
+  "history_end_time" : 1691531292706,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "74y00fa0xz2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292708,
+  "history_end_time" : 1691531292708,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5zvysomqhno",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292733,
+  "history_end_time" : 1691531292733,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0kj0064uumy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292755,
+  "history_end_time" : 1691531292755,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "s24j0qqfess",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292758,
+  "history_end_time" : 1691531292758,
+  "history_notes" : null,
+  "history_process" : "doinnd",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3talf63dgov",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292759,
+  "history_end_time" : 1691531292759,
+  "history_notes" : null,
+  "history_process" : "b7a4fu",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9srqjce5rnb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292785,
+  "history_end_time" : 1691531292785,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cjlkco0rpo6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292805,
+  "history_end_time" : 1691531292805,
+  "history_notes" : null,
+  "history_process" : "oon4sb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "azu56lhhxg3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292807,
+  "history_end_time" : 1691531292807,
+  "history_notes" : null,
+  "history_process" : "fa7e4u",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ssykx8rhtku",
+  "history_input" : "#############################################\n# Process Name: gridmet_station_only\n# Person Assigned: Gokul Prathin A\n# Last Changes On: 1st July 2023\n#############################################\n\nimport os\nimport numpy as np\nimport pandas as pd\nimport netCDF4 as nc\nimport urllib.request\nfrom datetime import datetime, timedelta, date\nfrom snowcast_utils import test_start_date\n\n\ndef get_current_year():\n    now = datetime.now()\n    current_year = now.year\n    return current_year\n\n#year_list = [get_current_year()]\nselected_yr = datetime.strptime(test_start_date, \"%Y-%m-%d\")\n\n\nyear_list = [selected_yr.year]\n\ndef remove_files_in_folder(folder_path):\n    # Get a list of files in the folder\n    files = os.listdir(folder_path)\n\n    # Loop through the files and remove them\n    for file in files:\n        file_path = os.path.join(folder_path, file)\n        if os.path.isfile(file_path):\n            os.remove(file_path)\n            print(f\"Deleted file: {file_path}\")\n\ndef download_file(url, target_file_path, variable):\n    try:\n        with urllib.request.urlopen(url) as response:\n            print(f\"Downloading {url}\")\n            file_content = response.read()\n        save_path = target_file_path\n        with open(save_path, 'wb') as file:\n            file.write(file_content)\n        print(f\"File downloaded successfully and saved as: {save_path}\")\n    except Exception as e:\n        print(f\"An error occurred while downloading the file: {str(e)}\")\n\n\ndef download_gridmet_of_specific_variables():\n    # make a directory to store the downloaded files\n    \n\n    base_metadata_url = \"http://www.northwestknowledge.net/metdata/data/\"\n    variables_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'etr', 'rmax', 'rmin', 'vs']\n\n    for var in variables_list:\n        for y in year_list:\n            download_link = base_metadata_url + var + '_' + '%s' % y + '.nc'\n            target_file_path = os.path.join(folder_name, var + '_' + '%s' % y + '.nc')\n            if not os.path.exists(target_file_path):\n                download_file(download_link, target_file_path, var)\n            else:\n                print(f\"File {target_file_path} exists\")\n\nfolder_name = '/home/chetana/gridmet_test_run/gridmet_climatology'\nif not os.path.exists(folder_name):\n    os.makedirs(folder_name)\nremove_files_in_folder(folder_name)\ndownload_gridmet_of_specific_variables()\n\n",
+  "history_output" : "today date = 2023-08-08\n/home/chetana\nDeleted file: /home/chetana/gridmet_test_run/gridmet_climatology/rmin_2020.nc\nDeleted file: /home/chetana/gridmet_test_run/gridmet_climatology/vs_2020.nc\nDeleted file: /home/chetana/gridmet_test_run/gridmet_climatology/tmmn_2020.nc\nDeleted file: /home/chetana/gridmet_test_run/gridmet_climatology/pr_2020.nc\nDeleted file: /home/chetana/gridmet_test_run/gridmet_climatology/etr_2020.nc\nDeleted file: /home/chetana/gridmet_test_run/gridmet_climatology/rmax_2020.nc\nDeleted file: /home/chetana/gridmet_test_run/gridmet_climatology/vpd_2020.nc\nDeleted file: /home/chetana/gridmet_test_run/gridmet_climatology/tmmx_2020.nc\n",
+  "history_begin_time" : 1691531294409,
+  "history_end_time" : 1691531296470,
+  "history_notes" : null,
+  "history_process" : "drwmbo",
+  "host_id" : "tq3z35",
+  "indicator" : "Done"
+},{
+  "history_id" : "m8xx5zdekj1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292814,
+  "history_end_time" : 1691531292814,
+  "history_notes" : null,
+  "history_process" : "2n7b06",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1k8jvryr7ip",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292816,
+  "history_end_time" : 1691531292816,
+  "history_notes" : null,
+  "history_process" : "bwdy3s",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dg973doq1uf",
+  "history_input" : "import pandas as pd\nimport matplotlib.pyplot as plt\nfrom mpl_toolkits.basemap import Basemap\nimport netCDF4 as nc\nfrom datetime import timedelta, datetime\nimport numpy as np\nimport pyproj\nimport uuid\nfrom snowcast_utils import convert_date_from_1900, test_start_date\n\nreference_date = datetime(1900, 1, 1)\nday_value = convert_date_from_1900(test_start_date)\nresult_date = reference_date + timedelta(days=day_value)\ncurrent_datetime = result_date.strftime(\"%Y-%m-%d\")\n# current_datetime = datetime.now()\ntimestamp_string = current_datetime\n\ndef lat_lon_to_map_coordinates(lon, lat, m):\n    x, y = m(lon, lat)\n    return x, y\n\ndef convert_csvs_to_images():\n    # Load the CSV data into a DataFrame\n    data = pd.read_csv('/home/chetana/gridmet_test_run/test_data_prediected.csv')\n\n    # Define the map boundaries for the Western US\n    lon_min, lon_max = -125, -100\n    lat_min, lat_max = 25, 49.5\n\n    # Create the Basemap instance\n    m = Basemap(llcrnrlon=lon_min, llcrnrlat=lat_min, urcrnrlon=lon_max, urcrnrlat=lat_max,\n                projection='merc', resolution='i')\n\n    # Convert lon/lat to map coordinates\n    x, y = m(data['lon'].values, data['lat'].values)\n\n    # Plot the data using vibrant colors based on predicted_swe\n    plt.scatter(x, y, c=data['predicted_swe'], cmap='coolwarm', s=30, edgecolors='none', alpha=0.7)\n\n    # Add colorbar for reference\n    cbar = plt.colorbar()\n    cbar.set_label('Predicted SWE')\n\n    # Draw coastlines and other map features\n    m.drawcoastlines()\n    m.drawcountries()\n    m.drawstates()\n\n    reference_nc_file = nc.Dataset('/home/chetana/gridmet_test_run/gridmet_climatology/etr_2023.nc')\n\n    reference_date = datetime(1900, 1, 1)\n    day = reference_nc_file.variables['day'][:]\n    day_value = day[-1]\n    \n\tday_value = convert_date_from_1900(test_start_date)\n    \n    result_date = reference_date + timedelta(days=day_value)\n    today = result_date.strftime(\"%Y-%m-%d\")\n    \n\n    # Add a title\n    plt.title(f'Predicted SWE in the Western US - {today}', pad=20)\n\n    # Add labels for latitude and longitude on x and y axes with smaller font size\n    plt.xlabel('Longitude', fontsize=6)\n    plt.ylabel('Latitude', fontsize=6)\n\n    # Add longitude values to the x-axis and adjust font size\n    x_ticks_labels = np.arange(lon_min, lon_max + 5, 5)\n    x_tick_labels_str = [f\"{lon:.1f}°W\" if lon < 0 else f\"{lon:.1f}°E\" for lon in x_ticks_labels]\n    plt.xticks(*m(x_ticks_labels, [lat_min] * len(x_ticks_labels)), fontsize=6)\n    plt.gca().set_xticklabels(x_tick_labels_str)\n\n    # Add latitude values to the y-axis and adjust font size\n    y_ticks_labels = np.arange(lat_min, lat_max + 5, 5)\n    y_tick_labels_str = [f\"{lat:.1f}°N\" if lat >= 0 else f\"{abs(lat):.1f}°S\" for lat in y_ticks_labels]\n    plt.yticks(*m([lon_min] * len(y_ticks_labels), y_ticks_labels), fontsize=6)\n    plt.gca().set_yticklabels(y_tick_labels_str)\n\n    # Convert map coordinates to latitude and longitude for y-axis labels\n    y_tick_positions = np.linspace(lat_min, lat_max, len(y_ticks_labels))\n    y_tick_positions_map_x, y_tick_positions_map_y = lat_lon_to_map_coordinates([lon_min] * len(y_ticks_labels), y_tick_positions, m)\n    y_tick_positions_lat, _ = m(y_tick_positions_map_x, y_tick_positions_map_y, inverse=True)\n    y_tick_positions_lat_str = [f\"{lat:.1f}°N\" if lat >= 0 else f\"{abs(lat):.1f}°S\" for lat in y_tick_positions_lat]\n    plt.yticks(y_tick_positions_map_y, y_tick_positions_lat_str, fontsize=6)\n\n    plt.text(0.98, 0.02, 'Copyright © SWE Wormhole Team',\n             horizontalalignment='right', verticalalignment='bottom',\n             transform=plt.gcf().transFigure, fontsize=6, color='black')\n\n    # Adjust the bottom and top margins to create more white space between the title and the plot\n    plt.subplots_adjust(bottom=0.15)\n    # Show the plot or save it to a file\n    plt.savefig(f'/home/chetana/gridmet_test_run/predicted_swe-{timestamp_string}-{uuid.uuid4().hex}.png')\n    # plt.show()  # Uncomment this line if you want to display the plot directly instead of saving it to a file\n\nconvert_csvs_to_images()\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/dg973doq1uf/convert_results_to_images.py\", line 55\n    day_value = convert_date_from_1900(test_start_date)\nTabError: inconsistent use of tabs and spaces in indentation\n",
+  "history_begin_time" : 1691531315490,
+  "history_end_time" : 1691531317637,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "z3aw4ndxbq4",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/z3aw4ndxbq4/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691531317662,
+  "history_end_time" : 1691531321094,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "t2od0rbp32r",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292823,
+  "history_end_time" : 1691531292823,
+  "history_notes" : null,
+  "history_process" : "2o6cp8",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "riokd5a1dzf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292824,
+  "history_end_time" : 1691531292824,
+  "history_notes" : null,
+  "history_process" : "5wzgx5",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x8kxtt88ht5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292825,
+  "history_end_time" : 1691531292825,
+  "history_notes" : null,
+  "history_process" : "76ewp5",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fm5f63prs6o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292842,
+  "history_end_time" : 1691531292842,
+  "history_notes" : null,
+  "history_process" : "6evkh4",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "sxwmabed15w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292844,
+  "history_end_time" : 1691531292844,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xwiqhh4c8fu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292854,
+  "history_end_time" : 1691531292854,
+  "history_notes" : null,
+  "history_process" : "rvqv35",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "guefdt1xgn2",
+  "history_input" : "import h5py\nimport subprocess\nimport pandas as pd\nimport numpy as np\nfrom datetime import datetime\nfrom snowcast_utils import test_start_date\n\nwestern_us_coords = '/home/chetana/gridmet_test_run/dem_file.tif.csv'\n\ndef find_closest_index(target_latitude, target_longitude, lat_grid, lon_grid):\n    lat_diff = np.abs(lat_grid - target_latitude)\n    lon_diff = np.abs(lon_grid - target_longitude)\n\n    # Find the indices corresponding to the minimum differences\n    lat_idx, lon_idx = np.unravel_index(np.argmin(lat_diff + lon_diff), lat_grid.shape)\n\n    return lat_idx, lon_idx, lat_grid[lat_idx, lon_idx], lon_grid[lat_idx, lon_idx]\n\nif __name__ == \"__main__\":\n  df = pd.DataFrame(columns=['date', 'lat', 'lon', 'AMSR_SWE', 'AMSR_Flag'])\n  date = test_start_date.replace(\"-\", \".\")\n  he5_date = date.replace(\"-\", \"\")\n  cmd = f\"curl --output /home/chetana/gridmet_test_run/amsr_testing/testing_amsr_file.he5 -b ~/.urs_cookies -c ~/.urs_cookies -L -n -O https://n5eil01u.ecs.nsidc.org/AMSA/AU_DySno.001/{date}/AMSR_U2_L3_DailySnow_B02_{he5_date}.he5\"\n  print(f'running command {cmd}')\n  subprocess.run(cmd, shell=True)\n  file = h5py.File('/home/chetana/gridmet_test_run/amsr_testing/testing_amsr_file.he5', 'r')\n  hem_group = file['HDFEOS/GRIDS/Northern Hemisphere']\n  lat = hem_group['lat'][:]\n  lon = hem_group['lon'][:]\n  swe = hem_group['Data Fields/SWE_NorthernDaily'][:]\n  flag = hem_group['Data Fields/Flags_NorthernDaily'][:]\n  date = datetime.strptime(date, '%Y.%m.%d')\n  \n  western_us_df = pd.read_csv(western_us_coords)\n  for idx, row in western_us_df.iterrows():\n    target_lat = row['Latitude']\n    target_lon = row['Longitude']\n    closest_lat_idx, closest_lon_idx, closest_lat, closest_lon = find_closest_index(target_lat, target_lon, lat, lon)\n    closest_swe = swe[closest_lat_idx, closest_lon_idx]\n    closest_flag = flag[closest_lat_idx, closest_lon_idx]\n    df.loc[len(df.index)] = [date,\n                             target_lat, target_lon,\n                            closest_swe, closest_flag]\n  df.to_csv('/home/chetana/gridmet_test_run/testing_ready_amsr.csv', index=False)\n  \n  print('completed amsr testing data collection.')\n\n    ",
+  "history_output" : "today date = 2023-08-08\n/home/chetana\nrunning command curl --output /home/chetana/gridmet_test_run/amsr_testing/testing_amsr_file.he5 -b ~/.urs_cookies -c ~/.urs_cookies -L -n -O https://n5eil01u.ecs.nsidc.org/AMSA/AU_DySno.001/2020.01.01/AMSR_U2_L3_DailySnow_B02_2020.01.01.he5\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100   196  100   196    0     0   1053      0 --:--:-- --:--:-- --:--:--  1053\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/guefdt1xgn2/amsr_testing_realtime.py\", line 26, in <module>\n    file = h5py.File('/home/chetana/gridmet_test_run/amsr_testing/testing_amsr_file.he5', 'r')\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/h5py/_hl/files.py\", line 567, in __init__\n    fid = make_fid(name, mode, userblock_size, fapl, fcpl, swmr=swmr)\n  File \"/home/chetana/gridmet_test_run/pycrate/lib/python3.9/site-packages/h5py/_hl/files.py\", line 231, in make_fid\n    fid = h5f.open(name, flags, fapl=fapl)\n  File \"h5py/_objects.pyx\", line 54, in h5py._objects.with_phil.wrapper\n  File \"h5py/_objects.pyx\", line 55, in h5py._objects.with_phil.wrapper\n  File \"h5py/h5f.pyx\", line 106, in h5py.h5f.open\nOSError: Unable to open file (file signature not found)\n",
+  "history_begin_time" : 1691531293297,
+  "history_end_time" : 1691531296465,
+  "history_notes" : null,
+  "history_process" : "0n26v2",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+}]

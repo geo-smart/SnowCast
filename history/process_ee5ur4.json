@@ -1,0 +1,151 @@
+[{
+  "history_id" : "q1wqvjxnp60",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696863953357,
+  "history_end_time" : 1696863953357,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l9dubj8xjn0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696862402994,
+  "history_end_time" : 1696862402994,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nyuw3ryhcu6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696832263736,
+  "history_end_time" : 1696832263736,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "emyqo1rie41",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696831867424,
+  "history_end_time" : 1696831867424,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3nxw7yvgats",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696830174461,
+  "history_end_time" : 1696830174461,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "pz5svobvii3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696787542028,
+  "history_end_time" : 1696787542028,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6qtr0abp6kp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696786838357,
+  "history_end_time" : 1696786838357,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jbllp6xv8or",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696771780963,
+  "history_end_time" : 1696771780963,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "56ijorjyid6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696602943975,
+  "history_end_time" : 1696602943975,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "GjuIkNxEalvs",
+  "history_input" : "# slope is wrong, correct it\n\nimport pandas as pd\nimport os\nfrom snowcast_utils import work_dir\n\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\n\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\ndef replace_slope(row):\n  target_lat = row[\"lat\"]\n  target_lon = row[\"lon\"]\n  # get the calculated slope from the DEM csv\n  dem_slope_df['Distance'] = (dem_slope_df['Latitude'] - target_lat) ** 2 + (dem_slope_df['Longitude'] - target_lon) ** 2\n  closest_row = dem_slope_df.loc[dem_slope_df['Distance'].idxmin()]\n  \n  return closest_row[\"Slope\"]\n\ntrain_ready_df['slope'] = train_ready_df.apply(lambda row: replace_slope(row), axis=1)\n\nprint(train_ready_df.head())\nprint(train_ready_df.columns)\n\nnew_result_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'\n\ntrain_ready_df.to_csv(new_result_csv_path, index=False)\n\n",
+  "history_output" : "today date = 2023-10-06\ntest start date:  2023-01-18\ntest end date:  2023-10-06\n/home/chetana\n         date       lat         lon  ...     aspect  eastness  northness\n0  2020-11-25  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n1  2020-10-18  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n2  2020-09-21  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n3  2022-09-01  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n4  2019-10-03  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n[5 rows x 21 columns]\n   Latitude  Longitude  x  y  Slope\n0      49.0   -125.000  0  0    NaN\n1      49.0   -124.964  1  0    NaN\n2      49.0   -124.928  2  0    NaN\n3      49.0   -124.892  3  0    NaN\n4      49.0   -124.856  4  0    NaN\nall train.csv columns:  Index(['date', 'lat', 'lon', 'SWE', 'Flag', 'swe_value', 'Unnamed: 0',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'elevation', 'slope', 'curvature',\n       'aspect', 'eastness', 'northness'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\n         date       lat         lon  ...     aspect  eastness  northness\n0  2020-11-25  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n1  2020-10-18  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n2  2020-09-21  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n3  2022-09-01  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n4  2019-10-03  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n[5 rows x 21 columns]\nIndex(['date', 'lat', 'lon', 'SWE', 'Flag', 'swe_value', 'Unnamed: 0',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'elevation', 'slope', 'curvature',\n       'aspect', 'eastness', 'northness'],\n      dtype='object')\n",
+  "history_begin_time" : 1696572265173,
+  "history_end_time" : 1696587685042,
+  "history_notes" : "this takes 4 hours, wow",
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "uU405LGYfLxc",
+  "history_input" : "# slope is wrong, correct it\n\nimport pandas as pd\nimport os\nfrom snowcast_utils import work_dir\n\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\n\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\ndef find_closest_index(target_latitude, target_longitude, lat_grid, lon_grid):\n    \"\"\"\n    Find the closest grid point indices for a target latitude and longitude.\n\n    Parameters:\n        target_latitude (float): Target latitude.\n        target_longitude (float): Target longitude.\n        lat_grid (numpy.ndarray): Array of latitude values.\n        lon_grid (numpy.ndarray): Array of longitude values.\n\n    Returns:\n        int: Latitude index.\n        int: Longitude index.\n        float: Closest latitude value.\n        float: Closest longitude value.\n    \"\"\"\n    lat_diff = np.float64(np.abs(lat_grid - target_latitude))\n    lon_diff = np.float64(np.abs(lon_grid - target_longitude))\n\n    # Find the indices corresponding to the minimum differences\n    lat_idx, lon_idx = np.unravel_index(np.argmin(lat_diff + lon_diff), lat_grid.shape)\n\n    return lat_idx, lon_idx, lat_grid[lat_idx, lon_idx], lon_grid[lat_idx, lon_idx]\n\ndef replace_slope(row):\n  lat = row[\"lat\"]\n  lon = row[\"lon\"]\n  # get the calculated slope from the DEM csv\n  \n  return \n\ndf['slope'] = df.apply(lambda row: replace_slope(row), axis=1)\n\n\n",
+  "history_output" : "today date = 2023-10-06\ntest start date:  2023-01-18\ntest end date:  2023-10-06\n/home/chetana\n         date       lat         lon  ...     aspect  eastness  northness\n0  2020-11-25  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n1  2020-10-18  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n2  2020-09-21  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n3  2022-09-01  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n4  2019-10-03  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n[5 rows x 21 columns]\n   Latitude  Longitude  x  y  Slope\n0      49.0   -125.000  0  0    NaN\n1      49.0   -124.964  1  0    NaN\n2      49.0   -124.928  2  0    NaN\n3      49.0   -124.892  3  0    NaN\n4      49.0   -124.856  4  0    NaN\nall train.csv columns:  Index(['date', 'lat', 'lon', 'SWE', 'Flag', 'swe_value', 'Unnamed: 0',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'elevation', 'slope', 'curvature',\n       'aspect', 'eastness', 'northness'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/uU405LGYfLxc/correct_slope.py\", line 51, in <module>\n    df['slope'] = df.apply(lambda row: replace_slope(row), axis=1)\nNameError: name 'df' is not defined\n",
+  "history_begin_time" : 1696571523278,
+  "history_end_time" : 1696571526250,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "3UimfO7aDbAQ",
+  "history_input" : "# slope is wrong, correct it\n\nimport pandas as pd\nimport os\nfrom snowcast_utils import work_dir\n\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned.csv'\n\ntrain_ready_df = pd.read_csv(ready_csv_path)\n\nprint(train_ready_df.head())\n\nprint(\"all columns: \", train_ready_df.columns)\n\n\n\n\n",
+  "history_output" : "today date = 2023-10-06\ntest start date:  2023-01-18\ntest end date:  2023-10-06\n/home/chetana\n         date       lat         lon  ...     aspect  eastness  northness\n0  2020-11-25  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n1  2020-10-18  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n2  2020-09-21  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n3  2022-09-01  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n4  2019-10-03  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n[5 rows x 21 columns]\nall columns:  Index(['date', 'lat', 'lon', 'SWE', 'Flag', 'swe_value', 'Unnamed: 0',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'elevation', 'slope', 'curvature',\n       'aspect', 'eastness', 'northness'],\n      dtype='object')\n",
+  "history_begin_time" : 1696570507221,
+  "history_end_time" : 1696570509980,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "5UsVE4DqVPDi",
+  "history_input" : "# slope is wrong, correct it\n\nimport pandas as pd\nimport os\nfrom snowcast_utils import work_dir\n\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned.csv'\n\ntrain_ready_df = pd.read_csv(ready_csv_path)\n\nprint(train_ready_df.head())\n\n\n\n\n",
+  "history_output" : "today date = 2023-10-06\ntest start date:  2023-01-18\ntest end date:  2023-10-06\n/home/chetana\n         date       lat         lon  ...     aspect  eastness  northness\n0  2020-11-25  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n1  2020-10-18  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n2  2020-09-21  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n3  2022-09-01  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n4  2019-10-03  37.19236 -118.939041  ...  24.605782  0.394541   0.737872\n[5 rows x 21 columns]\n",
+  "history_begin_time" : 1696569709087,
+  "history_end_time" : 1696569712112,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Pkwiz6lznmo3",
+  "history_input" : "# slope is wrong, correct it\n\nimport pandas as pd\nimport os\nfrom snowcast_utils import work_dir\n\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v2.csv'\n\ntrain_ready_df = pd.read_csv(ready_csv_path)\n\nprint(train_ready_df.head())\n\n",
+  "history_output" : "today date = 2023-10-06\ntest start date:  2023-01-18\ntest end date:  2023-10-06\n/home/chetana\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/Pkwiz6lznmo3/correct_slope.py\", line 10, in <module>\n    train_ready_df = pd.read_csv(ready_csv_path)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py\", line 211, in wrapper\n    return func(*args, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py\", line 331, in wrapper\n    return func(*args, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py\", line 950, in read_csv\n    return _read(filepath_or_buffer, kwds)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py\", line 605, in _read\n    parser = TextFileReader(filepath_or_buffer, **kwds)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py\", line 1442, in __init__\n    self._engine = self._make_engine(f, self.engine)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py\", line 1735, in _make_engine\n    self.handles = get_handle(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/io/common.py\", line 856, in get_handle\n    handle = open(\nFileNotFoundError: [Errno 2] No such file or directory: '/home/chetana/gridmet_test_run/final_merged_data_3yrs_cleaned_v2.csv'\n",
+  "history_begin_time" : 1696569569994,
+  "history_end_time" : 1696569570818,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "LZtyjJTyPKl4",
+  "history_input" : "# slope is wrong, correct it\n\nimport pandas as pd\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v2.csv'\n\ntrain_ready_df = pd.read_csv(ready_csv_path)\n\nprint(train_ready_df.head())\n\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/LZtyjJTyPKl4/correct_slope.py\", line 5, in <module>\n    ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v2.csv'\nNameError: name 'work_dir' is not defined\n",
+  "history_begin_time" : 1696569416856,
+  "history_end_time" : 1696569417309,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},]

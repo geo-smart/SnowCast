@@ -1,4 +1,784 @@
 [{
+  "history_id" : "q1c9kulrzrm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696863953218,
+  "history_end_time" : 1696863953218,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vmmps2n5um3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696862402941,
+  "history_end_time" : 1696862402941,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ftd84rpbw18",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696832263663,
+  "history_end_time" : 1696832263663,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wnz76k37atz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696831867367,
+  "history_end_time" : 1696831867367,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "eol94iliirq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696830174348,
+  "history_end_time" : 1696830174348,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7z1fz3jdbgk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696787541902,
+  "history_end_time" : 1696787541902,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yvg4axcehgi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696786838185,
+  "history_end_time" : 1696786838185,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7k74j4d4xky",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696771780877,
+  "history_end_time" : 1696771780877,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "y12xdpkwcsb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696602943933,
+  "history_end_time" : 1696602943933,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "662byq7ktoq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696432484315,
+  "history_end_time" : 1696432484315,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "sc79jfvu442",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1696432299752,
+  "history_end_time" : 1696432482233,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qt5ixnzq5ze",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695827991083,
+  "history_end_time" : 1695827991083,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rt2pbcgyu8j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695827889170,
+  "history_end_time" : 1695827964214,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ftp75chvypd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695827855638,
+  "history_end_time" : 1695827867006,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7fp9pb03u07",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695696616110,
+  "history_end_time" : 1695696616110,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7mnpl7tyr93",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695694257322,
+  "history_end_time" : 1695694257322,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wq71z982xi7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695693585741,
+  "history_end_time" : 1695693585741,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jfsqvxwphwz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695693149360,
+  "history_end_time" : 1695693149360,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "brww2242txp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695580915841,
+  "history_end_time" : 1695580915841,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0n2dc9rrm5n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695576291649,
+  "history_end_time" : 1695576291649,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vsdxc7m3j8p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695575931007,
+  "history_end_time" : 1695575931007,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ya7rzs46fw2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695535769206,
+  "history_end_time" : 1695535769206,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ioaj1mkzxdj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695535478679,
+  "history_end_time" : 1695535478679,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "j6s19cmk14u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695535214018,
+  "history_end_time" : 1695535214018,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cjeohho6s32",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695534943582,
+  "history_end_time" : 1695534943582,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "94hcq0rmwcf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695534671821,
+  "history_end_time" : 1695534671821,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "re83beff6d7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695533024117,
+  "history_end_time" : 1695533024117,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "alp8c9v1ziw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695529187859,
+  "history_end_time" : 1695529187859,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bgwq3tx2qog",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695528505178,
+  "history_end_time" : 1695528505178,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9zpd8qun9ks",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695515862389,
+  "history_end_time" : 1695515862389,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p4pl3m90tiw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695506423839,
+  "history_end_time" : 1695506423839,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mkvuznq7uw5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695418741333,
+  "history_end_time" : 1695418741333,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1tz7ev1kkwx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695417619671,
+  "history_end_time" : 1695417619671,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xbtncr9eirf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695417171273,
+  "history_end_time" : 1695417171273,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nnhxll664ho",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695417052726,
+  "history_end_time" : 1695417052726,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wzgptbcro4b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695416916016,
+  "history_end_time" : 1695416916016,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "oF1AWubKxSSz",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\nimport os\nfrom snowcast_utils import work_dir\n\nworking_dir = work_dir\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n            return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n            json_list.append(row_dict)\n            json_string = json.dumps(json_list)\n            return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split(os.linesep)\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'):\n            cleaned_lines.append(line)\n    cleaned_text = os.linesep.join(cleaned_lines)\n    return cleaned_text\n\ndef start_to_collect_snotel():\n  csv_file = f'{working_dir}/training_data_ready_snotel_3_yrs.csv'\n  start_date = \"2019-01-01\"\n  end_date = \"2022-12-12\"\n  \n  if os.path.exists(csv_file):\n    print(f\"The file '{csv_file}' exists.\")\n    return\n\n  station_mapping = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')\n\n  result_df = pd.DataFrame(columns=['date', 'lat', 'lon', 'swe_value'])\n  for index, row in station_mapping.iterrows():\n      print(index, ' / ', len(station_mapping), ' iterations completed.')\n      station_locations = read_json_file(f'{working_dir}/snotelStations.json')\n      nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n      location_name = nearest_location['name']\n      location_triplet = nearest_location['triplet']\n      location_elevation = nearest_location['elevation']\n      location_station_lat = nearest_location['location']['lat']\n      location_station_long = nearest_location['location']['lng']\n\n      url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n      r = requests.get(url)\n      text = remove_commented_lines(r.text)\n      reader = csv.DictReader(io.StringIO(text))\n      json_data = json.loads(json.dumps(list(reader)))\n      for entry in json_data:\n          required_data = {'date': entry['Date'], 'lat': row['lat'], 'lon': row['lon'],\n                           'swe_value': entry['Snow Water Equivalent (in) Start of Day Values']}\n          result_df.loc[len(result_df.index)] = required_data\n\n  # Save the DataFrame to a CSV file\n  result_df.to_csv(csv_file, index=False)\n  \nstart_to_collect_snotel()\n",
+  "history_output" : "today date = 2023-09-20\ntest start date:  2022-03-19\ntest end date:  2023-09-20\n/home/chetana\nThe file '/home/chetana/gridmet_test_run/training_data_ready_snotel_3_yrs.csv' exists.\n",
+  "history_begin_time" : 1695180231156,
+  "history_end_time" : 1695180232825,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "4bqox8c72zl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695106488973,
+  "history_end_time" : 1695106488973,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "m34510diokx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695106316194,
+  "history_end_time" : 1695106316194,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jwwnmhdldht",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695054045021,
+  "history_end_time" : 1695054045021,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jhgan0bt4sr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695054019754,
+  "history_end_time" : 1695054032322,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6vfgc6jy7q9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695053979885,
+  "history_end_time" : 1695054019272,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hmb2wxfmihi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695053793400,
+  "history_end_time" : 1695053793400,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mwa84ifjts6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1695053733402,
+  "history_end_time" : 1695053733402,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "di6oxpij2qy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694971144817,
+  "history_end_time" : 1694972839686,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7jmpwlz0vym",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694970707918,
+  "history_end_time" : 1694970707918,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fk6a9ot3srh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694970594756,
+  "history_end_time" : 1694970594756,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ksuyxf1gl9m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694970131561,
+  "history_end_time" : 1694970131561,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "79r3inahmjt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694969350051,
+  "history_end_time" : 1694969350051,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r5nuavyog89",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694905307655,
+  "history_end_time" : 1694905307655,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2siy4l8vzvl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1694897887123,
+  "history_end_time" : 1694897887123,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zI93DEu613A7",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\nimport os\nfrom snowcast_utils import work_dir\n\nworking_dir = work_dir\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n            return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n            json_list.append(row_dict)\n            json_string = json.dumps(json_list)\n            return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split(os.linesep)\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'):\n            cleaned_lines.append(line)\n    cleaned_text = os.linesep.join(cleaned_lines)\n    return cleaned_text\n\n\ncsv_file = f'{working_dir}/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')\n\nresult_df = pd.DataFrame(columns=['date', 'lat', 'lon', 'swe_value'])\nfor index, row in station_mapping.iterrows():\n    print(index, ' / ', len(station_mapping), ' iterations completed.')\n    station_locations = read_json_file(f'{working_dir}/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n    for entry in json_data:\n        required_data = {'date': entry['Date'], 'lat': row['lat'], 'lon': row['lon'],\n                         'swe_value': entry['Snow Water Equivalent (in) Start of Day Values']}\n        result_df.loc[len(result_df.index)] = required_data\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "today date = 2023-08-15\n/home/chetana\n0  /  700  iterations completed.\n1  /  700  iterations completed.\n2  /  700  iterations completed.\n3  /  700  iterations completed.\n4  /  700  iterations completed.\n5  /  700  iterations completed.\n6  /  700  iterations completed.\n7  /  700  iterations completed.\n8  /  700  iterations completed.\n9  /  700  iterations completed.\n10  /  700  iterations completed.\n11  /  700  iterations completed.\n12  /  700  iterations completed.\n13  /  700  iterations completed.\n14  /  700  iterations completed.\n15  /  700  iterations completed.\n16  /  700  iterations completed.\n17  /  700  iterations completed.\n18  /  700  iterations completed.\n19  /  700  iterations completed.\n20  /  700  iterations completed.\n21  /  700  iterations completed.\n22  /  700  iterations completed.\n23  /  700  iterations completed.\n24  /  700  iterations completed.\n25  /  700  iterations completed.\n26  /  700  iterations completed.\n27  /  700  iterations completed.\n28  /  700  iterations completed.\n29  /  700  iterations completed.\n30  /  700  iterations completed.\n31  /  700  iterations completed.\n32  /  700  iterations completed.\n33  /  700  iterations completed.\n34  /  700  iterations completed.\n35  /  700  iterations completed.\n36  /  700  iterations completed.\n37  /  700  iterations completed.\n38  /  700  iterations completed.\n39  /  700  iterations completed.\n40  /  700  iterations completed.\n41  /  700  iterations completed.\n42  /  700  iterations completed.\n43  /  700  iterations completed.\n44  /  700  iterations completed.\n45  /  700  iterations completed.\n46  /  700  iterations completed.\n47  /  700  iterations completed.\n48  /  700  iterations completed.\n49  /  700  iterations completed.\n50  /  700  iterations completed.\n51  /  700  iterations completed.\n52  /  700  iterations completed.\n53  /  700  iterations completed.\n54  /  700  iterations completed.\n55  /  700  iterations completed.\n56  /  700  iterations completed.\n57  /  700  iterations completed.\n58  /  700  iterations completed.\n59  /  700  iterations completed.\n60  /  700  iterations completed.\n61  /  700  iterations completed.\n62  /  700  iterations completed.\n63  /  700  iterations completed.\n64  /  700  iterations completed.\n65  /  700  iterations completed.\n66  /  700  iterations completed.\n67  /  700  iterations completed.\n68  /  700  iterations completed.\n69  /  700  iterations completed.\n70  /  700  iterations completed.\n71  /  700  iterations completed.\n72  /  700  iterations completed.\n73  /  700  iterations completed.\n74  /  700  iterations completed.\n75  /  700  iterations completed.\n76  /  700  iterations completed.\n77  /  700  iterations completed.\n78  /  700  iterations completed.\n79  /  700  iterations completed.\n80  /  700  iterations completed.\n81  /  700  iterations completed.\n82  /  700  iterations completed.\n83  /  700  iterations completed.\n84  /  700  iterations completed.\n85  /  700  iterations completed.\n86  /  700  iterations completed.\n87  /  700  iterations completed.\n88  /  700  iterations completed.\n89  /  700  iterations completed.\n90  /  700  iterations completed.\n91  /  700  iterations completed.\n92  /  700  iterations completed.\n93  /  700  iterations completed.\n94  /  700  iterations completed.\n95  /  700  iterations completed.\n96  /  700  iterations completed.\n97  /  700  iterations completed.\n98  /  700  iterations completed.\n99  /  700  iterations completed.\n100  /  700  iterations completed.\n101  /  700  iterations completed.\n102  /  700  iterations completed.\n103  /  700  iterations completed.\n104  /  700  iterations completed.\n105  /  700  iterations completed.\n106  /  700  iterations completed.\n107  /  700  iterations completed.\n108  /  700  iterations completed.\n109  /  700  iterations completed.\n110  /  700  iterations completed.\n111  /  700  iterations completed.\n112  /  700  iterations completed.\n113  /  700  iterations completed.\n114  /  700  iterations completed.\n115  /  700  iterations completed.\n116  /  700  iterations completed.\n117  /  700  iterations completed.\n118  /  700  iterations completed.\n119  /  700  iterations completed.\n120  /  700  iterations completed.\n121  /  700  iterations completed.\n122  /  700  iterations completed.\n123  /  700  iterations completed.\n124  /  700  iterations completed.\n125  /  700  iterations completed.\n126  /  700  iterations completed.\n127  /  700  iterations completed.\n128  /  700  iterations completed.\n129  /  700  iterations completed.\n130  /  700  iterations completed.\n131  /  700  iterations completed.\n132  /  700  iterations completed.\n133  /  700  iterations completed.\n134  /  700  iterations completed.\n135  /  700  iterations completed.\n136  /  700  iterations completed.\n137  /  700  iterations completed.\n138  /  700  iterations completed.\n139  /  700  iterations completed.\n140  /  700  iterations completed.\n141  /  700  iterations completed.\n142  /  700  iterations completed.\n143  /  700  iterations completed.\n144  /  700  iterations completed.\n145  /  700  iterations completed.\n146  /  700  iterations completed.\n147  /  700  iterations completed.\n148  /  700  iterations completed.\n149  /  700  iterations completed.\n150  /  700  iterations completed.\n151  /  700  iterations completed.\n152  /  700  iterations completed.\n153  /  700  iterations completed.\n154  /  700  iterations completed.\n155  /  700  iterations completed.\n156  /  700  iterations completed.\n157  /  700  iterations completed.\n158  /  700  iterations completed.\n159  /  700  iterations completed.\n160  /  700  iterations completed.\n161  /  700  iterations completed.\n162  /  700  iterations completed.\n163  /  700  iterations completed.\n164  /  700  iterations completed.\n165  /  700  iterations completed.\n166  /  700  iterations completed.\n167  /  700  iterations completed.\n168  /  700  iterations completed.\n169  /  700  iterations completed.\n170  /  700  iterations completed.\n171  /  700  iterations completed.\n172  /  700  iterations completed.\n173  /  700  iterations completed.\n174  /  700  iterations completed.\n175  /  700  iterations completed.\n176  /  700  iterations completed.\n177  /  700  iterations completed.\n178  /  700  iterations completed.\n179  /  700  iterations completed.\n180  /  700  iterations completed.\n181  /  700  iterations completed.\n182  /  700  iterations completed.\n183  /  700  iterations completed.\n184  /  700  iterations completed.\n185  /  700  iterations completed.\n186  /  700  iterations completed.\n187  /  700  iterations completed.\n188  /  700  iterations completed.\n189  /  700  iterations completed.\n190  /  700  iterations completed.\n191  /  700  iterations completed.\n192  /  700  iterations completed.\n193  /  700  iterations completed.\n194  /  700  iterations completed.\n195  /  700  iterations completed.\n196  /  700  iterations completed.\n197  /  700  iterations completed.\n198  /  700  iterations completed.\n199  /  700  iterations completed.\n200  /  700  iterations completed.\n201  /  700  iterations completed.\n202  /  700  iterations completed.\n203  /  700  iterations completed.\n204  /  700  iterations completed.\n205  /  700  iterations completed.\n206  /  700  iterations completed.\n207  /  700  iterations completed.\n208  /  700  iterations completed.\n209  /  700  iterations completed.\n210  /  700  iterations completed.\n211  /  700  iterations completed.\n212  /  700  iterations completed.\n213  /  700  iterations completed.\n214  /  700  iterations completed.\n215  /  700  iterations completed.\n216  /  700  iterations completed.\n217  /  700  iterations completed.\n218  /  700  iterations completed.\n219  /  700  iterations completed.\n220  /  700  iterations completed.\n221  /  700  iterations completed.\n222  /  700  iterations completed.\n223  /  700  iterations completed.\n224  /  700  iterations completed.\n225  /  700  iterations completed.\n226  /  700  iterations completed.\n227  /  700  iterations completed.\n228  /  700  iterations completed.\n229  /  700  iterations completed.\n230  /  700  iterations completed.\n231  /  700  iterations completed.\n232  /  700  iterations completed.\n233  /  700  iterations completed.\n234  /  700  iterations completed.\n235  /  700  iterations completed.\n236  /  700  iterations completed.\n237  /  700  iterations completed.\n238  /  700  iterations completed.\n239  /  700  iterations completed.\n240  /  700  iterations completed.\n241  /  700  iterations completed.\n242  /  700  iterations completed.\n243  /  700  iterations completed.\n244  /  700  iterations completed.\n245  /  700  iterations completed.\n246  /  700  iterations completed.\n247  /  700  iterations completed.\n248  /  700  iterations completed.\n249  /  700  iterations completed.\n250  /  700  iterations completed.\n251  /  700  iterations completed.\n252  /  700  iterations completed.\n253  /  700  iterations completed.\n254  /  700  iterations completed.\n255  /  700  iterations completed.\n256  /  700  iterations completed.\n257  /  700  iterations completed.\n258  /  700  iterations completed.\n259  /  700  iterations completed.\n260  /  700  iterations completed.\n261  /  700  iterations completed.\n262  /  700  iterations completed.\n263  /  700  iterations completed.\n264  /  700  iterations completed.\n265  /  700  iterations completed.\n266  /  700  iterations completed.\n267  /  700  iterations completed.\n268  /  700  iterations completed.\n269  /  700  iterations completed.\n270  /  700  iterations completed.\n271  /  700  iterations completed.\n272  /  700  iterations completed.\n273  /  700  iterations completed.\n274  /  700  iterations completed.\n275  /  700  iterations completed.\n276  /  700  iterations completed.\n277  /  700  iterations completed.\n278  /  700  iterations completed.\n279  /  700  iterations completed.\n280  /  700  iterations completed.\n281  /  700  iterations completed.\n282  /  700  iterations completed.\n283  /  700  iterations completed.\n284  /  700  iterations completed.\n285  /  700  iterations completed.\n286  /  700  iterations completed.\n287  /  700  iterations completed.\n288  /  700  iterations completed.\n289  /  700  iterations completed.\n290  /  700  iterations completed.\n291  /  700  iterations completed.\n292  /  700  iterations completed.\n293  /  700  iterations completed.\n294  /  700  iterations completed.\n295  /  700  iterations completed.\n296  /  700  iterations completed.\n297  /  700  iterations completed.\n298  /  700  iterations completed.\n299  /  700  iterations completed.\n300  /  700  iterations completed.\n301  /  700  iterations completed.\n302  /  700  iterations completed.\n303  /  700  iterations completed.\n304  /  700  iterations completed.\n305  /  700  iterations completed.\n306  /  700  iterations completed.\n307  /  700  iterations completed.\n308  /  700  iterations completed.\n309  /  700  iterations completed.\n310  /  700  iterations completed.\n311  /  700  iterations completed.\n312  /  700  iterations completed.\n313  /  700  iterations completed.\n314  /  700  iterations completed.\n315  /  700  iterations completed.\n316  /  700  iterations completed.\n317  /  700  iterations completed.\n318  /  700  iterations completed.\n319  /  700  iterations completed.\n320  /  700  iterations completed.\n321  /  700  iterations completed.\n322  /  700  iterations completed.\n323  /  700  iterations completed.\n324  /  700  iterations completed.\n325  /  700  iterations completed.\n326  /  700  iterations completed.\n327  /  700  iterations completed.\n328  /  700  iterations completed.\n329  /  700  iterations completed.\n330  /  700  iterations completed.\n331  /  700  iterations completed.\n332  /  700  iterations completed.\n333  /  700  iterations completed.\n334  /  700  iterations completed.\n335  /  700  iterations completed.\n336  /  700  iterations completed.\n337  /  700  iterations completed.\n338  /  700  iterations completed.\n339  /  700  iterations completed.\n340  /  700  iterations completed.\n341  /  700  iterations completed.\n342  /  700  iterations completed.\n343  /  700  iterations completed.\n344  /  700  iterations completed.\n345  /  700  iterations completed.\n346  /  700  iterations completed.\n347  /  700  iterations completed.\n348  /  700  iterations completed.\n349  /  700  iterations completed.\n350  /  700  iterations completed.\n351  /  700  iterations completed.\n352  /  700  iterations completed.\n353  /  700  iterations completed.\n354  /  700  iterations completed.\n355  /  700  iterations completed.\n356  /  700  iterations completed.\n357  /  700  iterations completed.\n358  /  700  iterations completed.\n359  /  700  iterations completed.\n360  /  700  iterations completed.\n361  /  700  iterations completed.\n362  /  700  iterations completed.\n363  /  700  iterations completed.\n364  /  700  iterations completed.\n365  /  700  iterations completed.\n366  /  700  iterations completed.\n367  /  700  iterations completed.\n368  /  700  iterations completed.\n369  /  700  iterations completed.\n370  /  700  iterations completed.\n371  /  700  iterations completed.\n372  /  700  iterations completed.\n373  /  700  iterations completed.\n374  /  700  iterations completed.\n375  /  700  iterations completed.\n376  /  700  iterations completed.\n377  /  700  iterations completed.\n378  /  700  iterations completed.\n379  /  700  iterations completed.\n380  /  700  iterations completed.\n381  /  700  iterations completed.\n382  /  700  iterations completed.\n383  /  700  iterations completed.\n384  /  700  iterations completed.\n385  /  700  iterations completed.\n386  /  700  iterations completed.\n387  /  700  iterations completed.\n388  /  700  iterations completed.\n389  /  700  iterations completed.\n390  /  700  iterations completed.\n391  /  700  iterations completed.\n392  /  700  iterations completed.\n393  /  700  iterations completed.\n394  /  700  iterations completed.\n395  /  700  iterations completed.\n396  /  700  iterations completed.\n397  /  700  iterations completed.\n398  /  700  iterations completed.\n399  /  700  iterations completed.\n400  /  700  iterations completed.\n401  /  700  iterations completed.\n402  /  700  iterations completed.\n403  /  700  iterations completed.\n404  /  700  iterations completed.\n405  /  700  iterations completed.\n406  /  700  iterations completed.\n407  /  700  iterations completed.\n408  /  700  iterations completed.\n409  /  700  iterations completed.\n410  /  700  iterations completed.\n411  /  700  iterations completed.\n412  /  700  iterations completed.\n413  /  700  iterations completed.\n414  /  700  iterations completed.\n415  /  700  iterations completed.\n416  /  700  iterations completed.\n417  /  700  iterations completed.\n418  /  700  iterations completed.\n419  /  700  iterations completed.\n420  /  700  iterations completed.\n421  /  700  iterations completed.\n422  /  700  iterations completed.\n423  /  700  iterations completed.\n424  /  700  iterations completed.\n425  /  700  iterations completed.\n426  /  700  iterations completed.\n427  /  700  iterations completed.\n428  /  700  iterations completed.\n429  /  700  iterations completed.\n430  /  700  iterations completed.\n431  /  700  iterations completed.\n432  /  700  iterations completed.\n433  /  700  iterations completed.\n434  /  700  iterations completed.\n435  /  700  iterations completed.\n436  /  700  iterations completed.\n437  /  700  iterations completed.\n438  /  700  iterations completed.\n439  /  700  iterations completed.\n440  /  700  iterations completed.\n441  /  700  iterations completed.\n442  /  700  iterations completed.\n443  /  700  iterations completed.\n444  /  700  iterations completed.\n445  /  700  iterations completed.\n446  /  700  iterations completed.\n447  /  700  iterations completed.\n448  /  700  iterations completed.\n449  /  700  iterations completed.\n450  /  700  iterations completed.\n451  /  700  iterations completed.\n452  /  700  iterations completed.\n453  /  700  iterations completed.\n454  /  700  iterations completed.\n455  /  700  iterations completed.\n456  /  700  iterations completed.\n457  /  700  iterations completed.\n458  /  700  iterations completed.\n459  /  700  iterations completed.\n460  /  700  iterations completed.\n461  /  700  iterations completed.\n462  /  700  iterations completed.\n463  /  700  iterations completed.\n464  /  700  iterations completed.\n465  /  700  iterations completed.\n466  /  700  iterations completed.\n467  /  700  iterations completed.\n468  /  700  iterations completed.\n469  /  700  iterations completed.\n470  /  700  iterations completed.\n471  /  700  iterations completed.\n472  /  700  iterations completed.\n473  /  700  iterations completed.\n474  /  700  iterations completed.\n475  /  700  iterations completed.\n476  /  700  iterations completed.\n477  /  700  iterations completed.\n478  /  700  iterations completed.\n479  /  700  iterations completed.\n480  /  700  iterations completed.\n481  /  700  iterations completed.\n482  /  700  iterations completed.\n483  /  700  iterations completed.\n484  /  700  iterations completed.\n485  /  700  iterations completed.\n486  /  700  iterations completed.\n487  /  700  iterations completed.\n488  /  700  iterations completed.\n489  /  700  iterations completed.\n490  /  700  iterations completed.\n491  /  700  iterations completed.\n492  /  700  iterations completed.\n493  /  700  iterations completed.\n494  /  700  iterations completed.\n495  /  700  iterations completed.\n496  /  700  iterations completed.\n497  /  700  iterations completed.\n498  /  700  iterations completed.\n499  /  700  iterations completed.\n500  /  700  iterations completed.\n501  /  700  iterations completed.\n502  /  700  iterations completed.\n503  /  700  iterations completed.\n504  /  700  iterations completed.\n505  /  700  iterations completed.\n506  /  700  iterations completed.\n507  /  700  iterations completed.\n508  /  700  iterations completed.\n509  /  700  iterations completed.\n510  /  700  iterations completed.\n511  /  700  iterations completed.\n512  /  700  iterations completed.\n513  /  700  iterations completed.\n514  /  700  iterations completed.\n515  /  700  iterations completed.\n516  /  700  iterations completed.\n517  /  700  iterations completed.\n518  /  700  iterations completed.\n519  /  700  iterations completed.\n520  /  700  iterations completed.\n521  /  700  iterations completed.\n522  /  700  iterations completed.\n523  /  700  iterations completed.\n524  /  700  iterations completed.\n525  /  700  iterations completed.\n526  /  700  iterations completed.\n527  /  700  iterations completed.\n528  /  700  iterations completed.\n529  /  700  iterations completed.\n530  /  700  iterations completed.\n531  /  700  iterations completed.\n532  /  700  iterations completed.\n533  /  700  iterations completed.\n534  /  700  iterations completed.\n535  /  700  iterations completed.\n536  /  700  iterations completed.\n537  /  700  iterations completed.\n538  /  700  iterations completed.\n539  /  700  iterations completed.\n540  /  700  iterations completed.\n541  /  700  iterations completed.\n542  /  700  iterations completed.\n543  /  700  iterations completed.\n544  /  700  iterations completed.\n545  /  700  iterations completed.\n546  /  700  iterations completed.\n547  /  700  iterations completed.\n548  /  700  iterations completed.\n549  /  700  iterations completed.\n550  /  700  iterations completed.\n551  /  700  iterations completed.\n552  /  700  iterations completed.\n553  /  700  iterations completed.\n554  /  700  iterations completed.\n555  /  700  iterations completed.\n556  /  700  iterations completed.\n557  /  700  iterations completed.\n558  /  700  iterations completed.\n559  /  700  iterations completed.\n560  /  700  iterations completed.\n561  /  700  iterations completed.\n562  /  700  iterations completed.\n563  /  700  iterations completed.\n564  /  700  iterations completed.\n565  /  700  iterations completed.\n566  /  700  iterations completed.\n567  /  700  iterations completed.\n568  /  700  iterations completed.\n569  /  700  iterations completed.\n570  /  700  iterations completed.\n571  /  700  iterations completed.\n572  /  700  iterations completed.\n573  /  700  iterations completed.\n574  /  700  iterations completed.\n575  /  700  iterations completed.\n576  /  700  iterations completed.\n577  /  700  iterations completed.\n578  /  700  iterations completed.\n579  /  700  iterations completed.\n580  /  700  iterations completed.\n581  /  700  iterations completed.\n582  /  700  iterations completed.\n583  /  700  iterations completed.\n584  /  700  iterations completed.\n585  /  700  iterations completed.\n586  /  700  iterations completed.\n587  /  700  iterations completed.\n588  /  700  iterations completed.\n589  /  700  iterations completed.\n590  /  700  iterations completed.\n591  /  700  iterations completed.\n592  /  700  iterations completed.\n593  /  700  iterations completed.\n594  /  700  iterations completed.\n595  /  700  iterations completed.\n596  /  700  iterations completed.\n597  /  700  iterations completed.\n598  /  700  iterations completed.\n599  /  700  iterations completed.\n600  /  700  iterations completed.\n601  /  700  iterations completed.\n602  /  700  iterations completed.\n603  /  700  iterations completed.\n604  /  700  iterations completed.\n605  /  700  iterations completed.\n606  /  700  iterations completed.\n607  /  700  iterations completed.\n608  /  700  iterations completed.\n609  /  700  iterations completed.\n610  /  700  iterations completed.\n611  /  700  iterations completed.\n612  /  700  iterations completed.\n613  /  700  iterations completed.\n614  /  700  iterations completed.\n615  /  700  iterations completed.\n616  /  700  iterations completed.\n617  /  700  iterations completed.\n618  /  700  iterations completed.\n619  /  700  iterations completed.\n620  /  700  iterations completed.\n621  /  700  iterations completed.\n622  /  700  iterations completed.\n623  /  700  iterations completed.\n624  /  700  iterations completed.\n625  /  700  iterations completed.\n626  /  700  iterations completed.\n627  /  700  iterations completed.\n628  /  700  iterations completed.\n629  /  700  iterations completed.\n630  /  700  iterations completed.\n631  /  700  iterations completed.\n632  /  700  iterations completed.\n633  /  700  iterations completed.\n634  /  700  iterations completed.\n635  /  700  iterations completed.\n636  /  700  iterations completed.\n637  /  700  iterations completed.\n638  /  700  iterations completed.\n639  /  700  iterations completed.\n640  /  700  iterations completed.\n641  /  700  iterations completed.\n642  /  700  iterations completed.\n643  /  700  iterations completed.\n644  /  700  iterations completed.\n645  /  700  iterations completed.\n646  /  700  iterations completed.\n647  /  700  iterations completed.\n648  /  700  iterations completed.\n649  /  700  iterations completed.\n650  /  700  iterations completed.\n651  /  700  iterations completed.\n652  /  700  iterations completed.\n653  /  700  iterations completed.\n654  /  700  iterations completed.\n655  /  700  iterations completed.\n656  /  700  iterations completed.\n657  /  700  iterations completed.\n658  /  700  iterations completed.\n659  /  700  iterations completed.\n660  /  700  iterations completed.\n661  /  700  iterations completed.\n662  /  700  iterations completed.\n663  /  700  iterations completed.\n664  /  700  iterations completed.\n665  /  700  iterations completed.\n666  /  700  iterations completed.\n667  /  700  iterations completed.\n668  /  700  iterations completed.\n669  /  700  iterations completed.\n670  /  700  iterations completed.\n671  /  700  iterations completed.\n672  /  700  iterations completed.\n673  /  700  iterations completed.\n674  /  700  iterations completed.\n675  /  700  iterations completed.\n676  /  700  iterations completed.\n677  /  700  iterations completed.\n678  /  700  iterations completed.\n679  /  700  iterations completed.\n680  /  700  iterations completed.\n681  /  700  iterations completed.\n682  /  700  iterations completed.\n683  /  700  iterations completed.\n684  /  700  iterations completed.\n685  /  700  iterations completed.\n686  /  700  iterations completed.\n687  /  700  iterations completed.\n688  /  700  iterations completed.\n689  /  700  iterations completed.\n690  /  700  iterations completed.\n691  /  700  iterations completed.\n692  /  700  iterations completed.\n693  /  700  iterations completed.\n694  /  700  iterations completed.\n695  /  700  iterations completed.\n696  /  700  iterations completed.\n697  /  700  iterations completed.\n698  /  700  iterations completed.\n699  /  700  iterations completed.\n",
+  "history_begin_time" : 1692115469530,
+  "history_end_time" : 1692164347750,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Wc4jTfDglYg8",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\nimport os\nfrom snowcast_utils import work_dir\n\nworking_dir = work_dir\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n            return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n            json_list.append(row_dict)\n            json_string = json.dumps(json_list)\n            return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split(os.linesep)\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'):\n            cleaned_lines.append(line)\n    cleaned_text = os.linesep.join(cleaned_lines)\n    return cleaned_text\n\n\ncsv_file = f'{working_dir}/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')\n\nresult_df = pd.DataFrame(columns=['date', 'lat', 'lon', 'swe_value'])\nfor index, row in station_mapping.iterrows():\n    print(index, ' / ', len(station_mapping), ' iterations completed.')\n    station_locations = read_json_file(f'{working_dir}/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n    for entry in json_data:\n        required_data = {'date': entry['Date'], 'lat': row['lat'], 'lon': row['lon'],\n                         'swe_value': entry['Snow Water Equivalent (in) Start of Day Values']}\n        result_df.loc[len(result_df.index)] = required_data\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/Wc4jTfDglYg8/data_snotel_station_only.py\", line 86\n    f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \nIndentationError: unexpected indent\n",
+  "history_begin_time" : 1692115422993,
+  "history_end_time" : 1692115423986,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "jkQygehXFvUp",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\nfrom snowcast_utils import work_dir\n\nworking_dir = work_dir\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n            return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n            json_list.append(row_dict)\n            json_string = json.dumps(json_list)\n            return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'):\n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\n\ncsv_file = f'{working_dir}/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')\n\nresult_df = pd.DataFrame(columns=['date', 'lat', 'lon', 'swe_value'])\nfor index, row in station_mapping.iterrows():\n    print(index, ' / ', len(station_mapping), ' iterations completed.')\n    station_locations = read_json_file(f'{working_dir}/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n    for entry in json_data:\n        required_data = {'date': entry['Date'], 'lat': row['lat'], 'lon': row['lon'],\n                         'swe_value': entry['Snow Water Equivalent (in) Start of Day Values']}\n        result_df.loc[len(result_df.index)] = required_data\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/jkQygehXFvUp/data_snotel_station_only.py\", line 57\n    lines = text.split('\n                        ^\nSyntaxError: EOL while scanning string literal\n",
+  "history_begin_time" : 1692115325370,
+  "history_end_time" : 1692115326398,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "xZCT7Hq01F9o",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\nfrom snowcast_utils import work_dir\n\nworking_dir = work_dir\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n            return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n            json_list.append(row_dict)\n            json_string = json.dumps(json_list)\n            return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'):\n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\n\ncsv_file = f'{working_dir}/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')\n\nresult_df = pd.DataFrame(columns=['date', 'lat', 'lon', 'swe_value'])\nfor index, row in station_mapping.iterrows():\n    print(index, ' / ', len(station_mapping), ' iterations completed.')\n    station_locations = read_json_file(f'{working_dir}/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n    for entry in json_data:\n        required_data = {'date': entry['Date'], 'lat': row['lat'], 'lon': row['lon'],\n                         'swe_value': entry['Snow Water Equivalent (in) Start of Day Values']}\n        result_df.loc[len(result_df.index)] = required_data\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "sh: venv: command not found\n",
+  "history_begin_time" : 1692115300135,
+  "history_end_time" : 1692115301165,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "WSlKA1pUuZVa",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\nfrom snowcast_utils import work_dir\n\nworking_dir = work_dir\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n            return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n            json_list.append(row_dict)\n            json_string = json.dumps(json_list)\n            return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'):\n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\n\ncsv_file = f'{working_dir}/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')\n\nresult_df = pd.DataFrame(columns=['date', 'lat', 'lon', 'swe_value'])\nfor index, row in station_mapping.iterrows():\n    print(index, ' / ', len(station_mapping), ' iterations completed.')\n    station_locations = read_json_file(f'{working_dir}/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n    for entry in json_data:\n        required_data = {'date': entry['Date'], 'lat': row['lat'], 'lon': row['lon'],\n                         'swe_value': entry['Snow Water Equivalent (in) Start of Day Values']}\n        result_df.loc[len(result_df.index)] = required_data\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "sh: venv: command not found\n",
+  "history_begin_time" : 1692115281073,
+  "history_end_time" : 1692115282229,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "pl4lcdSQvvt6",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\nfrom snowcast_utils import work_dir\n\nworking_dir = work_dir\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n            return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n            json_list.append(row_dict)\n            json_string = json.dumps(json_list)\n            return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'):\n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\n\ncsv_file = f'{working_dir}/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')\n\nresult_df = pd.DataFrame(columns=['date', 'lat', 'lon', 'swe_value'])\nfor index, row in station_mapping.iterrows():\n    print(index, ' / ', len(station_mapping), ' iterations completed.')\n    station_locations = read_json_file(f'{working_dir}/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n    for entry in json_data:\n        required_data = {'date': entry['Date'], 'lat': row['lat'], 'lon': row['lon'],\n                         'swe_value': entry['Snow Water Equivalent (in) Start of Day Values']}\n        result_df.loc[len(result_df.index)] = required_data\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "",
+  "history_begin_time" : 1692115208849,
+  "history_end_time" : 1692115245892,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "rDFRrnj3dmay",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\nfrom snowcast_utils import work_dir\n\nworking_dir = work_dir\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n            return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n            json_list.append(row_dict)\n            json_string = json.dumps(json_list)\n            return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'):\n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\n\ncsv_file = f'{working_dir}/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')\n\nresult_df = pd.DataFrame(columns=['date', 'lat', 'lon', 'swe_value'])\nfor index, row in station_mapping.iterrows():\n    print(index, ' / ', len(station_mapping), ' iterations completed.')\n    station_locations = read_json_file(f'{working_dir}/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n    for entry in json_data:\n        required_data = {'date': entry['Date'], 'lat': row['lat'], 'lon': row['lon'],\n                         'swe_value': entry['Snow Water Equivalent (in) Start of Day Values']}\n        result_df.loc[len(result_df.index)] = required_data\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "",
+  "history_begin_time" : 1692115007966,
+  "history_end_time" : 1692115193115,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "v2bIGfJWpLq1",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\nimport io\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nresult_df = pd.DataFrame(columns=['Date', 'lat', 'lon', 'Snow Water Equivalent (in)',\n                                  'Change In Snow Water Equivalent (in)',\n                                  'Snow Depth (in)', 'Change In Snow Depth (in)',\n                                  'Air Temperature Observed (degF)'])\nfor index, row in station_mapping.iterrows():\n\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n\n    for entry in json_data:\n        entry['lat'] = row['lat']\n        entry['lon'] = row['lon']\n        result_df.loc[len(result_df.index)] = entry\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "",
+  "history_begin_time" : 1692081467804,
+  "history_end_time" : 1692106822905,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "7Bcp7BfcPukX",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nresult_df = pd.DataFrame(columns=['Date', 'lat', 'lon', 'Snow Water Equivalent (in)',\n                                  'Change In Snow Water Equivalent (in)',\n                                  'Snow Depth (in)', 'Change In Snow Depth (in)',\n                                  'Air Temperature Observed (degF)'])\nfor index, row in station_mapping.iterrows():\n\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n\n    for entry in json_data:\n        entry['lat'] = row['lat']\n        entry['lon'] = row['lon']\n        result_df.loc[len(result_df.index)] = entry\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/7Bcp7BfcPukX/data_snotel_station_only.py\", line 101, in <module>\n    reader = csv.DictReader(io.StringIO(text))\nNameError: name 'io' is not defined\n",
+  "history_begin_time" : 1692081448052,
+  "history_end_time" : 1692081448958,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "U2FjUnBNI7EY",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\nimport csv\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nresult_df = pd.DataFrame(columns=['Date', 'lat', 'lon', 'Snow Water Equivalent (in)',\n                                  'Change In Snow Water Equivalent (in)',\n                                  'Snow Depth (in)', 'Change In Snow Depth (in)',\n                                  'Air Temperature Observed (degF)'])\nfor index, row in station_mapping.iterrows():\n\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n\n    for entry in json_data:\n        entry['lat'] = row['lat']\n        entry['lon'] = row['lon']\n        result_df.loc[len(result_df.index)] = entry\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/U2FjUnBNI7EY/data_snotel_station_only.py\", line 101, in <module>\n    reader = csv.DictReader(io.StringIO(text))\nNameError: name 'io' is not defined\n",
+  "history_begin_time" : 1692081429629,
+  "history_end_time" : 1692081430526,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "JpwdLAzRiMSb",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel_3_yrs.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nresult_df = pd.DataFrame(columns=['Date', 'lat', 'lon', 'Snow Water Equivalent (in)',\n                                  'Change In Snow Water Equivalent (in)',\n                                  'Snow Depth (in)', 'Change In Snow Depth (in)',\n                                  'Air Temperature Observed (degF)'])\nfor index, row in station_mapping.iterrows():\n\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    reader = csv.DictReader(io.StringIO(text))\n    json_data = json.loads(json.dumps(list(reader)))\n\n    for entry in json_data:\n        entry['lat'] = row['lat']\n        entry['lon'] = row['lon']\n        result_df.loc[len(result_df.index)] = entry\n\n# Save the DataFrame to a CSV file\nresult_df.to_csv(csv_file, index=False)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/JpwdLAzRiMSb/data_snotel_station_only.py\", line 100, in <module>\n    reader = csv.DictReader(io.StringIO(text))\nNameError: name 'csv' is not defined\n",
+  "history_begin_time" : 1692081391504,
+  "history_end_time" : 1692081393177,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "8lfxPReM1jDJ",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel_2000.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-12\"\n\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, row['lat'], row['lon'])\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['lat'] = row['lat']\n        item['lon'] = row['lon']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False)\n",
+  "history_output" : "",
+  "history_begin_time" : 1691968129692,
+  "history_end_time" : 1691968407525,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "lIkq7eJBWKaS",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel_2000.csv'\nstart_date = \"2020-01-01\"\nend_date = \"2020-01-01\"\n\n#station_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/testing_inputs.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['lat'] = row['lat']\n        item['lon'] = row['lon']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False)\n",
+  "history_output" : "today date = 2023-08-13\n\nStream closed",
+  "history_begin_time" : 1691955337983,
+  "history_end_time" : 1691958324228,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "58rgGjqViVRs",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel_2020.csv'\nstart_date = \"2020-01-01\"\nend_date = \"2020-01-01\"\n\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['lat'] = row['lat']\n        item['lon'] = row['lon']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False)\n",
+  "history_output" : "",
+  "history_begin_time" : 1691954131127,
+  "history_end_time" : 1691954343418,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "dy79dzh35zu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531335786,
+  "history_end_time" : 1691531335786,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5zvysomqhno",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531292733,
+  "history_end_time" : 1691531292733,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "hvhx8sw6ujy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531254585,
+  "history_end_time" : 1691531284898,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lk6yt32otvn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531163849,
+  "history_end_time" : 1691531163849,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "kj9nmknryyu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531120864,
+  "history_end_time" : 1691531120864,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zv84phqb7u9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691531060881,
+  "history_end_time" : 1691531060881,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2hljj8bjpg2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530848291,
+  "history_end_time" : 1691530848291,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "v128rf64zm2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530717687,
+  "history_end_time" : 1691530721103,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lli9gxomqr5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530690133,
+  "history_end_time" : 1691530716748,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6xeeoo0s89l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530621013,
+  "history_end_time" : 1691530622437,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "mavp4ta2zsy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530617186,
+  "history_end_time" : 1691530617186,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "49i51205ty8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1691530599786,
+  "history_end_time" : 1691530614282,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "uyZX8SPH62dY",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel_2019_2022.csv'\nstart_date = \"2019-01-01\"\nend_date = \"2022-12-30\"\n\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['lat'] = row['lat']\n        item['lon'] = row['lon']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False)\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/uyZX8SPH62dY/data_snotel_station_only.py\", line 52\n    lines = text.split('\n                        ^\nSyntaxError: EOL while scanning string literal\n",
+  "history_begin_time" : 1691192091697,
+  "history_end_time" : 1691192093038,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
   "history_id" : "dTzLSmHaXMiy",
   "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n  with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n    data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n  lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n  d_lat = lat2 - lat1\n  d_long = lon2 - lon1\n  a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n  c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n  distance = 6371 * c  # Earth's radius in kilometers\n  return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n  n_location = None\n  min_distance = float('inf')\n  for location in locations:\n    lat = location['location']['lat']\n    lon = location['location']['lng']\n    distance = haversine(lat, lon, target_lat, target_lon)\n    if distance < min_distance:\n      min_distance = distance\n      n_location = location\n      return n_location\n\n\ndef csv_to_json(csv_text):\n  lines = csv_text.splitlines()\n  header = lines[0]\n  field_names = header.split(',')\n  json_list = []\n  for line in lines[1:]:\n    values = line.split(',')\n    row_dict = {}\n    for i, field_name in enumerate(field_names):\n      row_dict[field_name] = values[i]\n      json_list.append(row_dict)\n      json_string = json.dumps(json_list)\n      return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        if not line.startswith('#'): \n            cleaned_lines.append(line)\n    cleaned_text = \"\\n\".join(cleaned_lines)\n    return cleaned_text\n\ncsv_file = '/home/chetana/gridmet_test_run/training_data_ready_snotel.csv'\nstart_date = \"2002-01-01\"\nend_date = \"2023-12-12\"\n\nstation_mapping = pd.read_csv('/home/chetana/gridmet_test_run/station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('/home/chetana/gridmet_test_run/snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['lat'] = row['lat']\n        item['lon'] = row['lon']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False)\n",
   "history_output" : "  File \"/home/chetana/gw-workspace/dTzLSmHaXMiy/data_snotel_station_only.py\", line 52\n    lines = text.split('\n                        ^\nSyntaxError: EOL while scanning string literal\n",

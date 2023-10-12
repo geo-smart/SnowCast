@@ -1,11 +1,11 @@
 from datetime import datetime
 from metloom.pointdata import SnotelPointData
 
-
-# Write first python in Geoweaver
+# First Python script in Geoweaver
 import os
 import urllib.request, urllib.error, urllib.parse
 import sys
+
 print(sys.path)
 
 try:
@@ -24,15 +24,14 @@ webContent = response.read().decode('UTF-8')
 
 print(webContent)
 
-
 parsed_html = BeautifulSoup(webContent)
 print(parsed_html.body.find('div', attrs={'class':'container'}).text)
 
+# Example of using the SnotelPointData class
+# snotel_point = SnotelPointData("713:CO:SNTL", "MyStation")
+# df = snotel_point.get_daily_data(
+#     datetime(2020, 1, 2), datetime(2020, 1, 20),
+#     [snotel_point.ALLOWED_VARIABLES.SWE]
+# )
+# print(df)
 
-
-#snotel_point = SnotelPointData("713:CO:SNTL", "MyStation")
-#df = snotel_point.get_daily_data(
-#    datetime(2020, 1, 2), datetime(2020, 1, 20),
-#    [snotel_point.ALLOWED_VARIABLES.SWE]
-#)
-#print(df)

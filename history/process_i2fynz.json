@@ -1,4 +1,754 @@
 [{
+  "history_id" : "muoh37z56v1",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-09-16\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: importance_summary_plot_2023-02-12.png\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2023_pr_2023-02-12.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2023_predicted_swe_2023-02-12.png\nCopied: 2023_pr_2023-06-15.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2023_pr_2023-02-11.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: importance_summary_plot_2023-09-15.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-09-15.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: importance_summary_plot_2023-02-11.png\nCopied: 2023_predicted_swe_2023-02-11.png\nCopied: 2023_pr_2023-01-15.png\nCopied: importance_summary_plot_2023-06-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2023_predicted_swe_2023-06-15.png\nCopied: 2023_pr_2023-09-16.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-09-16.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: importance_summary_plot_2023-09-16.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2023_predicted_swe_2023-09-15.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696864262292,
+  "history_end_time" : 1696864264800,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "md0gddfmafp",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-09-15\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: importance_summary_plot_2023-02-12.png\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2023_pr_2023-02-12.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2023_predicted_swe_2023-02-12.png\nCopied: 2023_pr_2023-06-15.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2023_pr_2023-02-11.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: importance_summary_plot_2023-09-15.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-09-15.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: importance_summary_plot_2023-02-11.png\nCopied: 2023_predicted_swe_2023-02-11.png\nCopied: 2023_pr_2023-01-15.png\nCopied: importance_summary_plot_2023-06-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2023_predicted_swe_2023-06-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2023_predicted_swe_2023-09-15.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696862761762,
+  "history_end_time" : 1696862765220,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "x1297da3en8",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-06-15\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: importance_summary_plot_2023-02-12.png\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2023_pr_2023-02-12.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2023_predicted_swe_2023-02-12.png\nCopied: 2023_pr_2023-06-15.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2023_pr_2023-02-11.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: importance_summary_plot_2023-02-11.png\nCopied: 2023_predicted_swe_2023-02-11.png\nCopied: 2023_pr_2023-01-15.png\nCopied: importance_summary_plot_2023-06-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2023_predicted_swe_2023-06-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696832548979,
+  "history_end_time" : 1696832551330,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "l0NsZez8yo4y",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-02-12\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: importance_summary_plot_2023-02-12.png\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2023_pr_2023-02-12.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2023_predicted_swe_2023-02-12.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2023_pr_2023-02-11.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: importance_summary_plot_2023-02-11.png\nCopied: 2023_predicted_swe_2023-02-11.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696832170373,
+  "history_end_time" : 1696832171284,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "yg8orw6jgt0",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-02-12\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2023_pr_2023-02-12.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2023_predicted_swe_2023-02-12.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2023_pr_2023-02-11.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: importance_summary_plot_2023-02-11.png\nCopied: 2023_predicted_swe_2023-02-11.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696832124179,
+  "history_end_time" : 1696832126631,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "WKpSjoWW7X7w",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-02-11\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2023_pr_2023-02-11.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: importance_summary_plot_2023-02-11.png\nCopied: 2023_predicted_swe_2023-02-11.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696831808254,
+  "history_end_time" : 1696831809239,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "D8zzNjQtIYw9",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-02-11\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2023_pr_2023-02-11.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_predicted_swe_2023-02-11.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696831339492,
+  "history_end_time" : 1696831340353,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "h79o2r6peo7",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-02-11\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2023_pr_2023-02-11.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_predicted_swe_2023-02-11.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696830439400,
+  "history_end_time" : 1696830441781,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "iLA1w4scqBef",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-09\ntest start date:  2023-02-10\ntest end date:  2023-10-09\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: importance_summary_plot_2023-02-10.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696830005855,
+  "history_end_time" : 1696830007160,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "CL0ThoN0XZXO",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-02-10\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2023_predicted_swe_2023-02-10.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696787788115,
+  "history_end_time" : 1696787789011,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "k9m6p42jqih",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-02-10\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: 2023_pr_2023-02-10.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696787750802,
+  "history_end_time" : 1696787753179,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "7dlepd8eht0",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696786928901,
+  "history_end_time" : 1696786931219,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "gQK1yh70lLri",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696786368874,
+  "history_end_time" : 1696786369779,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "vGrVbF0L17ai",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: partial_dependence_summary_plot_2023-01-20.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: et-model-feature-importance-latest.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: importance_summary_plot_2023-01-20.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696785865259,
+  "history_end_time" : 1696785866135,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "IPipQ4vPRqc7",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "X has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\nX has feature names, but ExtraTreesRegressor was fitted without feature names\ntest start date:  2023-01-20\n",
+  "history_begin_time" : 1696782560802,
+  "history_end_time" : 1696782561742,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "QlwOSlU1bzT9",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png\nCopied: 2022_predicted_swe_2022-12-29.png\nCopied: 2022_predicted_swe_2022-01-17.png\nCopied: 2022_predicted_swe_2022-12-30.png\nCopied: 2022_predicted_swe_2022-01-16.png\nCopied: 2022_predicted_swe_2022-04-17.png\nCopied: 2022_predicted_swe_2022-02-28.png\nCopied: 2022_pr_2022-06-15.png\nCopied: 2022_predicted_swe_2022-10-15.png\nCopied: 2022_predicted_swe_2022-02-22.png\nCopied: 2023_predicted_swe_2023-01-18.png\nCopied: 2023_predicted_swe_2023-01-19.png\nCopied: 2023_predicted_swe_2023-01-20.png\nCopied: 2023_pr_2023-01-19.png\nCopied: 2022_pr_2022-02-28.png\nCopied: 2023_pr_2023-01-20.png\nCopied: 2023_pr_2023-01-18.png\nCopied: 2023_pr_2023-01-15.png\nCopied: 2022_pr_2022-01-16.png\nCopied: 2023_predicted_swe_2023-01-15.png\nCopied: 2022_pr_2022-12-29.png\nCopied: 2022_pr_2022-10-15.png\nCopied: 2022_pr_2022-02-22.png\nCopied: 2022_pr_2022-10-16.png\nCopied: 2022_pr_2022-04-17.png\nCopied: 2022_predicted_swe_2022-06-15.png\nCopied: 2022_pr_2022-03-15.png\nCopied: 2022_predicted_swe_2022-10-16.png\nCopied: 2022_pr_2022-01-17.png\nCopied: 2022_pr_2022-12-30.png\n",
+  "history_begin_time" : 1696773919735,
+  "history_end_time" : 1696773920555,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "WCbPlL9vshQq",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename} to {destination_folder}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: 2022_predicted_swe_2022-03-15.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-12-29.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-01-17.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-12-30.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-01-16.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-04-17.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-02-28.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-06-15.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-10-15.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-02-22.png to /var/www/html/swe_forecasting/plots/\nCopied: 2023_predicted_swe_2023-01-18.png to /var/www/html/swe_forecasting/plots/\nCopied: 2023_predicted_swe_2023-01-19.png to /var/www/html/swe_forecasting/plots/\nCopied: 2023_predicted_swe_2023-01-20.png to /var/www/html/swe_forecasting/plots/\nCopied: 2023_pr_2023-01-19.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-02-28.png to /var/www/html/swe_forecasting/plots/\nCopied: 2023_pr_2023-01-20.png to /var/www/html/swe_forecasting/plots/\nCopied: 2023_pr_2023-01-18.png to /var/www/html/swe_forecasting/plots/\nCopied: 2023_pr_2023-01-15.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-01-16.png to /var/www/html/swe_forecasting/plots/\nCopied: 2023_predicted_swe_2023-01-15.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-12-29.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-10-15.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-02-22.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-10-16.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-04-17.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-06-15.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-03-15.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_predicted_swe_2022-10-16.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-01-17.png to /var/www/html/swe_forecasting/plots/\nCopied: 2022_pr_2022-12-30.png to /var/www/html/swe_forecasting/plots/\n",
+  "history_begin_time" : 1696773900914,
+  "history_end_time" : 1696773902208,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "fY5KsH9wnSiH",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename} to {destination_folder}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/fY5KsH9wnSiH/deploy_images_to_website.py\", line 33, in <module>\n    shutil.copy(source_file, destination_file)\nNameError: name 'shutil' is not defined\n",
+  "history_begin_time" : 1696773886204,
+  "history_end_time" : 1696773887061,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "4r0o7wqnb5XH",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {filename} to {destination_folder}')\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/4r0o7wqnb5XH/deploy_images_to_website.py\", line 20, in <module>\n    if not os.path.exists(destination_folder):\nNameError: name 'os' is not defined\n",
+  "history_begin_time" : 1696773878224,
+  "history_end_time" : 1696773879046,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "y5QoVfL8tPpz",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\n",
+  "history_begin_time" : 1696773730148,
+  "history_end_time" : 1696773731008,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "6kretzr0t9j",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-20\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\n",
+  "history_begin_time" : 1696772056809,
+  "history_end_time" : 1696772059206,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "prBp4gm78w9n",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-19\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\n",
+  "history_begin_time" : 1696732317586,
+  "history_end_time" : 1696732318438,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "RxQ7P9fP52TR",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n",
+  "history_output" : "today date = 2023-10-08\ntest start date:  2023-01-19\ntest end date:  2023-10-08\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\n",
+  "history_begin_time" : 1696732183178,
+  "history_end_time" : 1696732184010,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "CgwLW9W8bN8i",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n",
+  "history_output" : "today date = 2023-10-07\ntest start date:  2023-01-19\ntest end date:  2023-10-07\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\n",
+  "history_begin_time" : 1696690706404,
+  "history_end_time" : 1696690707269,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "HcqRyikLnHMw",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n",
+  "history_output" : "today date = 2023-10-07\ntest start date:  2023-01-19\ntest end date:  2023-10-07\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\n",
+  "history_begin_time" : 1696690430032,
+  "history_end_time" : 1696690430857,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "8Udf3GQjUpMl",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n",
+  "history_output" : "today date = 2023-10-07\ntest start date:  2023-01-19\ntest end date:  2023-10-07\n/home/chetana\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\n",
+  "history_begin_time" : 1696690331572,
+  "history_end_time" : 1696690332429,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "WBPbzuabD5uh",
+  "history_input" : "import shutil\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Define a custom copy function to overwrite existing files\ndef custom_copy_function(src, dst, *, follow_symlinks=True):\n    # Function to copy files and overwrite if they already exist\n    shutil.copy2(src, dst)\n\n# Use shutil.copytree to copy the entire folder and overwrite existing files\n# Copy the folder with overwriting existing files\nshutil.copytree(source_folder, destination_folder, copy_function=custom_copy_function)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n",
+  "history_output" : "today date = 2023-10-07\ntest start date:  2023-01-19\ntest end date:  2023-10-07\n/home/chetana\nmove the plots and the results into the http folder\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/WBPbzuabD5uh/deploy_images_to_website.py\", line 17, in <module>\n    shutil.copytree(source_folder, destination_folder, copy_function=custom_copy_function)\n  File \"/home/chetana/anaconda3/lib/python3.9/shutil.py\", line 568, in copytree\n    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,\n  File \"/home/chetana/anaconda3/lib/python3.9/shutil.py\", line 467, in _copytree\n    os.makedirs(dst, exist_ok=dirs_exist_ok)\n  File \"/home/chetana/anaconda3/lib/python3.9/os.py\", line 225, in makedirs\n    mkdir(name, mode)\nFileExistsError: [Errno 17] File exists: '/var/www/html/swe_forecasting/plots/'\n",
+  "history_begin_time" : 1696690271090,
+  "history_end_time" : 1696690271880,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "yh2ngpP4eXBA",
+  "history_input" : "import shutil\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nvar_comparison_plot_path = f\"{work_dir}/var_comparison/\"\npublic_folder_path = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Use shutil.copytree to copy the entire folder and overwrite existing files\nshutil.copytree(var_comparison_plot_path, public_folder_path, dirs_exist_ok=True)\n",
+  "history_output" : "today date = 2023-10-07\ntest start date:  2023-01-19\ntest end date:  2023-10-07\n/home/chetana\nmove the plots and the results into the http folder\n",
+  "history_begin_time" : 1696690189864,
+  "history_end_time" : 1696690190651,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Z7tOX29nDBbi",
+  "history_input" : "import shutil\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nvar_comparison_plot_path = f\"{work_dir}/var_comparison/\"\npublic_folder_path = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Use shutil.copytree to copy the entire folder and overwrite existing files\nshutil.copytree(var_comparison_plot_path, public_folder_path, dirs_exist_ok=True)\n",
+  "history_output" : "today date = 2023-10-07\ntest start date:  2023-01-19\ntest end date:  2023-10-07\n/home/chetana\nmove the plots and the results into the http folder\n",
+  "history_begin_time" : 1696690055222,
+  "history_end_time" : 1696690056007,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "C3pHMPbajlva",
+  "history_input" : "import shutil\nfrom snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nvar_comparison_plot_path = f\"{work_dir}/var_comparison/\"\npublic_folder_path = f\"/var/www/html/swe_forecasting/plots/\"\n\n\n# Use shutil.copytree to copy the entire folder\nshutil.copytree(var_comparison_plot_path, public_folder_path)\n",
+  "history_output" : "today date = 2023-10-07\ntest start date:  2023-01-19\ntest end date:  2023-10-07\n/home/chetana\nmove the plots and the results into the http folder\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/C3pHMPbajlva/deploy_images_to_website.py\", line 12, in <module>\n    shutil.copytree(var_comparison_plot_path, public_folder_path)\n  File \"/home/chetana/anaconda3/lib/python3.9/shutil.py\", line 568, in copytree\n    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,\n  File \"/home/chetana/anaconda3/lib/python3.9/shutil.py\", line 467, in _copytree\n    os.makedirs(dst, exist_ok=dirs_exist_ok)\n  File \"/home/chetana/anaconda3/lib/python3.9/os.py\", line 225, in makedirs\n    mkdir(name, mode)\nFileExistsError: [Errno 17] File exists: '/var/www/html/swe_forecasting/plots/'\n",
+  "history_begin_time" : 1696689997450,
+  "history_end_time" : 1696689998337,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "B2R3cZTrtogY",
+  "history_input" : "from snowcast_utils import work_dir\n\n\nprint(\"move the plots and the results into the http folder\")\n\nvar_comparison_plot_path = f\"{work_dir}/var_comparison/\"\npublic_folder_path = f\"/var/www/html/swe_forecasting/plots/\"\n\n\n# Use shutil.copytree to copy the entire folder\nshutil.copytree(var_comparison_plot_path, public_folder_path)\n",
+  "history_output" : "today date = 2023-10-07\ntest start date:  2023-01-19\ntest end date:  2023-10-07\n/home/chetana\nmove the plots and the results into the http folder\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/B2R3cZTrtogY/deploy_images_to_website.py\", line 11, in <module>\n    shutil.copytree(var_comparison_plot_path, public_folder_path)\nNameError: name 'shutil' is not defined\n",
+  "history_begin_time" : 1696689975445,
+  "history_end_time" : 1696689976213,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "cpysvfj5omm",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n\n\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1696603205884,
+  "history_end_time" : 1696603207421,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "p9gl6b6ug0q",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1696432531702,
+  "history_end_time" : 1696432533246,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "zmp8i7gv4yw",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695828153852,
+  "history_end_time" : 1695828155416,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "czviyfartje",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695696682072,
+  "history_end_time" : 1695696683607,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "xmkiiwl0fo0",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695694446097,
+  "history_end_time" : 1695694447627,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "42hj1alv1ol",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695693643903,
+  "history_end_time" : 1695693645497,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "l0cfud3zts6",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695693368183,
+  "history_end_time" : 1695693369725,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "hjgc2h8v07n",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695581108558,
+  "history_end_time" : 1695581110114,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "to7wwmnskzq",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695576481441,
+  "history_end_time" : 1695576482967,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "yrwz6eu344g",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695576171450,
+  "history_end_time" : 1695576172973,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5h5lmzlcd3l",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695535982867,
+  "history_end_time" : 1695535984404,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "hfj9tmbcq9g",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695535675918,
+  "history_end_time" : 1695535677482,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "p23brbnejxi",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695535411572,
+  "history_end_time" : 1695535413127,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "7yluzdwmhtl",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695535140105,
+  "history_end_time" : 1695535141642,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "b7pjz5snsnh",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695534861809,
+  "history_end_time" : 1695534863317,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "bhabltvuwib",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695533205274,
+  "history_end_time" : 1695533206831,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "mjr3ef3peel",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695529381564,
+  "history_end_time" : 1695529383145,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "yeqtcaskns3",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695528579271,
+  "history_end_time" : 1695528580790,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "u8atlhfktzl",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695515936403,
+  "history_end_time" : 1695515937942,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "p0t5whi4uo6",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695506626333,
+  "history_end_time" : 1695506627847,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "otoej6oti3a",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695418937435,
+  "history_end_time" : 1695418938944,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "q71a7qxomfp",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695417811691,
+  "history_end_time" : 1695417813204,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "fldkoed5fjg",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695417396700,
+  "history_end_time" : 1695417398248,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "jm28zragg4m",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695417100143,
+  "history_end_time" : 1695417101679,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "srzcfn7buys",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695417023746,
+  "history_end_time" : 1695417025277,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "5nqd02ytakh",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695106538747,
+  "history_end_time" : 1695106540325,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "cjclm29xcau",
+  "history_input" : "print(\"move the plots and the results into the http folder\")\n",
+  "history_output" : "move the plots and the results into the http folder\n",
+  "history_begin_time" : 1695106473033,
+  "history_end_time" : 1695106474555,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "clur6qyq87y",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1695054088341,
+  "history_end_time" : 1695054091808,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "7peiokgrz3f",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1695053841153,
+  "history_end_time" : 1695053844560,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "gj0zj2q7mmo",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1695053782362,
+  "history_end_time" : 1695053786953,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "u51qmdozu9n",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1694970773425,
+  "history_end_time" : 1694970777026,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "03046ugepr5",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1694970652987,
+  "history_end_time" : 1694970656409,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "1jp96y1fou4",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1694970198731,
+  "history_end_time" : 1694970202102,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "qrcbzgqtiof",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "",
+  "history_begin_time" : 1694969417161,
+  "history_end_time" : 1694969420625,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "3ce5k2fgqv7",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/3ce5k2fgqv7/service_prediction.py\", line 17, in <module>\n    import geopandas as gpd\nModuleNotFoundError: No module named 'geopandas'\n",
+  "history_begin_time" : 1694908995684,
+  "history_end_time" : 1694908999321,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "o1cy22ikpuo",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/o1cy22ikpuo/service_prediction.py\", line 17, in <module>\n    import geopandas as gpd\nModuleNotFoundError: No module named 'geopandas'\n",
+  "history_begin_time" : 1694901480397,
+  "history_end_time" : 1694901489001,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "ikpgmzfjst1",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/ikpgmzfjst1/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691531390809,
+  "history_end_time" : 1691531394261,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "z3aw4ndxbq4",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/z3aw4ndxbq4/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691531317662,
+  "history_end_time" : 1691531321094,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "i29jtqm9tan",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/i29jtqm9tan/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691531222658,
+  "history_end_time" : 1691531226048,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "yzddwew8dwh",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/yzddwew8dwh/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691531148214,
+  "history_end_time" : 1691531151654,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "3im4vcuhgyn",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/3im4vcuhgyn/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691531090018,
+  "history_end_time" : 1691531095401,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "stdf6v41llh",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/stdf6v41llh/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691530872842,
+  "history_end_time" : 1691530877500,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "i97u3ct5b3u",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/i97u3ct5b3u/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691530716904,
+  "history_end_time" : 1691530721495,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "xsg02cmqm0l",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/xsg02cmqm0l/service_prediction.py\", line 7, in <module>\n    import seaborn as sns\nModuleNotFoundError: No module named 'seaborn'\n",
+  "history_begin_time" : 1691530644097,
+  "history_end_time" : 1691530649812,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
   "history_id" : "yqe6br3t7ym",
   "history_input" : null,
   "history_output" : "Authentication Failed. Wrong Password.",
@@ -553,21 +1303,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1677462325747,
-  "history_end_time" : 1677462325747,
+  "history_end_time" : 1694185608907,
   "history_notes" : null,
   "history_process" : "i2fynz",
   "host_id" : "45wlwr",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "q0yqeqo4v6h",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1677462311680,
-  "history_end_time" : 1677462311680,
+  "history_end_time" : 1694185608624,
   "history_notes" : null,
   "history_process" : "i2fynz",
   "host_id" : "45wlwr",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "6bacgorrfy9",
   "history_input" : "No code saved",
@@ -1583,7 +2333,7 @@
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
-  "history_end_time" : 1677791865855,
+  "history_end_time" : 1694185611211,
   "history_notes" : null,
   "history_process" : "i2fynz",
   "host_id" : "45wlwr",
@@ -1663,7 +2413,7 @@
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
-  "history_end_time" : 1678312026539,
+  "history_end_time" : 1694185586126,
   "history_notes" : null,
   "history_process" : "i2fynz",
   "host_id" : "45wlwr",
@@ -2127,5 +2877,105 @@
   "history_notes" : null,
   "history_process" : "i2fynz",
   "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7lb02ma8lbu",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1691530614286,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "93m0o03zzf7",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1691530622442,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "c3z0snyagae",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1691530721107,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lm7urqf0jwn",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1691531284902,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a167j548jwi",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1694972839688,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hm08yzerong",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1695054019277,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ij7x9bpc93t",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1695054033332,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "poz7kto09f8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1695827867011,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dk657p9h9lc",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1695827965226,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "e8qaoz0sujw",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1696432482235,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
   "indicator" : "Stopped"
 },]
