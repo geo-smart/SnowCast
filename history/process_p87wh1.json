@@ -1,4 +1,534 @@
 [{
+  "history_id" : "hx26lqhxyfe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689632033810,
+  "history_end_time" : 1689632033810,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fy4dgv9awg0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636446,
+  "history_end_time" : 1689631636446,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "owdjv0n145f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689135058017,
+  "history_end_time" : 1689135058017,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ko7af1lvt4l",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n    return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n        json_list.append(row_dict)\n    json_string = json.dumps(json_list)\n    return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split(\"\\n\")  # Split the text into lines\n    cleaned_lines = []\n\n    for line in lines:\n        if not line.startswith(\"#\"):  # Check if the line starts with \"#\"\n            cleaned_lines.append(line)\n\n    cleaned_text = \"\\n\".join(cleaned_lines)  # Join the remaining lines\n\n    return cleaned_text\n\n\ncsv_file = 'snotel.csv'\nstart_date = \"2022-01-01\"\nend_date = \"2023-12-12\"\n\nstation_mapping = pd.read_csv('station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['station_name'] = location_name\n        item['station_triplet'] = location_triplet\n        item['station_elevation'] = location_elevation\n        item['station_lat'] = location_station_lat\n        item['station_long'] = location_station_long\n        item['mapping_station_id'] = row['station_id']\n        item['mapping_cell_id'] = row['cell_id']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False, lineterminator='\\n')",
+  "history_output" : "  File \"/home/chetana/gw-workspace/ko7af1lvt4l/data_snotel_real_time.py\", line 52\n    lines = text.split(\"\n                        ^\nSyntaxError: EOL while scanning string literal\n",
+  "history_begin_time" : 1688416902112,
+  "history_end_time" : 1688416907377,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bzotj0galio",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n    return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n        json_list.append(row_dict)\n    json_string = json.dumps(json_list)\n    return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split(\"\\n\")  # Split the text into lines\n    cleaned_lines = []\n\n    for line in lines:\n        if not line.startswith(\"#\"):  # Check if the line starts with \"#\"\n            cleaned_lines.append(line)\n\n    cleaned_text = \"\\n\".join(cleaned_lines)  # Join the remaining lines\n\n    return cleaned_text\n\n\ncsv_file = 'snotel.csv'\nstart_date = \"2022-01-01\"\nend_date = \"2023-12-12\"\n\nstation_mapping = pd.read_csv('station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['station_name'] = location_name\n        item['station_triplet'] = location_triplet\n        item['station_elevation'] = location_elevation\n        item['station_lat'] = location_station_lat\n        item['station_long'] = location_station_long\n        item['mapping_station_id'] = row['station_id']\n        item['mapping_cell_id'] = row['cell_id']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False, lineterminator='\\n')",
+  "history_output" : "  File \"data_snotel_real_time.py\", line 52\n    lines = text.split(\"\n                       ^\nSyntaxError: EOL while scanning string literal\n",
+  "history_begin_time" : 1688416837980,
+  "history_end_time" : 1688416848468,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wnmrr430f90",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n    return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n        json_list.append(row_dict)\n    json_string = json.dumps(json_list)\n    return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split(\"\\n\")  # Split the text into lines\n    cleaned_lines = []\n\n    for line in lines:\n        if not line.startswith(\"#\"):  # Check if the line starts with \"#\"\n            cleaned_lines.append(line)\n\n    cleaned_text = \"\\n\".join(cleaned_lines)  # Join the remaining lines\n\n    return cleaned_text\n\n\ncsv_file = 'snotel.csv'\nstart_date = \"2022-01-01\"\nend_date = \"2023-12-12\"\n\nstation_mapping = pd.read_csv('station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['station_name'] = location_name\n        item['station_triplet'] = location_triplet\n        item['station_elevation'] = location_elevation\n        item['station_lat'] = location_station_lat\n        item['station_long'] = location_station_long\n        item['mapping_station_id'] = row['station_id']\n        item['mapping_cell_id'] = row['cell_id']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False, lineterminator='\\n')",
+  "history_output" : "  File \"data_snotel_real_time.py\", line 52\n    lines = text.split(\"\n                       ^\n",
+  "history_begin_time" : 1688416671908,
+  "history_end_time" : 1688416822958,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jvj1iqich95",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n    return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n        json_list.append(row_dict)\n    json_string = json.dumps(json_list)\n    return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split(\"\\n\")  # Split the text into lines\n    cleaned_lines = []\n\n    for line in lines:\n        if not line.startswith(\"#\"):  # Check if the line starts with \"#\"\n            cleaned_lines.append(line)\n\n    cleaned_text = \"\\n\".join(cleaned_lines)  # Join the remaining lines\n\n    return cleaned_text\n\n\ncsv_file = 'snotel.csv'\nstart_date = \"2022-01-01\"\nend_date = \"2023-12-12\"\n\nstation_mapping = pd.read_csv('station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['station_name'] = location_name\n        item['station_triplet'] = location_triplet\n        item['station_elevation'] = location_elevation\n        item['station_lat'] = location_station_lat\n        item['station_long'] = location_station_long\n        item['mapping_station_id'] = row['station_id']\n        item['mapping_cell_id'] = row['cell_id']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False, lineterminator='\\n')",
+  "history_output" : "  File \"data_snotel_real_time.py\", line 52\n    lines = text.split(\"\n                       ^\nSyntaxError: EOL while scanning string literal\n",
+  "history_begin_time" : 1688416632669,
+  "history_end_time" : 1688416660676,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gdnv9z5qjaq",
+  "history_input" : null,
+  "history_output" : "  File \"data_snotel_real_time.py\", line 52\n    lines = text.split(\"\n                       ^\nSyntaxError: EOL while scanning string literal\n",
+  "history_begin_time" : 1688416572896,
+  "history_end_time" : 1688416575346,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Done"
+},{
+  "history_id" : "1xa665uazft",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1687546866696,
+  "history_end_time" : 1687546866696,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "u6jvub45vvw",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1687463687569,
+  "history_end_time" : 1687463689029,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "2l5jf1412ip",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1687463638558,
+  "history_end_time" : 1687463640025,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "5je3i7wfxc2",
+  "history_input" : "from datetime import datetime\nfrom metloom.pointdata import SnotelPointData\n\n\n# Write first python in Geoweaver\nimport os\nimport urllib.request, urllib.error, urllib.parse\nimport sys\nprint(sys.path)\n\ntry:\n    from BeautifulSoup import BeautifulSoup\nexcept ImportError:\n    from bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day}\"\n\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(test_noaa_query_url)\n\nresponse = urllib.request.urlopen(test_noaa_query_url)\nwebContent = response.read().decode('UTF-8')\n\nprint(webContent)\n\n\nparsed_html = BeautifulSoup(webContent)\nprint(parsed_html.body.find('div', attrs={'class':'container'}).text)\n\n\n\n#snotel_point = SnotelPointData(\"713:CO:SNTL\", \"MyStation\")\n#df = snotel_point.get_daily_data(\n#    datetime(2020, 1, 2), datetime(2020, 1, 20),\n#    [snotel_point.ALLOWED_VARIABLES.SWE]\n#)\n#print(df)",
+  "history_output" : "['/home/chetana/gw-workspace/5je3i7wfxc2', '/home/chetana/anaconda3/lib/python39.zip', '/home/chetana/anaconda3/lib/python3.9', '/home/chetana/anaconda3/lib/python3.9/lib-dynload', '/home/chetana/.local/lib/python3.9/site-packages', '/home/chetana/anaconda3/lib/python3.9/site-packages']\nhttps://www.nohrsc.noaa.gov/nearest/index.html?city=40.05352381745094%2C-106.04027196859343&county=&l=5&u=e&y=2022&m=5&d=4\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\" >\n<html lang=\"en\">\n<head>\n\t<meta http-equiv=\"Content-Type\" CONTENT=\"text/html; charset=utf-8\" >\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"/css/main.css\" >\n\t<link href=\"/favicon.ico\" rel=\"shortcut icon\" >\n\t<meta http-equiv=\"Cache-Control\" content=\"no-cache\" >\n\t<meta name=\"DC.creator\" content=\"National Operational Hydrologic Remote Sensing Center\" >\n\t<meta name=\"DC.publisher\" content=\"NOAA's National Weather Service\" >\n\t<meta name=\"DC.contributor\" content=\"National Operational Hydrologic Remote Sensing Center\" >\n\t<meta name=\"DC.language\" content=\"EN-US\" >\n<title>Nearest Observations - NOHRSC - The ultimate source for snow information</title>\n<meta name=\"DC.title\" content=\"Nearest Observations - NOHRSC - The ultimate source for snow information\">\n<meta name=\"DC.description\" content=\"A listing of nearby observations to a given point and date\">\n<meta name=\"DC.date.created\" scheme=\"ISO8601\" content=\"2009-01-12\">\n<meta name=\"DC.date.reviewed\" scheme=\"ISO8601\" content=\"2022-11-14\">\n\t<script type=\"text/javascript\">\n\t</script>\n\t<!-- Global site tag (gtag.js) - Google Analytics -->\n\t<script type=\"text/javascript\" async src=\"https://www.googletagmanager.com/gtag/js?id=UA-43953030-10\"></script>\n\t<script type=\"text/javascript\">\n\t  window.dataLayer = window.dataLayer || [];\n\t  function gtag(){dataLayer.push(arguments);}\n\t  gtag('js', new Date());\n\t  gtag('config', 'UA-43953030-10');\n\t</script>\n</head>\n<body>\n\t<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\" style=\"background-image : url(/images/topbanner.jpg)\">\n\t\t<tr>\n\t\t\t<td align=\"right\" height=\"19\">\n\t\t\t\t<a href=\"#content\"><img src=\"/images/skipgraphic.gif\" alt=\"(content link)\" height=\"1\" width=\"1\" border=\"0\"></a>\n\t\t\t\t<a href=\"https://www.nws.noaa.gov\"><span class=\"nwslink\">weather.gov</span></a>\n\t\t\t\t&nbsp;&nbsp;&nbsp;\n\t\t\t</td>\n\t\t</tr>\n\t</table>\n\t<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">\n\t\t<tr>\n\t\t\t<td rowspan=\"2\" width=\"85\"><a href=\"https://www.noaa.gov\"><img src=\"/images/titleleft_noaa.jpg\" alt=\"NOAA link\" width=\"85\" height=\"78\" border=\"0\"></a></td>\n\t\t\t<td align=\"left\" width=\"500\" height=\"20\" style=\"background : url(/images/blank_title.jpg);\"><div class=\"source\">National Weather Service</div></td>\n\t\t\t<td rowspan=\"2\" style=\"background-image : url(/images/title_bg.jpg)\">&nbsp;</td>\n\t\t\t<td rowspan=\"2\" width=\"85\" align=\"right\"><a href=\"https://www.nws.noaa.gov\"><img src=\"/images/titleright_nws.jpg\" alt=\"NWS link\" width=\"85\" height=\"78\" border=\"0\"></a></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td width=\"500\" height=\"58\" style=\"background : url(/images/blank_name.jpg);\" class=\"location\"><a href=\"/\">National Operational Hydrologic<br> Remote Sensing Center</a></td>\n\t\t</tr>\n\t</table>\n\t<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"background-image : url(/images/navbar_bg.gif)\" width=\"100%\" class=\"nav\">\n\t\t<tr>\n\t\t\t<td align=\"left\" valign=\"top\" width=\"94\"><img src=\"/images/navbar_left.jpg\" alt=\"\" width=\"94\" height=\"23\" border=\"0\"></td>\n\t\t\t<td class=\"nav\" width=\"15%\" align=\"center\" nowrap><a href=\"/\">Home</a></td>\n\t\t\t<td class=\"nav\" width=\"15%\" align=\"center\"><a href=\"https://www.weather.gov/news\" title=\"National Weather Service News\">News</a></td>\n\t\t\t<td class=\"nav\" width=\"20%\" align=\"center\"><a href=\"https://www.nws.noaa.gov/organization.html\" title=\"National Weather Service Organization\">Organization</a></td>\n\t\t\t<td align=\"left\" class=\"searchinput\" width=\"20%\" nowrap=\"nowrap\">\n\t\t\t\t<form action=\"https://search.usa.gov/search\" method=\"get\" name=\"query\" id=\"query\"\n\t\t\t\t style=\"margin-bottom:0; margin-top:0;\">\n\t\t\t\t<label for=\"search\" class=\"yellow\">Search</label>&nbsp;&nbsp;\n\t\t\t\t<input type=\"hidden\" name=\"affiliate\" value=\"nws.noaa.gov\" >\n\t\t\t\t<input type=\"text\" name=\"query\" id=\"search\" value=\"Enter Search Here\"\n\t\t\t\t size=\"20\" maxlength=\"256\" onfocus=\"this.value='';\" title=\"Search all NWS sites here\">&nbsp;\n\t\t\t\t<input type=\"submit\" id=\"submit\" value=\"Go\" >\n\t\t\t\t</form>\n\t\t\t</td>\n\t\t\t<td width=\"10%\">&nbsp;</td>\n\t\t\t<td align=\"right\" valign=\"bottom\" width=\"24\"><img src=\"/images/navbar_right.jpg\" alt=\"\" width=\"24\" height=\"23\" border=\"0\"></td>\n\t\t</tr>\n\t</table>\n\t<table cellspacing=\"0\" cellpadding=\"0\">\n\t\t<tr valign=\"top\">\n\t\t\t<td class=\"nav\" width=\"130\">\n<dl>\n<dd><a href=\"/\">Home</a></dd>\n</dl>\n<dl>\n<dt>Snow Information</dt>\n<dd><a href=\"/nsa/\" title=\"An overview of snow around the country\">National Analyses</a></dd>\n<dd><a href=\"/interactive/html/map.html\" title=\"Explore NOHRSC products and create your own maps\">Interactive Maps</a></dd>\n<dd><a href=\"/earth/\" title=\"A listing of experimental products for use with KML interpreter software\">3D Visualization</a></dd>\n<dd><a href=\"/snowsurvey/\" title=\"Current information about our snow surveys\">Airborne Surveys</a></dd>\n<dd><a href=\"/snowfall/\" title=\"Daily maps of observed snowfall\">Snowfall Analysis</a></dd>\n<dd><a href=\"/nh_snowcover/\">Satellite Products</a></dd>\n<dd><a href=\"/forecasts/\">Forecasts</a></dd>\n<dd><a href=\"/archived_data/\" title=\"Information on where to acquire NOHRSC raster data\">Data Archive</a></dd>\n<dd><a href=\"/shef_archive/\" title=\"Browse an archive of SHEF text messages\">SHEF Products</a></dd>\n</dl>\n<form name=\"nearest\" action=\"/nearest/index.html\">\n<dl>\n<dt>Observations near</dt>\n<dd><input type=\"text\" size=\"9\" name=\"city\" value=\"City, ST\" title=\"Search for snow observations near a city. Press enter or select the go button to submit request\" onfocus=\"this.value='';\">\n<input type=\"submit\" value=\"Go\"></dd>\n</dl>\n</form>\n<dl>\n<dt>Science/Technology</dt>\n<dd><a href=\"/technology/\" title=\"More detailed information about the NOHRSC\">NOHRSC</a></dd>\n<dd><a href=\"/gisdatasets/\" title=\"Shapefiles available for download\">GIS Data Sets</a></dd>\n<dd><a href=\"/special/\" title=\"Satellite/GIS images for certain projects\">Special Purpose Imagery</a></dd>\n</dl>\n<dl>\n<dt>About The NOHRSC</dt>\n<dd><a href=\"/directory/\" title=\"Meet the staff at the NOHRSC\">Staff</a></dd>\n</dl>\n<dl>\n<dt>NOAA Links</dt>\n<dd><a href=\"https://www.ncdc.noaa.gov/snow-and-ice/\">Snow Climatology</a></dd>\n<dd><a href=\"/links.html\">Related Links</a></dd>\n</dl>\n<dl>\n<dt>Help</dt>\n<dd><a href=\"/help/\" title=\"NOHRSC web site help\">Help and FAQ</a></dd>\n<dd><a href=\"/sitemap.html\">Site Map</a></dd>\n</dl>\n<dl>\n<dt>Contact Us</dt>\n<dd><a href=\"/contact.html\">Please Send Us Comments!</a></dd>\n</dl>\n<center>\n<a href=\"https://www.usa.gov\"><img src=\"/images/usagov_logo_color_110w.gif\" alt=\"USA.gov is the U.S. Government's official Web portal to all Federal, state and local government Web resources and services.\" width=\"110\" height=\"30\" border=\"0\"></a>\n<br>\n</center>\n\t\t\t</td>\n\t\t\t<td id=\"content_block\">\n\t\t\t\t<a href=\"\" name=\"content\"></a>\n<center><strong>Nearest observations to</strong></center>\n<center><h2>40.05&deg;N, -106.04&deg;W</h2></center>\n<strong>Note: these data are unofficial and provisional.</strong><br>\n<form name=\"data\" action=\"/nearest/index.html\">\n<fieldset>\n<legend><b>Location and Date</b></legend>\n<label title=\"Enter City, ST (or Latitude, Longitude)\">Enter your \"City, ST (or Latitude, Longitude)\" <input type=\"text\" size=\"16\" maxlength=\"80\" name=\"city\" value=\"40.05&deg;N, -106.04&deg;W\"></label>\n<input type=\"hidden\" name=\"county\" value=\"\">\n<input type=\"submit\" value=\"Go\" title=\"Click to refresh screen\"><br><br>\n<input type=\"hidden\" name=\"l\" value=\"5\">\n<select name=\"u\" title=\"Units\" size=\"1\" class=\"smallform\">\n<option value=\"e\" class=\"smallform\" selected>English</option>\n<option value=\"m\" class=\"smallform\">Metric</option>\n</select>\n &nbsp;\n<select name=\"y\" title=\"Year\" size=\"1\" class=\"smallform\">\n<option value=\"2003\" class=\"smallform\">2003</option>\n<option value=\"2004\" class=\"smallform\">2004</option>\n<option value=\"2005\" class=\"smallform\">2005</option>\n<option value=\"2006\" class=\"smallform\">2006</option>\n<option value=\"2007\" class=\"smallform\">2007</option>\n<option value=\"2008\" class=\"smallform\">2008</option>\n<option value=\"2009\" class=\"smallform\">2009</option>\n<option value=\"2010\" class=\"smallform\">2010</option>\n<option value=\"2011\" class=\"smallform\">2011</option>\n<option value=\"2012\" class=\"smallform\">2012</option>\n<option value=\"2013\" class=\"smallform\">2013</option>\n<option value=\"2014\" class=\"smallform\">2014</option>\n<option value=\"2015\" class=\"smallform\">2015</option>\n<option value=\"2016\" class=\"smallform\">2016</option>\n<option value=\"2017\" class=\"smallform\">2017</option>\n<option value=\"2018\" class=\"smallform\">2018</option>\n<option value=\"2019\" class=\"smallform\">2019</option>\n<option value=\"2020\" class=\"smallform\">2020</option>\n<option value=\"2021\" class=\"smallform\">2021</option>\n<option value=\"2022\" class=\"smallform\" selected>2022</option>\n<option value=\"2023\" class=\"smallform\">2023</option>\n</select>\n &nbsp;\n<select name=\"m\" title=\"Month\" size=\"1\" class=\"smallform\">\n<option value=\"1\" class=\"smallform\">January</option>\n<option value=\"2\" class=\"smallform\">February</option>\n<option value=\"3\" class=\"smallform\">March</option>\n<option value=\"4\" class=\"smallform\">April</option>\n<option value=\"5\" class=\"smallform\" selected>May</option>\n<option value=\"6\" class=\"smallform\">June</option>\n<option value=\"7\" class=\"smallform\">July</option>\n<option value=\"8\" class=\"smallform\">August</option>\n<option value=\"9\" class=\"smallform\">September</option>\n<option value=\"10\" class=\"smallform\">October</option>\n<option value=\"11\" class=\"smallform\">November</option>\n<option value=\"12\" class=\"smallform\">December</option>\n</select>\n &nbsp;\n<select name=\"d\" title=\"Day\" size=\"1\" class=\"smallform\">\n<option value=\"1\" class=\"smallform\">1</option>\n<option value=\"2\" class=\"smallform\">2</option>\n<option value=\"3\" class=\"smallform\">3</option>\n<option value=\"4\" class=\"smallform\" selected>4</option>\n<option value=\"5\" class=\"smallform\">5</option>\n<option value=\"6\" class=\"smallform\">6</option>\n<option value=\"7\" class=\"smallform\">7</option>\n<option value=\"8\" class=\"smallform\">8</option>\n<option value=\"9\" class=\"smallform\">9</option>\n<option value=\"10\" class=\"smallform\">10</option>\n<option value=\"11\" class=\"smallform\">11</option>\n<option value=\"12\" class=\"smallform\">12</option>\n<option value=\"13\" class=\"smallform\">13</option>\n<option value=\"14\" class=\"smallform\">14</option>\n<option value=\"15\" class=\"smallform\">15</option>\n<option value=\"16\" class=\"smallform\">16</option>\n<option value=\"17\" class=\"smallform\">17</option>\n<option value=\"18\" class=\"smallform\">18</option>\n<option value=\"19\" class=\"smallform\">19</option>\n<option value=\"20\" class=\"smallform\">20</option>\n<option value=\"21\" class=\"smallform\">21</option>\n<option value=\"22\" class=\"smallform\">22</option>\n<option value=\"23\" class=\"smallform\">23</option>\n<option value=\"24\" class=\"smallform\">24</option>\n<option value=\"25\" class=\"smallform\">25</option>\n<option value=\"26\" class=\"smallform\">26</option>\n<option value=\"27\" class=\"smallform\">27</option>\n<option value=\"28\" class=\"smallform\">28</option>\n<option value=\"29\" class=\"smallform\">29</option>\n<option value=\"30\" class=\"smallform\">30</option>\n<option value=\"31\" class=\"smallform\">31</option>\n</select>\n &nbsp;\n<input type=\"submit\" name=\"i\" value=\" - \" title=\"Back one day\"> &nbsp;\n<input type=\"submit\" name=\"i\" value=\" + \" title=\"Forward one day\"> &nbsp;\n</fieldset>\n</form>\n<table width=\"100%\"><tr><td><strong>Closest 5  observations near 40.05&deg;N, -106.04&deg;W</strong><br>40.05&deg;N, -106.04&deg;W (Elevation: N/A)</td>\n<td align=\"right\">Latest between <span class=\"date\">2022-05-04 06:00 UTC</span><br>and  <span class=\"date\">2022-05-05 06:00 UTC</span></td></tr></table><hr>\n<table class=\"gray_data_table\" cellspacing=\"2\" summary=\"Table of Raw Snowfall Observations near 40.05&deg;N, -106.04&deg;W, \" width=\"100%\">\n<caption><strong>Raw Snowfall Observations</strong></caption>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <thead>\n  <tr>\n<th scope=\"col\">Station ID</th><th scope=\"col\">Name</th><th scope=\"col\">Elev.<br> (ft)</th><th scope=\"col\">Raw Snowfall<br> (in)</th><th scope=\"col\">Duration<br> (hours)</th><th scope=\"col\">Date (UTC)</th><th scope=\"col\">Distance</th></tr>\n </thead>\n <tbody>\n<tr><td class=\"desc\" title=\"(40.0071&deg;N, -105.8862&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-68\">CO-GR-68</a></td><td class=\"desc\">TABERNASH 2.7 NW, CO</td><td>8806</td><td>3.70</td><td>24</td><td>2022-05-04 13</td><td>8.7 mi ESE</td></tr>\n<tr><td class=\"desc\" title=\"(40.0375&deg;N, -106.203&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=WIFC2\">WIFC2</a></td><td class=\"desc\">WILLIAMS FORK DAM</td><td>7733</td><td>2.00</td><td>24</td><td>2022-05-04 14</td><td>8.7 mi W</td></tr>\n<tr><td class=\"desc\" title=\"(40.0911&deg;N, -106.2&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-52\">CO-GR-52</a></td><td class=\"desc\">PARSHALL 3.0 NNW, CO</td><td>7904</td><td>2.20</td><td>24</td><td>2022-05-04 13</td><td>8.9 mi WNW</td></tr>\n<tr><td class=\"desc\" title=\"(40.0015&deg;N, -105.8725&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-53\">CO-GR-53</a></td><td class=\"desc\">TABERNASH 1.9 NW, CO</td><td>8579</td><td>6.50</td><td>24</td><td>2022-05-04 13</td><td>9.5 mi ESE</td></tr>\n<tr><td class=\"desc\" title=\"(40.1997&deg;N, -105.9258&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-73\">CO-GR-73</a></td><td class=\"desc\">GRANBY 7.7 N, CO</td><td>8563</td><td>4.00</td><td>24</td><td>2022-05-04 13</td><td>12 mi NE</td></tr>\n</tbody></table>\n<hr>\n<table class=\"gray_data_table\" cellspacing=\"2\" summary=\"Table of Snow Depth Observations near 40.05&deg;N, -106.04&deg;W, \" width=\"100%\">\n<caption><strong>Snow Depth Observations</strong></caption>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <thead>\n  <tr>\n<th scope=\"col\">Station ID</th><th scope=\"col\">Name</th><th scope=\"col\">Elev.<br> (ft)</th><th scope=\"col\">Snow Depth<br> (in)</th><th scope=\"col\">Date (UTC)</th><th scope=\"col\">Distance</th></tr>\n </thead>\n <tbody>\n<tr><td class=\"desc\" title=\"(40.0071&deg;N, -105.8862&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-68\">CO-GR-68</a></td><td class=\"desc\">TABERNASH 2.7 NW, CO</td><td>8806</td><td>4.00</td><td>2022-05-04 13</td><td>8.7 mi ESE</td></tr>\n<tr><td class=\"desc\" title=\"(40.0375&deg;N, -106.203&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=WIFC2\">WIFC2</a></td><td class=\"desc\">WILLIAMS FORK DAM</td><td>7733</td><td>1.00</td><td>2022-05-04 14</td><td>8.7 mi W</td></tr>\n<tr><td class=\"desc\" title=\"(40.0911&deg;N, -106.2&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-52\">CO-GR-52</a></td><td class=\"desc\">PARSHALL 3.0 NNW, CO</td><td>7904</td><td>1.50</td><td>2022-05-04 13</td><td>8.9 mi WNW</td></tr>\n<tr><td class=\"desc\" title=\"(40.2254&deg;N, -105.9198&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=SCSC2\">SCSC2</a></td><td class=\"desc\">STILLWATER CREEK</td><td>8793</td><td>0.00</td><td>2022-05-05 05</td><td>13.7 mi NE</td></tr>\n<tr><td class=\"desc\" title=\"(40.2082&deg;N, -105.8634&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-78\">CO-GR-78</a></td><td class=\"desc\">GRAND LAKE 3.7 SW, CO</td><td>8537</td><td>3.00</td><td>2022-05-04 13</td><td>14.4 mi NE</td></tr>\n</tbody></table>\n<hr>\n<table class=\"gray_data_table\" cellspacing=\"2\" summary=\"Table of Snow Water Equivalent Observations near 40.05&deg;N, -106.04&deg;W, \" width=\"100%\">\n<caption><strong>Snow Water Equivalent Observations</strong></caption>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <thead>\n  <tr>\n<th scope=\"col\">Station ID</th><th scope=\"col\">Name</th><th scope=\"col\">Elev.<br> (ft)</th><th scope=\"col\">Snow Water Equivalent<br> (in)</th><th scope=\"col\">Date (UTC)</th><th scope=\"col\">Distance</th></tr>\n </thead>\n <tbody>\n<tr><td class=\"desc\" title=\"(40.2254&deg;N, -105.9198&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=SCSC2\">SCSC2</a></td><td class=\"desc\">STILLWATER CREEK</td><td>8793</td><td>0.00</td><td>2022-05-05 05</td><td>13.7 mi NE</td></tr>\n<tr><td class=\"desc\" title=\"(39.8687&deg;N, -105.8675&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=FCVC2\">FCVC2</a></td><td class=\"desc\">FOOL CREEK</td><td>11168</td><td>20.30</td><td>2022-05-04 07</td><td>15.5 mi SE</td></tr>\n<tr><td class=\"desc\" title=\"(39.7956&deg;N, -106.0273&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=MFKC2\">MFKC2</a></td><td class=\"desc\">MIDDLE FORK CAMP</td><td>8983</td><td>1.40</td><td>2022-05-05 05</td><td>17.6 mi S</td></tr>\n<tr><td class=\"desc\" title=\"(40.347&deg;N, -106.0943&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=WLLC2\">WLLC2</a></td><td class=\"desc\">WILLOW CREEK PASS</td><td>9600</td><td>14.70</td><td>2022-05-05 05</td><td>20.7 mi N</td></tr>\n<tr><td class=\"desc\" title=\"(39.7645&deg;N, -105.9062&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=JNPC2\">JNPC2</a></td><td class=\"desc\">JONES PASS</td><td>10482</td><td>10.80</td><td>2022-05-05 05</td><td>20.9 mi SSE</td></tr>\n</tbody></table>\n<hr>\n<table class=\"gray_data_table\" cellspacing=\"2\" summary=\"Table of Raw Precipitation Observations near 40.05&deg;N, -106.04&deg;W, \" width=\"100%\">\n<caption><strong>Raw Precipitation Observations</strong></caption>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <thead>\n  <tr>\n<th scope=\"col\">Station ID</th><th scope=\"col\">Name</th><th scope=\"col\">Elev.<br> (ft)</th><th scope=\"col\">Raw Precipitation<br> (in)</th><th scope=\"col\">Duration<br> (hours)</th><th scope=\"col\">Date (UTC)</th><th scope=\"col\">Distance</th></tr>\n </thead>\n <tbody>\n<tr><td class=\"desc\" title=\"(40.1083&deg;N, -106.0036&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CAWC2\">CAWC2</a></td><td class=\"desc\">COLORADO RVR BLW WINDY GAP</td><td>7822</td><td>0.23</td><td>24</td><td>2022-05-05 06</td><td>4.5 mi NNE</td></tr>\n<tr><td class=\"desc\" title=\"(40.1186&deg;N, -105.8997&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-81\">CO-GR-81</a></td><td class=\"desc\">GRANBY 2.9 NE, CO</td><td>8041</td><td>0.65</td><td>24</td><td>2022-05-05 01</td><td>8.8 mi ENE</td></tr>\n<tr><td class=\"desc\" title=\"(40.136&deg;N, -106.1744&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=GRUC2\">GRUC2</a></td><td class=\"desc\">GROUSE MOUNTAIN</td><td>10013</td><td>0.00</td><td>1</td><td>2022-05-05 05</td><td>9.3 mi WNW</td></tr>\n<tr><td class=\"desc\" title=\"(39.8906&deg;N, -106.0367&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=KSEC2\">KSEC2</a></td><td class=\"desc\">KEYSER RIDGE</td><td>10190</td><td>0.00</td><td>1</td><td>2022-05-05 05</td><td>11 mi S</td></tr>\n<tr><td class=\"desc\" title=\"(39.8906&deg;N, -106.0367&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=KSEC2\">KSEC2</a></td><td class=\"desc\">KEYSER RIDGE</td><td>10190</td><td>0.29</td><td>24</td><td>2022-05-05 05</td><td>11 mi S</td></tr>\n</tbody></table>\n<br>\n<span style=\"color: white\">Page generated in 3.5084 seconds.</span><br>\n\t\t\t\t<br><br>\n\t\t\t\t<table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">\n\t\t\t\t\t<tr align=\"center\">\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\tNOHRSC<br>\n\t\t\t\t\t\t\t<a href=\"/mission.html\">Mission Statement</a>\n\t\t\t\t\t\t\t&nbsp;|&nbsp;\n\t\t\t\t\t\t\t<a href=\"/contact.html\">Contact</a>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</table>\n\t\t\t\t<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td colspan=\"3\"><hr></td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr valign=\"top\"> \n\t\t\t\t\t\t<td align=\"left\" class=\"gray\">\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov\"><span class=\"gray\">National Weather Service</span></a><br>\n\t\t\t\t\t\t\tNational Operational Hydrologic Remote Sensing Center<br>\n                                                        <a href=\"https://water.noaa.gov\"><span class=\"gray\">Office of Water Prediction</span></a><br>\n\t\t\t\t\t\t\t1735 Lake Drive W.<br>\n\t\t\t\t\t\t\tChanhassen, MN 55317<br>\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td align=\"right\">\n\t\t\t\t\t\t\t<a href=\"/\"><img src=\"/images/nohrsc.png\" alt=\"NOHRSC homepage\" border=0></a>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr valign=\"top\">\n\t\t\t\t\t\t<td align=\"left\" class=\"gray\">\n\t\t\t\t\t\t\t<a href=\"/contact.html\"><span class=\"gray\">Contact NOHRSC</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/glossary/\"><span class=\"gray\">Glossary</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/credits.php\"><span class=\"gray\">Credits</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.cio.noaa.gov/Policy_Programs/info_quality.html\"><span class=\"gray\">Information Quality</span></a><br>\nPage last modified: Nov 14, 2022 - cloud<br>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td align=\"right\" class=\"gray\">\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/admin.php\"><span class=\"gray\">About Us</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/disclaimer.php\"><span class=\"gray\">Disclaimer</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/privacy.php\"><span class=\"gray\">Privacy Policy</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.rdc.noaa.gov/~foia/\"><span class=\"gray\">FOIA</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/careers.php\"><span class=\"gray\">Career Opportunities</span></a><br>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</table>\n\t\t\t</td>\n\t\t</tr>\n\t</table>\n</body>\n</html>\n\n/home/chetana/gw-workspace/5je3i7wfxc2/data_snotel_real_time.py:28: GuessedAtParserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system (\"lxml\"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.\n\nThe code that caused this warning is on line 28 of the file /home/chetana/gw-workspace/5je3i7wfxc2/data_snotel_real_time.py. To get rid of this warning, pass the additional argument 'features=\"lxml\"' to the BeautifulSoup constructor.\n\n  parsed_html = BeautifulSoup(webContent)\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/5je3i7wfxc2/data_snotel_real_time.py\", line 29, in <module>\n    print(parsed_html.body.find('div', attrs={'class':'container'}).text)\nAttributeError: 'NoneType' object has no attribute 'text'\n",
+  "history_begin_time" : 1686236156564,
+  "history_end_time" : 1686237909496,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "77kvfoey8p5",
+  "history_input" : "from datetime import datetime\nfrom metloom.pointdata import SnotelPointData\n\n\n# Write first python in Geoweaver\nimport os\nimport urllib.request, urllib.error, urllib.parse\nimport sys\nprint(sys.path)\n\ntry:\n    from BeautifulSoup import BeautifulSoup\nexcept ImportError:\n    from bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day}\"\n\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(test_noaa_query_url)\n\nresponse = urllib.request.urlopen(test_noaa_query_url)\nwebContent = response.read().decode('UTF-8')\n\nprint(webContent)\n\n\nparsed_html = BeautifulSoup(webContent)\nprint(parsed_html.body.find('div', attrs={'class':'container'}).text)\n\n\n\n#snotel_point = SnotelPointData(\"713:CO:SNTL\", \"MyStation\")\n#df = snotel_point.get_daily_data(\n#    datetime(2020, 1, 2), datetime(2020, 1, 20),\n#    [snotel_point.ALLOWED_VARIABLES.SWE]\n#)\n#print(df)",
+  "history_output" : "sh: /home/chetana/anaconda3/condabin/python: No such file or directory\n",
+  "history_begin_time" : 1686235964504,
+  "history_end_time" : 1686235985415,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3hm07r8wpwm",
+  "history_input" : "from datetime import datetime\nfrom metloom.pointdata import SnotelPointData\n\n\n# Write first python in Geoweaver\nimport os\nimport urllib.request, urllib.error, urllib.parse\nimport sys\nprint(sys.path)\n\ntry:\n    from BeautifulSoup import BeautifulSoup\nexcept ImportError:\n    from bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day}\"\n\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(test_noaa_query_url)\n\nresponse = urllib.request.urlopen(test_noaa_query_url)\nwebContent = response.read().decode('UTF-8')\n\nprint(webContent)\n\n\nparsed_html = BeautifulSoup(webContent)\nprint(parsed_html.body.find('div', attrs={'class':'container'}).text)\n\n\n\n#snotel_point = SnotelPointData(\"713:CO:SNTL\", \"MyStation\")\n#df = snotel_point.get_daily_data(\n#    datetime(2020, 1, 2), datetime(2020, 1, 20),\n#    [snotel_point.ALLOWED_VARIABLES.SWE]\n#)\n#print(df)",
+  "history_output" : "Traceback (most recent call last):\n  File \"data_snotel_real_time.py\", line 2, in <module>\n    from metloom.pointdata import SnotelPointData\nImportError: No module named metloom.pointdata\n",
+  "history_begin_time" : 1686235533002,
+  "history_end_time" : 1686235535355,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Failed"
+},{
+  "history_id" : "lseroiql9al",
+  "history_input" : "from datetime import datetime\nfrom metloom.pointdata import SnotelPointData\n\n\n# Write first python in Geoweaver\nimport os\nimport urllib.request, urllib.error, urllib.parse\nimport sys\nprint(sys.path)\n\ntry:\n    from BeautifulSoup import BeautifulSoup\nexcept ImportError:\n    from bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day}\"\n\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(test_noaa_query_url)\n\nresponse = urllib.request.urlopen(test_noaa_query_url)\nwebContent = response.read().decode('UTF-8')\n\nprint(webContent)\n\n\nparsed_html = BeautifulSoup(webContent)\nprint(parsed_html.body.find('div', attrs={'class':'container'}).text)\n\n\n\n#snotel_point = SnotelPointData(\"713:CO:SNTL\", \"MyStation\")\n#df = snotel_point.get_daily_data(\n#    datetime(2020, 1, 2), datetime(2020, 1, 20),\n#    [snotel_point.ALLOWED_VARIABLES.SWE]\n#)\n#print(df)",
+  "history_output" : "sh: /home/chetana/anaconda3/condabin/python: No such file or directory\n",
+  "history_begin_time" : 1686235451527,
+  "history_end_time" : 1686235482631,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6wmjdpkocpp",
+  "history_input" : "from datetime import datetime\nfrom metloom.pointdata import SnotelPointData\n\n\n# Write first python in Geoweaver\nimport os\nimport urllib.request, urllib.error, urllib.parse\nimport sys\nprint(sys.path)\n\ntry:\n    from BeautifulSoup import BeautifulSoup\nexcept ImportError:\n    from bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day}\"\n\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(test_noaa_query_url)\n\nresponse = urllib.request.urlopen(test_noaa_query_url)\nwebContent = response.read().decode('UTF-8')\n\nprint(webContent)\n\n\nparsed_html = BeautifulSoup(webContent)\nprint(parsed_html.body.find('div', attrs={'class':'container'}).text)\n\n\n\n#snotel_point = SnotelPointData(\"713:CO:SNTL\", \"MyStation\")\n#df = snotel_point.get_daily_data(\n#    datetime(2020, 1, 2), datetime(2020, 1, 20),\n#    [snotel_point.ALLOWED_VARIABLES.SWE]\n#)\n#print(df)",
+  "history_output" : "usage: conda [-h] [-V] command ...\nconda: error: argument command: invalid choice: 'data_snotel_real_time.py' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'notices')\n",
+  "history_begin_time" : 1686235412367,
+  "history_end_time" : 1686235424785,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "u2nq2y7gc2k",
+  "history_input" : "from datetime import datetime\nfrom metloom.pointdata import SnotelPointData\n\n\n# Write first python in Geoweaver\nimport os\nimport urllib.request, urllib.error, urllib.parse\nimport sys\nprint(sys.path)\n\ntry:\n    from BeautifulSoup import BeautifulSoup\nexcept ImportError:\n    from bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day}\"\n\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(test_noaa_query_url)\n\nresponse = urllib.request.urlopen(test_noaa_query_url)\nwebContent = response.read().decode('UTF-8')\n\nprint(webContent)\n\n\nparsed_html = BeautifulSoup(webContent)\nprint(parsed_html.body.find('div', attrs={'class':'container'}).text)\n\n\n\n#snotel_point = SnotelPointData(\"713:CO:SNTL\", \"MyStation\")\n#df = snotel_point.get_daily_data(\n#    datetime(2020, 1, 2), datetime(2020, 1, 20),\n#    [snotel_point.ALLOWED_VARIABLES.SWE]\n#)\n#print(df)",
+  "history_output" : "Traceback (most recent call last):\n  File \"data_snotel_real_time.py\", line 2, in <module>\n    from metloom.pointdata import SnotelPointData\nImportError: No module named metloom.pointdata\n",
+  "history_begin_time" : 1686153661549,
+  "history_end_time" : 1686153662617,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Done"
+},{
+  "history_id" : "ywpbpfh92i6",
+  "history_input" : null,
+  "history_output" : "Authentication Failed. Wrong Password.",
+  "history_begin_time" : 1681516928121,
+  "history_end_time" : 1681516929661,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "Zii6uAMg94AG",
+  "history_input" : "from datetime import datetime\nfrom metloom.pointdata import SnotelPointData\n\n\n# Write first python in Geoweaver\nimport os\nimport urllib.request, urllib.error, urllib.parse\nimport sys\nprint(sys.path)\n\ntry:\n    from BeautifulSoup import BeautifulSoup\nexcept ImportError:\n    from bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day}\"\n\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(test_noaa_query_url)\n\nresponse = urllib.request.urlopen(test_noaa_query_url)\nwebContent = response.read().decode('UTF-8')\n\nprint(webContent)\n\n\nparsed_html = BeautifulSoup(webContent)\nprint(parsed_html.body.find('div', attrs={'class':'container'}).text)\n\n\n\n#snotel_point = SnotelPointData(\"713:CO:SNTL\", \"MyStation\")\n#df = snotel_point.get_daily_data(\n#    datetime(2020, 1, 2), datetime(2020, 1, 20),\n#    [snotel_point.ALLOWED_VARIABLES.SWE]\n#)\n#print(df)",
+  "history_output" : "['/home/chetana/gw-workspace/Zii6uAMg94AG', '/home/chetana/anaconda3/lib/python39.zip', '/home/chetana/anaconda3/lib/python3.9', '/home/chetana/anaconda3/lib/python3.9/lib-dynload', '/home/chetana/.local/lib/python3.9/site-packages', '/home/chetana/anaconda3/lib/python3.9/site-packages']\nhttps://www.nohrsc.noaa.gov/nearest/index.html?city=40.05352381745094%2C-106.04027196859343&county=&l=5&u=e&y=2022&m=5&d=4\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\" >\n<html lang=\"en\">\n<head>\n\t<meta http-equiv=\"Content-Type\" CONTENT=\"text/html; charset=utf-8\" >\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"/css/main.css\" >\n\t<link href=\"/favicon.ico\" rel=\"shortcut icon\" >\n\t<meta http-equiv=\"Cache-Control\" content=\"no-cache\" >\n\t<meta name=\"DC.creator\" content=\"National Operational Hydrologic Remote Sensing Center\" >\n\t<meta name=\"DC.publisher\" content=\"NOAA's National Weather Service\" >\n\t<meta name=\"DC.contributor\" content=\"National Operational Hydrologic Remote Sensing Center\" >\n\t<meta name=\"DC.language\" content=\"EN-US\" >\n<title>Nearest Observations - NOHRSC - The ultimate source for snow information</title>\n<meta name=\"DC.title\" content=\"Nearest Observations - NOHRSC - The ultimate source for snow information\">\n<meta name=\"DC.description\" content=\"A listing of nearby observations to a given point and date\">\n<meta name=\"DC.date.created\" scheme=\"ISO8601\" content=\"2009-01-12\">\n<meta name=\"DC.date.reviewed\" scheme=\"ISO8601\" content=\"2022-11-14\">\n\t<script type=\"text/javascript\">\n\t</script>\n\t<!-- Global site tag (gtag.js) - Google Analytics -->\n\t<script type=\"text/javascript\" async src=\"https://www.googletagmanager.com/gtag/js?id=UA-43953030-10\"></script>\n\t<script type=\"text/javascript\">\n\t  window.dataLayer = window.dataLayer || [];\n\t  function gtag(){dataLayer.push(arguments);}\n\t  gtag('js', new Date());\n\t  gtag('config', 'UA-43953030-10');\n\t</script>\n</head>\n<body>\n\t<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\" style=\"background-image : url(/images/topbanner.jpg)\">\n\t\t<tr>\n\t\t\t<td align=\"right\" height=\"19\">\n\t\t\t\t<a href=\"#content\"><img src=\"/images/skipgraphic.gif\" alt=\"(content link)\" height=\"1\" width=\"1\" border=\"0\"></a>\n\t\t\t\t<a href=\"https://www.nws.noaa.gov\"><span class=\"nwslink\">weather.gov</span></a>\n\t\t\t\t&nbsp;&nbsp;&nbsp;\n\t\t\t</td>\n\t\t</tr>\n\t</table>\n\t<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">\n\t\t<tr>\n\t\t\t<td rowspan=\"2\" width=\"85\"><a href=\"https://www.noaa.gov\"><img src=\"/images/titleleft_noaa.jpg\" alt=\"NOAA link\" width=\"85\" height=\"78\" border=\"0\"></a></td>\n\t\t\t<td align=\"left\" width=\"500\" height=\"20\" style=\"background : url(/images/blank_title.jpg);\"><div class=\"source\">National Weather Service</div></td>\n\t\t\t<td rowspan=\"2\" style=\"background-image : url(/images/title_bg.jpg)\">&nbsp;</td>\n\t\t\t<td rowspan=\"2\" width=\"85\" align=\"right\"><a href=\"https://www.nws.noaa.gov\"><img src=\"/images/titleright_nws.jpg\" alt=\"NWS link\" width=\"85\" height=\"78\" border=\"0\"></a></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td width=\"500\" height=\"58\" style=\"background : url(/images/blank_name.jpg);\" class=\"location\"><a href=\"/\">National Operational Hydrologic<br> Remote Sensing Center</a></td>\n\t\t</tr>\n\t</table>\n\t<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"background-image : url(/images/navbar_bg.gif)\" width=\"100%\" class=\"nav\">\n\t\t<tr>\n\t\t\t<td align=\"left\" valign=\"top\" width=\"94\"><img src=\"/images/navbar_left.jpg\" alt=\"\" width=\"94\" height=\"23\" border=\"0\"></td>\n\t\t\t<td class=\"nav\" width=\"15%\" align=\"center\" nowrap><a href=\"/\">Home</a></td>\n\t\t\t<td class=\"nav\" width=\"15%\" align=\"center\"><a href=\"https://www.weather.gov/news\" title=\"National Weather Service News\">News</a></td>\n\t\t\t<td class=\"nav\" width=\"20%\" align=\"center\"><a href=\"https://www.nws.noaa.gov/organization.html\" title=\"National Weather Service Organization\">Organization</a></td>\n\t\t\t<td align=\"left\" class=\"searchinput\" width=\"20%\" nowrap=\"nowrap\">\n\t\t\t\t<form action=\"https://search.usa.gov/search\" method=\"get\" name=\"query\" id=\"query\"\n\t\t\t\t style=\"margin-bottom:0; margin-top:0;\">\n\t\t\t\t<label for=\"search\" class=\"yellow\">Search</label>&nbsp;&nbsp;\n\t\t\t\t<input type=\"hidden\" name=\"affiliate\" value=\"nws.noaa.gov\" >\n\t\t\t\t<input type=\"text\" name=\"query\" id=\"search\" value=\"Enter Search Here\"\n\t\t\t\t size=\"20\" maxlength=\"256\" onfocus=\"this.value='';\" title=\"Search all NWS sites here\">&nbsp;\n\t\t\t\t<input type=\"submit\" id=\"submit\" value=\"Go\" >\n\t\t\t\t</form>\n\t\t\t</td>\n\t\t\t<td width=\"10%\">&nbsp;</td>\n\t\t\t<td align=\"right\" valign=\"bottom\" width=\"24\"><img src=\"/images/navbar_right.jpg\" alt=\"\" width=\"24\" height=\"23\" border=\"0\"></td>\n\t\t</tr>\n\t</table>\n\t<table cellspacing=\"0\" cellpadding=\"0\">\n\t\t<tr valign=\"top\">\n\t\t\t<td class=\"nav\" width=\"130\">\n<dl>\n<dd><a href=\"/\">Home</a></dd>\n</dl>\n<dl>\n<dt>Snow Information</dt>\n<dd><a href=\"/nsa/\" title=\"An overview of snow around the country\">National Analyses</a></dd>\n<dd><a href=\"/interactive/html/map.html\" title=\"Explore NOHRSC products and create your own maps\">Interactive Maps</a></dd>\n<dd><a href=\"/earth/\" title=\"A listing of experimental products for use with KML interpreter software\">3D Visualization</a></dd>\n<dd><a href=\"/snowsurvey/\" title=\"Current information about our snow surveys\">Airborne Surveys</a></dd>\n<dd><a href=\"/snowfall/\" title=\"Daily maps of observed snowfall\">Snowfall Analysis</a></dd>\n<dd><a href=\"/nh_snowcover/\">Satellite Products</a></dd>\n<dd><a href=\"/forecasts/\">Forecasts</a></dd>\n<dd><a href=\"/archived_data/\" title=\"Information on where to acquire NOHRSC raster data\">Data Archive</a></dd>\n<dd><a href=\"/shef_archive/\" title=\"Browse an archive of SHEF text messages\">SHEF Products</a></dd>\n</dl>\n<form name=\"nearest\" action=\"/nearest/index.html\">\n<dl>\n<dt>Observations near</dt>\n<dd><input type=\"text\" size=\"9\" name=\"city\" value=\"City, ST\" title=\"Search for snow observations near a city. Press enter or select the go button to submit request\" onfocus=\"this.value='';\">\n<input type=\"submit\" value=\"Go\"></dd>\n</dl>\n</form>\n<dl>\n<dt>Science/Technology</dt>\n<dd><a href=\"/technology/\" title=\"More detailed information about the NOHRSC\">NOHRSC</a></dd>\n<dd><a href=\"/gisdatasets/\" title=\"Shapefiles available for download\">GIS Data Sets</a></dd>\n<dd><a href=\"/special/\" title=\"Satellite/GIS images for certain projects\">Special Purpose Imagery</a></dd>\n</dl>\n<dl>\n<dt>About The NOHRSC</dt>\n<dd><a href=\"/directory/\" title=\"Meet the staff at the NOHRSC\">Staff</a></dd>\n</dl>\n<dl>\n<dt>NOAA Links</dt>\n<dd><a href=\"https://www.ncdc.noaa.gov/snow-and-ice/\">Snow Climatology</a></dd>\n<dd><a href=\"/links.html\">Related Links</a></dd>\n</dl>\n<dl>\n<dt>Help</dt>\n<dd><a href=\"/help/\" title=\"NOHRSC web site help\">Help and FAQ</a></dd>\n<dd><a href=\"/sitemap.html\">Site Map</a></dd>\n</dl>\n<dl>\n<dt>Contact Us</dt>\n<dd><a href=\"/contact.html\">Please Send Us Comments!</a></dd>\n</dl>\n<center>\n<a href=\"https://www.usa.gov\"><img src=\"/images/usagov_logo_color_110w.gif\" alt=\"USA.gov is the U.S. Government's official Web portal to all Federal, state and local government Web resources and services.\" width=\"110\" height=\"30\" border=\"0\"></a>\n<br>\n</center>\n\t\t\t</td>\n\t\t\t<td id=\"content_block\">\n\t\t\t\t<a href=\"\" name=\"content\"></a>\n<center><strong>Nearest observations to</strong></center>\n<center><h2>40.05&deg;N, -106.04&deg;W</h2></center>\n<strong>Note: these data are unofficial and provisional.</strong><br>\n<form name=\"data\" action=\"/nearest/index.html\">\n<fieldset>\n<legend><b>Location and Date</b></legend>\n<label title=\"Enter City, ST (or Latitude, Longitude)\">Enter your \"City, ST (or Latitude, Longitude)\" <input type=\"text\" size=\"16\" maxlength=\"80\" name=\"city\" value=\"40.05&deg;N, -106.04&deg;W\"></label>\n<input type=\"hidden\" name=\"county\" value=\"\">\n<input type=\"submit\" value=\"Go\" title=\"Click to refresh screen\"><br><br>\n<input type=\"hidden\" name=\"l\" value=\"5\">\n<select name=\"u\" title=\"Units\" size=\"1\" class=\"smallform\">\n<option value=\"e\" class=\"smallform\" selected>English</option>\n<option value=\"m\" class=\"smallform\">Metric</option>\n</select>\n &nbsp;\n<select name=\"y\" title=\"Year\" size=\"1\" class=\"smallform\">\n<option value=\"2003\" class=\"smallform\">2003</option>\n<option value=\"2004\" class=\"smallform\">2004</option>\n<option value=\"2005\" class=\"smallform\">2005</option>\n<option value=\"2006\" class=\"smallform\">2006</option>\n<option value=\"2007\" class=\"smallform\">2007</option>\n<option value=\"2008\" class=\"smallform\">2008</option>\n<option value=\"2009\" class=\"smallform\">2009</option>\n<option value=\"2010\" class=\"smallform\">2010</option>\n<option value=\"2011\" class=\"smallform\">2011</option>\n<option value=\"2012\" class=\"smallform\">2012</option>\n<option value=\"2013\" class=\"smallform\">2013</option>\n<option value=\"2014\" class=\"smallform\">2014</option>\n<option value=\"2015\" class=\"smallform\">2015</option>\n<option value=\"2016\" class=\"smallform\">2016</option>\n<option value=\"2017\" class=\"smallform\">2017</option>\n<option value=\"2018\" class=\"smallform\">2018</option>\n<option value=\"2019\" class=\"smallform\">2019</option>\n<option value=\"2020\" class=\"smallform\">2020</option>\n<option value=\"2021\" class=\"smallform\">2021</option>\n<option value=\"2022\" class=\"smallform\" selected>2022</option>\n<option value=\"2023\" class=\"smallform\">2023</option>\n</select>\n &nbsp;\n<select name=\"m\" title=\"Month\" size=\"1\" class=\"smallform\">\n<option value=\"1\" class=\"smallform\">January</option>\n<option value=\"2\" class=\"smallform\">February</option>\n<option value=\"3\" class=\"smallform\">March</option>\n<option value=\"4\" class=\"smallform\">April</option>\n<option value=\"5\" class=\"smallform\" selected>May</option>\n<option value=\"6\" class=\"smallform\">June</option>\n<option value=\"7\" class=\"smallform\">July</option>\n<option value=\"8\" class=\"smallform\">August</option>\n<option value=\"9\" class=\"smallform\">September</option>\n<option value=\"10\" class=\"smallform\">October</option>\n<option value=\"11\" class=\"smallform\">November</option>\n<option value=\"12\" class=\"smallform\">December</option>\n</select>\n &nbsp;\n<select name=\"d\" title=\"Day\" size=\"1\" class=\"smallform\">\n<option value=\"1\" class=\"smallform\">1</option>\n<option value=\"2\" class=\"smallform\">2</option>\n<option value=\"3\" class=\"smallform\">3</option>\n<option value=\"4\" class=\"smallform\" selected>4</option>\n<option value=\"5\" class=\"smallform\">5</option>\n<option value=\"6\" class=\"smallform\">6</option>\n<option value=\"7\" class=\"smallform\">7</option>\n<option value=\"8\" class=\"smallform\">8</option>\n<option value=\"9\" class=\"smallform\">9</option>\n<option value=\"10\" class=\"smallform\">10</option>\n<option value=\"11\" class=\"smallform\">11</option>\n<option value=\"12\" class=\"smallform\">12</option>\n<option value=\"13\" class=\"smallform\">13</option>\n<option value=\"14\" class=\"smallform\">14</option>\n<option value=\"15\" class=\"smallform\">15</option>\n<option value=\"16\" class=\"smallform\">16</option>\n<option value=\"17\" class=\"smallform\">17</option>\n<option value=\"18\" class=\"smallform\">18</option>\n<option value=\"19\" class=\"smallform\">19</option>\n<option value=\"20\" class=\"smallform\">20</option>\n<option value=\"21\" class=\"smallform\">21</option>\n<option value=\"22\" class=\"smallform\">22</option>\n<option value=\"23\" class=\"smallform\">23</option>\n<option value=\"24\" class=\"smallform\">24</option>\n<option value=\"25\" class=\"smallform\">25</option>\n<option value=\"26\" class=\"smallform\">26</option>\n<option value=\"27\" class=\"smallform\">27</option>\n<option value=\"28\" class=\"smallform\">28</option>\n<option value=\"29\" class=\"smallform\">29</option>\n<option value=\"30\" class=\"smallform\">30</option>\n<option value=\"31\" class=\"smallform\">31</option>\n</select>\n &nbsp;\n<input type=\"submit\" name=\"i\" value=\" - \" title=\"Back one day\"> &nbsp;\n<input type=\"submit\" name=\"i\" value=\" + \" title=\"Forward one day\"> &nbsp;\n</fieldset>\n</form>\n<table width=\"100%\"><tr><td><strong>Closest 5  observations near 40.05&deg;N, -106.04&deg;W</strong><br>40.05&deg;N, -106.04&deg;W (Elevation: N/A)</td>\n<td align=\"right\">Latest between <span class=\"date\">2022-05-04 06:00 UTC</span><br>and  <span class=\"date\">2022-05-05 06:00 UTC</span></td></tr></table><hr>\n<table class=\"gray_data_table\" cellspacing=\"2\" summary=\"Table of Raw Snowfall Observations near 40.05&deg;N, -106.04&deg;W, \" width=\"100%\">\n<caption><strong>Raw Snowfall Observations</strong></caption>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <thead>\n  <tr>\n<th scope=\"col\">Station ID</th><th scope=\"col\">Name</th><th scope=\"col\">Elev.<br> (ft)</th><th scope=\"col\">Raw Snowfall<br> (in)</th><th scope=\"col\">Duration<br> (hours)</th><th scope=\"col\">Date (UTC)</th><th scope=\"col\">Distance</th></tr>\n </thead>\n <tbody>\n<tr><td class=\"desc\" title=\"(40.0071&deg;N, -105.8862&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-68\">CO-GR-68</a></td><td class=\"desc\">TABERNASH 2.7 NW, CO</td><td>8806</td><td>3.70</td><td>24</td><td>2022-05-04 13</td><td>8.7 mi ESE</td></tr>\n<tr><td class=\"desc\" title=\"(40.0375&deg;N, -106.203&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=WIFC2\">WIFC2</a></td><td class=\"desc\">WILLIAMS FORK DAM</td><td>7733</td><td>2.00</td><td>24</td><td>2022-05-04 14</td><td>8.7 mi W</td></tr>\n<tr><td class=\"desc\" title=\"(40.0911&deg;N, -106.2&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-52\">CO-GR-52</a></td><td class=\"desc\">PARSHALL 3.0 NNW, CO</td><td>7904</td><td>2.20</td><td>24</td><td>2022-05-04 13</td><td>8.9 mi WNW</td></tr>\n<tr><td class=\"desc\" title=\"(40.0015&deg;N, -105.8725&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-53\">CO-GR-53</a></td><td class=\"desc\">TABERNASH 1.9 NW, CO</td><td>8579</td><td>6.50</td><td>24</td><td>2022-05-04 13</td><td>9.5 mi ESE</td></tr>\n<tr><td class=\"desc\" title=\"(40.1997&deg;N, -105.9258&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-73\">CO-GR-73</a></td><td class=\"desc\">GRANBY 7.7 N, CO</td><td>8563</td><td>4.00</td><td>24</td><td>2022-05-04 13</td><td>12 mi NE</td></tr>\n</tbody></table>\n<hr>\n<table class=\"gray_data_table\" cellspacing=\"2\" summary=\"Table of Snow Depth Observations near 40.05&deg;N, -106.04&deg;W, \" width=\"100%\">\n<caption><strong>Snow Depth Observations</strong></caption>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <thead>\n  <tr>\n<th scope=\"col\">Station ID</th><th scope=\"col\">Name</th><th scope=\"col\">Elev.<br> (ft)</th><th scope=\"col\">Snow Depth<br> (in)</th><th scope=\"col\">Date (UTC)</th><th scope=\"col\">Distance</th></tr>\n </thead>\n <tbody>\n<tr><td class=\"desc\" title=\"(40.0071&deg;N, -105.8862&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-68\">CO-GR-68</a></td><td class=\"desc\">TABERNASH 2.7 NW, CO</td><td>8806</td><td>4.00</td><td>2022-05-04 13</td><td>8.7 mi ESE</td></tr>\n<tr><td class=\"desc\" title=\"(40.0375&deg;N, -106.203&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=WIFC2\">WIFC2</a></td><td class=\"desc\">WILLIAMS FORK DAM</td><td>7733</td><td>1.00</td><td>2022-05-04 14</td><td>8.7 mi W</td></tr>\n<tr><td class=\"desc\" title=\"(40.0911&deg;N, -106.2&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-52\">CO-GR-52</a></td><td class=\"desc\">PARSHALL 3.0 NNW, CO</td><td>7904</td><td>1.50</td><td>2022-05-04 13</td><td>8.9 mi WNW</td></tr>\n<tr><td class=\"desc\" title=\"(40.2254&deg;N, -105.9198&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=SCSC2\">SCSC2</a></td><td class=\"desc\">STILLWATER CREEK</td><td>8793</td><td>0.00</td><td>2022-05-05 05</td><td>13.7 mi NE</td></tr>\n<tr><td class=\"desc\" title=\"(40.2082&deg;N, -105.8634&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-78\">CO-GR-78</a></td><td class=\"desc\">GRAND LAKE 3.7 SW, CO</td><td>8537</td><td>3.00</td><td>2022-05-04 13</td><td>14.4 mi NE</td></tr>\n</tbody></table>\n<hr>\n<table class=\"gray_data_table\" cellspacing=\"2\" summary=\"Table of Snow Water Equivalent Observations near 40.05&deg;N, -106.04&deg;W, \" width=\"100%\">\n<caption><strong>Snow Water Equivalent Observations</strong></caption>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <thead>\n  <tr>\n<th scope=\"col\">Station ID</th><th scope=\"col\">Name</th><th scope=\"col\">Elev.<br> (ft)</th><th scope=\"col\">Snow Water Equivalent<br> (in)</th><th scope=\"col\">Date (UTC)</th><th scope=\"col\">Distance</th></tr>\n </thead>\n <tbody>\n<tr><td class=\"desc\" title=\"(40.2254&deg;N, -105.9198&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=SCSC2\">SCSC2</a></td><td class=\"desc\">STILLWATER CREEK</td><td>8793</td><td>0.00</td><td>2022-05-05 05</td><td>13.7 mi NE</td></tr>\n<tr><td class=\"desc\" title=\"(39.8687&deg;N, -105.8675&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=FCVC2\">FCVC2</a></td><td class=\"desc\">FOOL CREEK</td><td>11168</td><td>20.30</td><td>2022-05-04 07</td><td>15.5 mi SE</td></tr>\n<tr><td class=\"desc\" title=\"(39.7956&deg;N, -106.0273&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=MFKC2\">MFKC2</a></td><td class=\"desc\">MIDDLE FORK CAMP</td><td>8983</td><td>1.40</td><td>2022-05-05 05</td><td>17.6 mi S</td></tr>\n<tr><td class=\"desc\" title=\"(40.347&deg;N, -106.0943&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=WLLC2\">WLLC2</a></td><td class=\"desc\">WILLOW CREEK PASS</td><td>9600</td><td>14.70</td><td>2022-05-05 05</td><td>20.7 mi N</td></tr>\n<tr><td class=\"desc\" title=\"(39.7645&deg;N, -105.9062&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=JNPC2\">JNPC2</a></td><td class=\"desc\">JONES PASS</td><td>10482</td><td>10.80</td><td>2022-05-05 05</td><td>20.9 mi SSE</td></tr>\n</tbody></table>\n<hr>\n<table class=\"gray_data_table\" cellspacing=\"2\" summary=\"Table of Raw Precipitation Observations near 40.05&deg;N, -106.04&deg;W, \" width=\"100%\">\n<caption><strong>Raw Precipitation Observations</strong></caption>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <colgroup>\n <thead>\n  <tr>\n<th scope=\"col\">Station ID</th><th scope=\"col\">Name</th><th scope=\"col\">Elev.<br> (ft)</th><th scope=\"col\">Raw Precipitation<br> (in)</th><th scope=\"col\">Duration<br> (hours)</th><th scope=\"col\">Date (UTC)</th><th scope=\"col\">Distance</th></tr>\n </thead>\n <tbody>\n<tr><td class=\"desc\" title=\"(40.1083&deg;N, -106.0036&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CAWC2\">CAWC2</a></td><td class=\"desc\">COLORADO RVR BLW WINDY GAP</td><td>7822</td><td>0.23</td><td>24</td><td>2022-05-05 06</td><td>4.5 mi NNE</td></tr>\n<tr><td class=\"desc\" title=\"(40.1186&deg;N, -105.8997&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=CO-GR-81\">CO-GR-81</a></td><td class=\"desc\">GRANBY 2.9 NE, CO</td><td>8041</td><td>0.65</td><td>24</td><td>2022-05-05 01</td><td>8.8 mi ENE</td></tr>\n<tr><td class=\"desc\" title=\"(40.136&deg;N, -106.1744&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=GRUC2\">GRUC2</a></td><td class=\"desc\">GROUSE MOUNTAIN</td><td>10013</td><td>0.00</td><td>1</td><td>2022-05-05 05</td><td>9.3 mi WNW</td></tr>\n<tr><td class=\"desc\" title=\"(39.8906&deg;N, -106.0367&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=KSEC2\">KSEC2</a></td><td class=\"desc\">KEYSER RIDGE</td><td>10190</td><td>0.00</td><td>1</td><td>2022-05-05 05</td><td>11 mi S</td></tr>\n<tr><td class=\"desc\" title=\"(39.8906&deg;N, -106.0367&deg;W)\"><a href=\"/interactive/html/graph.html?units=0&amp;ey=2022&amp;em=5&amp;ed=7&amp;eh=6&amp;station=KSEC2\">KSEC2</a></td><td class=\"desc\">KEYSER RIDGE</td><td>10190</td><td>0.29</td><td>24</td><td>2022-05-05 05</td><td>11 mi S</td></tr>\n</tbody></table>\n<br>\n<span style=\"color: white\">Page generated in 3.62113 seconds.</span><br>\n\t\t\t\t<br><br>\n\t\t\t\t<table align=\"center\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">\n\t\t\t\t\t<tr align=\"center\">\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\tNOHRSC<br>\n\t\t\t\t\t\t\t<a href=\"/mission.html\">Mission Statement</a>\n\t\t\t\t\t\t\t&nbsp;|&nbsp;\n\t\t\t\t\t\t\t<a href=\"/contact.html\">Contact</a>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</table>\n\t\t\t\t<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td colspan=\"3\"><hr></td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr valign=\"top\"> \n\t\t\t\t\t\t<td align=\"left\" class=\"gray\">\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov\"><span class=\"gray\">National Weather Service</span></a><br>\n\t\t\t\t\t\t\tNational Operational Hydrologic Remote Sensing Center<br>\n                                                        <a href=\"https://water.noaa.gov\"><span class=\"gray\">Office of Water Prediction</span></a><br>\n\t\t\t\t\t\t\t1735 Lake Drive W.<br>\n\t\t\t\t\t\t\tChanhassen, MN 55317<br>\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td align=\"right\">\n\t\t\t\t\t\t\t<a href=\"/\"><img src=\"/images/nohrsc.png\" alt=\"NOHRSC homepage\" border=0></a>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr valign=\"top\">\n\t\t\t\t\t\t<td align=\"left\" class=\"gray\">\n\t\t\t\t\t\t\t<a href=\"/contact.html\"><span class=\"gray\">Contact NOHRSC</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/glossary/\"><span class=\"gray\">Glossary</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/credits.php\"><span class=\"gray\">Credits</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.cio.noaa.gov/Policy_Programs/info_quality.html\"><span class=\"gray\">Information Quality</span></a><br>\nPage last modified: Nov 14, 2022 - cloud<br>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td align=\"right\" class=\"gray\">\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/admin.php\"><span class=\"gray\">About Us</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/disclaimer.php\"><span class=\"gray\">Disclaimer</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/privacy.php\"><span class=\"gray\">Privacy Policy</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.rdc.noaa.gov/~foia/\"><span class=\"gray\">FOIA</span></a><br>\n\t\t\t\t\t\t\t<a href=\"https://www.weather.gov/careers.php\"><span class=\"gray\">Career Opportunities</span></a><br>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</table>\n\t\t\t</td>\n\t\t</tr>\n\t</table>\n</body>\n</html>\n/home/chetana/gw-workspace/Zii6uAMg94AG/data_snotel_real_time.py:28: GuessedAtParserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system (\"lxml\"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.\nThe code that caused this warning is on line 28 of the file /home/chetana/gw-workspace/Zii6uAMg94AG/data_snotel_real_time.py. To get rid of this warning, pass the additional argument 'features=\"lxml\"' to the BeautifulSoup constructor.\n  parsed_html = BeautifulSoup(webContent)\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/Zii6uAMg94AG/data_snotel_real_time.py\", line 29, in <module>\n    print(parsed_html.body.find('div', attrs={'class':'container'}).text)\nAttributeError: 'NoneType' object has no attribute 'text'\n",
+  "history_begin_time" : 1681515560934,
+  "history_end_time" : 1681515572452,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "59uiv8waix8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1681039707710,
+  "history_end_time" : 1681039707710,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ghkanv0ih2o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1681039689404,
+  "history_end_time" : 1681039697766,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tqgjv88baud",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1681007820123,
+  "history_end_time" : 1681007820123,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "20al6tgrajs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679442743772,
+  "history_end_time" : 1679442743772,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r3hxzbbafn8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679332584779,
+  "history_end_time" : 1679332584779,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rpghkr4t6xz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679191258494,
+  "history_end_time" : 1679191258494,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "2jifky",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "b29rbizsf1q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679091534976,
+  "history_end_time" : 1679091744969,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hnapb0b8i17",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1679091527023,
+  "history_end_time" : 1679091533668,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9ujethm8tbq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887964091,
+  "history_end_time" : 1678888215697,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "53n0at49whr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887944939,
+  "history_end_time" : 1678887946446,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ikacjjldj8w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678887287237,
+  "history_end_time" : 1678887836230,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6u86905iewu",
+  "history_input" : "\nimport requests\nimport pandas as pd\nfrom bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day} \"\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(f\"url: {test_noaa_query_url}\")\n\nresponse = requests.get(test_noaa_query_url, headers={'User-Agent': 'Mozilla'})\nparsed_html = BeautifulSoup(response.text, features='lxml')\ncontainer_div = parsed_html.find(\"div\", attrs={'class': 'container'})\nif container_div:\n    container_div = container_div.get_text()\nelse:\n    print(\"could not find div the class 'container'\")\n\nlive_stats = parsed_html.find_all('table', attrs={'class': 'gray_data_table'})\ntables = pd.read_html(str(live_stats))\n\ntable_sequence = [\n        'Raw Snowfall Observations',\n        'Snow Depth',\n        'Snow Water Equivalent Observations',\n        'Raw Precipitation Observations'\n    ]\nfor idx, t in enumerate(tables):\n    print(table_sequence[idx])\n    print(t)\n    print('--------------------')",
+  "history_output" : "url: https://www.nohrsc.noaa.gov/nearest/index.html?city=40.05352381745094%2C-106.04027196859343&county=&l=5&u=e&y=2022&m=5&d=4 \ncould not find div the class 'container'\nRaw Snowfall Observations\n  Station ID                  Name  ...     Date (UTC)    Distance\n0   CO-GR-68  TABERNASH 2.7 NW, CO  ...  2022-05-15 13  8.7 mi ESE\n1      WIFC2     WILLIAMS FORK DAM  ...  2022-05-15 13    8.7 mi W\n2   CO-GR-52  PARSHALL 3.0 NNW, CO  ...  2022-05-15 13  8.9 mi WNW\n3   CO-GR-53  TABERNASH 1.9 NW, CO  ...  2022-05-15 06  9.5 mi ESE\n4   CO-GR-86  PARSHALL 8.8 SSE, CO  ...  2022-05-15 15    10 mi SW\n\n[5 rows x 7 columns]\n--------------------\nSnow Depth\n    Station ID                  Name  ...     Date (UTC)    Distance\n0     CO-GR-68  TABERNASH 2.7 NW, CO  ...  2022-05-15 13  8.7 mi ESE\n1        WIFC2     WILLIAMS FORK DAM  ...  2022-05-15 13    8.7 mi W\n2     CO-GR-52  PARSHALL 3.0 NNW, CO  ...  2022-05-15 13  8.9 mi WNW\n3        SCSC2      STILLWATER CREEK  ...  2022-05-16 05  13.7 mi NE\n4  CAFLC_MADIS            FOOL CREEK  ...  2022-05-16 05  14.8 mi SE\n\n[5 rows x 6 columns]\n--------------------\nSnow Water Equivalent Observations\n  Station ID               Name  ...     Date (UTC)     Distance\n0      SCSC2   STILLWATER CREEK  ...  2022-05-15 17   13.7 mi NE\n1      FCVC2         FOOL CREEK  ...  2022-05-16 03   15.5 mi SE\n2      MFKC2   MIDDLE FORK CAMP  ...  2022-05-16 02    17.6 mi S\n3      WLLC2  WILLOW CREEK PASS  ...  2022-05-16 05    20.7 mi N\n4      JNPC2         JONES PASS  ...  2022-05-16 04  20.9 mi SSE\n\n[5 rows x 6 columns]\n--------------------\nRaw Precipitation Observations\n  Station ID                        Name  ...     Date (UTC)    Distance\n0      CAWC2  COLORADO RVR BLW WINDY GAP  ...  2022-05-16 06  4.5 mi NNE\n1   CO-GR-68        TABERNASH 2.7 NW, CO  ...  2022-05-15 13  8.7 mi ESE\n2      GRUC2             GROUSE MOUNTAIN  ...  2022-05-16 05  9.3 mi WNW\n3      KSEC2                KEYSER RIDGE  ...  2022-05-16 05     11 mi S\n4      KSEC2                KEYSER RIDGE  ...  2022-05-16 05     11 mi S\n\n[5 rows x 7 columns]\n--------------------\n",
+  "history_begin_time" : 1678884595989,
+  "history_end_time" : 1678884986357,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "k8wiqt6afzh",
+  "history_input" : "\nimport requests\nimport pandas as pd\nfrom bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day} \"\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(f\"url: {test_noaa_query_url}\")\n\nresponse = requests.get(test_noaa_query_url, headers={'User-Agent': 'Mozilla'})\nparsed_html = BeautifulSoup(response.text, features='lxml')\ncontainer_div = parsed_html.find(\"div\", attrs={'class': 'container'})\nif container_div:\n    container_div = container_div.get_text()\nelse:\n    print(\"could not find div the class 'container'\")\n\nlive_stats = parsed_html.find_all('table', attrs={'class': 'gray_data_table'})\ntables = pd.read_html(str(live_stats))\n\ntable_sequence = [\n        'Raw Snowfall Observations',\n        'Snow Depth',\n        'Snow Water Equivalent Observations',\n        'Raw Precipitation Observations'\n    ]\nfor idx, t in enumerate(tables):\n    print(table_sequence[idx])\n    print(t)\n    print('--------------------')",
+  "history_output" : "url: https://www.nohrsc.noaa.gov/nearest/index.html?city=40.05352381745094%2C-106.04027196859343&county=&l=5&u=e&y=2022&m=5&d=4 \ncould not find div the class 'container'\nRaw Snowfall Observations\n  Station ID                  Name  ...     Date (UTC)    Distance\n0   CO-GR-68  TABERNASH 2.7 NW, CO  ...  2022-05-15 13  8.7 mi ESE\n1      WIFC2     WILLIAMS FORK DAM  ...  2022-05-15 13    8.7 mi W\n2   CO-GR-52  PARSHALL 3.0 NNW, CO  ...  2022-05-15 13  8.9 mi WNW\n3   CO-GR-53  TABERNASH 1.9 NW, CO  ...  2022-05-15 06  9.5 mi ESE\n4   CO-GR-86  PARSHALL 8.8 SSE, CO  ...  2022-05-15 15    10 mi SW\n\n[5 rows x 7 columns]\n--------------------\nSnow Depth\n    Station ID                  Name  ...     Date (UTC)    Distance\n0     CO-GR-68  TABERNASH 2.7 NW, CO  ...  2022-05-15 13  8.7 mi ESE\n1        WIFC2     WILLIAMS FORK DAM  ...  2022-05-15 13    8.7 mi W\n2     CO-GR-52  PARSHALL 3.0 NNW, CO  ...  2022-05-15 13  8.9 mi WNW\n3        SCSC2      STILLWATER CREEK  ...  2022-05-16 05  13.7 mi NE\n4  CAFLC_MADIS            FOOL CREEK  ...  2022-05-16 05  14.8 mi SE\n\n[5 rows x 6 columns]\n--------------------\nSnow Water Equivalent Observations\n  Station ID               Name  ...     Date (UTC)     Distance\n0      SCSC2   STILLWATER CREEK  ...  2022-05-15 17   13.7 mi NE\n1      FCVC2         FOOL CREEK  ...  2022-05-16 03   15.5 mi SE\n2      MFKC2   MIDDLE FORK CAMP  ...  2022-05-16 02    17.6 mi S\n3      WLLC2  WILLOW CREEK PASS  ...  2022-05-16 05    20.7 mi N\n4      JNPC2         JONES PASS  ...  2022-05-16 04  20.9 mi SSE\n\n[5 rows x 6 columns]\n--------------------\nRaw Precipitation Observations\n  Station ID                        Name  ...     Date (UTC)    Distance\n0      CAWC2  COLORADO RVR BLW WINDY GAP  ...  2022-05-16 06  4.5 mi NNE\n1   CO-GR-68        TABERNASH 2.7 NW, CO  ...  2022-05-15 13  8.7 mi ESE\n2      GRUC2             GROUSE MOUNTAIN  ...  2022-05-16 05  9.3 mi WNW\n3      KSEC2                KEYSER RIDGE  ...  2022-05-16 05     11 mi S\n4      KSEC2                KEYSER RIDGE  ...  2022-05-16 05     11 mi S\n\n[5 rows x 7 columns]\n--------------------\n",
+  "history_begin_time" : 1678884241421,
+  "history_end_time" : 1678884438332,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8s1je5dq1rf",
+  "history_input" : "\nimport requests\nimport pandas as pd\nfrom bs4 import BeautifulSoup\n\nnohrsc_url_format_string = \"https://www.nohrsc.noaa.gov/nearest/index.html?city={lat}%2C{lon}&county=&l=5&u=e&y={year}&m={month}&d={day} \"\ntest_noaa_query_url = nohrsc_url_format_string.format(lat=40.05352381745094, lon=-106.04027196859343, year=2022, month=5, day=4)\n\nprint(f\"url: {test_noaa_query_url}\")\n\nresponse = requests.get(test_noaa_query_url, headers={'User-Agent': 'Mozilla'})\nparsed_html = BeautifulSoup(response.text, features='lxml')\ncontainer_div = parsed_html.find(\"div\", attrs={'class': 'container'})\nif container_div:\n    container_div = container_div.get_text()\nelse:\n    print(\"could not find div the class 'container'\")\n\nlive_stats = parsed_html.find_all('table', attrs={'class': 'gray_data_table'})\ntables = pd.read_html(str(live_stats))\n\ntable_sequence = [\n        'Raw Snowfall Observations',\n        'Snow Depth',\n        'Snow Water Equivalent Observations',\n        'Raw Precipitation Observations'\n    ]\nfor idx, t in enumerate(tables):\n    print(table_sequence[idx])\n    print(t)\n    print('--------------------')",
+  "history_output" : "url: https://www.nohrsc.noaa.gov/nearest/index.html?city=40.05352381745094%2C-106.04027196859343&county=&l=5&u=e&y=2022&m=5&d=4 \ncould not find div the class 'container'\nRaw Snowfall Observations\n  Station ID                  Name  ...     Date (UTC)    Distance\n0   CO-GR-68  TABERNASH 2.7 NW, CO  ...  2022-05-13 13  8.7 mi ESE\n1      WIFC2     WILLIAMS FORK DAM  ...  2022-05-13 14    8.7 mi W\n2   CO-GR-52  PARSHALL 3.0 NNW, CO  ...  2022-05-13 13  8.9 mi WNW\n3   CO-GR-53  TABERNASH 1.9 NW, CO  ...  2022-05-13 06  9.5 mi ESE\n4   CO-GR-86  PARSHALL 8.8 SSE, CO  ...  2022-05-13 15    10 mi SW\n\n[5 rows x 7 columns]\n--------------------\nSnow Depth\n    Station ID                  Name  ...     Date (UTC)    Distance\n0     CO-GR-68  TABERNASH 2.7 NW, CO  ...  2022-05-13 13  8.7 mi ESE\n1        WIFC2     WILLIAMS FORK DAM  ...  2022-05-13 14    8.7 mi W\n2     CO-GR-52  PARSHALL 3.0 NNW, CO  ...  2022-05-13 13  8.9 mi WNW\n3        SCSC2      STILLWATER CREEK  ...  2022-05-14 04  13.7 mi NE\n4  CAFLC_MADIS            FOOL CREEK  ...  2022-05-14 05  14.8 mi SE\n\n[5 rows x 6 columns]\n--------------------\nSnow Water Equivalent Observations\n  Station ID               Name  ...     Date (UTC)     Distance\n0      SCSC2   STILLWATER CREEK  ...  2022-05-13 20   13.7 mi NE\n1      FCVC2         FOOL CREEK  ...  2022-05-13 16   15.5 mi SE\n2      MFKC2   MIDDLE FORK CAMP  ...  2022-05-14 02    17.6 mi S\n3      WLLC2  WILLOW CREEK PASS  ...  2022-05-14 05    20.7 mi N\n4      JNPC2         JONES PASS  ...  2022-05-14 05  20.9 mi SSE\n\n[5 rows x 6 columns]\n--------------------\nRaw Precipitation Observations\n  Station ID                        Name  ...     Date (UTC)    Distance\n0      CAWC2  COLORADO RVR BLW WINDY GAP  ...  2022-05-14 06  4.5 mi NNE\n1   CO-GR-68        TABERNASH 2.7 NW, CO  ...  2022-05-13 13  8.7 mi ESE\n2      GRUC2             GROUSE MOUNTAIN  ...  2022-05-14 05  9.3 mi WNW\n3      KSEC2                KEYSER RIDGE  ...  2022-05-14 05     11 mi S\n4      KSEC2                KEYSER RIDGE  ...  2022-05-14 05     11 mi S\n\n[5 rows x 7 columns]\n--------------------\n",
+  "history_begin_time" : 1678756812053,
+  "history_end_time" : 1678756821424,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Done"
+},{
+  "history_id" : "lyha1gx4d4p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678756683255,
+  "history_end_time" : 1678756684806,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "n7ccebr0mt4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678749631704,
+  "history_end_time" : 1678749936012,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qmhjip4t7s1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678748546802,
+  "history_end_time" : 1678748546802,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k9jnl07xz7e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678747245283,
+  "history_end_time" : 1678747245283,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2ual2049zdf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678746481171,
+  "history_end_time" : 1678746793045,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jwqm1zx7rjz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743868491,
+  "history_end_time" : 1678744167082,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "53dal7h82as",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743629013,
+  "history_end_time" : 1678743629013,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "a0p6xv7gwe7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678743144811,
+  "history_end_time" : 1678743615533,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dxw4723z8ah",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678742583274,
+  "history_end_time" : 1678742583274,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xvm6umeddeb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678742209463,
+  "history_end_time" : 1678742571509,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cxqrttr0133",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678738707259,
+  "history_end_time" : 1678738707259,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k8rszvg6zy3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678725424160,
+  "history_end_time" : 1678725424160,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0sbb77ytba7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678723111761,
+  "history_end_time" : 1678725408352,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4ykzh82mmlf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678649002054,
+  "history_end_time" : 1678649002054,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p7secuae0cn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678648366888,
+  "history_end_time" : 1678648366888,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w3dwpnes2em",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678648337321,
+  "history_end_time" : 1678648341647,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "t3pibsx36a9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678564567729,
+  "history_end_time" : 1678564567729,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wrw53bc36ei",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678564538620,
+  "history_end_time" : 1678564538620,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "i3wk62ysmwq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678557921940,
+  "history_end_time" : 1678557923649,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vl6paytqj4n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1678557705793,
+  "history_end_time" : 1678557898797,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
   "history_id" : "bzd7p0ll73t",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -517,6 +1047,16 @@
   "history_notes" : null,
   "history_process" : "p87wh1",
   "host_id" : "45wlwr",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "crc174tevpg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1677582848589,
+  "history_end_time" : 1677582848589,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
   "indicator" : "Skipped"
 },{
   "history_id" : "mtiv4ph5bkb",
@@ -1299,6 +1839,76 @@
   "host_id" : "100001",
   "indicator" : "Skipped"
 },{
+  "history_id" : "5jkkcfjmgzb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1676063613426,
+  "history_end_time" : 1676063613426,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "g94gt3hmx68",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1675783782330,
+  "history_end_time" : 1675783782330,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lekuw6tzthm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1672014982961,
+  "history_end_time" : 1672014982961,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "htrx1ig9b71",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1671944382469,
+  "history_end_time" : 1671944382469,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5xy5062u0e0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1670910617293,
+  "history_end_time" : 1670910617293,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x5emcipopkg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1670910501204,
+  "history_end_time" : 1670910501204,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zhfryn4qy02",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1670910268478,
+  "history_end_time" : 1670910268478,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
   "history_id" : "0cb1ihlz0w3",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -1619,6 +2229,56 @@
   "host_id" : null,
   "indicator" : "Done"
 },{
+  "history_id" : "o8yx8n0p3q8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677809171459,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "077tv13d7jq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678201703976,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kl9cli6d5n8",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677791865869,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "00zzrmkejow",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677785529431,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "g3aqahoj6oq",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1677797113227,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
   "history_id" : "b2qhn8jtjde",
   "history_input" : null,
   "history_output" : null,
@@ -1639,51 +2299,11 @@
   "host_id" : "45wlwr",
   "indicator" : "Stopped"
 },{
-  "history_id" : "00zzrmkejow",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677785529431,
-  "history_notes" : null,
-  "history_process" : "p87wh1",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "kl9cli6d5n8",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677791865869,
-  "history_notes" : null,
-  "history_process" : "p87wh1",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
   "history_id" : "922aliua10h",
   "history_input" : null,
   "history_output" : null,
   "history_begin_time" : null,
   "history_end_time" : 1677796528249,
-  "history_notes" : null,
-  "history_process" : "p87wh1",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "g3aqahoj6oq",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677797113227,
-  "history_notes" : null,
-  "history_process" : "p87wh1",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
-  "history_id" : "o8yx8n0p3q8",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1677809171459,
   "history_notes" : null,
   "history_process" : "p87wh1",
   "host_id" : "45wlwr",
@@ -1809,16 +2429,6 @@
   "host_id" : "45wlwr",
   "indicator" : "Stopped"
 },{
-  "history_id" : "077tv13d7jq",
-  "history_input" : null,
-  "history_output" : null,
-  "history_begin_time" : null,
-  "history_end_time" : 1678201703976,
-  "history_notes" : null,
-  "history_process" : "p87wh1",
-  "host_id" : "45wlwr",
-  "indicator" : "Stopped"
-},{
   "history_id" : "1awjmh8amfv",
   "history_input" : null,
   "history_output" : null,
@@ -1837,5 +2447,65 @@
   "history_notes" : null,
   "history_process" : "p87wh1",
   "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bh1an8rq9ck",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678883775447,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5wfkjl0k26h",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678884535352,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ftheja41w4b",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678884140266,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vchotc2lpu2",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678887010628,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bg79nwrzx0r",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1678884042282,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "45wlwr",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "t56j8cwk31d",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1682984800296,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "jf7wuu",
   "indicator" : "Stopped"
 },]

@@ -1,5 +1,5 @@
 
-from base_hole import *
+from BaseHole import *
 
 class KehanModel(BaseHole):
 	

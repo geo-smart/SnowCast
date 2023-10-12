@@ -1,0 +1,321 @@
+[{
+  "history_id" : "mtnjaismrc1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636222,
+  "history_end_time" : 1689631636222,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "03u4ttrndo0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636289,
+  "history_end_time" : 1689631636289,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "050yaqleqqw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636306,
+  "history_end_time" : 1689631636306,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rj9com0ymwo",
+  "history_input" : "# Find the best model\nprint(\"model comparison script\")\nprint(\"hello world\")",
+  "history_output" : "model comparison script\nhello world\n",
+  "history_begin_time" : 1689631644822,
+  "history_end_time" : 1689631646895,
+  "history_notes" : null,
+  "history_process" : "mi3e5n",
+  "host_id" : "tq3z35",
+  "indicator" : "Done"
+},{
+  "history_id" : "4lnn5k6j5ic",
+  "history_input" : "# Integrate all the datasets into one training dataset - training.csv\nimport json\nimport pandas as pd\nimport ee\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nfrom math import radians\nfrom sklearn import neighbors as sk\nimport os\nimport geopandas as gpd\nimport geojson\nimport numpy as np\nimport os.path\nfrom datetime import datetime,timedelta\nimport warnings\nwarnings.simplefilter(action='ignore', category=FutureWarning)\n\nprint(\"integrating datasets into one dataset\")\n# pd.set_option('display.max_columns', None)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n# read grid cell\ngridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells.geojson\"\nmodel_dir = f\"{github_dir}/model/\"\ntraining_feature_file = f\"{github_dir}/data/snowcast_provided/ground_measures_train_features.csv\"\ntesting_feature_file = f\"{github_dir}/data/snowcast_provided/ground_measures_test_features.csv\"\ntrain_labels_file = f\"{github_dir}/data/snowcast_provided/train_labels.csv\"\nground_measure_metadata_file = f\"{github_dir}/data/snowcast_provided/ground_measures_metadata.csv\"\nstation_cell_mapper_file = f\"{github_dir}/data/ready_for_training/station_cell_mapping.csv\"\n\n# example_mod_file = f\"{github_dir}/data/modis/mod10a1_ndsi_f191fe19-0e81-4bc9-9980-29738a05a49b.csv\"\n\n\ntraining_feature_pd = pd.read_csv(training_feature_file, header=0, index_col=0)\ntesting_feature_pd = pd.read_csv(testing_feature_file, header=0, index_col=0)\ntrain_labels_pd = pd.read_csv(train_labels_file, header=0, index_col=0)\nprint(train_labels_pd.head())\n\nstation_cell_mapper_pd = pd.read_csv(station_cell_mapper_file, header=0, index_col=0)\n\n\n# print(station_cell_mapper_pd.head())\n\n# example_mod_pd = pd.read_csv(example_mod_file, header=0, index_col=0)\n# print(example_mod_pd.shape)\n\n\ndef getDateStr(x):\n    return x.split(\" \")[0]\n\n\ndef integrate_modis():\n    \"\"\"\n  Integrate all MODIS data into mod_all.csv\n  \"\"\"\n    all_mod_file = f\"{github_dir}/data/ready_for_training/modis_all.csv\"\n    if os.path.isfile(all_mod_file):\n        return\n    dates = pd.date_range(start='1/1/2013', end='12/31/2021', freq='D').astype(str)\n    mod_all_df = pd.DataFrame(columns=[\"date\"])\n    mod_all_df['date'] = dates\n\n    # print(mod_all_df.head())\n    for ind in station_cell_mapper_pd.index:\n        current_cell_id = station_cell_mapper_pd[\"cell_id\"][ind]\n        print(current_cell_id)\n        mod_single_file = f\"{github_dir}/data/sat_training/modis/mod10a1_ndsi_{current_cell_id}.csv\"\n        if os.path.isfile(mod_single_file):\n            mod_single_pd = pd.read_csv(mod_single_file, header=0)\n            mod_single_pd = mod_single_pd[[\"date\", \"mod10a1_ndsi\"]]\n            mod_single_pd = mod_single_pd.rename(columns={\"mod10a1_ndsi\": current_cell_id})\n            mod_single_pd['date'] = pd.to_datetime(mod_single_pd['date']).astype(str)\n            print(mod_all_df.shape)\n            mod_all_df = pd.merge(mod_all_df, mod_single_pd, how='left', on=\"date\")\n    mod_all_df.to_csv(all_mod_file)\n\n\ndef integrate_sentinel1():\n    \"\"\"\n  Integrate all Sentinel 1 data into sentinel1_all.csv\n  \"\"\"\n    all_sentinel1_file = f\"{github_dir}/data/ready_for_training/sentinel1_all.csv\"\n    if os.path.isfile(all_sentinel1_file):\n        return\n    dates = pd.date_range(start='1/1/2013', end='12/31/2021', freq='D').astype(str)\n    sentinel1_all_df = pd.DataFrame(columns=[\"date\"])\n    sentinel1_all_df['date'] = dates\n    # print(mod_all_df.head())\n\n    for ind in station_cell_mapper_pd.index:\n        current_cell_id = station_cell_mapper_pd[\"cell_id\"][ind]\n        print(current_cell_id)\n        sentinel1_single_file = f\"{github_dir}/data/sat_training/sentinel1/s1_grd_vv_{current_cell_id}.csv\"\n        if os.path.isfile(sentinel1_single_file) and current_cell_id not in sentinel1_all_df:\n            sentinel1_single_pd = pd.read_csv(sentinel1_single_file, header=0)\n            sentinel1_single_pd = sentinel1_single_pd[[\"date\", \"s1_grd_vv\"]]\n            sentinel1_single_pd = sentinel1_single_pd.rename(columns={\"s1_grd_vv\": current_cell_id})\n            # sentinel1_single_pd['date'] = sentinel1_single_pd['date'].astype('datetime64[ns]')\n            sentinel1_single_pd['date'] = pd.to_datetime(sentinel1_single_pd['date']).dt.round(\"D\").astype(str)\n            print(\"sentinel1_single_pd: \", sentinel1_single_pd.head())\n            print(\"sentinel1_single_pd check value: \", sentinel1_single_pd[sentinel1_single_pd[\"date\"] == \"2015-04-01\"])\n            sentinel1_single_pd = sentinel1_single_pd.drop_duplicates(subset=['date'],\n                                                                      keep='first')  # this will remove all the other values of the same day\n\n            sentinel1_all_df = pd.merge(sentinel1_all_df, sentinel1_single_pd, how='left', on=\"date\")\n            print(\"sentinel1_all_df check value: \", sentinel1_all_df[sentinel1_all_df[\"date\"] == \"2015-04-01\"])\n            print(\"sentinel1_all_df: \", sentinel1_all_df.shape)\n\n    print(sentinel1_all_df.shape)\n    sentinel1_all_df.to_csv(all_sentinel1_file)\n\n\ndef integrate_gridmet():\n    \"\"\"\n  Integrate all gridMET data into gridmet_all.csv\n  \"\"\"\n\n    dates = pd.date_range(start='10/1/2018', end='09/30/2019', freq='D').astype(str)\n\n    # print(mod_all_df.head())\n    var_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'eto', 'rmax', 'rmin', 'vs']\n\n    for var in var_list:\n        gridmet_all_df = pd.DataFrame(columns=[\"date\"])\n        gridmet_all_df['date'] = dates\n        all_gridmet_file = f\"{github_dir}/data/ready_for_training/gridmet_{var}_all.csv\"\n        if os.path.isfile(all_gridmet_file):\n            return\n        for ind in station_cell_mapper_pd.index:\n            current_cell_id = station_cell_mapper_pd[\"cell_id\"][ind]\n            print(current_cell_id)\n            gridmet_single_file = f\"{github_dir}/data/sim_training/gridmet/{var}_{current_cell_id}.csv\"\n            if os.path.isfile(gridmet_single_file) and current_cell_id not in gridmet_all_df:\n                gridmet_single_pd = pd.read_csv(gridmet_single_file, header=0)\n                gridmet_single_pd = gridmet_single_pd[[\"date\", var]]\n                gridmet_single_pd = gridmet_single_pd.rename(columns={var: current_cell_id})\n                # sentinel1_single_pd['date'] = sentinel1_single_pd['date'].astype('datetime64[ns]')\n                gridmet_single_pd['date'] = pd.to_datetime(gridmet_single_pd['date']).dt.round(\"D\").astype(str)\n                print(\"gridmet_single_pd: \", gridmet_single_pd.head())\n                print(\"gridmet_single_pd check value: \", gridmet_single_pd[gridmet_single_pd[\"date\"] == \"2015-04-01\"])\n                gridmet_single_pd = gridmet_single_pd.drop_duplicates(subset=['date'],\n                                                                      keep='first')  # this will remove all the other values of the same day\n\n                gridmet_all_df = pd.merge(gridmet_all_df, gridmet_single_pd, how='left', on=\"date\")\n                print(\"gridmet_all_df check value: \", gridmet_all_df[gridmet_all_df[\"date\"] == \"2015-04-01\"])\n                print(\"gridmet_all_df: \", gridmet_all_df.shape)\n\n        print(gridmet_all_df.shape)\n        gridmet_all_df.to_csv(all_gridmet_file)\n\n\ndef prepare_training_csv():\n    \"\"\"\n  MOD model:\n    input columns: [m, doy, ndsi]\n    output column: [swe]\n  Sentinel1 model:\n    input columns: [m, doy, grd]\n    output column: [swe]\n  gridMET model:\n    input columns: [m, doy, tmmn, tmmx, pr, vpd, eto, rmax, rmin, vs]\n    output column: [swe]\n  \"\"\"\n    all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_modis_without_nsidc.csv\"\n    if os.path.isfile(all_ready_file):\n        return\n\n    all_mod_file = f\"{github_dir}/data/ready_for_training/modis_all.csv\"\n    modis_all_pd = pd.read_csv(all_mod_file, header=0)\n    all_sentinel1_file = f\"{github_dir}/data/ready_for_training/sentinel1_all.csv\"\n    sentinel1_all_pd = pd.read_csv(all_sentinel1_file, header=0)\n    all_gridmet_eto_file = f\"{github_dir}/data/ready_for_training/gridmet_eto_all.csv\"\n    gridmet_eto_all_pd = pd.read_csv(all_gridmet_eto_file, header=0, index_col=0)\n    all_gridmet_pr_file = f\"{github_dir}/data/ready_for_training/gridmet_pr_all.csv\"\n    gridmet_pr_all_pd = pd.read_csv(all_gridmet_pr_file, header=0, index_col=0)\n    all_gridmet_rmax_file = f\"{github_dir}/data/ready_for_training/gridmet_rmax_all.csv\"\n    gridmet_rmax_all_pd = pd.read_csv(all_gridmet_rmax_file, header=0, index_col=0)\n    all_gridmet_rmin_file = f\"{github_dir}/data/ready_for_training/gridmet_rmin_all.csv\"\n    gridmet_rmin_all_pd = pd.read_csv(all_gridmet_rmin_file, header=0, index_col=0)\n    all_gridmet_tmmn_file = f\"{github_dir}/data/ready_for_training/gridmet_tmmn_all.csv\"\n    gridmet_tmmn_all_pd = pd.read_csv(all_gridmet_tmmn_file, header=0, index_col=0)\n    all_gridmet_tmmx_file = f\"{github_dir}/data/ready_for_training/gridmet_tmmx_all.csv\"\n    gridmet_tmmx_all_pd = pd.read_csv(all_gridmet_tmmx_file, header=0, index_col=0)\n    all_gridmet_vpd_file = f\"{github_dir}/data/ready_for_training/gridmet_vpd_all.csv\"\n    gridmet_vpd_all_pd = pd.read_csv(all_gridmet_vpd_file, header=0, index_col=0)\n    all_gridmet_vs_file = f\"{github_dir}/data/ready_for_training/gridmet_vs_all.csv\"\n    gridmet_vs_all_pd = pd.read_csv(all_gridmet_vs_file, header=0, index_col=0)\n\n    grid_terrain_file = f\"{github_dir}/data/terrain/gridcells_terrainData.csv\"\n    grid_terrain_pd = pd.read_csv(grid_terrain_file, header=0, index_col=1)\n\n    print(\"modis_all_size: \", modis_all_pd.shape)\n    print(\"station size: \", station_cell_mapper_pd.shape)\n    print(\"training_feature_pd size: \", training_feature_pd.shape)\n    print(\"testing_feature_pd size: \", testing_feature_pd.shape)\n\n    all_training_pd = pd.DataFrame(\n        columns=[\"cell_id\", \"year\", \"m\", \"doy\", \"modis_ndsi\", \"grd\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\",\n                 \"lat\", \"lon\", \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe\"])\n    all_training_pd = all_training_pd.reset_index()\n    for index, row in modis_all_pd.iterrows():\n        dt = datetime.strptime(row['date'], '%Y-%m-%d')\n        month = dt.month\n        year = dt.year\n        doy = dt.timetuple().tm_yday\n        print(f\"Dealing {year} {doy}\")\n        for i in range(3, len(row.index)):\n            cell_id = row.index[i][:-2]\n            if cell_id in train_labels_pd.index and row['date'] in train_labels_pd:\n                ndsi = row.values[i]\n                swe = train_labels_pd.loc[cell_id, row['date']]\n                grd = sentinel1_all_pd.loc[index, cell_id]\n                eto = gridmet_eto_all_pd.loc[index, cell_id]\n                pr = gridmet_pr_all_pd.loc[index, cell_id]\n                rmax = gridmet_rmax_all_pd.loc[index, cell_id]\n                rmin = gridmet_rmin_all_pd.loc[index, cell_id]\n                tmmn = gridmet_tmmn_all_pd.loc[index, cell_id]\n                tmmx = gridmet_tmmx_all_pd.loc[index, cell_id]\n                vpd = gridmet_vpd_all_pd.loc[index, cell_id]\n                vs = gridmet_vs_all_pd.loc[index, cell_id]\n                lat = grid_terrain_pd.loc[cell_id, \"Longitude [deg]\"]\n                lon = grid_terrain_pd.loc[cell_id, \"Latitude [deg]\"]\n                elevation = grid_terrain_pd.loc[cell_id, \"Elevation [m]\"]\n                aspect = grid_terrain_pd.loc[cell_id, \"Aspect [deg]\"]\n                curvature = grid_terrain_pd.loc[cell_id, \"Curvature [ratio]\"]\n                slope = grid_terrain_pd.loc[cell_id, \"Slope [deg]\"]\n                eastness = grid_terrain_pd.loc[cell_id, \"Eastness [unitCirc.]\"]\n                northness = grid_terrain_pd.loc[cell_id, \"Northness [unitCirc.]\"]\n\n                if not np.isnan(swe):\n                    json_kv = {\"cell_id\": cell_id, \"year\": year, \"m\": month, \"doy\": doy, \"modis_ndsi\": ndsi, \"grd\": grd,\n                               \"eto\": eto,\n                               \"pr\": pr, \"rmax\": rmax, \"rmin\": rmin, \"tmmn\": tmmn, \"tmmx\": tmmx, \"vpd\": vpd, \"vs\": vs,\n                               \"lat\": lat,\n                               \"lon\": lon, \"elevation\": elevation, \"aspect\": aspect, \"curvature\": curvature,\n                               \"slope\": slope,\n                               \"eastness\": eastness, \"northness\": northness, \"swe\": swe}\n                    all_training_pd = all_training_pd.append(json_kv, ignore_index=True)\n\n    print(all_training_pd.shape)\n    all_training_pd.to_csv(all_ready_file)\n\n\ndef loc_closest_gridcell_id(find_lat, find_lon, valid_cols):\n    grid_terrain_file = f\"{github_dir}/data/terrain/gridcells_terrainData.csv\"\n    grid_lat_lon = pd.read_csv(grid_terrain_file, header=0, usecols=['cell_id', 'Latitude [deg]', 'Longitude [deg]']).loc[lambda df: df['cell_id'].isin(valid_cols)]\n    # print(grid_lat_lon.shape)\n    # print(grid_lat_lon)\n    grid_lat_lon_npy = grid_lat_lon.to_numpy()\n    grid_lat_lon_rad = np.array([[radians(x[2]), radians(x[1])] for x in grid_lat_lon_npy])\n    ball_tree = sk.BallTree(grid_lat_lon_rad, metric=\"haversine\")\n\n    dist, ind = ball_tree.query([(radians(find_lat), radians(find_lon))], return_distance=True)\n    # print(dist)\n    print(ind[0][0])\n    print(\"cell id: \", grid_lat_lon.iloc[ind[0][0]]['cell_id'])\n    return ind[0][0], grid_lat_lon.iloc[ind[0][0]]['cell_id']\n\ndef do_grid_cell_clean_up(pd):\n    \"\"\"\n    As the grid cell has _x and _y suffixes which mess everything up. We will do a clean up to remove those duplicated columns.\n    \n    \"\"\"\n    for col in pd.columns:\n      if \"_\" in col:\n        new_col_name = col.split(\"_\")[0]\n        pd.rename(columns={col:new_col_name}, inplace = True)\n    return pd\n    \n\ndef prepare_training_csv_nsidc():\n    \"\"\"\n  gridMET model:\n    input columns: [m, doy, tmmn, tmmx, pr, vpd, eto, rmax, rmin, vs]\n    output column: [swe]\n  \"\"\"\n    all_ready_file = f\"{github_dir}/data/ready_for_training/all_ready_new_with_modis.csv\"\n    if os.path.isfile(all_ready_file):\n        print(\"The file already exists. Exiting..\")\n        return\n    all_gridmet_eto_file = f\"{github_dir}/data/ready_for_training/gridmet_eto_all.csv\"\n    gridmet_eto_all_pd = pd.read_csv(all_gridmet_eto_file, header=0, index_col=0)\n    all_gridmet_pr_file = f\"{github_dir}/data/ready_for_training/gridmet_pr_all.csv\"\n    gridmet_pr_all_pd = pd.read_csv(all_gridmet_pr_file, header=0, index_col=0)\n    all_gridmet_rmax_file = f\"{github_dir}/data/ready_for_training/gridmet_rmax_all.csv\"\n    gridmet_rmax_all_pd = pd.read_csv(all_gridmet_rmax_file, header=0, index_col=0)\n    all_gridmet_rmin_file = f\"{github_dir}/data/ready_for_training/gridmet_rmin_all.csv\"\n    gridmet_rmin_all_pd = pd.read_csv(all_gridmet_rmin_file, header=0, index_col=0)\n    all_gridmet_tmmn_file = f\"{github_dir}/data/ready_for_training/gridmet_tmmn_all.csv\"\n    gridmet_tmmn_all_pd = pd.read_csv(all_gridmet_tmmn_file, header=0, index_col=0)\n    all_gridmet_tmmx_file = f\"{github_dir}/data/ready_for_training/gridmet_tmmx_all.csv\"\n    gridmet_tmmx_all_pd = pd.read_csv(all_gridmet_tmmx_file, header=0, index_col=0)\n    all_gridmet_vpd_file = f\"{github_dir}/data/ready_for_training/gridmet_vpd_all.csv\"\n    gridmet_vpd_all_pd = pd.read_csv(all_gridmet_vpd_file, header=0, index_col=0)\n    all_gridmet_vs_file = f\"{github_dir}/data/ready_for_training/gridmet_vs_all.csv\"\n    gridmet_vs_all_pd = pd.read_csv(all_gridmet_vs_file, header=0, index_col=0)\n    \n    print(\"gridmet_tmmn_all_pd shape: \",gridmet_tmmn_all_pd.shape)\n    \n    all_modis_file = f\"{github_dir}/data/ready_for_training/modis_all.csv\"\n    modis_all_pd = pd.read_csv(all_modis_file, header=0, index_col=0)\n    \n    print(\"modis_all_pd head: \", modis_all_pd.head())\n    print(\"modis_all_pd shape: \", modis_all_pd.shape)\n    modis_all_pd = do_grid_cell_clean_up(modis_all_pd)\n    if \"76b55900-eb3d-4d25-a538-f74302ffe72d\" in modis_all_pd.columns:\n        print(\"76b55900-eb3d-4d25-a538-f74302ffe72d exists in modis_all_pd.\")\n    #print('modis_all_pd[0][\"76b55900-eb3d-4d25-a538-f74302ffe72d\"]: ', modis_all_pd.iloc[0, \"76b55900-eb3d-4d25-a538-f74302ffe72d\"])\n    \n    \n    all_nsidc_file = f\"{github_dir}/data/sim_training/nsidc/2019nsidc_data.csv\"\n    nsidc_all_pd = pd.read_csv(all_nsidc_file, header=0, index_col=0)\n\n    # print(nsidc_all_pd.shape)\n    # print(nsidc_all_pd)\n\n    grid_terrain_file = f\"{github_dir}/data/terrain/gridcells_terrainData.csv\"\n    grid_terrain_pd = pd.read_csv(grid_terrain_file, header=0, index_col=0)\n\n    # print(grid_terrain_pd.shape)\n    # print(grid_terrain_pd)\n\n    print(\"station size: \", station_cell_mapper_pd.shape)\n    print(\"training_feature_pd size: \", training_feature_pd.shape)\n    print(\"testing_feature_pd size: \", testing_feature_pd.shape)\n    all_valid_columns = gridmet_eto_all_pd.columns.values\n    all_training_pd = pd.DataFrame(\n        columns=[\"cell_id\", \"year\", \"m\", \"day\", \"eto\", \"pr\", \"rmax\", \"rmin\", \"tmmn\", \"tmmx\", \"vpd\", \"vs\", \"lat\", \"lon\",\n                 \"elevation\", \"aspect\", \"curvature\", \"slope\", \"eastness\", \"northness\", \"swe_0719\", \"depth_0719\", \"modis\", \"swe_snotel\"])\n    all_training_pd = all_training_pd.reset_index()\n    for index, row in nsidc_all_pd.iterrows():\n        month = row['Month']\n        year = row['Year']\n        day = row['Day']\n        print(f\"Dealing {year} {month} {day}\")\n        lat = row['Lat']\n        lon = row['Lon']\n        print(\"lat lon: \", lat, \" \", lon)\n        ind, cell_id = loc_closest_gridcell_id(lat, lon, all_valid_columns)\n        swe = row['SWE']\n        depth = row['Depth']\n        index = index % 365\n        eto = gridmet_eto_all_pd.iloc[index][cell_id]\n        pr = gridmet_pr_all_pd.iloc[index][cell_id]\n        rmax = gridmet_rmax_all_pd.iloc[index][cell_id]\n        rmin = gridmet_rmin_all_pd.iloc[index][cell_id]\n        tmmn = gridmet_tmmn_all_pd.iloc[index][cell_id]\n        tmmx = gridmet_tmmx_all_pd.iloc[index][cell_id]\n        vpd = gridmet_vpd_all_pd.iloc[index][cell_id]\n        vs = gridmet_vs_all_pd.iloc[index][cell_id]\n        lat = grid_terrain_pd.loc[ind, \"Latitude [deg]\"]\n        lon = grid_terrain_pd.loc[ind, \"Longitude [deg]\"]\n        elevation = grid_terrain_pd.loc[ind, \"Elevation [m]\"]\n        aspect = grid_terrain_pd.loc[ind, \"Aspect [deg]\"]\n        curvature = grid_terrain_pd.loc[ind, \"Curvature [ratio]\"]\n        slope = grid_terrain_pd.loc[ind, \"Slope [deg]\"]\n        eastness = grid_terrain_pd.loc[ind, \"Eastness [unitCirc.]\"]\n        northness = grid_terrain_pd.loc[ind, \"Northness [unitCirc.]\"]\n        cdate = datetime(year=int(year), month=int(month), day=int(day))\n        current_date = cdate.strftime(\"%Y-%m-%d\")\n        modis = modis_all_pd.iloc[index][cell_id]\n        \n        if cell_id in train_labels_pd.index and current_date in train_labels_pd.columns:\n#           print(\"Check one value: \", train_labels_pd.loc[cell_id][current_date])\n          swe_snotel = train_labels_pd.loc[cell_id][current_date]\n        else:\n          swe_snotel = -1\n#           print(\"Key not existed\")\n\n        if not np.isnan(swe_snotel):\n            json_kv = {\"cell_id\":cell_id,\"year\":year, \"m\":month, \"day\": day, \"eto\":eto, \"pr\":pr, \"rmax\":rmax, \"rmin\":rmin, \"tmmn\":tmmn, \"tmmx\":tmmx, \"vpd\":vpd, \"vs\":vs, \"lat\":lat, \"lon\":lon, \"elevation\":elevation, \"aspect\":aspect, \"curvature\":curvature, \"slope\":slope, \"eastness\":eastness, \"northness\":northness, \"swe_0719\":swe, \"depth_0719\":depth, \"modis\":modis, \"swe_snotel\": swe_snotel}\n            all_training_pd = all_training_pd.append(json_kv, ignore_index=True)\n\n    print(all_training_pd.shape)\n    all_training_pd.to_csv(all_ready_file)\n\n# integrate_modis()\n# integrate_sentinel1()\n# integrate_gridmet()\n# prepare_training_csv()\n\n#prepare_training_csv_nsidc()\nprepare_training_csv()",
+  "history_output" : "",
+  "history_begin_time" : 1689631639774,
+  "history_end_time" : 1689631641786,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "tq3z35",
+  "indicator" : "Done"
+},{
+  "history_id" : "1j5b2o3jvui",
+  "history_input" : "# Deploy model to service\n\nprint(\"deploy model to service\")\n",
+  "history_output" : "deploy model to service\n",
+  "history_begin_time" : 1689631649928,
+  "history_end_time" : 1689631651993,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "tq3z35",
+  "indicator" : "Done"
+},{
+  "history_id" : "yby8pypp5na",
+  "history_input" : "# Predict results using the model\n\nfrom sklearn.ensemble import RandomForestRegressor\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import metrics \nfrom sklearn import tree\nimport joblib\nimport os\nfrom pathlib import Path\nimport json\nimport geopandas as gpd\nimport geojson\nimport os.path\nimport math\nfrom sklearn.model_selection import RandomizedSearchCV\n\nexit(1)  # for now, the workflow is not ready yet\n\n# read the grid geometry file\n\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\nmodis_test_ready_file = f\"{github_dir}/data/ready_for_training/modis_test_ready.csv\"\nmodis_test_ready_pd = pd.read_csv(modis_test_ready_file, header=0, index_col=0)\n\npd_to_clean = modis_test_ready_pd[[\"year\", \"m\", \"doy\", \"ndsi\", \"swe\", \"station_id\", \"cell_id\"]].dropna()\n\nall_features = pd_to_clean[[\"year\", \"m\", \"doy\", \"ndsi\"]].to_numpy()\nall_labels = pd_to_clean[[\"swe\"]].to_numpy().ravel()\n\ndef evaluate(model, test_features, y_test, model_name):\n    y_predicted = model.predict(test_features)\n    mae = metrics.mean_absolute_error(y_test, y_predicted)\n    mse = metrics.mean_squared_error(y_test, y_predicted)\n    r2 = metrics.r2_score(y_test, y_predicted)\n    rmse = math.sqrt(mse)\n\n    print(\"The {} model performance for testing set\".format(model_name))\n    print(\"--------------------------------------\")\n    print('MAE is {}'.format(mae))\n    print('MSE is {}'.format(mse))\n    print('R2 score is {}'.format(r2))\n    print('RMSE is {}'.format(rmse))\n    \n    return y_predicted\n\nbase_model = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest_basic.joblib\")\nbasic_predicted_values = evaluate(base_model, all_features, all_labels, \"Base Model\")\n\nbest_random = joblib.load(f\"{homedir}/Documents/GitHub/snowcast_trained_model/model/wormhole_random_forest.joblib\")\nrandom_predicted_values = evaluate(best_random, all_features, all_labels, \"Optimized\")\n",
+  "history_output" : "  File \"service_prediction.py\", line 31\n    github_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n                                                      ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1689631652411,
+  "history_end_time" : 1689631654690,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "1wt0yrk7m7a",
+  "history_input" : "from model_creation_rf import RandomForestHole\nfrom model_creation_xgboost import XGBoostHole\n\nprint(\"Train Models\")\n\nworm_holes = [RandomForestHole(), XGBoostHole()]\n\nfor hole in worm_holes:\n  hole.preprocessing()\n  print(hole.train_x.shape)\n  print(hole.train_y.shape)\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  \nprint(\"Finished training and validating all the models.\")\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_train_validate.py\", line 1, in <module>\n    from model_creation_rf import RandomForestHole\n  File \"/home/chetana/gw-workspace/1wt0yrk7m7a/model_creation_rf.py\", line 35\n    df['date'] = pd.to_datetime(df['date']).astype('int64') / 10**9X = df.drop('swe_value', axis=1)\n                                                                   ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1689631641862,
+  "history_end_time" : 1689631644152,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "cm2kyovvefq",
+  "history_input" : "# feed testing.csv into ML model\n\ntesting_pd = read_csv(\"final_testing_ready.csv\")\n\nmodel = joblib.load(\"joblib file reload\")\n\nfinal_testing_results = mode.predict(testing_pd)\n\n# match final result values with the original input row's lat/lon\n# use GDAL rasterio or just Python RasterIO package to write to file \n# refer to https://rasterio.readthedocs.io/en/stable/quickstart.html#saving-raster-data\nconvert_result_to_image(final_testing_results, \"final_ml_result_swe_map.tif\")\n\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_predict.py\", line 3, in <module>\n    testing_pd = read_csv(\"final_testing_ready.csv\")\nNameError: name 'read_csv' is not defined\n",
+  "history_begin_time" : 1689631647160,
+  "history_end_time" : 1689631649404,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "b3iqpl03n0s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636373,
+  "history_end_time" : 1689631636373,
+  "history_notes" : null,
+  "history_process" : "urd0nk",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rbtmkmwid5k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636374,
+  "history_end_time" : 1689631636374,
+  "history_notes" : null,
+  "history_process" : "525l8q",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uacwv89dwc5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636382,
+  "history_end_time" : 1689631636382,
+  "history_notes" : null,
+  "history_process" : "7temiv",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "g6gi01bxhga",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636415,
+  "history_end_time" : 1689631636415,
+  "history_notes" : null,
+  "history_process" : "rmxece",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9p9hb877vd8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636416,
+  "history_end_time" : 1689631636416,
+  "history_notes" : null,
+  "history_process" : "illwc1",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "o4583uo120x",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636416,
+  "history_end_time" : 1689631636416,
+  "history_notes" : null,
+  "history_process" : "sjs5by",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jzowhzo60nx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636417,
+  "history_end_time" : 1689631636417,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7uteo756pd1",
+  "history_input" : "#############################################\n# Process Name: gridmet_station_only\n# Person Assigned: Gokul Prathin A\n# Last Changes On: 3rd July 2023\n#############################################\n\nimport os\nimport numpy as np\nimport pandas as pd\nimport netCDF4 as nc\nimport urllib.request\nfrom datetime import datetime, timedelta, date\n\nstart_date = date(2002, 1, 1)\nend_date = date(2023, 1, 1)\n\n# start_date = date(2017, 1, 1)\n# end_date = date(2018, 1, 1)\n\nyear_list = [start_date.year + i for i in range(end_date.year - start_date.year + 1)]\nstation = pd.read_csv('station_cell_mapping.csv')\n\n\ndef get_all_dates_in_year(years):\n    all_dates = []\n\n    for year in years:\n        tmp_start_date = datetime(year, 1, 1)\n        tmp_end_date = datetime(year, 12, 31)\n\n        current_date = tmp_start_date\n        while current_date <= tmp_end_date:\n            date_string = current_date.strftime('%Y-%m-%d %H:%M:%S')\n            all_dates.append(date_string)\n            current_date += timedelta(days=1)\n\n    return all_dates\n\n\ndef download_file(url, save_location):\n    try:\n        with urllib.request.urlopen(url) as response:\n            file_content = response.read()\n        file_name = os.path.basename(url)\n        save_path = os.path.join(save_location, file_name)\n        with open(save_path, 'wb') as file:\n            file.write(file_content)\n        print(f\"File downloaded successfully and saved as: {save_path}\")\n    except Exception as e:\n        print(f\"An error occurred while downloading the file: {str(e)}\")\n\n\ndef gridmet_climatology():\n    # make a directory to store the downloaded files\n    folder_name = 'gridmet_climatology'\n    if not os.path.exists(folder_name):\n        os.makedirs(folder_name)\n\n    base_metadata_url = \"http://www.northwestknowledge.net/metdata/data/\"\n    variables_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'etr', 'rmax', 'rmin', 'vs']\n\n    for var in variables_list:\n        for y in year_list:\n            download_link = base_metadata_url + var + '_' + '%s' % y + '.nc'\n            if not os.path.exists(os.path.join(folder_name, var + '_' + '%s' % y + '.nc')):\n                download_file(download_link, folder_name)\n\n\ndef get_climatology_data(yr_lst):\n    all_dates = get_all_dates_in_year(yr_lst)\n    climatology_dataframe = pd.DataFrame(\n        columns=['date', 'lat', 'lon', 'cell_id', 'station_id', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs'])\n\n    reference_date = datetime(1900, 1, 1)\n\n    csv_file = 'climatology_data.csv'  # Specify the CSV file path\n\n    with open(csv_file, 'w') as f:\n        climatology_dataframe.to_csv(f, index=False)  # Write the header to the CSV file\n\n    for year in yr_lst:\n        print(f'Starting data retrieval for the year {year}')\n        etr_nc_file = nc.Dataset(os.path.join('gridmet_climatology', f\"etr_{year}.nc\"))\n        pr_nc_file = nc.Dataset(os.path.join('gridmet_climatology', f\"pr_{year}.nc\"))\n        rmax_nc_file = nc.Dataset(os.path.join('gridmet_climatology', f\"rmax_{year}.nc\"))\n        rmin_nc_file = nc.Dataset(os.path.join('gridmet_climatology', f\"rmin_{year}.nc\"))\n        tmmn_nc_file = nc.Dataset(os.path.join('gridmet_climatology', f\"tmmn_{year}.nc\"))\n        tmmx_nc_file = nc.Dataset(os.path.join('gridmet_climatology', f\"tmmx_{year}.nc\"))\n        vpd_nc_file = nc.Dataset(os.path.join('gridmet_climatology', f\"vpd_{year}.nc\"))\n        vs_nc_file = nc.Dataset(os.path.join('gridmet_climatology', f\"vs_{year}.nc\"))\n\n        latitudes = etr_nc_file.variables['lat'][:]\n        longitudes = etr_nc_file.variables['lon'][:]\n        day = etr_nc_file.variables['day'][:]\n\n        for index, row in station.iterrows():\n            lat, lon, cell_id, station_id = row['lat'], row['lon'], row['cell_id'], row['station_id']\n            lat_index = np.abs(latitudes - lat).argmin()\n            lon_index = np.abs(longitudes - lon).argmin()\n\n            for date_str in get_all_dates_in_year([year]):\n                date_object = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')\n                days_since_1900 = (date_object - reference_date).days\n                time_index = np.abs(day - days_since_1900).argmin()\n                row_data = {\n                    'date': date_str.split(' ')[0],\n                    'lat': lat,\n                    'lon': lon,\n                    'cell_id': cell_id,\n                    'station_id': station_id,\n                    'etr': etr_nc_file.variables['potential_evapotranspiration'][time_index, lat_index, lon_index],\n                    'pr': pr_nc_file.variables['precipitation_amount'][time_index, lat_index, lon_index],\n                    'rmax': rmax_nc_file.variables['relative_humidity'][time_index, lat_index, lon_index],\n                    'rmin': rmin_nc_file.variables['relative_humidity'][time_index, lat_index, lon_index],\n                    'tmmn': tmmn_nc_file.variables['air_temperature'][time_index, lat_index, lon_index],\n                    'tmmx': tmmx_nc_file.variables['air_temperature'][time_index, lat_index, lon_index],\n                    'vpd': vpd_nc_file.variables['mean_vapor_pressure_deficit'][time_index, lat_index, lon_index],\n                    'vs': vs_nc_file.variables['wind_speed'][time_index, lat_index, lon_index],\n                }\n                with open(csv_file, 'a') as f:\n                    pd.DataFrame(row_data, index=[0]).to_csv(f, header=False, index=False)  # Append row to the CSV file\n\n        print(f'Completed data retrieval for the year {year}')\n\n\n\ngridmet_climatology()\nget_climatology_data(year_list)\n",
+  "history_output" : "  File \"data_gee_gridmet_station_only.py\", line 48\n    print(f\"File downloaded successfully and saved as: {save_path}\")\n                                                                  ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1689631636568,
+  "history_end_time" : 1689631638854,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "cju8xah43gf",
+  "history_input" : "import os\nimport urllib\nimport requests\nfrom bs4 import BeautifulSoup\n\n# download the NetCDF file from Idaho http site daily or the time period matching the MODIS period\n# download site: https://www.northwestknowledge.net/metdata/data/\n\ndownload_source = \"https://www.northwestknowledge.net/metdata/data/\"\ngridmet_download_dir = \"/home/chetana/terrian_data/\"\n\n\ndef download_gridmet():\n    if not os.path.exists(gridmet_download_dir):\n        os.makedirs(gridmet_download_dir)\n\n    soup = BeautifulSoup(requests.get(download_source).text, \"html.parser\")\n    tag_links = soup.find_all('a')\n    for t in tag_links:\n        if '.nc' in t.text and not 'eddi' in t.text and not os.path.isfile(gridmet_download_dir + t.get(\"href\")):\n            print(f'downloading {t.get(\"href\")}')\n            urllib.request.urlretrieve(download_source + t.get('href'), gridmet_download_dir + t.get(\"href\"))\n\n\ndownload_gridmet()\n",
+  "history_output" : "  File \"data_gee_gridmet_real_time.py\", line 21\n    print(f'downloading {t.get(\"href\")}')\n                                       ^\nSyntaxError: invalid syntax\n",
+  "history_begin_time" : 1689631636494,
+  "history_end_time" : 1689631638767,
+  "history_notes" : null,
+  "history_process" : "smsdr0",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "0uxzak4o3uy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636422,
+  "history_end_time" : 1689631636422,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5ih1d4v5ua6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636423,
+  "history_end_time" : 1689631636423,
+  "history_notes" : null,
+  "history_process" : "b63prf",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "iggnrjo5pg4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636444,
+  "history_end_time" : 1689631636444,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0nt0neylwxc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636445,
+  "history_end_time" : 1689631636445,
+  "history_notes" : null,
+  "history_process" : "wdh394",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fy4dgv9awg0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636446,
+  "history_end_time" : 1689631636446,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "13z8bqzmi99",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636447,
+  "history_end_time" : 1689631636447,
+  "history_notes" : null,
+  "history_process" : "ilbqzg",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "krhqc8rfg1c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636447,
+  "history_end_time" : 1689631636447,
+  "history_notes" : null,
+  "history_process" : "do86ae",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rtpxn6zu2t2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636465,
+  "history_end_time" : 1689631636465,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qwbpszj1zsd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636466,
+  "history_end_time" : 1689631636466,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9lvmt7oy7r5",
+  "history_input" : "import math\nimport json\nimport requests\nimport pandas as pd\n\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n    return data\n\n\ndef haversine(lat1, lon1, lat2, lon2):\n    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])\n    d_lat = lat2 - lat1\n    d_long = lon2 - lon1\n    a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_long / 2) ** 2\n    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))\n    distance = 6371 * c  # Earth's radius in kilometers\n    return distance\n\n\ndef find_nearest_location(locations, target_lat, target_lon):\n    n_location = None\n    min_distance = float('inf')\n    for location in locations:\n        lat = location['location']['lat']\n        lon = location['location']['lng']\n        distance = haversine(lat, lon, target_lat, target_lon)\n        if distance < min_distance:\n            min_distance = distance\n            n_location = location\n    return n_location\n\n\ndef csv_to_json(csv_text):\n    lines = csv_text.splitlines()\n    header = lines[0]\n    field_names = header.split(',')\n    json_list = []\n    for line in lines[1:]:\n        values = line.split(',')\n        row_dict = {}\n        for i, field_name in enumerate(field_names):\n            row_dict[field_name] = values[i]\n        json_list.append(row_dict)\n    json_string = json.dumps(json_list)\n    return json_string\n\n\ndef remove_commented_lines(text):\n    lines = text.split(\"\\n\")  # Split the text into lines\n    cleaned_lines = []\n\n    for line in lines:\n        if not line.startswith(\"#\"):  # Check if the line starts with \"#\"\n            cleaned_lines.append(line)\n\n    cleaned_text = \"\\n\".join(cleaned_lines)  # Join the remaining lines\n\n    return cleaned_text\n\n\ncsv_file = 'snotel.csv'\nstart_date = \"2022-01-01\"\nend_date = \"2023-12-12\"\n\nstation_mapping = pd.read_csv('station_cell_mapping.csv')\ndf = pd.DataFrame(columns=['Date', 'Snow Water Equivalent (in) Start of Day Values',\n                           'Change In Snow Water Equivalent (in)',\n                           'Snow Depth (in) Start of Day Values',\n                           'Change In Snow Depth (in)',\n                           'Air Temperature Observed (degF) Start of Day Values',\n                           'station_name',\n                           'station_triplet',\n                           'station_elevation',\n                           'station_lat',\n                           'station_long',\n                           'mapping_station_id',\n                           'mapping_cell_id']\n                  )\n\nfor index, row in station_mapping.iterrows():\n    station_locations = read_json_file('snotelStations.json')\n    nearest_location = find_nearest_location(station_locations, 41.993149, -120.1787155)\n\n    location_name = nearest_location['name']\n    location_triplet = nearest_location['triplet']\n    location_elevation = nearest_location['elevation']\n    location_station_lat = nearest_location['location']['lat']\n    location_station_long = nearest_location['location']['lng']\n\n    url = f\"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/\" \\\n          f\"customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/\" \\\n          \"WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue\"\n\n    r = requests.get(url)\n    text = remove_commented_lines(r.text)\n    json_data = json.loads(csv_to_json(text))\n\n    for item in json_data:\n        item['station_name'] = location_name\n        item['station_triplet'] = location_triplet\n        item['station_elevation'] = location_elevation\n        item['station_lat'] = location_station_lat\n        item['station_long'] = location_station_long\n        item['mapping_station_id'] = row['station_id']\n        item['mapping_cell_id'] = row['cell_id']\n\n    with open(csv_file, 'a') as f:\n        for entry in json_data:\n            pd.DataFrame(entry, index=[0]).to_csv(f, header=True, index=False)\n",
+  "history_output" : "",
+  "history_begin_time" : 1689631636508,
+  "history_end_time" : 1689631638722,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "tq3z35",
+  "indicator" : "Done"
+},{
+  "history_id" : "usxug8t6ins",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1689631636470,
+  "history_end_time" : 1689631636470,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "tq3z35",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "veu1l8ycs8g",
+  "history_input" : "import pandas as pd\nimport autokeras as ak\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\n\ndf = pd.read_csv('/home/chetana/gridmet_test_run/five_years_data.csv')\ndf.dropna(inplace=True)\n\nlabel_encoder = LabelEncoder()\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\ndf.rename(columns={\n                   'Change In Snow Water Equivalent (in)': 'swe_change',\n                   'Snow Depth (in) Start of Day Values': 'swe_value',\n                   'Change In Snow Depth (in)': 'snow_depth_change',\n                   'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n                   'Elevation [m]': 'elevation',\n                   'Aspect [deg]': 'aspect', 'Curvature [ratio]': 'curvature',\n                   'Slope [deg]': 'slope', 'Eastness [unitCirc.]': 'eastness',\n                   'Northness [unitCirc.]': 'northness'\n                   }, inplace=True)\n\n# Split the data into features and target variable\nX = df.drop(columns=['swe_value'])\ny = df['swe_value']\n\n# Split the data into train and test sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Initialize and train the AutoKeras regressor\nreg = ak.StructuredDataRegressor(max_trials=10, overwrite=True)\nreg.fit(X_train, y_train, epochs=10)\n\n# Evaluate the AutoKeras regressor on the test set\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint('RMSE:', rmse)\nprint('R2 Score:', r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_pycaret.py\", line 1, in <module>\n    import pandas as pd\nImportError: No module named pandas\n",
+  "history_begin_time" : 1689631637375,
+  "history_end_time" : 1689631639438,
+  "history_notes" : null,
+  "history_process" : "doinnd",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "dt5vk9fpoeu",
+  "history_input" : "import pandas as pd\nimport autokeras as ak\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\n\ndf = pd.read_csv('/home/chetana/gridmet_test_run/five_years_data.csv')\ndf.dropna(inplace=True)\n\nlabel_encoder = LabelEncoder()\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\ndf.rename(columns={\n                   'Change In Snow Water Equivalent (in)': 'swe_change',\n                   'Snow Depth (in) Start of Day Values': 'swe_value',\n                   'Change In Snow Depth (in)': 'snow_depth_change',\n                   'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n                   'Elevation [m]': 'elevation',\n                   'Aspect [deg]': 'aspect', 'Curvature [ratio]': 'curvature',\n                   'Slope [deg]': 'slope', 'Eastness [unitCirc.]': 'eastness',\n                   'Northness [unitCirc.]': 'northness'\n                   }, inplace=True)\n\n# Split the data into features and target variable\nX = df.drop(columns=['swe_value'])\ny = df['swe_value']\n\n# Split the data into train and test sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Initialize and train the AutoKeras regressor\nreg = ak.StructuredDataRegressor(max_trials=10, overwrite=True)\nreg.fit(X_train, y_train, epochs=10)\n\n# Evaluate the AutoKeras regressor on the test set\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint('RMSE:', rmse)\nprint('R2 Score:', r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_autokeras.py\", line 1, in <module>\n    import pandas as pd\nImportError: No module named pandas\n",
+  "history_begin_time" : 1689631636556,
+  "history_end_time" : 1689631638720,
+  "history_notes" : null,
+  "history_process" : "b7a4fu",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+},{
+  "history_id" : "w97mvg56win",
+  "history_input" : "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport autopytorch as apt\n\ndf = pd.read_csv('/home/chetana/gridmet_test_run/five_years_data.csv')\ndf.dropna(inplace=True)\n\nlabel_encoder = LabelEncoder()\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\ndf.rename(columns={\n                   'Change In Snow Water Equivalent (in)': 'swe_change',\n                   'Snow Depth (in) Start of Day Values': 'swe_value',\n                   'Change In Snow Depth (in)': 'snow_depth_change',\n                   'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n                   'Elevation [m]': 'elevation',\n                   'Aspect [deg]': 'aspect', 'Curvature [ratio]': 'curvature',\n                   'Slope [deg]': 'slope', 'Eastness [unitCirc.]': 'eastness',\n                   'Northness [unitCirc.]': 'northness'\n                   }, inplace=True)\n\n# Split the dataset into features and target variable\nX = df.drop('swe_value', axis=1)\ny = df['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Define the Auto-PyTorch configuration\nconfig = apt.AutoNetRegressionConfig()\n\n# Initialize and train the Auto-PyTorch regressor\nreg = apt.AutoNetRegressor(config=config)\nreg.fit(X_train, y_train)\n\n# Evaluate the model\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\nprint(\"RMSE:\", rmse)\nprint(\"R2 Score:\", r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"model_creation_autopytorch.py\", line 1, in <module>\n    import pandas as pd\nImportError: No module named pandas\n",
+  "history_begin_time" : 1689631639728,
+  "history_end_time" : 1689631641784,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "tq3z35",
+  "indicator" : "Failed"
+}]

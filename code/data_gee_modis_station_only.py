@@ -19,6 +19,11 @@ import eeauth as e
 try:
     ee.Initialize(e.creds())
 except Exception as e:
+    # the following is for the server
+    #service_account = 'eartheginegcloud@earthengine58.iam.gserviceaccount.com'
+#creds = ee.ServiceAccountCredentials(
+    #service_account, '/home/chetana/bhargavi-creds.json')
+    #ee.Initialize(creds)
     ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
     ee.Initialize()
 

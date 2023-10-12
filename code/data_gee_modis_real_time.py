@@ -1,89 +1,228 @@
-# This script will download modis data for all the testing sites from Google Earth Engine.
-# The start date is the last stop date of the last run.
+import os
+import pprint
 
-from all_dependencies import *
-from datetime import date
-from snowcast_utils import *
-import traceback
-import eeauth as e
+# import gdal
+import subprocess
+from datetime import datetime, timedelta
 
-exit() # done, uncomment if you want to download new files.
+# set up your credentials using
+# echo 'machine urs.earthdata.nasa.gov login <uid> password <password>' >> ~/.netrc
 
-try:
-    ee.Initialize(e.creds())
-except Exception as e:
-    ee.Authenticate() # this must be run in terminal instead of Geoweaver. Geoweaver doesn't support prompt.
-    ee.Initialize()
+modis_download_dir = "/home/chetana/modis_download_folder/"
+modis_downloaded_data = modis_download_dir + "n5eil01u.ecs.nsidc.org/MOST/MOD10A2.061/"
+geo_tiff = modis_download_dir + "geo-tiff/"
+vrt_file_dir = modis_download_dir + "vrt_files/"
+dir_path = os.path.dirname(os.path.realpath(__file__))
+print(dir_path)
 
-# read the grid geometry file
-homedir = os.path.expanduser('~')
-github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-# read grid cell
-submission_format_file = f"{github_dir}/data/snowcast_provided/submission_format_eval.csv"
-submission_format_df = pd.read_csv(submission_format_file, header=0, index_col=0)
+tile_list = ['h09v04', 'h10v04', 'h11v04', 'h08v04', 'h08v05', 'h09v05', 'h10v05', 'h07v06', 'h08v06', 'h09v06']
 
-all_cell_coords_file = f"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv"
-all_cell_coords_df = pd.read_csv(all_cell_coords_file, header=0, index_col=0)
 
-org_name = 'modis'
-product_name = f'MODIS/006/MOD10A1'
-var_name = 'NDSI'
-column_name = 'mod10a1_ndsi'
-#start_date = "2022-04-20"#test_start_date
-start_date = findLastStopDate(f"{github_dir}/data/sat_testing/modis", "%Y-%m-%d")
-end_date = test_end_date
+def get_files(directory):
+    file_directory = list()
+    complete_directory_structure = dict()
+    for dirpath, dirnames, filenames in os.walk(directory):
+        for filename in filenames:
+            file_path = os.path.join(dirpath, filename)
+            file_directory.append(file_path)
+            complete_directory_structure[str(dirpath).rsplit('/')[-1]] = file_directory
 
-final_csv_file = f"{homedir}/Documents/GitHub/SnowCast/data/sat_testing/{org_name}/{column_name}_{start_date}_{end_date}.csv"
-print(f"Results will be saved to {final_csv_file}")
+    return complete_directory_structure
 
-if os.path.exists(final_csv_file):
-    #print("exists exiting..")
-    #exit()
-    os.remove(final_csv_file)
 
-all_cell_df = pd.DataFrame(columns = ['date', column_name, 'cell_id', 'latitude', 'longitude'])
-print("start to traverse the cells in submission_format_eval.csv..")
+def get_latest_date():
+    all_rows = get_web_row_data()
 
-for current_cell_id in submission_format_df.index:
-    
+    latest_date = None
+    for row in all_rows:
+        try:
+            new_date = datetime.strptime(row.text[:-1], '%Y.%m.%d')
+            if latest_date is None or latest_date < new_date:
+                latest_date = new_date
+        except:
+            continue
+
+    print("Find the latest date: ", latest_date.strftime("%Y.%m.%d"))
+    second_latest_date = latest_date - timedelta(days=8)
+    return second_latest_date
+
+
+def get_web_row_data():
     try:
-      
-  	  longitude = all_cell_coords_df['lon'][current_cell_id]
-  	  latitude = all_cell_coords_df['lat'][current_cell_id]
+        from BeautifulSoup import BeautifulSoup
+    except ImportError:
+        from bs4 import BeautifulSoup
+    modis_list_url = "https://n5eil01u.ecs.nsidc.org/MOST/MOD10A2.061/"
+    print("Source / Product: " + modis_list_url)
+    if os.path.exists("index.html"):
+        os.remove("index.html")
+    subprocess.run(
+        f'wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --keep-session-cookies '
+        f'--no-check-certificate --auth-no-challenge=on -np -e robots=off {modis_list_url}',
+        shell=True, stderr=subprocess.PIPE)
+    index_file = open('index.html', 'r')
+    webContent = index_file.read()
+    parsed_html = BeautifulSoup(webContent, "html.parser")
+    all_rows = parsed_html.body.findAll('td', attrs={'class': 'indexcolname'})
+    return all_rows
 
-  	  # identify a 500 meter buffer around our Point Of Interest (POI)
-  	  poi = ee.Geometry.Point(longitude, latitude).buffer(30)
 
-  	  def poi_mean(img):
-  	      reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi, scale=30)
-  	      mean = reducer.get(var_name)
-  	      return img.set('date', img.date().format()).set(column_name,mean)
-        
-  	  viirs1 = ee.ImageCollection(product_name).filterDate(start_date, end_date)
-  	  poi_reduced_imgs1 = viirs1.map(poi_mean)
-  	  nested_list1 = poi_reduced_imgs1.reduceColumns(ee.Reducer.toList(2), ['date',column_name]).values().get(0)
-  	  # dont forget we need to call the callback method "getInfo" to retrieve the data
-  	  df = pd.DataFrame(nested_list1.getInfo(), columns=['date',column_name])
-      
-  	  df['date'] = pd.to_datetime(df['date'])
-  	  df = df.set_index('date')
-  	  df['cell_id'] = current_cell_id
-  	  df['latitude'] = latitude
-  	  df['longitude'] = longitude
-  	  #df.to_csv(single_csv_file)
+def download_recent_modis(date=None):
+    if date:
+        latest_date_str = date.strftime("%Y.%m.%d")
+    else:
+        latest_date_str = get_latest_date().strftime("%Y.%m.%d")
+    for tile in tile_list:
+        download_cmd = f'wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --keep-session-cookies ' \
+                       f'--no-check-certificate --auth-no-challenge=on -r --reject "i' \
+                       f'ndex.html*" -P {modis_download_dir} -np -e robots=off ' \
+                       f'https://n5eil01u.ecs.nsidc.org/MOST/MOD10A2.061/{latest_date_str}/ -A "*{tile}*.hdf" --quiet'
+        # print(download_cmd)
+        p = subprocess.run(download_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print("Downloading tile, ", tile, " with status code ", "OK" if p.returncode == 0 else p.returncode)
 
-  	  df_list = [all_cell_df, df]
-  	  all_cell_df = pd.concat(df_list) # merge into big dataframe
-      
-    except Exception as e:
-      print(traceback.format_exc())
-      print("failed", e)
-      pass
-    
-    
-all_cell_df.to_csv(final_csv_file)  
 
-print(f"All points have been saved to {final_csv_file}")
+# def merge_wrap_tif_into_western_us_tif():
+#     latest_date_str = get_latest_date().strftime("%Y.%m.%d")
+#     # traverse the folder and find the new download files
+#     for filename in os.listdir(f"n5eil01u.ecs.nsidc.org/MOST/MOD10A2.061/{latest_date_str}/"):
+#         f = os.path.join(directory, filename)
+#         # checking if it is a file
+#         if os.path.isfile(f):
+#             print(f)
+# merge_wrap_tif_into_western_us_tif()
+
+def hdf_tif_cvt(resource_path, destination_path):
+    if not os.path.isfile(resource_path):
+        raise Exception("HDF file not found")
+
+    max_snow_extent_path = destination_path + "maximum_snow_extent/"
+    eight_day_snow_cover = destination_path + "eight_day_snow_cover/"
+    if not os.path.exists(max_snow_extent_path):
+        os.makedirs(max_snow_extent_path)
+    if not os.path.exists(eight_day_snow_cover):
+        os.makedirs(eight_day_snow_cover)
+
+    tif_file_name_snow_extent = max_snow_extent_path + resource_path.split('/')[-1].split('.hdf')[0]
+    tif_file_name_eight_day = eight_day_snow_cover + resource_path.split('/')[-1].split('.hdf')[0]
+    tif_file_extension = '.tif'
+
+    maximum_snow_extent_file_name = tif_file_name_snow_extent + '_max_snow_extent' + tif_file_extension
+    eight_day_snow_cover_file_name = tif_file_name_eight_day + '_modis_snow_500m' + tif_file_extension
+
+    maximum_snow_extent = f"HDF4_EOS:EOS_GRID:\"{resource_path}\":MOD_Grid_Snow_500m:Maximum_Snow_Extent"
+    eight_day_snow_cover = f"HDF4_EOS:EOS_GRID:\"{resource_path}\":MOD_Grid_Snow_500m:Eight_Day_Snow_Cover"
+
+    subprocess.run(f"gdal_translate {maximum_snow_extent} {maximum_snow_extent_file_name}", shell=True)
+    subprocess.run(f"gdal_translate {eight_day_snow_cover} {eight_day_snow_cover_file_name}", shell=True)
+
+
+def combine_geotiff_gdal(vrt_array, destination):
+    subprocess.run(f"gdalbuildvrt {destination} {' '.join(vrt_array)}", shell=True)
+    tif_name = destination.split('.vrt')[-2] + '.tif'
+    subprocess.run(f"gdal_translate -of GTiff {destination} {tif_name}", shell=True)
+
+
+def hdf_tif_conversion(resource_path, destination_path):
+    hdf_dataset = gdal.Open(resource_path)
+    if hdf_dataset is None:
+        raise Exception("Could not open HDF dataset")
+
+    maximum_snow_extent = hdf_dataset.GetSubDatasets()[0][0]
+    modis_snow_500m = hdf_dataset.GetSubDatasets()[1][0]
+
+    driver = gdal.GetDriverByName('GTiff')
+
+    tif_file_name = destination_path + resource_path.split('/')[-1].split('.hdf')[0]
+    tif_file_extension = '.tif'
+
+    maximum_snow_extent_file_name = tif_file_name + '_max_snow_extent' + tif_file_extension
+    modis_snow_500m_file_name = tif_file_name + '_modis_snow_500m' + tif_file_extension
+
+    maximum_snow_extent_dataset = gdal.Open(maximum_snow_extent)
+    modis_snow_500m_dataset = gdal.Open(modis_snow_500m)
+
+    if maximum_snow_extent_dataset is None:
+        raise Exception("Could not open maximum_snow_extent dataset")
+
+    if modis_snow_500m_dataset is None:
+        raise Exception("Could not open modis_snow_500m dataset")
+
+    driver.CreateCopy(maximum_snow_extent_file_name, maximum_snow_extent_dataset, 0)
+    driver.CreateCopy(modis_snow_500m_file_name, modis_snow_500m_dataset, 0)
+
+    print("HDF to TIF conversion completed successfully.")
+
+
+def download_modis_archive(*, start_date, end_date):
+    all_archive_dates = list()
+
+    all_rows = get_web_row_data()
+    for r in all_rows:
+        try:
+            all_archive_dates.append(datetime.strptime(r.text.replace('/', ''), '%Y.%m.%d'))
+        except:
+            continue
+
+    for a in all_archive_dates:
+        if start_date <= a <= end_date:
+            download_recent_modis(a)
+
+
+def step_one_download_modis():
+  download_recent_modis()
+                   
+def step_two_merge_modis_western_us():
+  download_modis_archive(start_date=datetime(2022, 1, 1), end_date=datetime(2022, 12, 31))
+
+  files = get_files(modis_downloaded_data)
+  for k, v in get_files(modis_downloaded_data).items():
+
+    conversion_path = modis_download_dir + "geo-tiff/" + k + "/"
+    if not os.path.exists(conversion_path):
+        os.makedirs(conversion_path)
+    for hdf_file in v:
+        # print(hdf_file.split('/')[-1].split('.hdf')[0], 1)
+        hdf_tif_cvt(hdf_file, conversion_path)
+
+  if not os.path.exists(vrt_file_dir):
+    os.makedirs(vrt_file_dir)
+
+
+  directories = [d for d in os.listdir(geo_tiff) if   os.path.isdir(os.path.join(geo_tiff, d))]
+
+  for d in directories:
+    eight_day_snow_cover = geo_tiff + d + '/eight_day_snow_cover'
+    maximum_snow_extent = geo_tiff + d + '/maximum_snow_extent'
+
+    eight_day_abs_path = list()
+    snow_extent_abs_path = list()
+
+    for file in os.listdir(eight_day_snow_cover):
+        file_path = os.path.abspath(os.path.join(eight_day_snow_cover, file))
+        eight_day_abs_path.append(file_path)
+
+    for file in os.listdir(maximum_snow_extent):
+        file_path = os.path.abspath(os.path.join(maximum_snow_extent, file))
+        snow_extent_abs_path.append(file_path)
+
+    combine_geotiff_gdal(eight_day_abs_path, vrt_file_dir + f"{d}_eight_day.vrt")
+    combine_geotiff_gdal(snow_extent_abs_path, vrt_file_dir + f"{d}_snow_extent.vrt")
+
+                   
+# main workflow is here:
+step_one_download_modis()
+step_two_merge_modis_western_us()
+
+
+
+
+
+
+
+
+
+
 
 
 
