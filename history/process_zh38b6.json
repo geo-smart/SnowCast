@@ -1,4 +1,1644 @@
 [{
+  "history_id" : "jw4stsbs9ce",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704644803688,
+  "history_end_time" : 1704644803688,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xqt0e4rbng8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704600007976,
+  "history_end_time" : 1704600007976,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "27aeeuc2k7m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704566156608,
+  "history_end_time" : 1704566156608,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l1w556zuzxc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704565587365,
+  "history_end_time" : 1704565587365,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h6uxf590yv4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704564424146,
+  "history_end_time" : 1704564424146,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wtqdix6snbc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704562992158,
+  "history_end_time" : 1704562992158,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dmccaibqnmn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704561889780,
+  "history_end_time" : 1704561889780,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mgk4p197cr2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704561861150,
+  "history_end_time" : 1704561887032,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "th2tdvzkda3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704555479189,
+  "history_end_time" : 1704555479189,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "51x6yq1ki8y",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704555028180,
+  "history_end_time" : 1704555028180,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "85o7fiajv7h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704553241753,
+  "history_end_time" : 1704553241753,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "d7wE4tQom0A3",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\n# -125, 25, -100, 49\nsouthwest_lon = -125.0\nsouthwest_lat = 25.0\nnortheast_lon = -100.0\nnortheast_lat = 49.0\n\ntrain_start_date = \"2018-01-01\"\ntrain_end_date = \"2021-12-31\"\n\ndef get_operation_day():\n  # Get the current date and time\n  current_date = datetime.now()\n\n  # Calculate three days ago\n  three_days_ago = current_date - timedelta(days=3)\n\n  # Format the date as a string\n  three_days_ago_string = three_days_ago.strftime(\"%Y-%m-%d\")\n\n  print(three_days_ago_string)\n  return three_days_ago_string\n\n#test_start_date = get_operation_day()\ntest_start_date = \"2024-01-01\" # use this for debugging\ntest_end_date = \"2023-10-11\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    tt = date_object.timetuple()\n    \n\n    # Format the result as 'YYYYDDD'\n    julian_format = str('%d%03d' % (tt.tm_year, tt.tm_yday))\n\n    return julian_format\n  \n\nif __name__ == \"__main__\":\n    print(date_to_julian(test_start_date))\n    #day_index = convert_date_to_1900(test_start_date)\n    #create_cell_location_csv()\n    #findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n    #findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n    #findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2024-01-06\ntest start date:  2024-01-01\ntest end date:  2023-10-11\n/home/chetana\n2024001\n",
+  "history_begin_time" : 1704553235162,
+  "history_end_time" : 1704553235889,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "p6o5udmsql6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704552254596,
+  "history_end_time" : 1704552254596,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mtv615x6g0s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704513607199,
+  "history_end_time" : 1704513607199,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "godv82ny65r",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704427207315,
+  "history_end_time" : 1704427207315,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "12rlgisywmy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704340807374,
+  "history_end_time" : 1704340807374,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "a3o5wsj4y26",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704330109276,
+  "history_end_time" : 1704330109276,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ummvnp9a6ve",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704329364833,
+  "history_end_time" : 1704329364833,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5z02z8cznqw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704254407312,
+  "history_end_time" : 1704254407312,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zm73e9px2ka",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704208947944,
+  "history_end_time" : 1704208947944,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5rlcd7464hg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704207352004,
+  "history_end_time" : 1704207352004,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qy1g6z2j688",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704205859353,
+  "history_end_time" : 1704205859353,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ukst7bj0xb3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704168007222,
+  "history_end_time" : 1704168007222,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x0oj8dqjqlm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1704081607275,
+  "history_end_time" : 1704081607275,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jy6x2fxzkjl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703995208081,
+  "history_end_time" : 1703995208081,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fk2oldm0osc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703962871388,
+  "history_end_time" : 1703962871388,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h8pdvsqq5so",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703960265430,
+  "history_end_time" : 1703960265430,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0jhgk6c6zna",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703959737824,
+  "history_end_time" : 1703959737824,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3b3b0km86vi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703958611571,
+  "history_end_time" : 1703958611571,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zuxe7oj9x4e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703955838208,
+  "history_end_time" : 1703955838208,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "516j3qpvxv7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703954150338,
+  "history_end_time" : 1703954150338,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2tepqvsyjyn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703915768055,
+  "history_end_time" : 1703915768055,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fdfzdll4ppm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703915283469,
+  "history_end_time" : 1703915283469,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ok7w10d0cq1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703914476623,
+  "history_end_time" : 1703914476623,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uo98n92lxaq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703912302155,
+  "history_end_time" : 1703912302155,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8557jhj2kd2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703908806903,
+  "history_end_time" : 1703908806903,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "y1t7qduwf0h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703906215361,
+  "history_end_time" : 1703906215361,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "pbgfzbr331i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703900919127,
+  "history_end_time" : 1703900919127,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "m0fcojil552",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703899837749,
+  "history_end_time" : 1703899837749,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "aruc8x6bnqv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703897422933,
+  "history_end_time" : 1703897422933,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8pdq7b8ds96",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703896125565,
+  "history_end_time" : 1703896125565,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t50ip6ygdxe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703890275973,
+  "history_end_time" : 1703890275973,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "beudy0zt4hm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703886800792,
+  "history_end_time" : 1703886800792,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "a11ds9epoz7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703885997748,
+  "history_end_time" : 1703885997748,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "b84f4y0tu98",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703880194698,
+  "history_end_time" : 1703880194698,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tg46sjpeatj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703872753016,
+  "history_end_time" : 1703872753016,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "22wdos5cheh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703869828222,
+  "history_end_time" : 1703869828222,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "aqfe7dju70c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703868616912,
+  "history_end_time" : 1703868616912,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "pldgqqpdxfc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703867114030,
+  "history_end_time" : 1703867114030,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "semtcjgbwlm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703864885427,
+  "history_end_time" : 1703864885427,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wtjus4ichwl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703862637330,
+  "history_end_time" : 1703862637330,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1noyd5465sn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703827227305,
+  "history_end_time" : 1703827227305,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ym9528tpuwv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703822411242,
+  "history_end_time" : 1703822411242,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "72xpgij9og5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703786924620,
+  "history_end_time" : 1703789718818,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "sp0nn6dwoi2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703786053473,
+  "history_end_time" : 1703786917609,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "o1ku89mawtj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703778395376,
+  "history_end_time" : 1703778395376,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0yntzww6rv6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703739034274,
+  "history_end_time" : 1703739034274,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "77otm68wb90",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703738754319,
+  "history_end_time" : 1703792459273,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "MThT4qfPP8jO",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\n# -125, 25, -100, 49\nsouthwest_lon = -125.0\nsouthwest_lat = 25.0\nnortheast_lon = -100.0\nnortheast_lat = 49.0\n\ntrain_start_date = \"2018-01-01\"\ntrain_end_date = \"2021-12-31\"\n\ndef get_operation_day():\n  # Get the current date and time\n  current_date = datetime.now()\n\n  # Calculate three days ago\n  three_days_ago = current_date - timedelta(days=3)\n\n  # Format the date as a string\n  three_days_ago_string = three_days_ago.strftime(\"%Y-%m-%d\")\n\n  print(three_days_ago_string)\n  return three_days_ago_string\n\ntest_start_date = get_operation_day()\n# test_start_date = \"2023-10-03\" # use this for debugging\ntest_end_date = \"2023-10-11\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef read_json_file(file_path):\n    with open(file_path, 'r', encoding='utf-8-sig') as json_file:\n        data = json.load(json_file)\n        return data\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    tt = date_object.timetuple()\n    \n\n    # Format the result as 'YYYYDDD'\n    julian_format = str('%d%03d' % (tt.tm_year, tt.tm_yday))\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-10-02\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-12-28\n2023-12-25\ntest start date:  2023-12-25\ntest end date:  2023-10-11\n/home/chetana\n2022275\n",
+  "history_begin_time" : 1703736177277,
+  "history_end_time" : 1703736177980,
+  "history_notes" : "add operation day getter to run the workflow for three days ago. Can change later. ",
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "once6cu0j31",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703736166890,
+  "history_end_time" : 1703737316874,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8zs7ingjn7c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703694763539,
+  "history_end_time" : 1703694763539,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uq2453mh4nh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703659541189,
+  "history_end_time" : 1703659541189,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "n7kq058ypgm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703658144669,
+  "history_end_time" : 1703658144669,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uohxikf2xe0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703650855758,
+  "history_end_time" : 1703650855758,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "kfzei4ld1p9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703646751516,
+  "history_end_time" : 1703650812431,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "omlndfc1mu9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703642120883,
+  "history_end_time" : 1703646749619,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gz7m2woj14z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703641988911,
+  "history_end_time" : 1703642074626,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "r9ayxm3xqf5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703629665493,
+  "history_end_time" : 1703629665493,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k6alzp639vy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703626687966,
+  "history_end_time" : 1703627783049,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7kh48zpiiis",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703625782078,
+  "history_end_time" : 1703625782078,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ywql1o1yijh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1703624783801,
+  "history_end_time" : 1703624783801,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t9lf4q4rclz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702875592806,
+  "history_end_time" : 1702875592806,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "enhoeilggik",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702871264363,
+  "history_end_time" : 1702871264363,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8jg5dmar7tl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702867996376,
+  "history_end_time" : 1702867996376,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yd1zdp7yghf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702866593373,
+  "history_end_time" : 1702866593373,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5n15z3g4ax7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702866137588,
+  "history_end_time" : 1702866137588,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wkdlt4gvboe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702657305595,
+  "history_end_time" : 1702657305595,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mogss0jh0z7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702633223031,
+  "history_end_time" : 1702633223031,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tdwxsd6xdy1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702633156895,
+  "history_end_time" : 1702633163894,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jzu1cmh252i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702274520870,
+  "history_end_time" : 1702274520870,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lguk0lvklsb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702257109186,
+  "history_end_time" : 1702257109186,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4f2udi4mrsf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702253506489,
+  "history_end_time" : 1702253506489,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nccdp41hnjc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702047800880,
+  "history_end_time" : 1702047800880,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "s4i56bfxc5f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1702046671826,
+  "history_end_time" : 1702047789479,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5p1ih2n0h26",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701838623993,
+  "history_end_time" : 1701838623993,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yyftfdgj3i4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701272631461,
+  "history_end_time" : 1701272875104,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xcqfe21bl4o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701272152690,
+  "history_end_time" : 1701272363346,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yc5oyc3be9w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701269761311,
+  "history_end_time" : 1701269761311,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jo73hxruzpt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472002,
+  "history_end_time" : 1701245472002,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "o3a264sit1t",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701234300605,
+  "history_end_time" : 1701234300605,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9fzabuewtit",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701232375260,
+  "history_end_time" : 1701234158039,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a0jm7xrg746",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701231048656,
+  "history_end_time" : 1701231048656,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "RaNP1DC601Nu",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-11-17\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    tt = date_object.timetuple()\n    \n\n    # Format the result as 'YYYYDDD'\n    julian_format = str('%d%03d' % (tt.tm_year, tt.tm_yday))\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-10-02\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-29\ntest start date:  2022-11-17\ntest end date:  2023-10-07\n/home/chetana\n2022275\n",
+  "history_begin_time" : 1701230952722,
+  "history_end_time" : 1701230953496,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "5qj10ztzv1p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701230933451,
+  "history_end_time" : 1701230952341,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "velqc5pax7h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701230796320,
+  "history_end_time" : 1701230932248,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "u1gigkgb6kv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701230384871,
+  "history_end_time" : 1701230384871,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xf66yr6eony",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701229983496,
+  "history_end_time" : 1701229983496,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w2k0206jeqv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701228899359,
+  "history_end_time" : 1701228899359,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ck8ohd3qpwg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701228374790,
+  "history_end_time" : 1701228374790,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r3qh24j5rn1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701228236330,
+  "history_end_time" : 1701228236330,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "z4w7giu9idp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701228118493,
+  "history_end_time" : 1701228118493,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1sluop2364w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701228056515,
+  "history_end_time" : 1701228056515,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4yoqgf0gunx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701227912495,
+  "history_end_time" : 1701227912495,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "45c2c162hdr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701013937394,
+  "history_end_time" : 1701015920035,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fmd6f19vyr9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700974688681,
+  "history_end_time" : 1700974688681,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2rtr083kr5t",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700885116793,
+  "history_end_time" : 1700885116793,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l7os6l2Ycuee",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-10-05\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    tt = date_object.timetuple()\n    \n\n    # Format the result as 'YYYYDDD'\n    julian_format = str('%d%03d' % (tt.tm_year, tt.tm_yday))\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-10-02\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-24\ntest start date:  2022-10-05\ntest end date:  2023-10-07\n/home/chetana\n2022275\n",
+  "history_begin_time" : 1700843780594,
+  "history_end_time" : 1700843781384,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "mtf5ZZB7Rhfe",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-10-05\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    tt = date_object.timetuple()\n    \n\n    # Format the result as 'YYYYDDD'\n    julian_format = str('%d%03d' % (tt.tm_year, tt.tm_yday))\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-01-02\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-24\ntest start date:  2022-10-05\ntest end date:  2023-10-07\n/home/chetana\n2022002\n",
+  "history_begin_time" : 1700843771321,
+  "history_end_time" : 1700843772109,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "2k26DjVtcWcr",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-10-05\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    a = (14 - date_object.month) // 12\n    y = date_object.year + 4800 - a\n    m = date_object.month + 12 * a - 3\n\n    julian_day = date_object.day + ((153 * m + 2) // 5) + 365 * y + y // 4 - y // 100 + y // 400 - 32045\n    \n    # Extract the three-digit day number\n    day_number = f\"{julian_day:03d}\"\n\n    # Format the result as 'YYYYDDD'\n    julian_format = date_object.strftime(\"%Y\") + day_number[0:3]\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-01-02\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-24\ntest start date:  2022-10-05\ntest end date:  2023-10-07\n/home/chetana\n2022245\n",
+  "history_begin_time" : 1700843665657,
+  "history_end_time" : 1700843666512,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "QzetZOZYYBvj",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-10-05\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    a = (14 - date_object.month) // 12\n    y = date_object.year + 4800 - a\n    m = date_object.month + 12 * a - 3\n\n    julian_day = date_object.day + ((153 * m + 2) // 5) + 365 * y + y // 4 - y // 100 + y // 400 - 32045\n    \n    # Extract the three-digit day number\n    day_number = f\"{julian_day:03d}\"\n\n    # Format the result as 'YYYYDDD'\n    julian_format = date_object.strftime(\"%Y\") + day_number[0:3]\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-01-01\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-24\ntest start date:  2022-10-05\ntest end date:  2023-10-07\n/home/chetana\n2022245\n",
+  "history_begin_time" : 1700843645214,
+  "history_end_time" : 1700843646112,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "njTXXgsVJAkm",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-10-05\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    a = (14 - date_object.month) // 12\n    y = date_object.year + 4800 - a\n    m = date_object.month + 12 * a - 3\n\n    julian_day = date_object.day + ((153 * m + 2) // 5) + 365 * y + y // 4 - y // 100 + y // 400 - 32045\n    \n    # Extract the three-digit day number\n    day_number = f\"{julian_day:03d}\"\n\n    # Format the result as 'YYYYDDD'\n    julian_format = date_object.strftime(\"%Y\") + day_number[0:3]\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-10-01\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-24\ntest start date:  2022-10-05\ntest end date:  2023-10-07\n/home/chetana\n2022245\n",
+  "history_begin_time" : 1700843634650,
+  "history_end_time" : 1700843635489,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "lmLSIOU3I9Ys",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-10-05\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    a = (14 - date_object.month) // 12\n    y = date_object.year + 4800 - a\n    m = date_object.month + 12 * a - 3\n\n    julian_day = date_object.day + ((153 * m + 2) // 5) + 365 * y + y // 4 - y // 100 + y // 400 - 32045\n    \n    # Extract the three-digit day number\n    day_number = f\"{julian_day:03d}\"\n\n    # Format the result as 'YYYYDDD'\n    julian_format = date_object.strftime(\"%Y\") + day_number\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-10-01\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-24\ntest start date:  2022-10-05\ntest end date:  2023-10-07\n/home/chetana\n20222459854\n",
+  "history_begin_time" : 1700843616500,
+  "history_end_time" : 1700843617285,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "chZ4g7OCaaId",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-10-05\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\ndef date_to_julian(date_str):\n    \"\"\"\n    Convert a date to Julian date.\n    \"\"\"\n    date_object = datetime.strptime(date_str, \"%Y-%m-%d\")\n    a = (14 - date_object.month) // 12\n    y = date_object.year + 4800 - a\n    m = date_object.month + 12 * a - 3\n\n    julian_day = date_object.day + ((153 * m + 2) // 5) + 365 * y + y // 4 - y // 100 + y // 400 - 32045\n\n    # Format the result as 'YYYYDDD'\n    julian_format = date_object.strftime(\"%Y\") + f\"{julian_day:03d}\"\n\n    return julian_format\n  \n  \nprint(date_to_julian(\"2022-10-01\"))\n#day_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-24\ntest start date:  2022-10-05\ntest end date:  2023-10-07\n/home/chetana\n20222459854\n",
+  "history_begin_time" : 1700843521585,
+  "history_end_time" : 1700843522451,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "meiD441WLxtq",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2022-10-05\"\ntest_end_date = \"2023-10-07\"\n#test_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\nday_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-11-24\ntest start date:  2022-10-05\ntest end date:  2023-10-07\n/home/chetana\n",
+  "history_begin_time" : 1700811340709,
+  "history_end_time" : 1700811341519,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "p2gihe0zz0c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700471590171,
+  "history_end_time" : 1700471590171,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nz3cx2xrm7s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700468936397,
+  "history_end_time" : 1700468936397,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0p7exdu2t7d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700461922967,
+  "history_end_time" : 1700462913671,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4fz4vokjs4z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700448500127,
+  "history_end_time" : 1700448500127,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8z66r75dnkc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700447319834,
+  "history_end_time" : 1700447319834,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "enj1vs1dxz3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700230067233,
+  "history_end_time" : 1700230067233,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yfmion1508s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700229012357,
+  "history_end_time" : 1700229012357,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wy12bweyogh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700210213800,
+  "history_end_time" : 1700210213800,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r3joncu8p7b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700209780152,
+  "history_end_time" : 1700209780152,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mftrfqk2npm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700209729237,
+  "history_end_time" : 1700209729237,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "prvr15klzzb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700203478637,
+  "history_end_time" : 1700204245680,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ikw089g2qnf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700201828253,
+  "history_end_time" : 1700201828253,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xkrccp7auqc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700200332845,
+  "history_end_time" : 1700200332845,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4ahek892tf9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700145667862,
+  "history_end_time" : 1700145667862,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rmi7ha7i1ts",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700143295296,
+  "history_end_time" : 1700143295296,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xmnhpsxhyap",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700141615804,
+  "history_end_time" : 1700141615804,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3z84oppt6dz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700134126828,
+  "history_end_time" : 1700134126828,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "meuldgvmkmi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1700133783694,
+  "history_end_time" : 1700133783694,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "34swq6zq0vp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1699992839749,
+  "history_end_time" : 1699992839749,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qmayelcfvw5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1699982145389,
+  "history_end_time" : 1699982145389,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xjso7rczpxn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1699941614792,
+  "history_end_time" : 1699941614792,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1qe5em3ctrh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1699939440535,
+  "history_end_time" : 1699939440535,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ems7ruutx0c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1699937910457,
+  "history_end_time" : 1699937910457,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x2uvps6ddgb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1699805634599,
+  "history_end_time" : 1699806085190,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6w26x7p86x4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1699684154050,
+  "history_end_time" : 1699684154050,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7sp7mtft65x",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1699681071324,
+  "history_end_time" : 1699681071324,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zkybzth1pfe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762678667,
+  "history_end_time" : 1698762678667,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "pddwmqe3q4b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637955,
+  "history_end_time" : 1698762637955,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ab5r6ygskc6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698276496949,
+  "history_end_time" : 1698276496949,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "S7R9n99FVA2c",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2018-01-01\"\ntest_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\nday_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-10-25\ntest start date:  2018-01-01\ntest end date:  2023-10-25\n/home/ubuntu\n",
+  "history_begin_time" : 1698276478312,
+  "history_end_time" : 1698276478816,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "xwds7lqdd30",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698252277355,
+  "history_end_time" : 1698252277355,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "eo5s2rwch59",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698251392456,
+  "history_end_time" : 1698251392456,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ftk0n5h5ov8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698228210932,
+  "history_end_time" : 1698228210932,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "epu5kdt2esa",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698227897127,
+  "history_end_time" : 1698227897127,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lknbjlr2aoj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698163737281,
+  "history_end_time" : 1698163737281,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lZ2MYnUIo4nc",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2023-05-29\"\ntest_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\nday_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-10-24\ntest start date:  2023-05-29\ntest end date:  2023-10-24\n/home/ubuntu\n",
+  "history_begin_time" : 1698163732783,
+  "history_end_time" : 1698163733274,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "fyohd60g9kl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698163445816,
+  "history_end_time" : 1698163445816,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "kmKsCcKIXSq2",
+  "history_input" : "from datetime import date, datetime, timedelta\nimport json\nimport math\nimport numpy as np\nimport os\nimport pandas as pd\n# import ee\n#import seaborn as sns\nimport matplotlib.pyplot as plt\n#import geopandas as gpd\n#import geojson\n\ntoday = date.today()\n\n# dd/mm/YY\nd1 = today.strftime(\"%Y-%m-%d\")\nprint(\"today date =\", d1)\n\ntrain_start_date = \"2019-01-01\"\ntrain_end_date = \"2022-12-31\"\n\ntest_start_date = \"2023-05-27\"\ntest_end_date = d1\nprint(\"test start date: \", test_start_date)\nprint(\"test end date: \", test_end_date)\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n\nwork_dir = f\"{homedir}/gridmet_test_run\"\n\n# Define a function to convert the month to season\ndef month_to_season(month):\n    if 3 <= month <= 5:\n        return 1\n    elif 6 <= month <= 8:\n        return 2\n    elif 9 <= month <= 11:\n        return 3\n    else:\n        return 4\n\ndef calculateDistance(lat1, lon1, lat2, lon2):\n    \"\"\"\n    Calculate the distance (Euclidean) between two sets of coordinates (lat1, lon1) and (lat2, lon2).\n    \n    Parameters:\n    - lat1 (float): Latitude of the first point.\n    - lon1 (float): Longitude of the first point.\n    - lat2 (float): Latitude of the second point.\n    - lon2 (float): Longitude of the second point.\n    \n    Returns:\n    - float: The Euclidean distance between the two points.\n    \"\"\"\n    lat1 = float(lat1)\n    lon1 = float(lon1)\n    lat2 = float(lat2)\n    lon2 = float(lon2)\n    return math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)\n\ndef create_cell_location_csv():\n    \"\"\"\n    Create a CSV file containing cell locations from a GeoJSON file.\n    \"\"\"\n    # read grid cell\n    gridcells_file = f\"{github_dir}/data/snowcast_provided/grid_cells_eval.geojson\"\n    all_cell_coords_file = f\"{github_dir}/data/snowcast_provided/all_cell_coords_file.csv\"\n    if os.path.exists(all_cell_coords_file):\n        os.remove(all_cell_coords_file)\n\n    grid_coords_df = pd.DataFrame(columns=[\"cell_id\", \"lat\", \"lon\"])\n    print(grid_coords_df.head())\n    gridcells = geojson.load(open(gridcells_file))\n    for idx, cell in enumerate(gridcells['features']):\n        current_cell_id = cell['properties']['cell_id']\n        cell_lon = np.unique(np.ravel(cell['geometry']['coordinates'])[0::2]).mean()\n        cell_lat = np.unique(np.ravel(cell['geometry']['coordinates'])[1::2]).mean()\n        grid_coords_df.loc[len(grid_coords_df.index)] = [current_cell_id, cell_lat, cell_lon]\n\n    # grid_coords_np = grid_coords_df.to_numpy()\n    # print(grid_coords_np.shape)\n    grid_coords_df.to_csv(all_cell_coords_file, index=False)\n    # np.savetxt(all_cell_coords_file, grid_coords_np[:, 1:], delimiter=\",\")\n    # print(grid_coords_np.shape)\n\ndef get_latest_date_from_an_array(arr, date_format):\n    \"\"\"\n    Get the latest date from an array of date strings.\n    \n    Parameters:\n    - arr (list): List of date strings.\n    - date_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest date string.\n    \"\"\"\n    return max(arr, key=lambda x: datetime.strptime(x, date_format))\n\ndef findLastStopDate(target_testing_dir, data_format):\n    \"\"\"\n    Find the last stop date from CSV files in a directory.\n    \n    Parameters:\n    - target_testing_dir (str): Directory containing CSV files.\n    - data_format (str): Date format for parsing the date strings.\n    \n    Returns:\n    - str: The latest stop date.\n    \"\"\"\n    date_list = []\n    for filename in os.listdir(target_testing_dir):\n        f = os.path.join(target_testing_dir, filename)\n        # checking if it is a file\n        if os.path.isfile(f) and \".csv\" in f:\n            pdf = pd.read_csv(f, header=0, index_col=0)\n            date_list = np.concatenate((date_list, pdf.index.unique()))\n    latest_date = get_latest_date_from_an_array(date_list, data_format)\n    print(latest_date)\n    date_time_obj = datetime.strptime(latest_date, data_format)\n    return date_time_obj.strftime(\"%Y-%m-%d\")\n\ndef convert_date_from_1900(day_value):\n    \"\"\"\n    Convert a day value since 1900 to a date string in the format \"YYYY-MM-DD\".\n    \n    Parameters:\n    - day_value (int): Number of days since January 1, 1900.\n    \n    Returns:\n    - str: Date string in \"YYYY-MM-DD\" format.\n    \"\"\"\n    reference_date = datetime(1900, 1, 1)\n    result_date = reference_date + timedelta(days=day_value)\n    return result_date.strftime(\"%Y-%m-%d\")\n\ndef convert_date_to_1900(date_string):\n    \"\"\"\n    Convert a date string in the format \"YYYY-MM-DD\" to a day value since 1900.\n    \n    Parameters:\n    - date_string (str): Date string in \"YYYY-MM-DD\" format.\n    \n    Returns:\n    - int: Number of days since January 1, 1900.\n    \"\"\"\n    input_date = datetime.strptime(date_string, \"%Y-%m-%d\")\n    reference_date = datetime(1900, 1, 1)\n    delta = input_date - reference_date\n    day_value = delta.days\n    return day_value\n\nday_index = convert_date_to_1900(test_start_date)\n#create_cell_location_csv()\n#findLastStopDate(f\"{github_dir}/data/sim_testing/gridmet/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/sentinel1/\", \"%Y-%m-%d %H:%M:%S\")\n#findLastStopDate(f\"{github_dir}/data/sat_testing/modis/\", \"%Y-%m-%d\")\n",
+  "history_output" : "today date = 2023-10-24\ntest start date:  2023-05-27\ntest end date:  2023-10-24\n/home/ubuntu\n",
+  "history_begin_time" : 1698163343459,
+  "history_end_time" : 1698163343942,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "ihwwhiydu6v",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698163121529,
+  "history_end_time" : 1698163121529,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mcqbwxqw3pw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698160809342,
+  "history_end_time" : 1698160809342,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t9xlfqpij9e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698157805161,
+  "history_end_time" : 1698157805161,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ya655qtvfva",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698152099726,
+  "history_end_time" : 1698152099726,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bjjkc3vfti1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698095495710,
+  "history_end_time" : 1698095495710,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gzlgkfg5hsh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698075453547,
+  "history_end_time" : 1698075453547,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rz7nmvtw6ye",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1697349529987,
+  "history_end_time" : 1697349529987,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "biugmquq2k5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1697348852245,
+  "history_end_time" : 1697348852245,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2f0ul8ke9qa",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1697189923536,
+  "history_end_time" : 1697189923536,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4bsf5os1kx2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1697188523278,
+  "history_end_time" : 1697188523278,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zn0khuo0ti5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1697187892241,
+  "history_end_time" : 1697187892241,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zfi3ymga9h0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1697187367945,
+  "history_end_time" : 1697187367945,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
   "history_id" : "t12qni6pq4a",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
