@@ -1,0 +1,571 @@
+[{
+  "history_id" : "wpayl4gjtd4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471984,
+  "history_end_time" : 1701245471984,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nt4079zt42g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471985,
+  "history_end_time" : 1701245471985,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8q0wl215842",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471987,
+  "history_end_time" : 1701245471987,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wgd3c3s3bvs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471988,
+  "history_end_time" : 1701245471988,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cizyl1sf9tu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471989,
+  "history_end_time" : 1701245471989,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fd5x9wf1s07",
+  "history_input" : "import joblib\nimport pandas as pd\nfrom sklearn.preprocessing import MinMaxScaler, StandardScaler\nimport numpy as np\nfrom snowcast_utils import homedir, work_dir, month_to_season, test_start_date\nimport os\nimport random\nimport string\nimport shutil\nfrom model_creation_et import selected_columns\n\ndef generate_random_string(length):\n    # Define the characters that can be used in the random string\n    characters = string.ascii_letters + string.digits  # You can customize this to include other characters if needed\n\n    # Generate a random string of the specified length\n    random_string = ''.join(random.choice(characters) for _ in range(length))\n\n    return random_string\n  \n\ndef load_model(model_path):\n    \"\"\"\n    Load a machine learning model from a file.\n\n    Args:\n        model_path (str): Path to the saved model file.\n\n    Returns:\n        model: The loaded machine learning model.\n    \"\"\"\n    return joblib.load(model_path)\n\ndef load_data(file_path):\n    \"\"\"\n    Load data from a CSV file.\n\n    Args:\n        file_path (str): Path to the CSV file containing the data.\n\n    Returns:\n        pd.DataFrame: A pandas DataFrame containing the loaded data.\n    \"\"\"\n    return pd.read_csv(file_path)\n\ndef preprocess_data(data):\n    \"\"\"\n    Preprocess the input data for model prediction.\n\n    Args:\n        data (pd.DataFrame): Input data in the form of a pandas DataFrame.\n\n    Returns:\n        pd.DataFrame: Preprocessed data ready for prediction.\n    \"\"\"\n    data['date'] = pd.to_datetime(data['date'])\n    #print(\"check date format: \", data.head())\n    #data['date'] = data['date'].dt.strftime('%j').astype(int)\n    #data['date'] = data['date'].dt.month.apply(month_to_season)\n    data.replace('--', pd.NA, inplace=True)\n    \n    \n    #data = data.apply(pd.to_numeric, errors='coerce')\n\n    data.rename(columns={'Latitude': 'lat', \n                         'Longitude': 'lon',\n                         'vpd': 'mean_vapor_pressure_deficit',\n                         'vs': 'wind_speed', \n                         'pr': 'precipitation_amount', \n                         'etr': 'potential_evapotranspiration',\n                         'tmmn': 'air_temperature_tmmn',\n                         'tmmx': 'air_temperature_tmmx',\n                         'rmin': 'relative_humidity_rmin',\n                         'rmax': 'relative_humidity_rmax',\n                         'Elevation': 'elevation',\n                         'Slope': 'slope',\n                         'Aspect': 'aspect',\n                         'Curvature': 'curvature',\n                         'Northness': 'northness',\n                         'Eastness': 'eastness',\n                         'cumulative_AMSR_SWE': 'cumulative_SWE',\n                         'cumulative_AMSR_Flag': 'cumulative_Flag',\n                         'cumulative_tmmn':'cumulative_air_temperature_tmmn',\n                         'cumulative_etr': 'cumulative_potential_evapotranspiration',\n                         'cumulative_vpd': 'cumulative_mean_vapor_pressure_deficit',\n                         'cumulative_rmax': 'cumulative_relative_humidity_rmax', \n                         'cumulative_rmin': 'cumulative_relative_humidity_rmin',\n                         'cumulative_pr': 'cumulative_precipitation_amount',\n                         'cumulative_tmmx': 'cumulative_air_temperature_tmmx',\n                         'cumulative_vs': 'cumulative_wind_speed',\n                         'AMSR_SWE': 'SWE',\n                         'AMSR_Flag': 'Flag',\n#                          'relative_humidity_rmin': '',\n#                          'cumulative_rmin',\n#                          'mean_vapor_pressure_deficit', \n#                          'cumulative_vpd', \n#                          'wind_speed',\n#                          'cumulative_vs', \n#                          'relative_humidity_rmax', 'cumulative_rmax',\n\n# 'precipitation_amount', 'cumulative_pr', 'air_temperature_tmmx',\n\n# 'cumulative_tmmx', 'potential_evapotranspiration', 'cumulative_etr',\n\n# 'air_temperature_tmmn', 'cumulative_tmmn', 'x', 'y', 'elevation',\n\n# 'slope', 'aspect', 'curvature', 'northness', 'eastness', 'AMSR_SWE',\n\n# 'cumulative_AMSR_SWE', 'AMSR_Flag', 'cumulative_AMSR_Flag',\n                        }, inplace=True)\n\n    print(data.head())\n    print(data.columns)\n    \n    # filter out three days for final visualization to accelerate the process\n    #dates_to_match = ['2018-03-15', '2018-04-15', '2018-05-15']\n    #mask = data['date'].dt.strftime('%Y-%m-%d').isin(dates_to_match)\n    # Filter the DataFrame based on the mask\n    #data = data[mask]\n    selected_columns.remove(\"swe_value\")\n    desired_order = selected_columns + ['lat', 'lon',]\n    \n    data = data[desired_order]\n    data = data.reindex(columns=desired_order)\n    \n    print(\"reorganized columns: \", data.columns)\n    \n    return data\n\ndef predict_swe(model, data):\n    \"\"\"\n    Predict snow water equivalent (SWE) using a machine learning model.\n\n    Args:\n        model: The machine learning model for prediction.\n        data (pd.DataFrame): Input data for prediction.\n\n    Returns:\n        pd.DataFrame: Dataframe with predicted SWE values.\n    \"\"\"\n    data = data.fillna(-999)\n    input_data = data\n    input_data = data.drop([\"lat\", \"lon\"], axis=1)\n    #input_data = data.drop(['date', 'SWE', 'Flag', 'mean_vapor_pressure_deficit', 'potential_evapotranspiration', 'air_temperature_tmmx', 'relative_humidity_rmax', 'relative_humidity_rmin',], axis=1)\n    scaler = StandardScaler()\n\n    # Fit the scaler on the training data and transform both training and testing data\n    input_data_scaled = scaler.fit_transform(input_data)\n    \n    predictions = model.predict(input_data_scaled)\n    data['predicted_swe'] = predictions\n    return data\n\ndef merge_data(original_data, predicted_data):\n    \"\"\"\n    Merge predicted SWE data with the original data.\n\n    Args:\n        original_data (pd.DataFrame): Original input data.\n        predicted_data (pd.DataFrame): Dataframe with predicted SWE values.\n\n    Returns:\n        pd.DataFrame: Merged dataframe.\n    \"\"\"\n    #new_data_extracted = predicted_data[[\"date\", \"lat\", \"lon\", \"predicted_swe\"]]\n    if \"date\" not in predicted_data:\n    \tpredicted_data[\"date\"] = test_start_date\n    new_data_extracted = predicted_data[[\"date\", \"lat\", \"lon\", \"predicted_swe\"]]\n    print(\"original_data.columns: \", original_data.columns)\n    print(\"new_data_extracted.columns: \", new_data_extracted.columns)\n    print(\"new prediction statistics: \", new_data_extracted[\"predicted_swe\"].describe())\n    #merged_df = original_data.merge(new_data_extracted, on=[\"date\", 'lat', 'lon'], how='left')\n    merged_df = original_data.merge(new_data_extracted, on=['date', 'lat', 'lon'], how='left')\n    merged_df.loc[merged_df['fsca'] == 237, 'predicted_swe'] = 0\n    merged_df.loc[merged_df['fsca'] == 239, 'predicted_swe'] = 0\n    \n    merged_df.loc[merged_df['air_temperature_tmmx'].isnull(), \n                  'predicted_swe'] = 0\n    return merged_df\n\ndef predict():\n    \"\"\"\n    Main function for predicting snow water equivalent (SWE).\n\n    Returns:\n        None\n    \"\"\"\n    height = 666\n    width = 694\n    model_path = f'{homedir}/Documents/GitHub/SnowCast/model/wormhole_ETHole_latest.joblib'\n    print(f\"Using model: {model_path}\")\n  \n    new_data_path = f'{work_dir}/testing_all_ready.csv'\n    #output_path = f'{work_dir}/test_data_predicted_three_days_only.csv'\n    latest_output_path = f'{work_dir}/test_data_predicted_latest.csv'\n    output_path = f'{work_dir}/test_data_predicted_{generate_random_string(5)}.csv'\n  \n    if os.path.exists(output_path):\n        os.remove(output_path)\n        print(f\"File '{output_path}' has been removed.\")\n\n    model = load_model(model_path)\n    new_data = load_data(new_data_path)\n    #print(\"new_data shape: \", new_data.head())\n\n    preprocessed_data = preprocess_data(new_data)\n    if len(new_data) < len(preprocessed_data):\n      raise ValueError(\"Why the preprocessed data increased?\")\n    #print('Data preprocessing completed.', preprocessed_data.head())\n    #print(f'Model used: {model_path}')\n    predicted_data = predict_swe(model, preprocessed_data)\n    print(\"how many predicted? \", len(predicted_data))\n    \n    if \"date\" not in preprocessed_data:\n    \tpreprocessed_data[\"date\"] = test_start_date\n    predicted_data = merge_data(preprocessed_data, predicted_data)\n    \n    \n    #print('Data prediction completed.')\n  \n    #print(predicted_data['date'])\n    predicted_data.to_csv(output_path, index=False)\n    print(\"Prediction successfully done \", output_path)\n    \n    shutil.copy(output_path, latest_output_path)\n    print(f\"Copied to {latest_output_path}\")\n\n#     if len(predicted_data) == height * width:\n#         print(f\"The image width, height match with the number of rows in the CSV. {len(predicted_data)} rows\")\n#     else:\n#         raise Exception(\"The total number of rows does not match\")\n\npredict()\n",
+  "history_output" : "today date = 2023-11-29\ntest start date:  2022-11-12\ntest end date:  2023-10-07\n/home/chetana\n2022275\nUsing model: /home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_latest.joblib\n    lat      lon  wind_speed  ...  cumulative_fsca      date_y  water_year\n0  49.0 -125.000         NaN  ...           8386.0  2022-11-12        2023\n1  49.0 -124.964         NaN  ...           9820.0  2022-11-12        2023\n2  49.0 -124.928         NaN  ...           8853.0  2022-11-12        2023\n3  49.0 -124.892         NaN  ...           7150.0  2022-11-12        2023\n4  49.0 -124.856         NaN  ...           7351.0  2022-11-12        2023\n[5 rows x 35 columns]\nIndex(['lat', 'lon', 'wind_speed', 'cumulative_wind_speed',\n       'mean_vapor_pressure_deficit', 'cumulative_mean_vapor_pressure_deficit',\n       'relative_humidity_rmin', 'cumulative_relative_humidity_rmin',\n       'potential_evapotranspiration',\n       'cumulative_potential_evapotranspiration', 'relative_humidity_rmax',\n       'cumulative_relative_humidity_rmax', 'air_temperature_tmmn',\n       'cumulative_air_temperature_tmmn', 'air_temperature_tmmx',\n       'cumulative_air_temperature_tmmx', 'precipitation_amount',\n       'cumulative_precipitation_amount', 'x', 'y', 'elevation', 'slope',\n       'aspect', 'curvature', 'northness', 'eastness', 'SWE', 'cumulative_SWE',\n       'Flag', 'cumulative_Flag', 'date', 'fsca', 'cumulative_fsca', 'date_y',\n       'water_year'],\n      dtype='object')\nreorganized columns:  Index(['SWE', 'cumulative_SWE', 'cumulative_relative_humidity_rmin',\n       'cumulative_air_temperature_tmmx', 'cumulative_air_temperature_tmmn',\n       'cumulative_relative_humidity_rmax',\n       'cumulative_potential_evapotranspiration', 'cumulative_fsca',\n       'cumulative_wind_speed', 'fsca', 'air_temperature_tmmx',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'relative_humidity_rmax', 'elevation', 'slope', 'curvature', 'aspect',\n       'eastness', 'northness', 'lat', 'lon'],\n      dtype='object')\nhow many predicted?  462204\noriginal_data.columns:  Index(['SWE', 'cumulative_SWE', 'cumulative_relative_humidity_rmin',\n       'cumulative_air_temperature_tmmx', 'cumulative_air_temperature_tmmn',\n       'cumulative_relative_humidity_rmax',\n       'cumulative_potential_evapotranspiration', 'cumulative_fsca',\n       'cumulative_wind_speed', 'fsca', 'air_temperature_tmmx',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'relative_humidity_rmax', 'elevation', 'slope', 'curvature', 'aspect',\n       'eastness', 'northness', 'lat', 'lon', 'date'],\n      dtype='object')\nnew_data_extracted.columns:  Index(['date', 'lat', 'lon', 'predicted_swe'], dtype='object')\nnew prediction statistics:  count    462204.000000\nmean          5.960856\nstd           1.107192\nmin           3.155942\n25%           4.914000\n50%           5.660000\n75%           6.794000\nmax           9.759000\nName: predicted_swe, dtype: float64\nPrediction successfully done  /home/chetana/gridmet_test_run/test_data_predicted_eSE8P.csv\nCopied to /home/chetana/gridmet_test_run/test_data_predicted_latest.csv\n",
+  "history_begin_time" : 1701245511498,
+  "history_end_time" : 1701245526564,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "g4m25ljyu32",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471992,
+  "history_end_time" : 1701245471992,
+  "history_notes" : null,
+  "history_process" : "urd0nk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h8rwm9jyc69",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471993,
+  "history_end_time" : 1701245471993,
+  "history_notes" : null,
+  "history_process" : "525l8q",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qtgrd5mnxmc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471994,
+  "history_end_time" : 1701245471994,
+  "history_notes" : null,
+  "history_process" : "7temiv",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p7lhvjrmg0z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471995,
+  "history_end_time" : 1701245471995,
+  "history_notes" : null,
+  "history_process" : "rmxece",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rbrnb7imr65",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471995,
+  "history_end_time" : 1701245471995,
+  "history_notes" : null,
+  "history_process" : "illwc1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4ylpyeh48lw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471996,
+  "history_end_time" : 1701245471996,
+  "history_notes" : null,
+  "history_process" : "sjs5by",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9skh1ulvzcc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471997,
+  "history_end_time" : 1701245471997,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cfqxe3ukjqz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471998,
+  "history_end_time" : 1701245471998,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "45n29c9envs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245471999,
+  "history_end_time" : 1701245471999,
+  "history_notes" : null,
+  "history_process" : "smsdr0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2psq9kexvfw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472000,
+  "history_end_time" : 1701245472000,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "d6mclmqxjyd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472001,
+  "history_end_time" : 1701245472001,
+  "history_notes" : null,
+  "history_process" : "b63prf",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jo73hxruzpt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472002,
+  "history_end_time" : 1701245472002,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r4gzzv082vh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472003,
+  "history_end_time" : 1701245472003,
+  "history_notes" : null,
+  "history_process" : "wdh394",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uhp4n6tkzmc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472004,
+  "history_end_time" : 1701245472004,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vjh7jrrcxod",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472005,
+  "history_end_time" : 1701245472005,
+  "history_notes" : null,
+  "history_process" : "ilbqzg",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "birwo3fjp60",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472005,
+  "history_end_time" : 1701245472005,
+  "history_notes" : null,
+  "history_process" : "do86ae",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "biqev88r3b8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472006,
+  "history_end_time" : 1701245472006,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xmwubkvaby0",
+  "history_input" : "\"\"\"\nThis script defines the ETHole class, which is used for training and evaluating an Extra Trees Regressor model for hole analysis.\n\nAttributes:\n    ETHole (class): A class for training and using an Extra Trees Regressor model for hole analysis.\n\nFunctions:\n    custom_loss(y_true, y_pred): A custom loss function that penalizes errors for values greater than 10.\n    get_model(): Returns the Extra Trees Regressor model with specified hyperparameters.\n    create_sample_weights(y, scale_factor): Creates sample weights based on target values and a scaling factor.\n    preprocessing(): Preprocesses the training data, including data cleaning and feature extraction.\n    train(): Trains the Extra Trees Regressor model.\n    post_processing(): Performs post-processing, including feature importance analysis and visualization.\n\"\"\"\n\nimport pandas as pd\nimport joblib\nimport sklearn\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nfrom sklearn.preprocessing import MinMaxScaler\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom model_creation_rf import RandomForestHole\nfrom snowcast_utils import work_dir, month_to_season\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.utils import compute_sample_weight\n\n\nworking_dir = work_dir\n\nclass ETHole(RandomForestHole):\n  \n    def custom_loss(y_true, y_pred):\n        \"\"\"\n        A custom loss function that penalizes errors for values greater than 10.\n\n        Args:\n            y_true (numpy.ndarray): True target values.\n            y_pred (numpy.ndarray): Predicted target values.\n\n        Returns:\n            numpy.ndarray: Custom loss values.\n        \"\"\"\n        errors = np.abs(y_true - y_pred)\n        \n        return np.where(y_true > 10, 2 * errors, errors)\n\n    def get_model(self):\n        \"\"\"\n        Returns the Extra Trees Regressor model with specified hyperparameters.\n\n        Returns:\n            ExtraTreesRegressor: The Extra Trees Regressor model.\n        \"\"\"\n#         return ExtraTreesRegressor(n_estimators=200, \n#                                    max_depth=None,\n#                                    random_state=42, \n#                                    min_samples_split=2,\n#                                    min_samples_leaf=1,\n#                                    n_jobs=5\n#                                   )\n        return ExtraTreesRegressor(n_jobs=-1, random_state=123)\n\n    def create_sample_weights(self, X, y, scale_factor, columns):\n        \"\"\"\n        Creates sample weights based on target values and a scaling factor.\n\n        Args:\n            y (numpy.ndarray): Target values.\n            scale_factor (float): Scaling factor for sample weights.\n\n        Returns:\n            numpy.ndarray: Sample weights.\n        \"\"\"\n        #return np.where(X[\"fsca\"] < 100, scale_factor, 1)\n        return (y - np.min(y)) / (np.max(y) - np.min(y)) * scale_factor\n        # Create a weight vector to assign weights to features - this is not a good idea\n#         feature_weights = {'date': 0.1, 'SWE': 1.5, 'wind_speed': 1.5, 'precipitation_amount': 2.0}\n#         default_weight = 1.0\n\n#         # Create an array of sample weights based on feature_weights\n#         sample_weights = np.array([feature_weights.get(feature, default_weight) for feature in columns])\n        #return sample_weights\n\n      \n    def preprocessing(self, chosen_columns=None):\n        \"\"\"\n        Preprocesses the training data, including data cleaning and feature extraction.\n        \"\"\"\n        #training_data_path = f'{working_dir}/final_merged_data_3yrs_cleaned.csv'\n        #training_data_path = f'{working_dir}/final_merged_data_3yrs_cleaned_v3.csv'\n        #training_data_path = f'{working_dir}/all_merged_training_cum_water_year_winter_month_only.csv' # snotel points\n#         training_data_path = f'{working_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'\n        training_data_path = f\"{working_dir}/final_merged_data_3yrs_cleaned_v4_slope_corrected_cumulative_v1.csv\"\n        \n        print(\"preparing training data from csv: \", training_data_path)\n        data = pd.read_csv(training_data_path)\n        print(data.head())\n        \n        data['date'] = pd.to_datetime(data['date'])\n        #reference_date = pd.to_datetime('1900-01-01')\n        #data['date'] = (data['date'] - reference_date).dt.days\n        # just use julian day\n        #data['date'] = data['date'].dt.strftime('%j').astype(int)\n        # just use the season to reduce the bias on month or dates\n        data['date'] = data['date'].dt.month.apply(month_to_season)\n        \n        data.replace('--', pd.NA, inplace=True)\n        data.fillna(-999, inplace=True)\n        \n        data = data[(data['swe_value'] != -999)]\n        \n        if chosen_columns == None:\n#           data = data.drop('Unnamed: 0', axis=1)\n          non_numeric_columns = data.select_dtypes(exclude=['number']).columns\n          # Drop non-numeric columns\n          data = data.drop(columns=non_numeric_columns)\n          print(\"all non-numeric columns are dropped: \", non_numeric_columns)\n          #data = data.drop('level_0', axis=1)\n          data = data.drop(['date'], axis=1)\n          data = data.drop(['lat'], axis=1)\n          data = data.drop(['lon'], axis=1)\n        else:\n          data = data[chosen_columns]\n#         (['lat', 'lon', 'SWE', 'Flag', 'air_temperature_tmmn',\n# 'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n# 'relative_humidity_rmax', 'relative_humidity_rmin',\n# 'precipitation_amount', 'air_temperature_tmmx', 'wind_speed',\n# 'elevation', 'slope', 'curvature', 'aspect', 'eastness', 'northness']\n        \n        \n        X = data.drop('swe_value', axis=1)\n        print('required features:', X.columns)\n        y = data['swe_value']\n        print(\"describe the statistics of swe_value: \", y.describe())\n        \n        print(\"input features and order: \", X.columns)\n        print(\"training data row number: \", len(X))\n        \n        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n        \n        # Initialize the StandardScaler\n        scaler = StandardScaler()\n\n        # Fit the scaler on the training data and transform both training and testing data\n        X_train_scaled = scaler.fit_transform(X_train)\n        X_test_scaled = scaler.transform(X_test)\n        \n        self.weights = self.create_sample_weights(X_train, y_train, scale_factor=1.70, columns=X.columns)\n\n        self.train_x, self.train_y = X_train_scaled, y_train\n        self.test_x, self.test_y = X_test_scaled, y_test\n        self.feature_names = X_train.columns\n        \n    def train(self):\n        \"\"\"\n        Trains the Extra Trees Regressor model.\n        \"\"\"\n        # Calculate sample weights based on errors (you may need to customize this)\n#         self.classifier.fit(self.train_x, self.train_y)\n#         errors = abs(self.train_y - self.classifier.predict(self.train_x))\n#         print(errors)\n        \n        #self.weights = 1+self.train_y # You can adjust this formula as needed\n#         weights = np.zeros_like(self.train_y, dtype=float)\n\n#         # Set weight to 1 if the target variable is 0\n#         weights[self.train_y == 0] = 10.0\n\n#         # Calculate weights for non-zero target values\n#         non_zero_indices = self.train_y != 0\n#         weights[non_zero_indices] = 0.1 / np.abs(self.train_y[non_zero_indices])\n\n#         self.classifier.fit(self.train_x, self.train_y, sample_weight=self.weights)\n#         self.classifier.fit(self.train_x, self.train_y)\n        \n#         errors = abs(self.train_y - self.classifier.predict(self.train_x))\n#         self.weights = 1 / (1 + errors)  # You can adjust this formula as needed\n        self.classifier.fit(self.train_x, self.train_y, sample_weight=self.weights)\n\n        # Fit the classifier\n#         self.classifier.fit(self.train_x, self.train_y)\n\n#         # Make predictions\n#         predictions = self.classifier.predict(self.train_x)\n\n#         # Calculate absolute errors\n#         errors = np.abs(self.train_y - predictions)\n\n#         # Assign weights based on errors (higher errors get higher weights)\n#         weights = compute_sample_weight('balanced', errors)\n#         self.classifier.fit(self.train_x, self.train_y, sample_weight=weights)\n\n    def post_processing(self, chosen_columns=None):\n        \"\"\"\n        Performs post-processing, including feature importance analysis and visualization.\n        \"\"\"\n        feature_importances = self.classifier.feature_importances_\n        feature_names = self.feature_names\n        sorted_indices = np.argsort(feature_importances)[::-1]\n        sorted_importances = feature_importances[sorted_indices]\n        sorted_feature_names = feature_names[sorted_indices]\n\n        plt.figure(figsize=(10, 6))\n        plt.bar(range(len(feature_names)), sorted_importances, tick_label=sorted_feature_names)\n        plt.xticks(rotation=90)\n        plt.xlabel('Feature')\n        plt.ylabel('Feature Importance')\n        plt.title('Feature Importance Plot (ET model)')\n        plt.tight_layout()\n        if chosen_columns == None:\n          feature_png = f'{work_dir}/testing_output/et-model-feature-importance-latest.png'\n        else:\n          feature_png = f'{work_dir}/testing_output/et-model-feature-importance-{len(chosen_columns)}.png'\n        plt.savefig(feature_png)\n        print(f\"Feature image is saved {feature_png}\")\n\n# Instantiate ETHole class and perform tasks\n\n# all_used_columns = ['station_elevation', 'elevation', 'aspect', 'curvature', 'slope',\n# 'eastness', 'northness', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx',\n# 'vpd', 'vs', 'lc_code',  'fSCA',  'cumulative_etr',\n# 'cumulative_rmax', 'cumulative_rmin', 'cumulative_tmmn',\n# 'cumulative_tmmx', 'cumulative_vpd', 'cumulative_vs', 'cumulative_pr', 'swe_value']\n\n#all_used_columns = ['cumulative_pr','station_elevation', 'cumulative_tmmn', 'cumulative_tmmx', 'northness', 'cumulative_vs', 'cumulative_rmax', 'cumulative_etr','aspect','cumulative_rmin', 'elevation', 'cumulative_vpd',  'swe_value']\n# selected_columns = [\"lat\",\"lon\",\"elevation\",\"slope\",\"curvature\",\"aspect\",\"eastness\",\"northness\",\"cumulative_SWE\",\"cumulative_Flag\",\"cumulative_air_temperature_tmmn\",\"cumulative_potential_evapotranspiration\",\"cumulative_mean_vapor_pressure_deficit\",\"cumulative_relative_humidity_rmax\",\"cumulative_relative_humidity_rmin\",\"cumulative_precipitation_amount\",\"cumulative_air_temperature_tmmx\",\"cumulative_wind_speed\", \"swe_value\"]\n\n# all current variables without time series\n# selected_columns = ['SWE', 'Flag', 'air_temperature_tmmn', 'potential_evapotranspiration',\n# 'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n# 'relative_humidity_rmin', 'precipitation_amount',\n# 'air_temperature_tmmx', 'wind_speed', 'elevation', 'slope', 'curvature',\n# 'aspect', 'eastness', 'northness', 'cumulative_SWE',\n# 'cumulative_Flag', 'cumulative_air_temperature_tmmn',\n# 'cumulative_potential_evapotranspiration',\n# 'cumulative_mean_vapor_pressure_deficit',\n# 'cumulative_relative_humidity_rmax',\n# 'cumulative_relative_humidity_rmin', 'cumulative_precipitation_amount',\n# 'cumulative_air_temperature_tmmx', 'cumulative_wind_speed', 'swe_value']\n\n\nselected_columns = [\n  'swe_value', \n  'SWE', \n  'cumulative_SWE',\n  'cumulative_relative_humidity_rmin', \n  'cumulative_air_temperature_tmmx', 'cumulative_air_temperature_tmmn',\n  'cumulative_relative_humidity_rmax',\n  'cumulative_potential_evapotranspiration',\n  'cumulative_fsca',\n  'cumulative_wind_speed',\n  'fsca',\n  'air_temperature_tmmx', \n  'air_temperature_tmmn', \n  'potential_evapotranspiration', \n  'relative_humidity_rmax', \n  'elevation',\t'slope',\t'curvature',\t'aspect',\t\n  'eastness',\t'northness',\n]\n\nif __name__ == \"__main__\":\n  hole = ETHole()\n  hole.preprocessing(chosen_columns = selected_columns)\n  # hole.preprocessing()\n  hole.train()\n  hole.test()\n  hole.evaluate()\n  hole.save()\n  hole.post_processing(chosen_columns = selected_columns)\n  # hole.post_processing()\n\n",
+  "history_output" : "today date = 2023-11-29\ntest start date:  2022-11-12\ntest end date:  2023-10-07\n/home/chetana\n2022275\npreparing training data from csv:  /home/chetana/gridmet_test_run/final_merged_data_3yrs_cleaned_v4_slope_corrected_cumulative_v1.csv\n         date        lat  ...  cumulative_wind_speed  cumulative_fsca\n0  2019-10-01  33.358254  ...                    4.9            250.0\n1  2019-10-01  33.358254  ...                    9.8            500.0\n2  2019-10-01  33.358254  ...                   14.7            750.0\n3  2019-10-02  33.358254  ...                   16.5            750.0\n4  2019-10-02  33.358254  ...                   18.3            750.0\n[5 rows x 112 columns]\nrequired features: Index(['SWE', 'cumulative_SWE', 'cumulative_relative_humidity_rmin',\n       'cumulative_air_temperature_tmmx', 'cumulative_air_temperature_tmmn',\n       'cumulative_relative_humidity_rmax',\n       'cumulative_potential_evapotranspiration', 'cumulative_fsca',\n       'cumulative_wind_speed', 'fsca', 'air_temperature_tmmx',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'relative_humidity_rmax', 'elevation', 'slope', 'curvature', 'aspect',\n       'eastness', 'northness'],\n      dtype='object')\ndescribe the statistics of swe_value:  count    712845.000000\nmean          2.661918\nstd           3.989611\nmin           0.000000\n25%           0.000000\n50%           0.000000\n75%           5.900000\nmax          14.300000\nName: swe_value, dtype: float64\ninput features and order:  Index(['SWE', 'cumulative_SWE', 'cumulative_relative_humidity_rmin',\n       'cumulative_air_temperature_tmmx', 'cumulative_air_temperature_tmmn',\n       'cumulative_relative_humidity_rmax',\n       'cumulative_potential_evapotranspiration', 'cumulative_fsca',\n       'cumulative_wind_speed', 'fsca', 'air_temperature_tmmx',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'relative_humidity_rmax', 'elevation', 'slope', 'curvature', 'aspect',\n       'eastness', 'northness'],\n      dtype='object')\ntraining data row number:  712845\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 2.2350686336612045\nMSE is 11.169684747767795\nR2 score is 0.2977397983593617\nRMSE is 3.3421078300629072\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_20232911081145.joblib\na copy of the model is saved to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_latest.joblib\nFeature image is saved /home/chetana/gridmet_test_run/testing_output/et-model-feature-importance-21.png\n",
+  "history_begin_time" : 1701245473643,
+  "history_end_time" : 1701245509711,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "10ffzfzdw3z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472008,
+  "history_end_time" : 1701245472008,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "owav66q9l55",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472009,
+  "history_end_time" : 1701245472009,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "566po879lw4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472010,
+  "history_end_time" : 1701245472010,
+  "history_notes" : null,
+  "history_process" : "doinnd",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ga0zz4d7vaj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472011,
+  "history_end_time" : 1701245472011,
+  "history_notes" : null,
+  "history_process" : "b7a4fu",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "df8843ybf75",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472012,
+  "history_end_time" : 1701245472012,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "sk31vwxdgh8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472013,
+  "history_end_time" : 1701245472013,
+  "history_notes" : null,
+  "history_process" : "oon4sb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "b61oht1tjs2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472014,
+  "history_end_time" : 1701245472014,
+  "history_notes" : null,
+  "history_process" : "fa7e4u",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fr2yp9x09ah",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472015,
+  "history_end_time" : 1701245472015,
+  "history_notes" : null,
+  "history_process" : "drwmbo",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jsngc11bpra",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472016,
+  "history_end_time" : 1701245472016,
+  "history_notes" : null,
+  "history_process" : "2n7b06",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "n5awtb5bapb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472017,
+  "history_end_time" : 1701245472017,
+  "history_notes" : null,
+  "history_process" : "bwdy3s",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xtk7v3r3kuz",
+  "history_input" : "import pandas as pd\nimport matplotlib.pyplot as plt\nfrom datetime import timedelta, datetime\nimport numpy as np\nimport uuid\nimport matplotlib.colors as mcolors\n\n# Import utility functions and variables from 'snowcast_utils'\nfrom snowcast_utils import homedir, work_dir, test_start_date\n\n# Define a custom colormap with specified colors and ranges\ncolors = [\n    (0.8627, 0.8627, 0.8627),  # #DCDCDC - 0 - 1\n    (0.8627, 1.0000, 1.0000),  # #DCFFFF - 1 - 2\n    (0.6000, 1.0000, 1.0000),  # #99FFFF - 2 - 4\n    (0.5569, 0.8235, 1.0000),  # #8ED2FF - 4 - 6\n    (0.4509, 0.6196, 0.8745),  # #739EDF - 6 - 8\n    (0.4157, 0.4706, 1.0000),  # #6A78FF - 8 - 10\n    (0.4235, 0.2784, 1.0000),  # #6C47FF - 10 - 12\n    (0.5529, 0.0980, 1.0000),  # #8D19FF - 12 - 14\n    (0.7333, 0.0000, 0.9176),  # #BB00EA - 14 - 16\n    (0.8392, 0.0000, 0.7490),  # #D600BF - 16 - 18\n    (0.7569, 0.0039, 0.4549),  # #C10074 - 18 - 20\n    (0.6784, 0.0000, 0.1961),  # #AD0032 - 20 - 30\n    (0.5020, 0.0000, 0.0000)   # #800000 - > 30\n]\n\ncmap_name = 'custom_snow_colormap'\ncustom_cmap = mcolors.ListedColormap(colors)\n\n# Define the lat_lon_to_map_coordinates function\ndef lat_lon_to_map_coordinates(lon, lat, m):\n    \"\"\"\n    Convert latitude and longitude coordinates to map coordinates.\n\n    Args:\n        lon (float or array-like): Longitude coordinate(s).\n        lat (float or array-like): Latitude coordinate(s).\n        m (Basemap): Basemap object representing the map projection.\n\n    Returns:\n        tuple: Tuple containing the converted map coordinates (x, y).\n    \"\"\"\n    x, y = m(lon, lat)\n    return x, y\n\n# Define value ranges for color mapping\nfixed_value_ranges = [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 30]\n\ndef create_color_maps_with_value_range(df_col, value_ranges=None):\n    \"\"\"\n    Create a colormap for value ranges and map data values to colors.\n\n    Args:\n        df_col (pd.Series): A Pandas Series containing data values.\n        value_ranges (list, optional): A list of value ranges for color mapping.\n            If not provided, the ranges will be determined automatically.\n\n    Returns:\n        tuple: Tuple containing the color mapping and the updated value ranges.\n    \"\"\"\n    new_value_ranges = value_ranges\n    if value_ranges is None:\n        max_value = df_col.max()\n        min_value = df_col.min()\n        if min_value < 0:\n            min_value = 0\n        step_size = (max_value - min_value) / 12\n\n        # Create 10 periods\n        new_value_ranges = [min_value + i * step_size for i in range(12)]\n    \n    #print(\"new_value_ranges: \", new_value_ranges)\n  \n    # Define a custom function to map data values to colors\n    def map_value_to_color(value):\n        # Iterate through the value ranges to find the appropriate color index\n        for i, range_max in enumerate(new_value_ranges):\n            if value <= range_max:\n                return colors[i]\n\n        # If the value is greater than the largest range, return the last color\n        return colors[-1]\n\n    # Map predicted_swe values to colors using the custom function\n    color_mapping = [map_value_to_color(value) for value in df_col.values]\n    return color_mapping, new_value_ranges\n\ndef convert_csvs_to_images():\n    \"\"\"\n    Convert CSV data to images with color-coded SWE predictions.\n\n    Returns:\n        None\n    \"\"\"\n    global fixed_value_ranges\n    data = pd.read_csv(f\"{homedir}/gridmet_test_run/test_data_predicted_n97KJ.csv\")\n    print(\"statistic of predicted_swe: \", data['predicted_swe'].describe())\n    data['predicted_swe'].fillna(0, inplace=True)\n    \n    for column in data.columns:\n        column_data = data[column]\n        print(column_data.describe())\n    \n    # Create a figure with a white background\n    fig = plt.figure(facecolor='white')\n\n    lon_min, lon_max = -125, -100\n    lat_min, lat_max = 25, 49.5\n\n    m = Basemap(llcrnrlon=lon_min, llcrnrlat=lat_min, urcrnrlon=lon_max, urcrnrlat=lat_max,\n                projection='merc', resolution='i')\n\n    x, y = m(data['lon'].values, data['lat'].values)\n    print(data.columns)\n\n    color_mapping, value_ranges = create_color_maps_with_value_range(data[\"predicted_swe\"], fixed_value_ranges)\n    \n    # Plot the data using the custom colormap\n    plt.scatter(x, y, c=color_mapping, cmap=custom_cmap, s=30, edgecolors='none', alpha=0.7)\n    \n    # Draw coastlines and other map features\n    m.drawcoastlines()\n    m.drawcountries()\n    m.drawstates()\n\n    reference_date = datetime(1900, 1, 1)\n    day_value = day_index\n    \n    result_date = reference_date + timedelta(days=day_value)\n    today = result_date.strftime(\"%Y-%m-%d\")\n    timestamp_string = result_date.strftime(\"%Y-%m-%d\")\n    \n    # Add a title\n    plt.title(f'Predicted SWE in the Western US - {today}', pad=20)\n\n    # Add labels for latitude and longitude on x and y axes with smaller font size\n    plt.xlabel('Longitude', fontsize=6)\n    plt.ylabel('Latitude', fontsize=6)\n\n    # Add longitude values to the x-axis and adjust font size\n    x_ticks_labels = np.arange(lon_min, lon_max + 5, 5)\n    x_tick_labels_str = [f\"{lon:.1f}°W\" if lon < 0 else f\"{lon:.1f}°E\" for lon in x_ticks_labels]\n    plt.xticks(*m(x_ticks_labels, [lat_min] * len(x_ticks_labels)), fontsize=6)\n    plt.gca().set_xticklabels(x_tick_labels_str)\n\n    # Add latitude values to the y-axis and adjust font size\n    y_ticks_labels = np.arange(lat_min, lat_max + 5, 5)\n    y_tick_labels_str = [f\"{lat:.1f}°N\" if lat >= 0 else f\"{abs(lat):.1f}°S\" for lat in y_ticks_labels]\n    plt.yticks(*m([lon_min] * len(y_ticks_labels), y_ticks_labels), fontsize=6)\n    plt.gca().set_yticklabels(y_tick_labels_str)\n\n    # Convert map coordinates to latitude and longitude for y-axis labels\n    y_tick_positions = np.linspace(lat_min, lat_max, len(y_ticks_labels))\n    y_tick_positions_map_x, y_tick_positions_map_y = lat_lon_to_map_coordinates([lon_min] * len(y_ticks_labels), y_tick_positions, m)\n    y_tick_positions_lat, _ = m(y_tick_positions_map_x, y_tick_positions_map_y, inverse=True)\n    y_tick_positions_lat_str = [f\"{lat:.1f}°N\" if lat >= 0 else f\"{abs(lat):.1f}°S\" for lat in y_tick_positions_lat]\n    plt.yticks(y_tick_positions_map_y, y_tick_positions_lat_str, fontsize=6)\n\n    # Create custom legend elements using the same colormap\n    legend_elements = [Patch(color=colors[i], label=f\"{value_ranges[i]} - {value_ranges[i+1]-1}\" if i < len(value_ranges) - 1 else f\"> {value_ranges[-1]}\") for i in range(len(value_ranges))]\n\n    # Create the legend outside the map\n    legend = plt.legend(handles=legend_elements, loc='upper left', title='Legend', fontsize=8)\n    legend.set_bbox_to_anchor((1.01, 1)) \n\n    # Remove the color bar\n    #plt.colorbar().remove()\n\n    plt.text(0.98, 0.02, 'Copyright © SWE Wormhole Team',\n             horizontalalignment='right', verticalalignment='bottom',\n             transform=plt.gcf().transFigure, fontsize=6, color='black')\n\n    # Set the aspect ratio to 'equal' to keep the plot at the center\n    plt.gca().set_aspect('equal', adjustable='box')\n\n    # Adjust the bottom and top margins to create more white space between the title and the plot\n    plt.subplots_adjust(bottom=0.15, right=0.80)  # Adjust right margin to accommodate the legend\n    # Show the plot or save it to a file\n    new_plot_path = f'{homedir}/gridmet_test_run/predicted_swe-{test_start_date}.png'\n    print(f\"The new plot is saved to {new_plot_path}\")\n    plt.savefig(new_plot_path)\n    # plt.show()  # Uncomment this line if you want to display the plot directly instead of saving it to a file\n\ndef plot_all_variables_in_one_csv(csv_path, res_png_path):\n    result_var_df = pd.read_csv(csv_path)\n    # Convert the 'date' column to datetime\n    result_var_df['date'] = pd.to_datetime(result_var_df['date'])\n\n    \n  \t# Create subplots with a number of rows based on the number of columns in the DataFrame\n    num_columns = len(result_var_df.columns)\n    fig_width = 5 * num_columns  # You can adjust this multiplier based on your preference\n    fig, axes = plt.subplots(nrows=1, ncols=num_columns, figsize=(fig_width, 5))\n\n  \t# Plot each variable in a separate subplot\n    for i, column_name in enumerate(result_var_df.columns):\n  \t    print(f\"Plot {column_name}\")\n        # Filter the DataFrame based on the target date\n  \t    result_var_df[column_name] = pd.to_numeric(result_var_df[column_name], errors='coerce')\n  \t    if \"SWE\" in column_name:\n  \t        result_var_df.loc[result_var_df[column_name] > 190, column_name] = 0\n        \n  \t    colormaplist, value_ranges = create_color_maps_with_value_range(result_var_df[column_name], fixed_value_ranges)\n  \t    scatter_plot = axes[i].scatter(\n  \t        result_var_df[\"lon\"].values, \n            result_var_df[\"lat\"].values, \n            label=column_name, \n            c=result_var_df[column_name], \n            cmap='viridis', \n              #s=200, \n            s=10, \n            marker='s',\n            edgecolor='none',\n        )\n  \t    axes[i].set_title(column_name)\n        \n        # Add a colorbar\n  \t    cbar = plt.colorbar(scatter_plot, ax=axes[i])\n  \t    cbar.set_label(column_name)  # Label for the colorbar\n\n        # Add labels and a legend\n  \t    axes[i].set_xlabel('Longitude')\n  \t    axes[i].set_ylabel('Latitude')\n  \t    axes[i].set_title(f'{column_name} Map')  # You can include target_date if needed\n  \t    axes[i].legend()\n    \n    plt.tight_layout()\n    plt.savefig(res_png_path)\n    print(f\"test image is saved at {res_png_path}\")\n    plt.close()\n    \n    \ndef plot_all_variables_in_one_figure_for_date(target_date=test_start_date):\n  \tselected_date = datetime.strptime(target_date, \"%Y-%m-%d\")\n  \ttest_csv = f\"{homedir}/gridmet_test_run/test_data_predicted_latest.csv\"\n  \tres_png_path = f\"{work_dir}/testing_output/{str(selected_date.year)}_all_variables_{target_date}.png\"\n  \tplot_all_variables_in_one_csv(test_csv, res_png_path)\n    \ndef convert_csvs_to_images_simple(target_date=test_start_date, column_name = \"predicted_swe\"):\n    \"\"\"\n    Convert CSV data to simple scatter plot images for predicted SWE.\n\n    Returns:\n        None\n    \"\"\"\n    \n    selected_date = datetime.strptime(target_date, \"%Y-%m-%d\")\n    var_name = column_name\n    test_csv = f\"{homedir}/gridmet_test_run/test_data_predicted_latest.csv\"\n    result_var_df = pd.read_csv(test_csv)\n    # Convert the 'date' column to datetime\n    result_var_df['date'] = pd.to_datetime(result_var_df['date'])\n\n    # Filter the DataFrame based on the target date\n    result_var_df[var_name] = pd.to_numeric(result_var_df[var_name], errors='coerce')\n    \n    colormaplist, value_ranges = create_color_maps_with_value_range(result_var_df[var_name], fixed_value_ranges)\n\n    # Create a scatter plot\n    plt.scatter(result_var_df[\"lon\"].values, \n                result_var_df[\"lat\"].values, \n                label=column_name, \n                c=result_var_df[column_name], \n                cmap='viridis', \n                #s=200, \n                s=10, \n                marker='s',\n                edgecolor='none',\n               )\n\n    # Add a colorbar\n    cbar = plt.colorbar()\n    cbar.set_label(column_name)  # Label for the colorbar\n    \n    # Add labels and a legend\n    plt.xlabel('Longitude')\n    plt.ylabel('Latitude')\n    plt.title(f'{column_name} Map {target_date}')\n    plt.legend()\n\n    res_png_path = f\"{work_dir}/testing_output/{str(selected_date.year)}_{var_name}_{target_date}.png\"\n    plt.savefig(res_png_path)\n    print(f\"test image is saved at {res_png_path}\")\n    plt.close()\n\n# Uncomment the function call you want to use:\n#convert_csvs_to_images()\n\n# plot the predicted SWE first\nconvert_csvs_to_images_simple(test_start_date)\n\nplot_all_variables_in_one_figure_for_date(test_start_date)\n\n# plot the training CSV\n# training_csv = f\"{homedir}/gridmet_test_run/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv\"\n# training_csv_png = f\"{homedir}/gridmet_test_run/testing_output/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv.png\"\n# plot_all_variables_in_one_csv(training_csv, training_csv_png)\n\n# plot all the other variables\n# test_csv = f\"{homedir}/gridmet_test_run/test_data_predicted_latest.csv\"\n# df = pd.read_csv(test_csv)\n\n# # Get all column names\n# column_names = df.columns\n# for column_name in column_names:\n#     print(column_name)\n#     convert_csvs_to_images_simple(test_start_date, column_name)\n\n# Define the start and end dates\n# start_date = datetime(2017, 10, 1)\n# end_date = datetime(2018, 7, 1)\n\n# # Initialize the current date to the start date\n# current_date = start_date\n\n# # Define a one-day timedelta\n# one_day = timedelta(days=1)\n\n# # Iterate through each day in the date range\n# while current_date < end_date:\n#     print(current_date.strftime('%Y-%m-%d'))\n#     convert_csvs_to_images_simple(current_date.strftime('%Y-%m-%d'))\n#     current_date += one_day\n",
+  "history_output" : "today date = 2023-11-29\ntest start date:  2022-11-12\ntest end date:  2023-10-07\n/home/chetana\n2022275\n/home/chetana/gw-workspace/xtk7v3r3kuz/convert_results_to_images.py:283: UserWarning: Creating legend with loc=\"best\" can be slow with large amounts of data.\n  plt.savefig(res_png_path)\ntest image is saved at /home/chetana/gridmet_test_run/testing_output/2022_predicted_swe_2022-11-12.png\nPlot SWE\nPlot cumulative_SWE\nPlot cumulative_relative_humidity_rmin\nPlot cumulative_air_temperature_tmmx\nPlot cumulative_air_temperature_tmmn\nPlot cumulative_relative_humidity_rmax\nPlot cumulative_potential_evapotranspiration\nPlot cumulative_fsca\nPlot cumulative_wind_speed\nPlot fsca\nPlot air_temperature_tmmx\nPlot air_temperature_tmmn\nPlot potential_evapotranspiration\nPlot relative_humidity_rmax\nPlot elevation\nPlot slope\nPlot curvature\nPlot aspect\nPlot eastness\nPlot northness\nPlot lat\nPlot lon\nPlot date\nPlot predicted_swe\n/home/chetana/gw-workspace/xtk7v3r3kuz/convert_results_to_images.py:228: UserWarning: Creating legend with loc=\"best\" can be slow with large amounts of data.\n  plt.tight_layout()\n/home/chetana/gw-workspace/xtk7v3r3kuz/convert_results_to_images.py:229: UserWarning: Creating legend with loc=\"best\" can be slow with large amounts of data.\n  plt.savefig(res_png_path)\ntest image is saved at /home/chetana/gridmet_test_run/testing_output/2022_all_variables_2022-11-12.png\n",
+  "history_begin_time" : 1701245528215,
+  "history_end_time" : 1701245813428,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "17vh0b2fsxl",
+  "history_input" : "import distutils.dir_util\nfrom snowcast_utils import work_dir\nimport os\nimport shutil\n\n\nprint(\"move the plots and the results into the http folder\")\n\ndef copy_if_modified(source_file, destination_file):\n    if os.path.exists(destination_file):\n        source_modified_time = os.path.getmtime(source_file)\n        dest_modified_time = os.path.getmtime(destination_file)\n        \n        # If the source file is modified after the destination file\n        if source_modified_time > dest_modified_time:\n            shutil.copy(source_file, destination_file)\n            print(f'Copied: {source_file}')\n    else:\n        shutil.copy(source_file, destination_file)\n        print(f'Copied: {source_file}')\n\nsource_folder = f\"{work_dir}/var_comparison/\"\ndestination_folder = f\"/var/www/html/swe_forecasting/plots/\"\n\n# Copy the folder with overwriting existing files/folders\ndistutils.dir_util.copy_tree(source_folder, destination_folder, update=1)\n\nprint(f\"Folder '{source_folder}' copied to '{destination_folder}' with overwriting.\")\n\n\n# copy the png from testing_output to plots\nsource_folder = f\"{work_dir}/testing_output/\"\n\n# Ensure the destination folder exists, create it if necessary\nif not os.path.exists(destination_folder):\n    os.makedirs(destination_folder)\n\n# Loop through the files in the source folder\nfor filename in os.listdir(source_folder):\n    # Check if the file is a PNG file\n    if filename.endswith('.png'):\n        # Build the source and destination file paths\n        source_file = os.path.join(source_folder, filename)\n        destination_file = os.path.join(destination_folder, filename)\n        \n        # Copy the file from the source to the destination\n        copy_if_modified(source_file, destination_file)\n        \n",
+  "history_output" : "today date = 2023-11-29\ntest start date:  2022-11-12\ntest end date:  2023-10-07\n/home/chetana\n2022275\nmove the plots and the results into the http folder\nFolder '/home/chetana/gridmet_test_run/var_comparison/' copied to '/var/www/html/swe_forecasting/plots/' with overwriting.\nCopied: /home/chetana/gridmet_test_run/testing_output/et-model-feature-importance-21.png\nCopied: /home/chetana/gridmet_test_run/testing_output/2022_predicted_swe_2022-11-12.png\nCopied: /home/chetana/gridmet_test_run/testing_output/2022_all_variables_2022-11-12.png\n",
+  "history_begin_time" : 1701245815093,
+  "history_end_time" : 1701245815968,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "ckit0sqtjls",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472019,
+  "history_end_time" : 1701245472019,
+  "history_notes" : null,
+  "history_process" : "2o6cp8",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "o4ahfyrekx8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472020,
+  "history_end_time" : 1701245472020,
+  "history_notes" : null,
+  "history_process" : "0n26v2",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mrvvrdl18hp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472021,
+  "history_end_time" : 1701245472021,
+  "history_notes" : null,
+  "history_process" : "rvqv35",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r6nck7fd7t2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472022,
+  "history_end_time" : 1701245472022,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7yc8scvw24m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472023,
+  "history_end_time" : 1701245472023,
+  "history_notes" : null,
+  "history_process" : "6evkh4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vg01zt05s51",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472024,
+  "history_end_time" : 1701245472024,
+  "history_notes" : null,
+  "history_process" : "76ewp5",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fj48vub162e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472025,
+  "history_end_time" : 1701245472025,
+  "history_notes" : null,
+  "history_process" : "5wzgx5",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "g0x1t7b1ypg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472026,
+  "history_end_time" : 1701245472026,
+  "history_notes" : null,
+  "history_process" : "d4zcq6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4umjbv0gn4f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472027,
+  "history_end_time" : 1701245472027,
+  "history_notes" : null,
+  "history_process" : "6x6myw",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uge925jgnag",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472028,
+  "history_end_time" : 1701245472028,
+  "history_notes" : null,
+  "history_process" : "r4knm9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yfqw971gvks",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472029,
+  "history_end_time" : 1701245472029,
+  "history_notes" : null,
+  "history_process" : "9c573m",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1rkfoee0s4w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472030,
+  "history_end_time" : 1701245472030,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8cbtrbhjqby",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472031,
+  "history_end_time" : 1701245472031,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "13az1vbl3ht",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472032,
+  "history_end_time" : 1701245472032,
+  "history_notes" : null,
+  "history_process" : "83d2yv",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8fi89xzrntq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472033,
+  "history_end_time" : 1701245472033,
+  "history_notes" : null,
+  "history_process" : "j8swco",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nopqey2em7g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472034,
+  "history_end_time" : 1701245472034,
+  "history_notes" : null,
+  "history_process" : "pnr64x",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "aqn4bohirts",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472035,
+  "history_end_time" : 1701245472035,
+  "history_notes" : null,
+  "history_process" : "qg80lj",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zkxnq13itoy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472036,
+  "history_end_time" : 1701245472036,
+  "history_notes" : null,
+  "history_process" : "ggy7gf",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4rmrjs7ke8y",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472037,
+  "history_end_time" : 1701245472037,
+  "history_notes" : null,
+  "history_process" : "c2qa9u",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x0w5uay1mue",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472038,
+  "history_end_time" : 1701245472038,
+  "history_notes" : null,
+  "history_process" : "lnrsop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "n94w8p1qhm9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1701245472039,
+  "history_end_time" : 1701245472039,
+  "history_notes" : null,
+  "history_process" : "c8isgf",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+}]

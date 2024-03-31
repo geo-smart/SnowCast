@@ -2,7 +2,7 @@ import pandas as pd
 import os
 from snowcast_utils import work_dir
 
-ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned.csv'
+ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v4.csv'
 dem_slope_csv_path = f"{work_dir}/slope_file.tif.csv"
 
 # Read the cleaned ready CSV and DEM slope CSV
@@ -32,14 +32,17 @@ def replace_slope(row):
     closest_row = dem_slope_df.loc[dem_slope_df['Distance'].idxmin()]
     return closest_row["Slope"]
 
-# Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame
-train_ready_df['slope'] = train_ready_df.apply(lambda row: replace_slope(row), axis=1)
 
-print(train_ready_df.head())
-print(train_ready_df.columns)
+if __name__ == "__main__":
+    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame
+    train_ready_df['slope'] = train_ready_df.apply(lambda row: replace_slope(row), axis=1)
 
-new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'
+    print(train_ready_df.head())
+    print(train_ready_df.columns)
 
-# Save the modified DataFrame to a new CSV file
-train_ready_df.to_csv(new_result_csv_path, index=False)
+    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v4_slope_corrected.csv'
+
+    # Save the modified DataFrame to a new CSV file
+    train_ready_df.to_csv(new_result_csv_path, index=False)
+    print(f"The new slope corrected dataframe is saved to {new_result_csv_path}")
 
