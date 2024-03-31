@@ -183,5 +183,6 @@ def turn_nsidc_nc_to_csv():
 
     print("finished")
 
-# call this method to extract the 
-#turn_nsidc_nc_to_csv()
+if __name__ == "__main__":
+    # call this method to extract the 
+    turn_nsidc_nc_to_csv()

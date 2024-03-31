@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+import shutil
 
 homedir = os.path.expanduser('~')
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
@@ -54,8 +55,13 @@ class BaseHole:
         now = datetime.now()
         date_time = now.strftime("%Y%d%m%H%M%S")
         self.save_file = f"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib"
+        
         print(f"Saving model to {self.save_file}")
         joblib.dump(self.classifier, self.save_file)
+        # copy a version to the latest file placeholder
+        latest_copy_file = f"{github_dir}/model/wormhole_{self.holename}_latest.joblib"
+        shutil.copy(self.save_file, latest_copy_file)
+        print(f"a copy of the model is saved to {latest_copy_file}")
   
     def preprocessing(self):
         '''

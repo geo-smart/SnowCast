@@ -6,11 +6,13 @@ import joblib
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
-from snowcast_utils import work_dir, test_start_date
+from snowcast_utils import work_dir, test_start_date, month_to_season
 import os
 from sklearn.inspection import partial_dependence,PartialDependenceDisplay
 import shap
 import matplotlib.pyplot as plt
+
+feature_names = None
 
 def load_model(model_path):
     """
@@ -48,8 +50,9 @@ def preprocess_data(data):
         pd.DataFrame: Preprocessed data.
     """
     data['date'] = pd.to_datetime(data['date'])
-    reference_date = pd.to_datetime('1900-01-01')
-    data['date'] = (data['date'] - reference_date).dt.days
+    #reference_date = pd.to_datetime('1900-01-01')
+    #data['date'] = (data['date'] - reference_date).dt.days
+    data['date'] = data['date'].dt.month.apply(month_to_season)
     data.replace('--', pd.NA, inplace=True)
     
     data = data.apply(pd.to_numeric, errors='coerce')
@@ -63,22 +66,39 @@ def preprocess_data(data):
                          'tmmx': 'air_temperature_tmmx',
                          'rmin': 'relative_humidity_rmin',
                          'rmax': 'relative_humidity_rmax',
-                         'AMSR_SWE': 'SWE',
-                         'AMSR_Flag': 'Flag',
                          'Elevation': 'elevation',
                          'Slope': 'slope',
                          'Aspect': 'aspect',
                          'Curvature': 'curvature',
                          'Northness': 'northness',
-                         'Eastness': 'eastness'
+                         'Eastness': 'eastness',
+                         'cumulative_AMSR_SWE': 'cumulative_SWE',
+                         'cumulative_AMSR_Flag': 'cumulative_Flag',
+                         'cumulative_tmmn':'cumulative_air_temperature_tmmn',
+                         'cumulative_etr': 'cumulative_potential_evapotranspiration',
+                         'cumulative_vpd': 'cumulative_mean_vapor_pressure_deficit',
+                         'cumulative_rmax': 'cumulative_relative_humidity_rmax', 
+                         'cumulative_rmin': 'cumulative_relative_humidity_rmin',
+                         'cumulative_pr': 'cumulative_precipitation_amount',
+                         'cumulative_tmmx': 'cumulative_air_temperature_tmmx',
+                         'cumulative_vs': 'cumulative_wind_speed',
+                         'AMSR_SWE': 'SWE',
+                         'AMSR_Flag': 'Flag',
                         }, inplace=True)
 
-    desired_order = ['date', 'lat', 'lon', 'SWE', 'Flag',
-'air_temperature_tmmn', 'potential_evapotranspiration',
+    desired_order = ['lat', 'lon', 'SWE', 'Flag', 'air_temperature_tmmn', 'potential_evapotranspiration',
 'mean_vapor_pressure_deficit', 'relative_humidity_rmax',
 'relative_humidity_rmin', 'precipitation_amount',
 'air_temperature_tmmx', 'wind_speed', 'elevation', 'slope', 'curvature',
-'aspect', 'eastness', 'northness']
+'aspect', 'eastness', 'northness', 'cumulative_SWE',
+'cumulative_Flag', 'cumulative_air_temperature_tmmn',
+'cumulative_potential_evapotranspiration',
+'cumulative_mean_vapor_pressure_deficit',
+'cumulative_relative_humidity_rmax',
+'cumulative_relative_humidity_rmin', 'cumulative_precipitation_amount',
+'cumulative_air_temperature_tmmx', 'cumulative_wind_speed']
+    
+    feature_names = desired_order
     
     data = data[desired_order]
     data = data.reindex(columns=desired_order)
@@ -89,7 +109,8 @@ def preprocess_data(data):
     print("how many rows are left?", len(data))
     print('data.shape: ', data.shape)
     
-    data = data.drop("date", axis=1)
+    #data = data.drop(['date', 'SWE', 'Flag', 'mean_vapor_pressure_deficit', 'potential_evapotranspiration', 'air_temperature_tmmx', 'relative_humidity_rmax', 'relative_humidity_rmin', ], axis=1)
+    data = data.drop(['lat', 'lon',], axis=1)
     
     return data
 
@@ -132,6 +153,32 @@ def merge_data(original_data, predicted_data):
     
     return merged_df
   
+def plot_feature_importance():
+    model_path = f'/home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_latest.joblib'
+    model = load_model(model_path)
+    
+    training_data_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'
+    print("preparing training data from csv: ", training_data_path)
+    data = pd.read_csv(training_data_path)
+    data = data.drop('swe_value', axis=1) 
+    data = data.drop('Unnamed: 0', axis=1)
+    
+    
+    # Step 1: Feature Importance
+    analysis_plot_output_folder = f'{work_dir}/testing_output/'
+    feature_importances = model.feature_importances_
+    feature_names = data.columns
+
+    # Create a bar plot of feature importances
+    plt.figure(figsize=(10, 6))
+    print(feature_names.shape)
+    print(feature_importances.shape)
+    plt.barh(feature_names, feature_importances)
+    plt.xlabel('Feature Importance')
+    plt.ylabel('Features')
+    plt.title('Feature Importance Plot')
+    plt.savefig(f'{analysis_plot_output_folder}/importance_summary_plot_latest_model.png')
+  
 def interpret_prediction():
     """
     Interpret the model results and find real reasons for bad predictions.
@@ -141,7 +188,7 @@ def interpret_prediction():
     """
     height = 666
     width = 694
-    model_path = f'/home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_20230910045039.joblib'
+    model_path = f'/home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_latest.joblib'
     print(f"using model : {model_path}")
     
     new_data_path = f'{work_dir}/testing_all_ready.csv'
@@ -161,23 +208,9 @@ def interpret_prediction():
     print(f'model used: {model_path}')
     predicted_data, current_model = predict_swe(model, preprocessed_data)
     
-    # Step 1: Feature Importance
-    analysis_plot_output_folder = f'{work_dir}/testing_output/'
-    feature_importances = current_model.feature_importances_
-    feature_names = preprocessed_data.columns[:-1]
-
-    # Create a bar plot of feature importances
-    plt.figure(figsize=(10, 6))
-    print(feature_names)
-    print(feature_importances)
-    plt.barh(feature_names, feature_importances)
-    plt.xlabel('Feature Importance')
-    plt.ylabel('Features')
-    plt.title('Feature Importance Plot')
-    plt.savefig(f'{analysis_plot_output_folder}/importance_summary_plot_{test_start_date}.png')
+    
 
     # Step 2: Partial Dependence Plots
-
     # Select features for partial dependence plots (e.g., the first two features)
     features_to_plot = feature_names
     
@@ -216,5 +249,7 @@ def interpret_prediction():
 #   else:
 #     raise Exception("The total number of rows do not match")
 
+
+#plot_feature_importance()  # no need, this step is already done in the model post processing step. 
 interpret_prediction()
 

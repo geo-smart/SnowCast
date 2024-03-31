@@ -12,8 +12,8 @@ import geopandas as gpd
 import geojson
 import numpy as np
 import os.path
+from snowcast_utils import work_dir
 
-exit() # uncomment to download new files
 
 try:
     ee.Initialize()
@@ -27,7 +27,7 @@ print(homedir)
 # read grid cell
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"
 # read grid cell
-station_cell_mapper_file = f"{github_dir}/data/ready_for_training/station_cell_mapping.csv"
+station_cell_mapper_file = f"{work_dir}/testing_points.csv"
 station_cell_mapper_df = pd.read_csv(station_cell_mapper_file)
 
 #org_name = 'modis'
@@ -40,26 +40,27 @@ product_name = 'COPERNICUS/S1_GRD'
 var_name = 'VV'
 column_name = 's1_grd_vv'
 
-all_cell_df = pd.DataFrame(columns = ['date', column_name, 'cell_id', 'latitude', 'longitude'])
+all_cell_df = pd.DataFrame(columns = ['date', column_name, 'lat', 'lon'])
 
 for ind in station_cell_mapper_df.index:
   
     try:
   	
-      current_cell_id = station_cell_mapper_df['cell_id'][ind]
-      print("collecting ", current_cell_id)
-      single_csv_file = f"{homedir}/Documents/GitHub/SnowCast/data/{org_name}/{column_name}_{current_cell_id}.csv"
+      #current_cell_id = station_cell_mapper_df['cell_id'][ind]
+      #print("collecting ", current_cell_id)
+      single_csv_file = f"{work_dir}/{org_name}_{column_name}_{ind}.csv"
 
-      if os.path.exists(single_csv_file):
-          print("exists skipping..")
-          continue
+#       if os.path.exists(single_csv_file):
+#           print("exists skipping..")
+#           continue
 
       longitude = station_cell_mapper_df['lon'][ind]
       latitude = station_cell_mapper_df['lat'][ind]
 
       # identify a 500 meter buffer around our Point Of Interest (POI)
       poi = ee.Geometry.Point(longitude, latitude).buffer(1)
-      viirs = ee.ImageCollection(product_name).filterDate('2013-01-01','2021-12-31').filterBounds(poi).filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV')).select('VV')
+      #poi = ee.Geometry.Point(longitude, latitude)
+      viirs = ee.ImageCollection(product_name).filterDate('2017-10-01','2018-07-01').filterBounds(poi).filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV')).select('VV')
       
       def poi_mean(img):
           reducer = img.reduceRegion(reducer=ee.Reducer.mean(), geometry=poi)
@@ -77,9 +78,9 @@ for ind in station_cell_mapper_df.index:
       df['date'] = pd.to_datetime(df['date'])
       df = df.set_index('date')
 
-      df['cell_id'] = current_cell_id
-      df['latitude'] = latitude
-      df['longitude'] = longitude
+      #df['cell_id'] = current_cell_id
+      df['lat'] = latitude
+      df['lon'] = longitude
       df.to_csv(single_csv_file)
 
       df_list = [all_cell_df, df]
@@ -90,7 +91,10 @@ for ind in station_cell_mapper_df.index:
       print(e)
       pass
     
-all_cell_df.to_csv(f"{homedir}/Documents/GitHub/SnowCast/data/{org_name}/{column_name}.csv")  
+print(all_cell_df.head())
+print(all_cell_df["s1_grd_vv"].describe())
+all_cell_df.to_csv(f"{work_dir}/Sentinel1_Testing.csv")
+print("The Sentinel 1 is downloaded successfully. ")
 
 
 

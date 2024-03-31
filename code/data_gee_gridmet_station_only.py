@@ -1,26 +1,27 @@
 import os
 import glob
 import urllib.request
-from datetime import date
+from datetime import date, datetime
 
 import pandas as pd
 import xarray as xr
 from pathlib import Path
-from snowcast_utils import work_dir
+from snowcast_utils import work_dir, train_start_date, train_end_date
 import warnings
 
 # Suppress FutureWarnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-start_date = date(2019, 1, 1)
-end_date = date(2022, 12, 31)
+start_date = datetime.strptime(train_start_date, "%Y-%m-%d")
+end_date = datetime.strptime(train_end_date, "%Y-%m-%d")
 
 year_list = [start_date.year + i for i in range(end_date.year - start_date.year + 1)]
 
 working_dir = work_dir
-stations = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')
+#stations = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')
+stations = pd.read_csv(f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv")
 gridmet_save_location = f'{working_dir}/gridmet_climatology'
-final_merged_csv = f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv'
+final_merged_csv = f"{work_dir}/training_all_active_snotel_station_list_elevation.csv_gridmet.csv"
 
 
 def get_files_in_directory():
@@ -44,7 +45,7 @@ def download_file(url, save_location):
         print(f"An error occurred while downloading the file: {str(e)}")
 
 
-def gridmet_climatology():
+def download_gridmet_climatology():
     folder_name = gridmet_save_location
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
@@ -73,11 +74,11 @@ def get_gridmet_variable(file_name):
     csv_file = f'{gridmet_save_location}/{Path(file_name).stem}.csv'
     if os.path.exists(csv_file):
     	print(f"The file '{csv_file}' exists.")
-        return
+    	return
 
     for idx, row in stations.iterrows():
-        lat = row['lat']
-        lon = row['lon']
+        lat = row['latitude']
+        lon = row['longitude']
 		
         subset_data = ds.sel(lat=lat, lon=lon, method='nearest')
         subset_data['lat'] = lat
@@ -156,11 +157,14 @@ def merge_all_variables_together():
         merged_df.to_csv(final_merged_csv, index=False)
 
 
-gridmet_climatology()
-nc_files = get_files_in_directory()
-
-for nc in nc_files:
-    get_gridmet_variable(nc)
-merge_similar_variables_from_different_years()
-merge_all_variables_together()
+if __name__ == "__main__":
+    
+    download_gridmet_climatology()
+    
+    nc_files = get_files_in_directory()
+    for nc in nc_files:
+        get_gridmet_variable(nc)
+    
+    merge_similar_variables_from_different_years()
+    merge_all_variables_together()
 

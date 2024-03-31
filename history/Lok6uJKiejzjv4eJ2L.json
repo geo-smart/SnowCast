@@ -1,0 +1,521 @@
+[{
+  "history_id" : "hebtzix5plk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637905,
+  "history_end_time" : 1698762637905,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "88tgfm7py1c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637907,
+  "history_end_time" : 1698762637907,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p6hkv8pfebn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637908,
+  "history_end_time" : 1698762637908,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nxx6o3u3ryy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637910,
+  "history_end_time" : 1698762637910,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ti3igfajw48",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637911,
+  "history_end_time" : 1698762637911,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ovn5w9scdgp",
+  "history_input" : "import joblib\nimport pandas as pd\nfrom sklearn.preprocessing import MinMaxScaler\nimport numpy as np\nfrom snowcast_utils import homedir, work_dir, month_to_season\nimport os\nimport random\nimport string\n\ndef generate_random_string(length):\n    # Define the characters that can be used in the random string\n    characters = string.ascii_letters + string.digits  # You can customize this to include other characters if needed\n\n    # Generate a random string of the specified length\n    random_string = ''.join(random.choice(characters) for _ in range(length))\n\n    return random_string\n  \n\ndef load_model(model_path):\n    \"\"\"\n    Load a machine learning model from a file.\n\n    Args:\n        model_path (str): Path to the saved model file.\n\n    Returns:\n        model: The loaded machine learning model.\n    \"\"\"\n    return joblib.load(model_path)\n\ndef load_data(file_path):\n    \"\"\"\n    Load data from a CSV file.\n\n    Args:\n        file_path (str): Path to the CSV file containing the data.\n\n    Returns:\n        pd.DataFrame: A pandas DataFrame containing the loaded data.\n    \"\"\"\n    return pd.read_csv(file_path)\n\ndef preprocess_data(data):\n    \"\"\"\n    Preprocess the input data for model prediction.\n\n    Args:\n        data (pd.DataFrame): Input data in the form of a pandas DataFrame.\n\n    Returns:\n        pd.DataFrame: Preprocessed data ready for prediction.\n    \"\"\"\n    data['date'] = pd.to_datetime(data['date'])\n    #print(\"check date format: \", data.head())\n    #data['date'] = data['date'].dt.strftime('%j').astype(int)\n    #data['date'] = data['date'].dt.month.apply(month_to_season)\n    data.replace('--', pd.NA, inplace=True)\n    \n    #data = data.apply(pd.to_numeric, errors='coerce')\n\n#     data.rename(columns={'Latitude': 'lat', \n#                          'Longitude': 'lon',\n#                          'vpd': 'mean_vapor_pressure_deficit',\n#                          'vs': 'wind_speed', \n#                          'pr': 'precipitation_amount', \n#                          'etr': 'potential_evapotranspiration',\n#                          'tmmn': 'air_temperature_tmmn',\n#                          'tmmx': 'air_temperature_tmmx',\n#                          'rmin': 'relative_humidity_rmin',\n#                          'rmax': 'relative_humidity_rmax',\n#                          'Elevation': 'elevation',\n#                          'Slope': 'slope',\n#                          'Aspect': 'aspect',\n#                          'Curvature': 'curvature',\n#                          'Northness': 'northness',\n#                          'Eastness': 'eastness'\n#                         }, inplace=True)\n\n    print(data.head())\n    print(data.columns)\n    \n    # filter out three days for final visualization to accelerate the process\n    #dates_to_match = ['2018-03-15', '2018-04-15', '2018-05-15']\n    #mask = data['date'].dt.strftime('%Y-%m-%d').isin(dates_to_match)\n    # Filter the DataFrame based on the mask\n    #data = data[mask]\n    \n#     desired_order = ['station_elevation', 'elevation', 'aspect', 'curvature', 'slope',\n# 'eastness', 'northness', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx',\n# 'vpd', 'vs', 'lc_code', 'fSCA', 'cumulative_etr',\n# 'cumulative_rmax', 'cumulative_rmin', 'cumulative_tmmn',\n# 'cumulative_tmmx', 'cumulative_vpd', 'cumulative_vs', 'cumulative_pr', 'date', 'lat', 'lon']\n    desired_order = ['cumulative_pr','station_elevation', 'cumulative_tmmn', 'cumulative_tmmx', 'northness', 'cumulative_vs', 'cumulative_rmax', 'cumulative_etr','aspect','cumulative_rmin', 'elevation', 'cumulative_vpd', 'date', 'lat', 'lon']\n    \n    data = data[desired_order]\n    data = data.reindex(columns=desired_order)\n    \n    return data\n\ndef predict_swe(model, data):\n    \"\"\"\n    Predict snow water equivalent (SWE) using a machine learning model.\n\n    Args:\n        model: The machine learning model for prediction.\n        data (pd.DataFrame): Input data for prediction.\n\n    Returns:\n        pd.DataFrame: Dataframe with predicted SWE values.\n    \"\"\"\n    data = data.fillna(-999)\n    #input_data = data\n    input_data = data.drop([\"date\", \"lat\", \"lon\"], axis=1)\n    #input_data = data.drop(['date', 'SWE', 'Flag', 'mean_vapor_pressure_deficit', 'potential_evapotranspiration', 'air_temperature_tmmx', 'relative_humidity_rmax', 'relative_humidity_rmin',], axis=1)\n    predictions = model.predict(input_data)\n    data['predicted_swe'] = predictions\n    return data\n\ndef merge_data(original_data, predicted_data):\n    \"\"\"\n    Merge predicted SWE data with the original data.\n\n    Args:\n        original_data (pd.DataFrame): Original input data.\n        predicted_data (pd.DataFrame): Dataframe with predicted SWE values.\n\n    Returns:\n        pd.DataFrame: Merged dataframe.\n    \"\"\"\n    #new_data_extracted = predicted_data[[\"date\", \"lat\", \"lon\", \"predicted_swe\"]]\n    new_data_extracted = predicted_data[[\"date\", \"lat\", \"lon\", \"predicted_swe\"]]\n    #merged_df = original_data.merge(new_data_extracted, on=[\"date\", 'lat', 'lon'], how='left')\n    merged_df = original_data.merge(new_data_extracted, on=['date', 'lat', 'lon'], how='left')\n    return merged_df\n\ndef predict():\n    \"\"\"\n    Main function for predicting snow water equivalent (SWE).\n\n    Returns:\n        None\n    \"\"\"\n    height = 666\n    width = 694\n    model_path = f'{homedir}/Documents/GitHub/SnowCast/model/wormhole_ETHole_latest.joblib'\n    print(f\"Using model: {model_path}\")\n  \n    new_data_path = f'{work_dir}/all_merged_testing_with_station_elevation.csv'\n    #output_path = f'{work_dir}/test_data_predicted_three_days_only.csv'\n    output_path = f'{work_dir}/test_data_predicted_{generate_random_string(5)}.csv'\n  \n    if os.path.exists(output_path):\n        os.remove(output_path)\n        print(f\"File '{output_path}' has been removed.\")\n\n    model = load_model(model_path)\n    new_data = load_data(new_data_path)\n    #print(\"new_data shape: \", new_data.head())\n\n    preprocessed_data = preprocess_data(new_data)\n    if len(new_data) < len(preprocessed_data):\n      raise ValueError(\"Why the preprocessed data increased?\")\n    #print('Data preprocessing completed.', preprocessed_data.head())\n    #print(f'Model used: {model_path}')\n    predicted_data = predict_swe(model, preprocessed_data)\n    print(\"how many predicted? \", len(predicted_data))\n    predicted_data = merge_data(preprocessed_data, predicted_data)\n    \n    #print('Data prediction completed.')\n  \n    #print(predicted_data['date'])\n    predicted_data.to_csv(output_path, index=False)\n    print(\"Prediction successfully done \", output_path)\n\n#     if len(predicted_data) == height * width:\n#         print(f\"The image width, height match with the number of rows in the CSV. {len(predicted_data)} rows\")\n#     else:\n#         raise Exception(\"The total number of rows does not match\")\n\npredict()\n",
+  "history_output" : "today date = 2023-10-31\ntest start date:  2018-01-01\ntest end date:  2023-10-31\n/home/chetana\nUsing model: /home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_latest.joblib\n/home/chetana/gw-workspace/ovn5w9scdgp/model_predict.py:42: DtypeWarning: Columns (13) have mixed types. Specify dtype option on import or set low_memory=False.\n  return pd.read_csv(file_path)\n   Unnamed: 0       date  ...  cumulative_pr  station_elevation\n0           0 2017-10-01  ...            0.0        7127.982512\n1           1 2017-10-01  ...            0.0        7006.542875\n2           2 2017-10-01  ...            0.0        6124.784973\n3           3 2017-10-01  ...            0.0        5987.505113\n4           4 2017-10-01  ...            0.0        6119.505117\n[5 rows x 31 columns]\nIndex(['Unnamed: 0', 'date', 'lat', 'lon', 'etr', 'pr', 'rmax', 'rmin', 'tmmn',\n       'tmmx', 'vpd', 'vs', 'lc_code', 'fSCA', 'x', 'y', 'elevation', 'slope',\n       'aspect', 'curvature', 'northness', 'eastness', 'cumulative_etr',\n       'cumulative_rmax', 'cumulative_rmin', 'cumulative_tmmn',\n       'cumulative_tmmx', 'cumulative_vpd', 'cumulative_vs', 'cumulative_pr',\n       'station_elevation'],\n      dtype='object')\n/home/chetana/anaconda3/lib/python3.9/site-packages/sklearn/base.py:457: UserWarning: X has feature names, but ExtraTreesRegressor was fitted without feature names\n  warnings.warn(\nhow many predicted?  214816\nPrediction successfully done  /home/chetana/gridmet_test_run/test_data_predicted_wcksW.csv\n",
+  "history_begin_time" : 1698762653140,
+  "history_end_time" : 1698762659528,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "1y6ff41c03y",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637915,
+  "history_end_time" : 1698762637915,
+  "history_notes" : null,
+  "history_process" : "urd0nk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "m2z70xebeht",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637916,
+  "history_end_time" : 1698762637916,
+  "history_notes" : null,
+  "history_process" : "525l8q",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "akhunhx6x5y",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637917,
+  "history_end_time" : 1698762637917,
+  "history_notes" : null,
+  "history_process" : "7temiv",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3oqzzpe3rtk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637919,
+  "history_end_time" : 1698762637919,
+  "history_notes" : null,
+  "history_process" : "rmxece",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "67ic1jefwhs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637920,
+  "history_end_time" : 1698762637920,
+  "history_notes" : null,
+  "history_process" : "illwc1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "s0vtwu9kvk5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637921,
+  "history_end_time" : 1698762637921,
+  "history_notes" : null,
+  "history_process" : "sjs5by",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1raasn6arjj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637922,
+  "history_end_time" : 1698762637922,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "te9s50vveue",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637950,
+  "history_end_time" : 1698762637950,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dvekb05r03m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637951,
+  "history_end_time" : 1698762637951,
+  "history_notes" : null,
+  "history_process" : "smsdr0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uhz6ib5yzif",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637952,
+  "history_end_time" : 1698762637952,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "o73y6psr4y0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637954,
+  "history_end_time" : 1698762637954,
+  "history_notes" : null,
+  "history_process" : "b63prf",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "pddwmqe3q4b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637955,
+  "history_end_time" : 1698762637955,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "u319w463r6d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637956,
+  "history_end_time" : 1698762637956,
+  "history_notes" : null,
+  "history_process" : "wdh394",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "u3m6d5s505g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637958,
+  "history_end_time" : 1698762637958,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2a0sbhtr2yk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637959,
+  "history_end_time" : 1698762637959,
+  "history_notes" : null,
+  "history_process" : "ilbqzg",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2slqum121t4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637960,
+  "history_end_time" : 1698762637960,
+  "history_notes" : null,
+  "history_process" : "do86ae",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "or9cauy2ba8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637961,
+  "history_end_time" : 1698762637961,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "69u0kvx5m1n",
+  "history_input" : "\"\"\"\nThis script defines the ETHole class, which is used for training and evaluating an Extra Trees Regressor model for hole analysis.\n\nAttributes:\n    ETHole (class): A class for training and using an Extra Trees Regressor model for hole analysis.\n\nFunctions:\n    custom_loss(y_true, y_pred): A custom loss function that penalizes errors for values greater than 10.\n    get_model(): Returns the Extra Trees Regressor model with specified hyperparameters.\n    create_sample_weights(y, scale_factor): Creates sample weights based on target values and a scaling factor.\n    preprocessing(): Preprocesses the training data, including data cleaning and feature extraction.\n    train(): Trains the Extra Trees Regressor model.\n    post_processing(): Performs post-processing, including feature importance analysis and visualization.\n\"\"\"\n\nimport pandas as pd\nimport joblib\nimport sklearn\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import ExtraTreesRegressor\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nfrom sklearn.preprocessing import MinMaxScaler\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom model_creation_rf import RandomForestHole\nfrom snowcast_utils import work_dir, month_to_season\n\n\nworking_dir = work_dir\n\nclass ETHole(RandomForestHole):\n  \n    def custom_loss(y_true, y_pred):\n        \"\"\"\n        A custom loss function that penalizes errors for values greater than 10.\n\n        Args:\n            y_true (numpy.ndarray): True target values.\n            y_pred (numpy.ndarray): Predicted target values.\n\n        Returns:\n            numpy.ndarray: Custom loss values.\n        \"\"\"\n        errors = np.abs(y_true - y_pred)\n        \n        return np.where(y_true > 10, 2 * errors, errors)\n\n    def get_model(self):\n        \"\"\"\n        Returns the Extra Trees Regressor model with specified hyperparameters.\n\n        Returns:\n            ExtraTreesRegressor: The Extra Trees Regressor model.\n        \"\"\"\n#         return ExtraTreesRegressor(n_estimators=200, \n#                                    max_depth=None,\n#                                    random_state=42, \n#                                    min_samples_split=2,\n#                                    min_samples_leaf=1,\n#                                    n_jobs=5\n#                                   )\n        return ExtraTreesRegressor(n_jobs=-1, random_state=123)\n\n    def create_sample_weights(self, y, scale_factor, columns):\n        \"\"\"\n        Creates sample weights based on target values and a scaling factor.\n\n        Args:\n            y (numpy.ndarray): Target values.\n            scale_factor (float): Scaling factor for sample weights.\n\n        Returns:\n            numpy.ndarray: Sample weights.\n        \"\"\"\n        return (y - np.min(y)) / (np.max(y) - np.min(y)) * scale_factor\n        # Create a weight vector to assign weights to features - this is not a good idea\n#         feature_weights = {'date': 0.1, 'SWE': 1.5, 'wind_speed': 1.5, 'precipitation_amount': 2.0}\n#         default_weight = 1.0\n\n#         # Create an array of sample weights based on feature_weights\n#         sample_weights = np.array([feature_weights.get(feature, default_weight) for feature in columns])\n        #return sample_weights\n\n      \n    def preprocessing(self, chosen_columns=None):\n        \"\"\"\n        Preprocesses the training data, including data cleaning and feature extraction.\n        \"\"\"\n        #training_data_path = f'{working_dir}/final_merged_data_3yrs_cleaned.csv'\n        #training_data_path = f'{working_dir}/final_merged_data_3yrs_cleaned_v3.csv'\n        #training_data_path = f'{working_dir}/all_merged_training_cum_water_year_winter_month_only.csv' # snotel points\n        training_data_path = f'{working_dir}/all_merged_training_water_year_winter_month_only_with_no_snow.csv'\n        \n        print(\"preparing training data from csv: \", training_data_path)\n        data = pd.read_csv(training_data_path)\n        print(data.head())\n        \n        data['date'] = pd.to_datetime(data['date'])\n        #reference_date = pd.to_datetime('1900-01-01')\n        #data['date'] = (data['date'] - reference_date).dt.days\n        # just use julian day\n        #data['date'] = data['date'].dt.strftime('%j').astype(int)\n        # just use the season to reduce the bias on month or dates\n        data['date'] = data['date'].dt.month.apply(month_to_season)\n        \n        data.replace('--', pd.NA, inplace=True)\n        data.fillna(-999, inplace=True)\n        \n        data = data[(data['swe_value'] != -999)]\n        \n        print(\"get swe statistics\")\n        print(data[\"swe_value\"].describe())\n        \n        if chosen_columns == None:\n          data = data.drop('Unnamed: 0', axis=1)\n          #data = data.drop('level_0', axis=1)\n          data = data.drop(['date'], axis=1)\n          data = data.drop(['lat'], axis=1)\n          data = data.drop(['lon'], axis=1)\n        else:\n          data = data[chosen_columns]\n#         (['lat', 'lon', 'SWE', 'Flag', 'air_temperature_tmmn',\n# 'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n# 'relative_humidity_rmax', 'relative_humidity_rmin',\n# 'precipitation_amount', 'air_temperature_tmmx', 'wind_speed',\n# 'elevation', 'slope', 'curvature', 'aspect', 'eastness', 'northness']\n        \n        \n        X = data.drop('swe_value', axis=1)\n        print('required features:', X.columns)\n        y = data['swe_value']\n        print(\"describe the statistics of swe_value: \", y.describe())\n        \n        print(\"input features and order: \", X.columns)\n        print(\"training data row number: \", len(X))\n        \n        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n        \n        self.weights = self.create_sample_weights(y_train, scale_factor=30.0, columns=X.columns)\n\n        self.train_x, self.train_y = X_train.to_numpy(), y_train.to_numpy()\n        self.test_x, self.test_y = X_test.to_numpy(), y_test.to_numpy()\n        self.feature_names = X_train.columns\n        \n    def train(self):\n        \"\"\"\n        Trains the Extra Trees Regressor model.\n        \"\"\"\n        # Calculate sample weights based on errors (you may need to customize this)\n#         self.classifier.fit(self.train_x, self.train_y)\n#         errors = abs(self.train_y - self.classifier.predict(self.train_x))\n#         print(errors)\n        \n        #self.weights = 1+self.train_y # You can adjust this formula as needed\n#         weights = np.zeros_like(self.train_y, dtype=float)\n\n#         # Set weight to 1 if the target variable is 0\n#         weights[self.train_y == 0] = 10.0\n\n#         # Calculate weights for non-zero target values\n#         non_zero_indices = self.train_y != 0\n#         weights[non_zero_indices] = 0.1 / np.abs(self.train_y[non_zero_indices])\n\n#         self.classifier.fit(self.train_x, self.train_y, sample_weight=weights)\n        self.classifier.fit(self.train_x, self.train_y)\n        \n#         errors = abs(self.train_y - self.classifier.predict(self.train_x))\n#         self.weights = 1 / (1 + errors)  # You can adjust this formula as needed\n#         self.classifier.fit(self.train_x, self.train_y, sample_weight=self.weights)\n\n    def post_processing(self, chosen_columns=None):\n        \"\"\"\n        Performs post-processing, including feature importance analysis and visualization.\n        \"\"\"\n        feature_importances = self.classifier.feature_importances_\n        feature_names = self.feature_names\n        sorted_indices = np.argsort(feature_importances)[::-1]\n        sorted_importances = feature_importances[sorted_indices]\n        sorted_feature_names = feature_names[sorted_indices]\n\n        plt.figure(figsize=(10, 6))\n        plt.bar(range(len(feature_names)), sorted_importances, tick_label=sorted_feature_names)\n        plt.xticks(rotation=90)\n        plt.xlabel('Feature')\n        plt.ylabel('Feature Importance')\n        plt.title('Feature Importance Plot (ET model)')\n        plt.tight_layout()\n        if chosen_columns == None:\n          feature_png = f'{work_dir}/testing_output/et-model-feature-importance-latest.png'\n        else:\n          feature_png = f'{work_dir}/testing_output/et-model-feature-importance-{len(chosen_columns)}.png'\n        plt.savefig(feature_png)\n        print(f\"Feature image is saved {feature_png}\")\n\n# Instantiate ETHole class and perform tasks\n\n# all_used_columns = ['station_elevation', 'elevation', 'aspect', 'curvature', 'slope',\n# 'eastness', 'northness', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx',\n# 'vpd', 'vs', 'lc_code',  'fSCA',  'cumulative_etr',\n# 'cumulative_rmax', 'cumulative_rmin', 'cumulative_tmmn',\n# 'cumulative_tmmx', 'cumulative_vpd', 'cumulative_vs', 'cumulative_pr', 'swe_value']\n\nall_used_columns = ['cumulative_pr','station_elevation', 'cumulative_tmmn', 'cumulative_tmmx', 'northness', 'cumulative_vs', 'cumulative_rmax', 'cumulative_etr','aspect','cumulative_rmin', 'elevation', 'cumulative_vpd',  'swe_value']\n\nhole = ETHole()\nhole.preprocessing(chosen_columns = all_used_columns)\nhole.train()\nhole.test()\nhole.evaluate()\nhole.save()\nhole.post_processing(chosen_columns = all_used_columns)\n",
+  "history_output" : "today date = 2023-10-31\ntest start date:  2018-01-01\ntest end date:  2023-10-31\n/home/chetana\npreparing training data from csv:  /home/chetana/gridmet_test_run/all_merged_training_water_year_winter_month_only_with_no_snow.csv\n   Unnamed: 0.1  Unnamed: 0  ... cumulative_vs  cumulative_pr\n0             0         273  ...           4.2            0.0\n1             1         274  ...           8.3            0.0\n2             2         275  ...          10.9            2.0\n3             3         276  ...          13.2            2.0\n4             4         277  ...          15.7            2.0\n[5 rows x 31 columns]\nget swe statistics\ncount    5480.000000\nmean       13.840693\nstd        27.672438\nmin         0.000000\n25%         0.000000\n50%         0.000000\n75%        14.000000\nmax       155.000000\nName: swe_value, dtype: float64\nrequired features: Index(['cumulative_pr', 'station_elevation', 'cumulative_tmmn',\n       'cumulative_tmmx', 'northness', 'cumulative_vs', 'cumulative_rmax',\n       'cumulative_etr', 'aspect', 'cumulative_rmin', 'elevation',\n       'cumulative_vpd'],\n      dtype='object')\ndescribe the statistics of swe_value:  count    5480.000000\nmean       13.840693\nstd        27.672438\nmin         0.000000\n25%         0.000000\n50%         0.000000\n75%        14.000000\nmax       155.000000\nName: swe_value, dtype: float64\ninput features and order:  Index(['cumulative_pr', 'station_elevation', 'cumulative_tmmn',\n       'cumulative_tmmx', 'northness', 'cumulative_vs', 'cumulative_rmax',\n       'cumulative_etr', 'aspect', 'cumulative_rmin', 'elevation',\n       'cumulative_vpd'],\n      dtype='object')\ntraining data row number:  5480\nThe random forest model performance for testing set\n--------------------------------------\nMAE is 0.5958120437956205\nMSE is 3.8484738138686128\nR2 score is 0.9957062796307135\nRMSE is 1.9617527402475097\nSaving model to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_20233110143049.joblib\na copy of the model is saved to /home/chetana/Documents/GitHub/SnowCast/model/wormhole_ETHole_latest.joblib\nFeature image is saved /home/chetana/gridmet_test_run/testing_output/et-model-feature-importance-13.png\n",
+  "history_begin_time" : 1698762640590,
+  "history_end_time" : 1698762650741,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Done"
+},{
+  "history_id" : "rnid7d8dba1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637964,
+  "history_end_time" : 1698762637964,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "30r44d1c7n1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637966,
+  "history_end_time" : 1698762637966,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7zvi819gf34",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637967,
+  "history_end_time" : 1698762637967,
+  "history_notes" : null,
+  "history_process" : "doinnd",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ve4nl3f4643",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637969,
+  "history_end_time" : 1698762637969,
+  "history_notes" : null,
+  "history_process" : "b7a4fu",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dnnpny1qzq8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637970,
+  "history_end_time" : 1698762637970,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ey9gtgi4wx7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637971,
+  "history_end_time" : 1698762637971,
+  "history_notes" : null,
+  "history_process" : "oon4sb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ll0vyzdpocj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637972,
+  "history_end_time" : 1698762637972,
+  "history_notes" : null,
+  "history_process" : "fa7e4u",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "enzuc0exczz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637974,
+  "history_end_time" : 1698762637974,
+  "history_notes" : null,
+  "history_process" : "drwmbo",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6spl61zgkze",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637975,
+  "history_end_time" : 1698762637975,
+  "history_notes" : null,
+  "history_process" : "2n7b06",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2bxd3x0rdm8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637976,
+  "history_end_time" : 1698762637976,
+  "history_notes" : null,
+  "history_process" : "bwdy3s",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p3nu1ok1ejk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637978,
+  "history_end_time" : 1698762637978,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yw60rhmoop6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637979,
+  "history_end_time" : 1698762637979,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h7wcyih264i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637980,
+  "history_end_time" : 1698762637980,
+  "history_notes" : null,
+  "history_process" : "2o6cp8",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t7kw03lxkyn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637982,
+  "history_end_time" : 1698762637982,
+  "history_notes" : null,
+  "history_process" : "0n26v2",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "i6m8e87aro0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637983,
+  "history_end_time" : 1698762637983,
+  "history_notes" : null,
+  "history_process" : "rvqv35",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rtpyerpnmy5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637984,
+  "history_end_time" : 1698762637984,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "geun3vez66f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637986,
+  "history_end_time" : 1698762637986,
+  "history_notes" : null,
+  "history_process" : "6evkh4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0r9hupsfrzw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637987,
+  "history_end_time" : 1698762637987,
+  "history_notes" : null,
+  "history_process" : "76ewp5",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3p4uvbaxj97",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637988,
+  "history_end_time" : 1698762637988,
+  "history_notes" : null,
+  "history_process" : "5wzgx5",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "mdv4o4k2axu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637990,
+  "history_end_time" : 1698762637990,
+  "history_notes" : null,
+  "history_process" : "d4zcq6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6zecx9g5hor",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637991,
+  "history_end_time" : 1698762637991,
+  "history_notes" : null,
+  "history_process" : "6x6myw",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cfkhbujt954",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637992,
+  "history_end_time" : 1698762637992,
+  "history_notes" : null,
+  "history_process" : "r4knm9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "b1hf0xwzccg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637994,
+  "history_end_time" : 1698762637994,
+  "history_notes" : null,
+  "history_process" : "9c573m",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "64jaojmf78f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637995,
+  "history_end_time" : 1698762637995,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h6i3k8pdkbn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637996,
+  "history_end_time" : 1698762637996,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7vaur4c8c6b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637998,
+  "history_end_time" : 1698762637998,
+  "history_notes" : null,
+  "history_process" : "83d2yv",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "bcgxckn0k4l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762637999,
+  "history_end_time" : 1698762637999,
+  "history_notes" : null,
+  "history_process" : "j8swco",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wd1tba7pklb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1698762638001,
+  "history_end_time" : 1698762638001,
+  "history_notes" : null,
+  "history_process" : "pnr64x",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+}]
