@@ -8,6 +8,8 @@ import xarray as xr
 from pathlib import Path
 from snowcast_utils import work_dir, train_start_date, train_end_date
 import warnings
+import dask.dataframe as dd
+from dask.delayed import delayed
 
 # Suppress FutureWarnings
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -19,9 +21,10 @@ year_list = [start_date.year + i for i in range(end_date.year - start_date.year 
 
 working_dir = work_dir
 #stations = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')
-stations = pd.read_csv(f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv")
+all_training_points_with_station_and_non_station_file = f"{work_dir}/all_training_points_in_westus.csv"
+stations = pd.read_csv(all_training_points_with_station_and_non_station_file)
 gridmet_save_location = f'{working_dir}/gridmet_climatology'
-final_merged_csv = f"{work_dir}/training_all_active_snotel_station_list_elevation.csv_gridmet.csv"
+final_merged_csv = f"{work_dir}/training_all_point_gridmet_with_non_station.csv"
 
 
 def get_files_in_directory():
@@ -61,41 +64,37 @@ def download_gridmet_climatology():
                 download_file(download_link, folder_name)
 
 
+def process_station(ds, lat, lon):
+    subset_data = ds.sel(lat=lat, lon=lon, method='nearest')
+    subset_data['lat'] = lat
+    subset_data['lon'] = lon
+    converted_df = subset_data.to_dataframe()
+    converted_df = converted_df.reset_index(drop=False)
+    converted_df = converted_df.drop('crs', axis=1)
+    return converted_df
+
 def get_gridmet_variable(file_name):
-    print(f"reading values from {file_name}")
-    result_data = []
+    print(f"Reading values from {file_name}")
     ds = xr.open_dataset(file_name)
-    var_to_extract = list(ds.keys())
-    print(var_to_extract)
-    var_name = var_to_extract[0]
-    
-    df = pd.DataFrame(columns=['day', 'lat', 'lon', var_name])
-    
+    var_name = list(ds.keys())[0]
+
     csv_file = f'{gridmet_save_location}/{Path(file_name).stem}.csv'
     if os.path.exists(csv_file):
-    	print(f"The file '{csv_file}' exists.")
-    	return
+        print(f"The file '{csv_file}' exists.")
+        return
 
-    for idx, row in stations.iterrows():
-        lat = row['latitude']
-        lon = row['longitude']
-		
-        subset_data = ds.sel(lat=lat, lon=lon, method='nearest')
-        subset_data['lat'] = lat
-        subset_data['lon'] = lon
-        # print('subset data:', lat, lon, subset_data.values())
-        converted_df = subset_data.to_dataframe()
-        #print("converted_df: ", converted_df.head())
-        #print("converted_df columns: ", converted_df.columns)
-        converted_df = converted_df.reset_index(drop=False)
-        #print("convert to columns: ", converted_df.columns)
-        converted_df = converted_df.drop('crs', axis=1)
-        df = pd.concat([df, converted_df], ignore_index=True)
-        
-    result_df = df
-    print("got result_df : ", result_df.head())
+    result_data = []
+    for _, row in stations.iterrows():
+        delayed_process_data = delayed(process_station)(ds, row['latitude'], row['longitude'])
+        result_data.append(delayed_process_data)
+
+    print("ddf = dd.from_delayed(result_data)")
+    ddf = dd.from_delayed(result_data)
+    
+    print("result_df = ddf.compute()")
+    result_df = ddf.compute()
     result_df.to_csv(csv_file, index=False)
-    print(f'completed extracting data for {file_name}')
+    print(f'Completed extracting data for {file_name}')
 
 
 def merge_similar_variables_from_different_years():

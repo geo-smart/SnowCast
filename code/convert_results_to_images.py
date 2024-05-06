@@ -434,7 +434,8 @@ if __name__ == "__main__":
     # plot the predicted SWE first
     convert_csvs_to_images_simple(test_start_date)
 
-    plot_all_variables_in_one_figure_for_date(test_start_date)
+    # skip the long figure plot for now. this is too slow as someone is competiting resources with me.
+    # plot_all_variables_in_one_figure_for_date(test_start_date)
     
     convert_csv_to_geotiff(test_start_date)
 

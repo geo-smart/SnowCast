@@ -1,4 +1,574 @@
 [{
+  "history_id" : "17kqlu54575",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714977336239,
+  "history_end_time" : 1714977336239,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "do2tqu0u0p7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714968024321,
+  "history_end_time" : 1714968024321,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gkn2rlycy8h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714956083595,
+  "history_end_time" : 1714956344017,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "vbx6zc",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "h53ybcn2z3a",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714944537031,
+  "history_end_time" : 1714944767580,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "vbx6zc",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vohotogw16n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714943546226,
+  "history_end_time" : 1714943546226,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l6gofdxa1n9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714897025214,
+  "history_end_time" : 1714897025214,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l5dt03pzx6b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714894044196,
+  "history_end_time" : 1714895139380,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8vyahvwicvy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714881609891,
+  "history_end_time" : 1714881609891,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9UsRgN6Sz9JL",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\nprint(f\"ready_csv_path = {ready_csv_path}\")\n\n\n\n\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    # print(\"row = \", row)\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\ndef parallelize_slope_correction():\n    # Start Dask client\n#     client = Client()\n\n    # Scatter DEM data\n#     dem_future = client.scatter(dem_slope_df)\n    # Read the cleaned ready CSV and DEM slope CSV\n    train_ready_df = pd.read_csv(ready_csv_path)\n    dem_slope_df = pd.read_csv(dem_slope_csv_path)\n\n    print(train_ready_df.head())\n    print(dem_slope_df.head())\n\n    print(\"all train.csv columns: \", train_ready_df.columns)\n    print(\"all dem slope columns: \", dem_slope_df.columns)\n    \n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n    \n    print(\"deduplicate the training point lat/lon\")\n    lat_lon_df = train_ready_df[['lat', 'lon']].drop_duplicates()\n\n    print(\"lat_lon_df.shape\", lat_lon_df.shape)\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    #train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df), axis=1)\n    \n    # Apply the function with scattered data and log progress\n#     train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(\n#         lambda df: df.apply(replace_slope, args=(tree, dem_future)), \n#         meta=('slope', 'float64')\n#     )\n#     train_ready_ddf['corrected_slope'].compute(progress_callback=progress)\n\n    lat_lon_df['corrected_slope'] = lat_lon_df.apply(replace_slope, args=(tree, dem_slope_df), axis=1)\n  \n    train_ready_df = train_ready_df.merge(lat_lon_df, on=['lat', 'lon'], how='left')\n    \n\n    print(\"finished correcting slope\")\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n    \n  \n  \nif __name__ == \"__main__\":\n    parallelize_slope_correction()\n",
+  "history_output" : "today date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n/home/chetana/gw-workspace/9UsRgN6Sz9JL/correct_slope.py:42: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ndeduplicate the training point lat/lon\nlat_lon_df.shape (7640, 2)\nstart to correct slope\nfinished correcting slope\n         date        lat         lon  ...  Eastness fsca  corrected_slope\n0  2018-01-01  25.030476 -107.762452  ... -0.748759  NaN          -9999.0\n1  2018-01-01  25.046597 -105.686771  ...  0.766098  NaN          -9999.0\n2  2018-01-01  25.054371 -105.621360  ... -0.610461  NaN          -9999.0\n3  2018-01-01  25.063428 -105.671338  ...  0.676551  NaN          -9999.0\n4  2018-01-01  25.069645 -102.272098  ...  0.222141  NaN          -9999.0\n[5 rows x 25 columns]\nIndex(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca', 'corrected_slope'],\n      dtype='object')\nsaving the correct data into /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv\nThe new slope corrected dataframe is saved to /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv\n",
+  "history_begin_time" : 1714852300041,
+  "history_end_time" : 1714852848265,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "FCN5COGCEXwi",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\nprint(f\"ready_csv_path = {ready_csv_path}\")\n\n\n\n\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    # print(\"row = \", row)\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\ndef parallelize_slope_correction():\n    # Start Dask client\n#     client = Client()\n\n    # Scatter DEM data\n#     dem_future = client.scatter(dem_slope_df)\n    # Read the cleaned ready CSV and DEM slope CSV\n    train_ready_df = pd.read_csv(ready_csv_path)\n    dem_slope_df = pd.read_csv(dem_slope_csv_path)\n\n    print(train_ready_df.head())\n    print(dem_slope_df.head())\n\n    print(\"all train.csv columns: \", train_ready_df.columns)\n    print(\"all dem slope columns: \", dem_slope_df.columns)\n    \n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n    \n    print(\"deduplicate the training point lat/lon\")\n    lat_lon_df = train_ready_df[['lat', 'lon']].drop_duplicates()\n\n    print(\"lat_lon_df.shape\", lat_lon_df.shape)\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    #train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df), axis=1)\n    \n    # Apply the function with scattered data and log progress\n#     train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(\n#         lambda df: df.apply(replace_slope, args=(tree, dem_future)), \n#         meta=('slope', 'float64')\n#     )\n#     train_ready_ddf['corrected_slope'].compute(progress_callback=progress)\n\n    lat_lon_df['corrected_slope'] = lat_lon_df.apply(replace_slope, args=(tree, dem_slope_df), axis=1)\n  \n    train_ready_df = train_ready_df.merge(lat_lon_ddf, on=['lat', 'lon'], how='left')\n    \n\n    print(\"finished correcting slope\")\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n    \n  \n  \nif __name__ == \"__main__\":\n    parallelize_slope_correction()\n",
+  "history_output" : "today date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n/home/chetana/gw-workspace/FCN5COGCEXwi/correct_slope.py:42: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ndeduplicate the training point lat/lon\nlat_lon_df.shape (7640, 2)\nstart to correct slope\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/FCN5COGCEXwi/correct_slope.py\", line 87, in <module>\n    parallelize_slope_correction()\n  File \"/home/chetana/gw-workspace/FCN5COGCEXwi/correct_slope.py\", line 71, in parallelize_slope_correction\n    train_ready_df = train_ready_df.merge(lat_lon_ddf, on=['lat', 'lon'], how='left')\nNameError: name 'lat_lon_ddf' is not defined\n",
+  "history_begin_time" : 1714852209552,
+  "history_end_time" : 1714852278660,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "6LmaSrXIg7Ul",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\nprint(f\"ready_csv_path = {ready_csv_path}\")\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\n\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    # print(\"row = \", row)\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\ndef parallelize_slope_correction():\n    # Start Dask client\n#     client = Client()\n\n    # Scatter DEM data\n#     dem_future = client.scatter(dem_slope_df)\n    \n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n    \n    print(\"deduplicate the training point lat/lon\")\n    lat_lon_df = train_ready_df[['lat', 'lon']].drop_duplicates()\n\n    print(\"lat_lon_df.shape\", lat_lon_df.shape)\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    #train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df), axis=1)\n    \n    # Apply the function with scattered data and log progress\n#     train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(\n#         lambda df: df.apply(replace_slope, args=(tree, dem_future)), \n#         meta=('slope', 'float64')\n#     )\n#     train_ready_ddf['corrected_slope'].compute(progress_callback=progress)\n\n    lat_lon_df['corrected_slope'] = lat_lon_df.apply(replace_slope, args=(tree, dem_slope_df), axis=1)\n  \n    train_ready_df = train_ready_df.merge(lat_lon_ddf, on=['lat', 'lon'], how='left')\n    \n\n    print(\"finished correcting slope\")\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n    \n  \n  \nif __name__ == \"__main__\":\n    parallelize_slope_correction()\n",
+  "history_output" : "today date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n/home/chetana/gw-workspace/6LmaSrXIg7Ul/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ndeduplicate the training point lat/lon\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/6LmaSrXIg7Ul/correct_slope.py\", line 86, in <module>\n    parallelize_slope_correction()\n  File \"/home/chetana/gw-workspace/6LmaSrXIg7Ul/correct_slope.py\", line 54, in parallelize_slope_correction\n    lat_lon_df = train_ready_df[['lat', 'lon']].drop_duplicates()\nUnboundLocalError: local variable 'train_ready_df' referenced before assignment\n",
+  "history_begin_time" : 1714852109992,
+  "history_end_time" : 1714852175660,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "uMbiTKYVCrav",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\nprint(f\"ready_csv_path = {ready_csv_path}\")\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\n\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    print(\"row = \", row)\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\ndef parallelize_slope_correction():\n    # Start Dask client\n#     client = Client()\n\n    # Scatter DEM data\n#     dem_future = client.scatter(dem_slope_df)\n    \n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df))\n    \n    # Apply the function with scattered data and log progress\n#     train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(\n#         lambda df: df.apply(replace_slope, args=(tree, dem_future)), \n#         meta=('slope', 'float64')\n#     )\n#     train_ready_ddf['corrected_slope'].compute(progress_callback=progress)\n\n    print(\"finished correcting slope\")\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n    \n  \n  \nif __name__ == \"__main__\":\n    parallelize_slope_correction()\n",
+  "history_output" : "today date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n/home/chetana/gw-workspace/uMbiTKYVCrav/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\nstart to correct slope\nrow =  0           2018-01-01\n1           2018-01-01\n2           2018-01-01\n3           2018-01-01\n4           2018-01-01\n               ...    \n15075355    2024-04-26\n15075356    2024-04-26\n15075357    2024-04-26\n15075358    2024-04-26\n15075359    2024-04-26\nName: date, Length: 15075360, dtype: object\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/uMbiTKYVCrav/correct_slope.py\", line 77, in <module>\n    parallelize_slope_correction()\n  File \"/home/chetana/gw-workspace/uMbiTKYVCrav/correct_slope.py\", line 55, in parallelize_slope_correction\n    train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df))\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/frame.py\", line 9568, in apply\n    return op.apply().__finalize__(self, method=\"apply\")\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/apply.py\", line 764, in apply\n    return self.apply_standard()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/apply.py\", line 891, in apply_standard\n    results, res_index = self.apply_series_generator()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/apply.py\", line 907, in apply_series_generator\n    results[i] = self.f(v)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/apply.py\", line 142, in f\n    return func(x, *args, **kwargs)\n  File \"/home/chetana/gw-workspace/uMbiTKYVCrav/correct_slope.py\", line 37, in replace_slope\n    target_lat = row[\"lat\"]\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/series.py\", line 981, in __getitem__\n    return self._get_value(key)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/series.py\", line 1089, in _get_value\n    loc = self.index.get_loc(label)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/indexes/range.py\", line 395, in get_loc\n    raise KeyError(key)\nKeyError: 'lat'\n",
+  "history_begin_time" : 1714851611979,
+  "history_end_time" : 1714851680489,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "hUj9QABI88UB",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\nprint(f\"ready_csv_path = {ready_csv_path}\")\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\n\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\ndef parallelize_slope_correction():\n    # Start Dask client\n#     client = Client()\n\n    # Scatter DEM data\n#     dem_future = client.scatter(dem_slope_df)\n    \n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df))\n    \n    # Apply the function with scattered data and log progress\n#     train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(\n#         lambda df: df.apply(replace_slope, args=(tree, dem_future)), \n#         meta=('slope', 'float64')\n#     )\n#     train_ready_ddf['corrected_slope'].compute(progress_callback=progress)\n\n    print(\"finished correcting slope\")\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n    \n  \n  \nif __name__ == \"__main__\":\n    parallelize_slope_correction()\n",
+  "history_output" : "today date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n/home/chetana/gw-workspace/hUj9QABI88UB/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\nstart to correct slope\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/hUj9QABI88UB/correct_slope.py\", line 76, in <module>\n    parallelize_slope_correction()\n  File \"/home/chetana/gw-workspace/hUj9QABI88UB/correct_slope.py\", line 54, in parallelize_slope_correction\n    train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df))\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/frame.py\", line 9568, in apply\n    return op.apply().__finalize__(self, method=\"apply\")\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/apply.py\", line 764, in apply\n    return self.apply_standard()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/apply.py\", line 891, in apply_standard\n    results, res_index = self.apply_series_generator()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/apply.py\", line 907, in apply_series_generator\n    results[i] = self.f(v)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/apply.py\", line 142, in f\n    return func(x, *args, **kwargs)\n  File \"/home/chetana/gw-workspace/hUj9QABI88UB/correct_slope.py\", line 36, in replace_slope\n    target_lat = row[\"lat\"]\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/series.py\", line 981, in __getitem__\n    return self._get_value(key)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/series.py\", line 1089, in _get_value\n    loc = self.index.get_loc(label)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/indexes/range.py\", line 395, in get_loc\n    raise KeyError(key)\nKeyError: 'lat'\n",
+  "history_begin_time" : 1714846317532,
+  "history_end_time" : 1714846386295,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "N8RaZmawLEDp",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\nprint(f\"ready_csv_path = {ready_csv_path}\")\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\n\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\ndef parallelize_slope_correction():\n    # Start Dask client\n#     client = Client()\n\n    # Scatter DEM data\n#     dem_future = client.scatter(dem_slope_df)\n    \n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df)), meta=('slope', 'float64')\n    \n    # Apply the function with scattered data and log progress\n#     train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(\n#         lambda df: df.apply(replace_slope, args=(tree, dem_future)), \n#         meta=('slope', 'float64')\n#     )\n#     train_ready_ddf['corrected_slope'].compute(progress_callback=progress)\n\n    print(\"finished correcting slope\")\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n    \n  \n  \nif __name__ == \"__main__\":\n    parallelize_slope_correction()\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/N8RaZmawLEDp/correct_slope.py\", line 54\n    train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df)), meta=('slope', 'float64')\n                                        ^\nSyntaxError: cannot assign to function call\n",
+  "history_begin_time" : 1714846278973,
+  "history_end_time" : 1714846279054,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "YXXuuZrQtOOH",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\nprint(f\"ready_csv_path = {ready_csv_path}\")\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\n\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\ndef parallelize_slope_correction():\n    # Start Dask client\n    client = Client()\n\n    # Scatter DEM data\n    dem_future = client.scatter(dem_slope_df)\n    \n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    # train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df)), meta=('slope', 'float64')\n    \n    # Apply the function with scattered data and log progress\n    train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(\n        lambda df: df.apply(replace_slope, args=(tree, dem_future)), \n        meta=('slope', 'float64')\n    )\n    train_ready_ddf['corrected_slope'].compute(progress_callback=progress)\n\n    print(\"finished correcting slope\")\n    print(train_ready_ddf.head())\n    print(train_ready_ddf.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_ddf.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n    \n  \n  \nif __name__ == \"__main__\":\n    parallelize_slope_correction()\n",
+  "history_output" : "today date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py:13: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\nstart to correct slope\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py\", line 76, in <module>\n    parallelize_slope_correction()\n  File \"/home/chetana/gw-workspace/YXXuuZrQtOOH/correct_slope.py\", line 57, in parallelize_slope_correction\n    train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(\nNameError: name 'train_ready_ddf' is not defined\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\n",
+  "history_begin_time" : 1714845844249,
+  "history_end_time" : 1714845993831,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "9ltZT38ljjNI",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\nprint(f\"ready_csv_path = {ready_csv_path}\")\n\n\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\ndef parallelize_slope_correction():\n    # Read the cleaned ready CSV and DEM slope CSV\n    train_ready_df = pd.read_csv(ready_csv_path)\n    dem_slope_df = pd.read_csv(dem_slope_csv_path)\n\n    print(train_ready_df.head())\n    print(dem_slope_df.head())\n\n    print(\"all train.csv columns: \", train_ready_df.columns)\n    print(\"all dem slope columns: \", dem_slope_df.columns)\n    \n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n\n    # Start Dask client for parallel processing\n    client = Client()\n\n    # Convert pandas DataFrames to Dask DataFrames\n    train_ready_ddf = dd.from_pandas(train_ready_df, npartitions=4)\n\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    train_ready_ddf['slope'] = train_ready_ddf.map_partitions(lambda df: df.apply(replace_slope, args=(tree, dem_slope_df)), meta=('slope', 'float64')).compute(scheduler='distributed')\n\n    print(\"finished correcting slope\")\n    print(train_ready_ddf.head())\n    print(train_ready_ddf.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_ddf.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n\n    # Close the Dask client\n    client.close()\n    \n  \n  \nif __name__ == \"__main__\":\n    parallelize_slope_correction()\n",
+  "history_output" : "today date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n/home/chetana/gw-workspace/9ltZT38ljjNI/correct_slope.py:34: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\nstart to correct slope\n/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/client.py:3149: UserWarning: Sending large graph of size 2.67 GiB.\nThis may cause some slowdown.\nConsider scattering data ahead of time and using futures.\n  warnings.warn(\n2024-05-04 07:48:40,381 - distributed.protocol.core - CRITICAL - Failed to deserialize\nTraceback (most recent call last):\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/protocol/core.py\", line 158, in loads\n    return msgpack.loads(\n  File \"msgpack/_unpacker.pyx\", line 194, in msgpack._cmsgpack.unpackb\nValueError: 2861556847 exceeds max_bin_len(2147483647)\n2024-05-04 07:48:40,411 - distributed.core - ERROR - Exception while handling op register-client\nTraceback (most recent call last):\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py\", line 921, in _handle_comm\n    result = await result\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/scheduler.py\", line 5490, in add_client\n    await self.handle_stream(comm=comm, extra={\"client\": client})\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py\", line 974, in handle_stream\n    msgs = await comm.read()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/tcp.py\", line 253, in read\n    msg = await from_frames(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/utils.py\", line 100, in from_frames\n    res = _from_frames()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/utils.py\", line 83, in _from_frames\n    return protocol.loads(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/protocol/core.py\", line 158, in loads\n    return msgpack.loads(\n  File \"msgpack/_unpacker.pyx\", line 194, in msgpack._cmsgpack.unpackb\nValueError: 2861556847 exceeds max_bin_len(2147483647)\nTask exception was never retrieved\nfuture: <Task finished name='Task-418' coro=<Server._handle_comm() done, defined at /home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py:827> exception=ValueError('2861556847 exceeds max_bin_len(2147483647)')>\nTraceback (most recent call last):\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py\", line 921, in _handle_comm\n    result = await result\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/scheduler.py\", line 5490, in add_client\n    await self.handle_stream(comm=comm, extra={\"client\": client})\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py\", line 974, in handle_stream\n    msgs = await comm.read()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/tcp.py\", line 253, in read\n    msg = await from_frames(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/utils.py\", line 100, in from_frames\n    res = _from_frames()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/utils.py\", line 83, in _from_frames\n    return protocol.loads(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/protocol/core.py\", line 158, in loads\n    return msgpack.loads(\n  File \"msgpack/_unpacker.pyx\", line 194, in msgpack._cmsgpack.unpackb\nValueError: 2861556847 exceeds max_bin_len(2147483647)\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/9ltZT38ljjNI/correct_slope.py\", line 72, in <module>\n    parallelize_slope_correction()\n  File \"/home/chetana/gw-workspace/9ltZT38ljjNI/correct_slope.py\", line 54, in parallelize_slope_correction\n    train_ready_ddf['slope'] = train_ready_ddf.map_partitions(lambda df: df.apply(replace_slope, args=(tree, dem_slope_df)), meta=('slope', 'float64')).compute(scheduler='distributed')\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/base.py\", line 342, in compute\n    (result,) = compute(self, traverse=False, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/base.py\", line 628, in compute\n    results = schedule(dsk, keys, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/client.py\", line 2254, in _gather\n    raise exc\nconcurrent.futures._base.CancelledError: ('lambda-32e6e105d586bb17c6a392d5991805b8', 3)\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\nready_csv_path = /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n",
+  "history_begin_time" : 1714808782931,
+  "history_end_time" : 1714808921865,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "cDLzl1mt0NwA",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nfrom scipy.spatial import KDTree\nimport dask.dataframe as dd\nfrom dask.distributed import Client\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\ndef replace_slope(row, tree, dem_df):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n        tree (scipy.spatial.KDTree): KDTree built from DEM data.\n        dem_df (pandas.DataFrame): DataFrame containing DEM data.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    _, idx = tree.query([(target_lat, target_lon)])\n    closest_row = dem_df.iloc[idx[0]]\n    return closest_row[\"Slope\"]\n\nif __name__ == \"__main__\":\n    # Build KDTree for DEM data\n    tree = KDTree(dem_slope_df[['Latitude', 'Longitude']].values)\n\n    # Start Dask client for parallel processing\n    client = Client()\n\n    # Convert pandas DataFrames to Dask DataFrames\n    train_ready_ddf = dd.from_pandas(train_ready_df, npartitions=4)\n\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    train_ready_ddf['slope'] = train_ready_ddf.map_partitions(lambda df: df.apply(replace_slope, args=(tree, dem_slope_df)), meta=('slope', 'float64')).compute(scheduler='distributed')\n\n    print(\"finished correcting slope\")\n    print(train_ready_ddf.head())\n    print(train_ready_ddf.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_ddf.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n\n    # Close the Dask client\n    client.close()\n",
+  "history_output" : "today date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py:12: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\nstart to correct slope\n/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/client.py:3149: UserWarning: Sending large graph of size 2.67 GiB.\nThis may cause some slowdown.\nConsider scattering data ahead of time and using futures.\n  warnings.warn(\n2024-05-04 07:32:10,767 - distributed.protocol.core - CRITICAL - Failed to deserialize\nTraceback (most recent call last):\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/protocol/core.py\", line 158, in loads\n    return msgpack.loads(\n  File \"msgpack/_unpacker.pyx\", line 194, in msgpack._cmsgpack.unpackb\nValueError: 2861556745 exceeds max_bin_len(2147483647)\n2024-05-04 07:32:11,282 - distributed.core - ERROR - Exception while handling op register-client\nTraceback (most recent call last):\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py\", line 921, in _handle_comm\n    result = await result\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/scheduler.py\", line 5490, in add_client\n    await self.handle_stream(comm=comm, extra={\"client\": client})\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py\", line 974, in handle_stream\n    msgs = await comm.read()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/tcp.py\", line 253, in read\n    msg = await from_frames(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/utils.py\", line 100, in from_frames\n    res = _from_frames()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/utils.py\", line 83, in _from_frames\n    return protocol.loads(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/protocol/core.py\", line 158, in loads\n    return msgpack.loads(\n  File \"msgpack/_unpacker.pyx\", line 194, in msgpack._cmsgpack.unpackb\nValueError: 2861556745 exceeds max_bin_len(2147483647)\nTask exception was never retrieved\nfuture: <Task finished name='Task-84866' coro=<Server._handle_comm() done, defined at /home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py:827> exception=ValueError('2861556745 exceeds max_bin_len(2147483647)')>\nTraceback (most recent call last):\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py\", line 921, in _handle_comm\n    result = await result\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/scheduler.py\", line 5490, in add_client\n    await self.handle_stream(comm=comm, extra={\"client\": client})\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/core.py\", line 974, in handle_stream\n    msgs = await comm.read()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/tcp.py\", line 253, in read\n    msg = await from_frames(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/utils.py\", line 100, in from_frames\n    res = _from_frames()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/comm/utils.py\", line 83, in _from_frames\n    return protocol.loads(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/protocol/core.py\", line 158, in loads\n    return msgpack.loads(\n  File \"msgpack/_unpacker.pyx\", line 194, in msgpack._cmsgpack.unpackb\nValueError: 2861556745 exceeds max_bin_len(2147483647)\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/cDLzl1mt0NwA/correct_slope.py\", line 51, in <module>\n    train_ready_ddf['slope'] = train_ready_ddf.map_partitions(lambda df: df.apply(replace_slope, args=(tree, dem_slope_df)), meta=('slope', 'float64')).compute(scheduler='distributed')\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/base.py\", line 342, in compute\n    (result,) = compute(self, traverse=False, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/base.py\", line 628, in compute\n    results = schedule(dsk, keys, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/distributed/client.py\", line 2254, in _gather\n    raise exc\nconcurrent.futures._base.CancelledError: ('lambda-b93cf1612b27ed85243970cbc5511bb8', 0)\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\ntoday date = 2024-05-04\n2024-05-01\ntest start date:  2024-05-01\ntest end date:  2023-10-11\n/home/chetana\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\n2024-05-04 07:32:15,052 - distributed.nanny - WARNING - Worker process still alive after 3.1999995422363288 seconds, killing\n2024-05-04 07:32:15,183 - distributed.nanny - WARNING - Worker process still alive after 3.1999995422363288 seconds, killing\n",
+  "history_begin_time" : 1714805795339,
+  "history_end_time" : 1714807955840,
+  "history_notes" : "use kdtree and dask together",
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "m2f9xMu05kkZ",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\ndef replace_slope(row):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    # Calculate the squared distance to find the closest DEM point\n    dem_slope_df['Distance'] = (dem_slope_df['Latitude'] - target_lat) ** 2 + (dem_slope_df['Longitude'] - target_lon) ** 2\n    closest_row = dem_slope_df.loc[dem_slope_df['Distance'].idxmin()]\n    return closest_row[\"Slope\"]\n\n\nif __name__ == \"__main__\":\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    train_ready_df['slope'] = train_ready_df.apply(lambda row: replace_slope(row), axis=1)\n\n    print(\"finished correcting slope\")\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n    print(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/chetana\n/home/chetana/gw-workspace/m2f9xMu05kkZ/correct_slope.py:9: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\nstart to correct slope\n",
+  "history_begin_time" : 1714687137573,
+  "history_end_time" : 1714805882809,
+  "history_notes" : "this is extremely slow. try to find ways to accelerate",
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "C6caC0QWq0rZ",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\ndef replace_slope(row):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    # Calculate the squared distance to find the closest DEM point\n    dem_slope_df['Distance'] = (dem_slope_df['Latitude'] - target_lat) ** 2 + (dem_slope_df['Longitude'] - target_lon) ** 2\n    closest_row = dem_slope_df.loc[dem_slope_df['Distance'].idxmin()]\n    return closest_row[\"Slope\"]\n\n\nif __name__ == \"__main__\":\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    print(\"start to correct slope\")\n    train_ready_df['slope'] = train_ready_df.apply(lambda row: replace_slope(row), axis=1)\n\n    print(\"finished correcting slope\")\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n\tprint(f\"saving the correct data into {new_result_csv_path}\")\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n",
+  "history_output" : "  File \"/home/chetana/gw-workspace/C6caC0QWq0rZ/correct_slope.py\", line 46\n    print(f\"saving the correct data into {new_result_csv_path}\")\nTabError: inconsistent use of tabs and spaces in indentation\n",
+  "history_begin_time" : 1714681440635,
+  "history_end_time" : 1714681441116,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "t9UluUSfjtSj",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\n\nready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'\ndem_slope_csv_path = f\"{work_dir}/slope_file.tif.csv\"\n\n# Read the cleaned ready CSV and DEM slope CSV\ntrain_ready_df = pd.read_csv(ready_csv_path)\ndem_slope_df = pd.read_csv(dem_slope_csv_path)\n\nprint(train_ready_df.head())\nprint(dem_slope_df.head())\n\nprint(\"all train.csv columns: \", train_ready_df.columns)\nprint(\"all dem slope columns: \", dem_slope_df.columns)\n\ndef replace_slope(row):\n    '''\n    Replace the 'slope' column in the input DataFrame row with the closest slope value from the DEM data.\n\n    Args:\n        row (pandas.Series): A row of data containing 'lat' and 'lon' columns.\n\n    Returns:\n        float: The closest slope value from the DEM data for the given latitude and longitude.\n    '''\n    target_lat = row[\"lat\"]\n    target_lon = row[\"lon\"]\n    # Calculate the squared distance to find the closest DEM point\n    dem_slope_df['Distance'] = (dem_slope_df['Latitude'] - target_lat) ** 2 + (dem_slope_df['Longitude'] - target_lon) ** 2\n    closest_row = dem_slope_df.loc[dem_slope_df['Distance'].idxmin()]\n    return closest_row[\"Slope\"]\n\n\nif __name__ == \"__main__\":\n    # Apply the 'replace_slope' function to calculate and replace slope values in the DataFrame\n    train_ready_df['slope'] = train_ready_df.apply(lambda row: replace_slope(row), axis=1)\n\n    print(train_ready_df.head())\n    print(train_ready_df.columns)\n\n    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'\n\n    # Save the modified DataFrame to a new CSV file\n    train_ready_df.to_csv(new_result_csv_path, index=False)\n    print(f\"The new slope corrected dataframe is saved to {new_result_csv_path}\")\n",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/chetana\n/home/chetana/gw-workspace/t9UluUSfjtSj/correct_slope.py:9: DtypeWarning: Columns (4) have mixed types. Specify dtype option on import or set low_memory=False.\n  train_ready_df = pd.read_csv(ready_csv_path)\n         date        lat         lon  ...  Northness  Eastness  fsca\n0  2018-01-01  25.030476 -107.762452  ...  -0.353829 -0.748759   NaN\n1  2018-01-01  25.046597 -105.686771  ...  -0.266138  0.766098   NaN\n2  2018-01-01  25.054371 -105.621360  ...   0.620411 -0.610461   NaN\n3  2018-01-01  25.063428 -105.671338  ...  -0.537485  0.676551   NaN\n4  2018-01-01  25.069645 -102.272098  ...   0.772309  0.222141   NaN\n[5 rows x 24 columns]\n   Latitude  Longitude  x  y   Slope\n0      49.0   -125.000  0  0 -9999.0\n1      49.0   -124.964  1  0 -9999.0\n2      49.0   -124.928  2  0 -9999.0\n3      49.0   -124.892  3  0 -9999.0\n4      49.0   -124.856  4  0 -9999.0\nall train.csv columns:  Index(['date', 'lat', 'lon', 'AMSR_SWE', 'station_name', 'swe_value',\n       'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f',\n       'air_temperature_tmmn', 'potential_evapotranspiration',\n       'mean_vapor_pressure_deficit', 'relative_humidity_rmax',\n       'relative_humidity_rmin', 'precipitation_amount',\n       'air_temperature_tmmx', 'wind_speed', 'Elevation', 'Slope', 'Aspect',\n       'Curvature', 'Northness', 'Eastness', 'fsca'],\n      dtype='object')\nall dem slope columns:  Index(['Latitude', 'Longitude', 'x', 'y', 'Slope'], dtype='object')\n",
+  "history_begin_time" : 1714667605452,
+  "history_end_time" : 1714681363583,
+  "history_notes" : "corrected slope is so slow",
+  "history_process" : "ee5ur4",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "tfhn0kgngu7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714409076792,
+  "history_end_time" : 1714409076792,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tr2ug2jq0pq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714407283850,
+  "history_end_time" : 1714407283850,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3x4eh8r8umw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714404800134,
+  "history_end_time" : 1714404800134,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ct942qgt51b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714363210288,
+  "history_end_time" : 1714363210288,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8nyu6q6xsab",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714362032721,
+  "history_end_time" : 1714362032721,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "s7u96bjjf9s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714355595258,
+  "history_end_time" : 1714355595258,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tftrij55u8l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714351396913,
+  "history_end_time" : 1714351396913,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f915hhy63m2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714348539316,
+  "history_end_time" : 1714348539316,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rkxpzs35maz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714345973287,
+  "history_end_time" : 1714345973287,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "dvo42kjvgt5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714343583906,
+  "history_end_time" : 1714343583906,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zs78tq51bz3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714340841829,
+  "history_end_time" : 1714340841829,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zn69zb39tne",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714332798198,
+  "history_end_time" : 1714332798198,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yx9yhi1bx52",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714328816237,
+  "history_end_time" : 1714328816237,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rmzbqjodggy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714323529113,
+  "history_end_time" : 1714323529113,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "klpkcubx0z9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714320354976,
+  "history_end_time" : 1714320354976,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "n22emuog82s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714315863139,
+  "history_end_time" : 1714315863139,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fazm2ti62q1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714283543377,
+  "history_end_time" : 1714315862069,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "se1rd5b7bp1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714281870996,
+  "history_end_time" : 1714283515040,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6mvlknk1yes",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714276838475,
+  "history_end_time" : 1714315876917,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ycep06ub21u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714274662765,
+  "history_end_time" : 1714281869552,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cxiy9urt5iw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714272894755,
+  "history_end_time" : 1714274352452,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5z21rmcz6p8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714265253462,
+  "history_end_time" : 1714272892784,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kn49nt1yp61",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714265112671,
+  "history_end_time" : 1714265250945,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ildw49zpb87",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714192736420,
+  "history_end_time" : 1714265111667,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "2b71m2s7j4h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714190418435,
+  "history_end_time" : 1714274351055,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "a8aqd0pw1u5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714104009598,
+  "history_end_time" : 1714274350453,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dw5c128ik36",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714017609931,
+  "history_end_time" : 1714274349939,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4stxcglj7tp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713931210236,
+  "history_end_time" : 1714274349396,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wiujwv8nme8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713844809914,
+  "history_end_time" : 1714274348794,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "m9qzoioh3br",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713758409491,
+  "history_end_time" : 1714274347360,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ji7lvyld124",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713672009938,
+  "history_end_time" : 1714274346368,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xo2tjhtfjd3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713585609756,
+  "history_end_time" : 1714274345855,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hvzdtbv2bvm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713499209954,
+  "history_end_time" : 1714274345301,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qyet7tf0g4r",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713412809188,
+  "history_end_time" : 1714274344728,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hmem5wpkpfx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713326409318,
+  "history_end_time" : 1714274343305,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "qbekb5quns0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713283461356,
+  "history_end_time" : 1713283461356,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uhs2phdg3b2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713240009281,
+  "history_end_time" : 1714274342601,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "6po7prw571j",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -13,21 +583,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711684813938,
-  "history_end_time" : 1711684813938,
+  "history_end_time" : 1714282476123,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "zpr2aka0y1a",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711598415361,
-  "history_end_time" : 1711598415361,
+  "history_end_time" : 1714282474715,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ynnzv18k33o",
   "history_input" : "No code saved",
@@ -63,21 +633,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711425614430,
-  "history_end_time" : 1711425614430,
+  "history_end_time" : 1714282483205,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "8zgzoeg79k5",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711339212968,
-  "history_end_time" : 1711339212968,
+  "history_end_time" : 1714282483870,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ri8v5zwoa08",
   "history_input" : "No code saved",
@@ -113,41 +683,41 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710993609982,
-  "history_end_time" : 1710993609982,
+  "history_end_time" : 1714282484656,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1j9uj48y4la",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710907209416,
-  "history_end_time" : 1710907209416,
+  "history_end_time" : 1714282485303,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "n19ed1gmc6s",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710820809084,
-  "history_end_time" : 1710820809084,
+  "history_end_time" : 1714282486310,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2vcsfml0t0l",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710734409807,
-  "history_end_time" : 1710734409807,
+  "history_end_time" : 1714282486976,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "njisqnj1pjg",
   "history_input" : "No code saved",
@@ -163,61 +733,61 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710648009504,
-  "history_end_time" : 1710648009504,
+  "history_end_time" : 1714282488983,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "g7gtdatbl4l",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710561608973,
-  "history_end_time" : 1710561608973,
+  "history_end_time" : 1714282489556,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "47ls2bbjfnw",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710475209581,
-  "history_end_time" : 1710475209581,
+  "history_end_time" : 1714282490330,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2urq157m22e",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710388809567,
-  "history_end_time" : 1710388809567,
+  "history_end_time" : 1714282490852,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "nz7z2gqma1j",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710302409655,
-  "history_end_time" : 1710302409655,
+  "history_end_time" : 1714282491525,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "jyq3nze9iy5",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710216009732,
-  "history_end_time" : 1710216009732,
+  "history_end_time" : 1714282492143,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tqgkc8hezfp",
   "history_input" : "No code saved",
@@ -233,11 +803,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710129609399,
-  "history_end_time" : 1710129609399,
+  "history_end_time" : 1714282493755,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "nvqou32w28i",
   "history_input" : "No code saved",
@@ -253,11 +823,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710043209039,
-  "history_end_time" : 1710043209039,
+  "history_end_time" : 1714282495098,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "allghe9ymsl",
   "history_input" : "No code saved",
@@ -273,11 +843,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709956809320,
-  "history_end_time" : 1709956809320,
+  "history_end_time" : 1714282495739,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "z9fd3amnr3x",
   "history_input" : "No code saved",
@@ -293,11 +863,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709870410325,
-  "history_end_time" : 1709870410325,
+  "history_end_time" : 1714282496861,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "mmghuemd4bv",
   "history_input" : "No code saved",
@@ -373,11 +943,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709784009795,
-  "history_end_time" : 1709784009795,
+  "history_end_time" : 1714282504746,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3lkipud7yjn",
   "history_input" : "No code saved",
@@ -443,31 +1013,31 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709697609618,
-  "history_end_time" : 1709697609618,
+  "history_end_time" : 1714282506692,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "f1mub6fxwhv",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709611209031,
-  "history_end_time" : 1709611209031,
+  "history_end_time" : 1714282507225,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3hxap642auu",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709524809221,
-  "history_end_time" : 1709524809221,
+  "history_end_time" : 1714282507737,
   "history_notes" : null,
   "history_process" : "ee5ur4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "q1hqugh43rg",
   "history_input" : "No code saved",

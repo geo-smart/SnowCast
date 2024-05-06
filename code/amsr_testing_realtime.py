@@ -137,6 +137,11 @@ def prepare_amsr_grid_mapper():
         return
     
     target_amsr_hdf_path = f"{work_dir}/amsr_testing/testing_amsr_{date}.he5"
+    parent_directory = os.path.dirname(target_amsr_hdf_path)
+    if not os.path.exists(parent_directory):
+        os.makedirs(parent_directory)
+        print(f"Parent directory '{parent_directory}' created successfully.")
+    
     if os.path.exists(target_amsr_hdf_path):
         print(f"File {target_amsr_hdf_path} already exists, skip downloading..")
     else:

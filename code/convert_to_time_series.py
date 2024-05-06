@@ -39,6 +39,8 @@ def interpolate_missing_inplace(df, column_name, degree=3):
     if column_name == "SWE":
       mask = (y > 240) | y.isnull()
     elif column_name == "fsca":
+      y = y.replace([225, 237, 239], 0)
+      y[y < 0] = 0
       mask = (y > 100) | y.isnull()
     else:
       mask = y.isnull()
@@ -59,7 +61,7 @@ def interpolate_missing_inplace(df, column_name, degree=3):
         
     return df
 
-def convert_to_time_series(input_csv, output_csv):
+def convert_to_time_series(input_csv, output_csv, force=False):
     """
     Convert the data from the ready CSV file into a time series format.
 
@@ -78,7 +80,7 @@ def convert_to_time_series(input_csv, output_csv):
                                  'fsca']
 
     # Read the cleaned ready CSV
-    df = pd.read_csv(input_csv)
+    df = pd.read_csv(input_csv, dtype={'station_name': 'object'})
     df.sort_values(by=['lat', 'lon', 'date'], inplace=True)
     print("All current columns: ", df.columns)
     
@@ -99,7 +101,7 @@ def convert_to_time_series(input_csv, output_csv):
                         }, inplace=True)
     
     filled_csv = f"{output_csv}_gap_filled.csv"
-    if os.path.exists(filled_csv):
+    if os.path.exists(filled_csv) and not force:
         print(f"{filled_csv} already exists, skipping")
         filled_data = pd.read_csv(filled_csv)
     else:
@@ -118,14 +120,14 @@ def convert_to_time_series(input_csv, output_csv):
         filled_data = grouped.apply(process_group_filling_value).reset_index(drop=True)
     
 
-        if any(filled_data['fsca'] > 100):
+        if any(filled_data['SWE'] > 240):
           raise ValueError("Error: shouldn't have SWE>240 at this point")
 
         filled_data.to_csv(filled_csv, index=False)
         
         print(f"New filled values csv is saved to {filled_csv}")
     
-    if os.path.exists(output_csv):
+    if os.path.exists(output_csv) and not force:
         print(f"{output_csv} already exists, skipping")
     else:
         df = filled_data
@@ -177,7 +179,7 @@ def add_cumulative_columns(input_csv, output_csv, force=False):
 
     # Read the time series CSV (ensure it was created using `convert_to_time_series` function)
     # directly read from original file
-    df = pd.read_csv(input_csv)
+    df = pd.read_csv(input_csv, dtype={'station_name': 'object'})
     print("the column statistics from time series before cumulative: ", df.describe())
     
     df['date'] = pd.to_datetime(df['date'])
@@ -221,9 +223,46 @@ def add_cumulative_columns(input_csv, output_csv, force=False):
     print(f"All the cumulative variables are added successfully! {target_time_series_cumulative_csv_path}")
     print("double check the swe_value statistics:", df["swe_value"].describe())
 
-def clean_non_swe_rows(current_ready_csv_path, cleaned_csv_path):
+    
+def assign_zero_swe_value_to_all_fsca_zero_rows(na_filled_csv, non_station_zero_csv, force=False):
+    
+    # Define the conditions
+    condition_column = 'fsca'
+    target_column = 'swe_value'
+    values_to_check = [0, 225, 237, 239]
+    
+    
+    df = pd.read_csv(na_filled_csv, dtype={'station_name': 'object'})
+    empty_count = df[target_column].isnull().values.ravel().sum()
+    
+    print(f"The empty number of rows are {empty_count} before filling in")
+    print("double check the swe_value statistics before filling in:", df["swe_value"].describe())
+    
+    rows_less_than_zero = (df[target_column] < 0).sum()
+    print("Number of rows where '{}' is less than 0: {}".format(target_column, rows_less_than_zero))
+    
+
+    # Mask the target column where the condition is met
+    df[target_column] = df[target_column].mask(
+        (df[target_column].isna()) & df[condition_column].isin(values_to_check),
+        0
+    )
+    
+    empty_count = df[target_column].isnull().values.ravel().sum()
+    
+    print(f"The empty number of rows are {empty_count} after filling in")
+    
+    print("total dataframe row number : ", len(df))
+    
+    df.to_csv(non_station_zero_csv, index=False)
+    
+    print(f"The rows without snotel but fsca is zero or land or water or ocean are set to 0! {non_station_zero_csv}")
+    print("double check the swe_value statistics after filling in:", df["swe_value"].describe())
+    
+    
+def clean_non_swe_rows(current_ready_csv_path, cleaned_csv_path, force=False):
     # Read Dask DataFrame from CSV
-    dask_df = dd.read_csv(current_ready_csv_path)
+    dask_df = dd.read_csv(current_ready_csv_path, dtype={'station_name': 'object'})
 
     # Remove rows where 'swe_value' is empty
     dask_df_filtered = dask_df.dropna(subset=['swe_value'])
@@ -233,23 +272,71 @@ def clean_non_swe_rows(current_ready_csv_path, cleaned_csv_path):
     print("dask_df_filtered.shape = ", dask_df_filtered.shape)
     print(f"The filtered csv with no swe values is saved to {cleaned_csv_path}")
 
+def rename_corrected_slope(corrected_slope_path, renamed_slope_path, force=False):
+    df = pd.read_csv(corrected_slope_path, dtype={'station_name': 'object'})
+    df.drop(columns=['Slope'], inplace=True)
+	# Rename 'column_to_rename' to 'old_column'
+    df.rename(columns={'corrected_slope': 'Slope'}, inplace=True)
+    df.to_csv(renamed_slope_path, index=False)
+    print("dask_df.shape = ", df.shape)
+    print(f"The log10 file is saved to {renamed_slope_path}")
+    
+def log10_all_fields(cleaned_csv_path, logged_csv_path, force=False):
+    print("convert all cumulative columns into log10")
+    # Read Dask DataFrame from CSV
+    df = pd.read_csv(cleaned_csv_path, dtype={'station_name': 'object'})
+    
+    # Get columns with "cumulative" in their names
+    for col in df.columns:
+        print("Checking ", col)
+        if "cumulative" in col:
+	        # Apply log10 transformation to selected columns
+            df[col] = np.log10(df[col] + 0.1)  # Adding 1 to avoid log(0)
+            print(f"converted {col} to log10")
+
+    df.to_csv(logged_csv_path, index=False)
+    print("dask_df.shape = ", df.shape)
+    print(f"The log10 file is saved to {logged_csv_path}")
+
+    
+    
 if __name__ == "__main__":
     # Define file paths for various CSV files
     # current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'
-    current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_active_stations_v1.csv_sorted.csv'
-    cleaned_csv_path = f"{current_ready_csv_path}_cleaned_nodata.csv"
-    target_time_series_csv_path = f'{cleaned_csv_path}_time_series_v1.csv'
-    backup_time_series_csv_path = f'{cleaned_csv_path}_time_series_v1_bak.csv'
+    current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'
+    non_station_counted_csv_path = f'{work_dir}/new_stations_3yrs_fill_empty_snotel.csv'
+    cleaned_csv_path = f"{work_dir}/new_stations_3yrs_cleaned.csv"
+    target_time_series_csv_path = f'{work_dir}/new_stations_3yrs_time_series.csv'
+    backup_time_series_csv_path = f'{work_dir}/new_stations_3yrs_time_series_backup.csv'
     # target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'
-    target_time_series_cumulative_csv_path = f'{cleaned_csv_path}_time_series_cumulative_v1.csv'
+    target_time_series_cumulative_csv_path = f'{work_dir}/new_stations_3yrs_cumulative.csv'
+    slope_renamed_path = f'{work_dir}/new_stations_3yrs_slope_renamed.csv'
+    logged_csv_path = f'{work_dir}/new_stations_3yrs_all_cols_log10.csv'
     
+    # filling the non station rows with fsca indicating no snow
+    assign_zero_swe_value_to_all_fsca_zero_rows(current_ready_csv_path, non_station_counted_csv_path, force=True)
     
     # remove the empty swe_value rows first
-    clean_non_swe_rows(current_ready_csv_path, cleaned_csv_path)
+    clean_non_swe_rows(non_station_counted_csv_path, cleaned_csv_path, force=True)
   
     # Uncomment this line to execute the 'convert_to_time_series' function
-    convert_to_time_series(cleaned_csv_path, target_time_series_csv_path)
+    convert_to_time_series(cleaned_csv_path, target_time_series_csv_path, force=True)
 
     # Uncomment this line to execute the 'add_cumulative_columns' function
     add_cumulative_columns(target_time_series_csv_path, target_time_series_cumulative_csv_path, force=True)
+    
+    # Rename the corrected slope to slope
+    rename_corrected_slope(target_time_series_cumulative_csv_path, slope_renamed_path, force=True)
+    
+    # convert all cumulative columns to log10
+    log10_all_fields(slope_renamed_path, logged_csv_path, force=True)
+    
+    df = pd.read_csv(logged_csv_path, dtype={'station_name': 'object'})
+    print("the number of the total rows: ", len(df))
+    
+    deduplicated_df = df.drop_duplicates(subset=['lat', 'lon'])
+    # Export the deduplicated DataFrame to a CSV file
+    deduplicated_df.to_csv(f'{work_dir}/deduplicated_training_points_final.csv', index=False)
+    print("deduplicated_df.to_csv('deduplicated_training_points_final.csv', index=False)")
+    
 

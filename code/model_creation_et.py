@@ -93,7 +93,7 @@ class ETHole(RandomForestHole):
         #training_data_path = f'{working_dir}/final_merged_data_3yrs_cleaned_v3.csv'
         #training_data_path = f'{working_dir}/all_merged_training_cum_water_year_winter_month_only.csv' # snotel points
 #         training_data_path = f'{working_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'
-        training_data_path = f"{working_dir}/final_merged_data_3yrs_all_active_stations_v1.csv_sorted.csv_cleaned_nodata.csv_time_series_cumulative_v1.csv"
+        training_data_path = f"{working_dir}/new_stations_3yrs_all_cols_log10.csv"
         
         print("preparing training data from csv: ", training_data_path)
         data = pd.read_csv(training_data_path)
@@ -269,6 +269,8 @@ selected_columns = [
   'Eastness',	
   'Northness',
 ]
+
+# ['cumulative_relative_humidity_rmin', 'cumulative_air_temperature_tmmx', 'cumulative_air_temperature_tmmn', 'cumulative_relative_humidity_rmax', 'cumulative_potential_evapotranspiration', 'cumulative_wind_speed'] 
 
 if __name__ == "__main__":
   hole = ETHole()

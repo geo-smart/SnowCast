@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 from snowcast_utils import homedir, work_dir, test_start_date
 import sys
+import numpy as np
 
 def get_water_year(date):
     if date.month >= 10:  # If the month is October or later
@@ -82,6 +83,15 @@ def merge_all_gridmet_amsr_csv_into_one(gridmet_csv_folder, dem_all_csv, testing
     all_df["water_year"] = get_water_year(selected_date)
     
     all_df.rename(columns={'date_x': 'date'}, inplace=True)
+    
+    # log10 all the cumulative columns
+    # Get columns with "cumulative" in their names
+    for col in all_df.columns:
+        print("Checking ", col)
+        if "cumulative" in col:
+	        # Apply log10 transformation to selected columns
+            all_df[col] = np.log10(all_df[col] + 0.1)  # Adding 1 to avoid log(0)
+            print(f"converted {col} to log10")
     
     # Save the merged dataframe to a new CSV file
     all_df.to_csv(testing_all_csv, index=False)

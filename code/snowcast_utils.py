@@ -18,6 +18,7 @@ southwest_lat = 25.0
 northeast_lon = -100.0
 northeast_lat = 49.0
 
+# the training period is three years from 2018 to 2021
 train_start_date = "2018-01-03"
 train_end_date = "2021-12-31"
 
@@ -34,8 +35,8 @@ def get_operation_day():
   print(three_days_ago_string)
   return three_days_ago_string
 
-test_start_date = get_operation_day()
-#test_start_date = "2024-03-04" # use this for debugging
+#test_start_date = get_operation_day()
+test_start_date = "2023-12-07" # use this for debugging
 test_end_date = "2023-10-11"
 #test_end_date = d1
 print("test start date: ", test_start_date)

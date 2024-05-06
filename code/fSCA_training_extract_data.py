@@ -7,11 +7,14 @@ import concurrent.futures
 from snowcast_utils import homedir, work_dir, train_start_date, train_end_date
 from datetime import datetime, timedelta
 import dask.dataframe as dd
+import numpy as np
 
 working_dir = f"{homedir}/fsca"
 folder_path = f"{working_dir}/final_output/"
 new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
 cell_to_modis_mapping = f"{working_dir}/training_cell_to_modis_mapper_original_snotel_stations.csv"
+non_station_random_points_file = f"{work_dir}/non_station_random_points_in_westus.csv"
+all_training_points_with_station_and_non_station_file = f"{work_dir}/all_training_points_in_westus.csv"
 modis_day_wise = f"{working_dir}/final_output/"
 os.makedirs(modis_day_wise, exist_ok=True)
 
@@ -19,6 +22,52 @@ os.makedirs(modis_day_wise, exist_ok=True)
 def map_modis_to_station(row, src):
   drow, dcol = src.index(row["lon"], row["lat"])
   return drow, dcol
+
+
+def generate_random_non_station_points():
+  # Load the GeoTIFF file
+  sample_modis_tif = f"{modis_day_wise}/2022-10-01__snow_cover.tif"
+  print(f"loading geotiff {sample_modis_tif}")
+  with rasterio.open(sample_modis_tif) as src:
+    # Get the raster metadata
+    bounds = src.bounds
+    transform = src.transform
+    width = src.width
+    height = src.height
+
+    # Read the raster values as a numpy array
+    raster_array = src.read(1)  # Assuming it's a single-band raster
+
+    # Generate random points
+    random_points = []
+    while len(random_points) < 4000:
+      # Generate random coordinates within the bounds of the raster
+      random_x = np.random.uniform(bounds.left, bounds.right)
+      random_y = np.random.uniform(bounds.bottom, bounds.top)
+
+      # Convert random coordinates to pixel coordinates
+      col, row = ~transform * (random_x, random_y)
+
+      # Ensure the generated pixel coordinates are within the raster bounds
+      if 0 <= row < height and 0 <= col < width:
+        # Get the value at the generated pixel coordinates
+        value = raster_array[int(row), int(col)]
+
+        # Check if the value is not 239
+        if value != 239 and value != 255:
+          # Append the coordinates to the list
+          random_points.append((random_x, random_y, col, row))
+
+    # Assuming random_points is a list of tuples where each tuple contains latitude and longitude
+    random_points = [(lat, lon, col, row) for lon, lat, col, row in random_points]  # Swap the order to (latitude, longitude)
+
+    # Create a DataFrame from the random_points list
+    random_points_df = pd.DataFrame(random_points, columns=['latitude', 'longitude', 'modis_x', 'modis_y'])
+
+    # Save the DataFrame to a CSV file
+    random_points_df.to_csv(non_station_random_points_file, index=False)
+    print(f"random points are saved to {non_station_random_points_file}")
+
 
 def prepare_modis_grid_mapper_training():
   # actually, not sure this applied for modis. The tile HDF must be exactly same extent to make this work. Otherwise, the mapper won't get usable. 
@@ -55,6 +104,17 @@ def prepare_modis_grid_mapper_training():
       
       print("after mapped modis station_df.describe() = ", station_df.describe())
 
+def merge_station_and_non_station_to_one_csv():
+  print(f"new_base_station_list_file = {new_base_station_list_file}")
+  print(f"cell_to_modis_mapping = {cell_to_modis_mapping}")
+  print(f"non_station_random_points_file = {non_station_random_points_file}")
+  df1 = pd.read_csv(cell_to_modis_mapping)
+  df2 = pd.read_csv(non_station_random_points_file)
+  combined_df = pd.concat([df1, df2], ignore_index=True)
+  combined_df.to_csv(all_training_points_with_station_and_non_station_file, index=False)
+
+  print(f"Combined CSV saved to {all_training_points_with_station_and_non_station_file}")
+      
 
 def get_value_at_coords(src, lat, lon, band_number=1):
 #     transformer = Transformer.from_crs("EPSG:4326", src.crs, always_xy=True)
@@ -73,17 +133,18 @@ def get_band_value(row, src):
     # print("src.width = ", src.width, " - ", row["modis_x"])
     # print(row)
     valid_value =  src.read(1, 
-                            window=((row["modis_y"],
-                                     row["modis_y"]+1), 
-                                    (row["modis_x"],
-                                     row["modis_x"]+1)))
+                            window=((int(row["modis_y"]),
+                                     int(row["modis_y"])+1), 
+                                    (int(row["modis_x"]),
+                                     int(row["modis_x"])+1)))
     # print("valid_value[0,0] = ", valid_value[0,0])
     return valid_value[0,0]
   else:
     return None
           
 def process_file(file_path, current_date_str, outfile):
-  station_df = pd.read_csv(cell_to_modis_mapping)
+  print(f"processing {file_path}")
+  station_df = pd.read_csv(all_training_points_with_station_and_non_station_file)
   # print("station_df.head() = ", station_df.head())
 
   # Apply get_band_value for each row in the DataFrame
@@ -153,14 +214,17 @@ def main():
   end_date = datetime.strptime(train_end_date, "%Y-%m-%d")
   
   prepare_modis_grid_mapper_training()
+  # running this function will generate a new set of random points
+  generate_random_non_station_points()
+  merge_station_and_non_station_to_one_csv()
   
   date_list = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
   for i in date_list:
     current_date = i.strftime("%Y-%m-%d")
     #print(f"extracting data for {current_date}")
-    outfile = os.path.join(modis_day_wise, f'{current_date}_training_output_station_corrected.csv')
+    outfile = os.path.join(modis_day_wise, f'{current_date}_training_output_station_corrected_with_non_station.csv')
     if os.path.exists(outfile):
-      #print(f"The file {outfile} exists. skip.")
+      print(f"The file {outfile} exists. skip.")
       pass
     else:
       process_file(f'{modis_day_wise}/{current_date}__snow_cover.tif', current_date, outfile)
@@ -170,4 +234,5 @@ def main():
 if __name__ == "__main__":
   main()
   print("fsca Data extraction complete.")
+  
 

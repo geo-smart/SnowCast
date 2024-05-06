@@ -20,15 +20,15 @@ from snowcast_utils import work_dir, homedir
 import pandas as pd
 
 working_dir = work_dir
-final_output_name = "final_merged_data_3yrs_all_active_stations_v1.csv"
+final_output_name = "final_merged_data_3yrs_all_stations_with_non_stations.csv"
 chunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size
 
 
 def merge_all_data_together():
-    amsr_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_amsr_dask.csv'
+    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'
     snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'
-    gridmet_file = f'{working_dir}/training_all_active_snotel_station_list_elevation.csv_gridmet.csv'
-    terrain_file = f'{working_dir}/training_all_active_snotel_station_list_elevation.csv_terrain_4km_grid_shift.csv'
+    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'
+    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'
     fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'
     final_final_output_file = f'{work_dir}/{final_output_name}'
     
@@ -36,7 +36,6 @@ def merge_all_data_together():
       print(f"The file '{final_final_output_file}' exists. Skipping")
       return final_final_output_file
       
-    
     # Read the CSV files with a smaller chunk size and compression
     amsr = dd.read_csv(amsr_file, blocksize=chunk_size)
     print("amsr.columns = ", amsr.columns)
@@ -51,7 +50,7 @@ def merge_all_data_together():
       "latitude": "lat", 
       "longitude": "lon"
     })
-    terrain = terrain[["stationTriplet", "elevation", "lat", "lon", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]
+    terrain = terrain[["lat", "lon", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]
     print("terrain.columns = ", terrain.columns)
     snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)
     snowcover = snowcover.rename(columns={
@@ -103,17 +102,23 @@ def merge_all_data_together():
     merged_df.to_csv(output_file, single_file=True, index=False)
     print(f'Merge completed. {output_file}')
 
-    # Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file
-    df = dd.read_csv(f'{work_dir}/{final_output_name}')
+def cleanup_dataframe():
+    """
+    Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file
+    """
+    final_final_output_file = f'{work_dir}/{final_output_name}'
+    dtype = {'station_name': 'object'}  # 'object' dtype represents strings
+    df = dd.read_csv(final_final_output_file, dtype=dtype)
     df = df.drop_duplicates(keep='first')
-    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)
+    df.to_csv(final_final_output_file, single_file=True, index=False)
     print('Data cleaning completed.')
     return final_final_output_file
 
   
 def sort_training_data(input_training_csv, sorted_training_csv):
     # Read Dask DataFrame from CSV with increased blocksize and assuming missing data
-    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')
+    dtype = {'station_name': 'object'}  # 'object' dtype represents strings
+    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB', dtype=dtype)
 
     # Persist the Dask DataFrame in memory
     ddf = ddf.persist()
@@ -126,6 +131,8 @@ def sort_training_data(input_training_csv, sorted_training_csv):
     print(f"sorted training data is saved to {sorted_training_csv}")
   
 if __name__ == "__main__":
-    merge_all_data_together()
+    # merge_all_data_together()
+    cleanup_dataframe()
     final_final_output_file = f'{work_dir}/{final_output_name}'
     sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')
+    

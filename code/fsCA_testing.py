@@ -354,6 +354,8 @@ def interpolate_missing_and_add_cumulative_inplace(row, column_name, degree=1):
   if column_name == "SWE":
     mask = (y > 240) | y.isnull()
   elif column_name == "fsca":
+    y = y.replace([225, 237, 239], 0)
+    y[y < 0] = 0
     mask = (y > 100) | y.isnull()
   else:
     mask = y.isnull()
@@ -434,7 +436,7 @@ def add_time_series_columns(start_date, end_date, force=True):
   target_date_str = target_date.strftime('%Y-%m-%d')
   
   output_csv = f"{modis_day_wise}/{target_date_str}_output_with_time_series.csv"
-  print(f"target csv: {output_csv}")
+  print(f"add_time_series_columns target csv: {output_csv}")
         
   if os.path.exists(output_csv) and not force:
     print(f"{output_csv} already exists, skipping..")

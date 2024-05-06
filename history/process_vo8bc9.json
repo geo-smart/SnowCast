@@ -1,4 +1,544 @@
 [{
+  "history_id" : "z1oskzfvxc3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714977335371,
+  "history_end_time" : 1714977335371,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "02k472kicjk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714968023410,
+  "history_end_time" : 1714968023410,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w20vc1kbiiz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714956083472,
+  "history_end_time" : 1714956343541,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "vbx6zc",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6uwecaxhhm0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714944534015,
+  "history_end_time" : 1714944767138,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "vbx6zc",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6shuk8f9u24",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714943546216,
+  "history_end_time" : 1714943546216,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "44eakhn1ko4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714897025202,
+  "history_end_time" : 1714897025202,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vzx5w07hmc0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714894044156,
+  "history_end_time" : 1714895139378,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vdude6yt0ms",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714881609784,
+  "history_end_time" : 1714881609784,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "A47cBnFmauZW",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\ndef cleanup_dataframe():\n    \"\"\"\n    Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    \"\"\"\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    dtype = {'station_name': 'object'}  # 'object' dtype represents strings\n    df = dd.read_csv(final_final_output_file, dtype=dtype)\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(final_final_output_file, single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    dtype = {'station_name': 'object'}  # 'object' dtype represents strings\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB', dtype=dtype)\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    # merge_all_data_together()\n    cleanup_dataframe()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/chetana\nData cleaning completed.\nsorted training data is saved to /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv\n",
+  "history_begin_time" : 1714663773465,
+  "history_end_time" : 1714667240398,
+  "history_notes" : "finally, all the data are merged and ready for training with all the station and non-station points",
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "f2WyJGyc7NxX",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\ndef cleanup_dataframe():\n    \"\"\"\n    Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    \"\"\"\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    dtype = {'station_name': 'object'}  # 'object' dtype represents strings\n    df = dd.read_csv(final_final_output_file, dtype=dtype)\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(final_final_output_file, single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    # merge_all_data_together()\n    cleanup_dataframe()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/chetana\nData cleaning completed.\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/f2WyJGyc7NxX/merge_custom_traning_range.py\", line 136, in <module>\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')\n  File \"/home/chetana/gw-workspace/f2WyJGyc7NxX/merge_custom_traning_range.py\", line 123, in sort_training_data\n    ddf = ddf.persist()\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/base.py\", line 315, in persist\n    (result,) = persist(self, traverse=False, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/base.py\", line 931, in persist\n    results = schedule(dsk, keys, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/io/csv.py\", line 142, in __call__\n    df = pandas_read_text(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/io/csv.py\", line 197, in pandas_read_text\n    coerce_dtypes(df, dtypes)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/io/csv.py\", line 298, in coerce_dtypes\n    raise ValueError(msg)\nValueError: Mismatched dtypes found in `pd.read_csv`/`pd.read_table`.\n+--------------+--------+----------+\n| Column       | Found  | Expected |\n+--------------+--------+----------+\n| station_name | object | float64  |\n+--------------+--------+----------+\nThe following columns also raised exceptions on conversion:\n- station_name\n  ValueError(\"could not convert string to float: 'Tony Grove Lake'\")\nUsually this is due to dask's dtype inference failing, and\n*may* be fixed by specifying dtypes manually by adding:\ndtype={'station_name': 'object'}\nto the call to `read_csv`/`read_table`.\n",
+  "history_begin_time" : 1714660108133,
+  "history_end_time" : 1714660662174,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "eUcOnmU9L9VG",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\ndef cleanup_dataframe():\n    \"\"\"\n    Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    \"\"\"\n    dtype = {'station_name': 'object'}  # 'object' dtype represents strings\n    df = dd.read_csv(f'{work_dir}/{final_output_name}', dtype=dtype)\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    # merge_all_data_together()\n    cleanup_dataframe()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/chetana\nData cleaning completed.\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/eUcOnmU9L9VG/merge_custom_traning_range.py\", line 133, in <module>\n    cleanup_dataframe()\n  File \"/home/chetana/gw-workspace/eUcOnmU9L9VG/merge_custom_traning_range.py\", line 114, in cleanup_dataframe\n    return final_final_output_file\nNameError: name 'final_final_output_file' is not defined\n",
+  "history_begin_time" : 1714657604889,
+  "history_end_time" : 1714659724516,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "EO4xAkFwgpDA",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    print(f\"amsr_file = {amsr_file}\")\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    print(f\"snotel_file = {snotel_file}\")\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    print(f\"gridmet_file = {gridmet_file}\")\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    print(f\"terrain_file = {terrain_file}\")\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    print(f\"fsca_file = {fsca_file}\")\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    print(f\"final_final_output_file = {final_final_output_file}\")\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\n    # Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    df = dd.read_csv(f'{work_dir}/{final_output_name}')\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    merge_all_data_together()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/zsun\namsr_file = /home/zsun/gridmet_test_run/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv\nsnotel_file = /home/zsun/gridmet_test_run/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv\ngridmet_file = /home/zsun/gridmet_test_run/training_all_point_gridmet_with_non_station.csv\nterrain_file = /home/zsun/gridmet_test_run/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv\nfsca_file = /home/zsun/fsca/fsca_final_training_all.csv\nfinal_final_output_file = /home/zsun/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv\namsr.columns =  Index(['date', 'lat', 'lon', 'AMSR_SWE'], dtype='object')\nsnotel.columns =  Index(['station_name', 'date', 'lat', 'lon', 'swe_value', 'change_in_swe_inch',\n       'snow_depth', 'air_temperature_observed_f'],\n      dtype='object')\ngridmet.columns =  Index(['day', 'lon', 'lat', 'air_temperature_tmmn',\n       'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n       'relative_humidity_rmax', 'relative_humidity_rmin',\n       'precipitation_amount', 'air_temperature_tmmx', 'wind_speed'],\n      dtype='object')\nterrain.columns =  Index(['lat', 'lon', 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness',\n       'Eastness'],\n      dtype='object')\nsnowcover.columns =  Index(['date', 'lat', 'lon', 'fsca'], dtype='object')\nall the dataframes are partitioned\nstart to merge amsr and snotel\nintermediate file saved to /home/zsun/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_snotel.csv\nstart to merge gridmet\nintermediate file saved to /home/zsun/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_gridmet.csv\nstart to merge terrain\nintermediate file saved to /home/zsun/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_terrain.csv\nstart to merge snowcover\nintermediate file saved to /home/zsun/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_snow_cover.csv\nMerge completed. /home/zsun/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv\nData cleaning completed.\nTraceback (most recent call last):\n  File \"merge_custom_traning_range.py\", line 137, in <module>\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')\n  File \"merge_custom_traning_range.py\", line 128, in sort_training_data\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/dataframe/core.py\", line 3414, in __getattr__\n    raise AttributeError(\"'DataFrame' object has no attribute %r\" % key)\nAttributeError: 'DataFrame' object has no attribute 'sort_values'\nbash: line 0: exit: $: numeric argument required\n",
+  "history_begin_time" : 1714624633359,
+  "history_end_time" : 1714629874650,
+  "history_notes" : "running the process on 108 which is more idle as this machine is being used by others and very slow",
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "Z9zspDqboMpx",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    print(f\"amsr_file = {amsr_file}\")\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    print(f\"snotel_file = {snotel_file}\")\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    print(f\"gridmet_file = {gridmet_file}\")\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    print(f\"terrain_file = {terrain_file}\")\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    print(f\"fsca_file = {fsca_file}\")\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    print(f\"final_final_output_file = {final_final_output_file}\")\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\n    # Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    df = dd.read_csv(f'{work_dir}/{final_output_name}')\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    merge_all_data_together()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/zsun\namsr_file = /home/zsun/gridmet_test_run/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv\nsnotel_file = /home/zsun/gridmet_test_run/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv\ngridmet_file = /home/zsun/gridmet_test_run/training_all_point_gridmet_with_non_station.csv\nterrain_file = /home/zsun/gridmet_test_run/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv\nfsca_file = /home/zsun/fsca/fsca_final_training_all.csv\nfinal_final_output_file = /home/zsun/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv\namsr.columns =  Index(['date', 'lat', 'lon', 'AMSR_SWE'], dtype='object')\nsnotel.columns =  Index(['station_name', 'date', 'lat', 'lon', 'swe_value', 'change_in_swe_inch',\n       'snow_depth', 'air_temperature_observed_f'],\n      dtype='object')\ngridmet.columns =  Index(['day', 'lon', 'lat', 'air_temperature_tmmn',\n       'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n       'relative_humidity_rmax', 'relative_humidity_rmin',\n       'precipitation_amount', 'air_temperature_tmmx', 'wind_speed'],\n      dtype='object')\nterrain.columns =  Index(['lat', 'lon', 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness',\n       'Eastness'],\n      dtype='object')\nTraceback (most recent call last):\n  File \"merge_custom_traning_range.py\", line 135, in <module>\n    merge_all_data_together()\n  File \"merge_custom_traning_range.py\", line 62, in merge_all_data_together\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/dataframe/io/csv.py\", line 578, in read\n    **kwargs\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/dataframe/io/csv.py\", line 405, in read_pandas\n    **(storage_options or {})\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/bytes/core.py\", line 121, in read_bytes\n    size = fs.info(path)[\"size\"]\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/fsspec/implementations/local.py\", line 56, in info\n    out = os.stat(path, follow_symlinks=False)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/zsun/fsca/fsca_final_training_all.csv'\nbash: line 0: exit: $: numeric argument required\n",
+  "history_begin_time" : 1714624519029,
+  "history_end_time" : 1714624521942,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "KQweFgq6p36a",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    print(f\"amsr_file = {amsr_file}\")\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    print(f\"snotel_file = {snotel_file}\")\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    print(f\"gridmet_file = {gridmet_file}\")\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    print(f\"terrain_file = {terrain_file}\")\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    print(f\"fsca_file = {fsca_file}\")\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    print(f\"final_final_output_file = {final_final_output_file}\")\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\n    # Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    df = dd.read_csv(f'{work_dir}/{final_output_name}')\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    merge_all_data_together()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/zsun\namsr_file = /home/zsun/gridmet_test_run/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv\nsnotel_file = /home/zsun/gridmet_test_run/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv\ngridmet_file = /home/zsun/gridmet_test_run/training_all_point_gridmet_with_non_station.csv\nterrain_file = /home/zsun/gridmet_test_run/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv\nfsca_file = /home/zsun/fsca/fsca_final_training_all.csv\nfinal_final_output_file = /home/zsun/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv\nTraceback (most recent call last):\n  File \"merge_custom_traning_range.py\", line 135, in <module>\n    merge_all_data_together()\n  File \"merge_custom_traning_range.py\", line 47, in merge_all_data_together\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/dataframe/io/csv.py\", line 578, in read\n    **kwargs\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/dataframe/io/csv.py\", line 405, in read_pandas\n    **(storage_options or {})\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/bytes/core.py\", line 121, in read_bytes\n    size = fs.info(path)[\"size\"]\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/fsspec/implementations/local.py\", line 56, in info\n    out = os.stat(path, follow_symlinks=False)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/zsun/gridmet_test_run/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\nbash: line 0: exit: $: numeric argument required\n",
+  "history_begin_time" : 1714623962836,
+  "history_end_time" : 1714623965078,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "muVnqP6vTRC7",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\n    # Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    df = dd.read_csv(f'{work_dir}/{final_output_name}')\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    merge_all_data_together()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/zsun\nTraceback (most recent call last):\n  File \"merge_custom_traning_range.py\", line 129, in <module>\n    merge_all_data_together()\n  File \"merge_custom_traning_range.py\", line 41, in merge_all_data_together\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/dataframe/io/csv.py\", line 578, in read\n    **kwargs\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/dataframe/io/csv.py\", line 405, in read_pandas\n    **(storage_options or {})\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/dask/bytes/core.py\", line 121, in read_bytes\n    size = fs.info(path)[\"size\"]\n  File \"/home/zsun/anaconda3/lib/python3.7/site-packages/fsspec/implementations/local.py\", line 56, in info\n    out = os.stat(path, follow_symlinks=False)\nFileNotFoundError: [Errno 2] No such file or directory: '/home/zsun/gridmet_test_run/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\nbash: line 0: exit: $: numeric argument required\n",
+  "history_begin_time" : 1714623863861,
+  "history_end_time" : 1714623872818,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "oOUSRB5CI1qi",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\n    # Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    df = dd.read_csv(f'{work_dir}/{final_output_name}')\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    merge_all_data_together()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/chetana\namsr.columns =  Index(['date', 'lat', 'lon', 'AMSR_SWE'], dtype='object')\nsnotel.columns =  Index(['station_name', 'date', 'lat', 'lon', 'swe_value', 'change_in_swe_inch',\n       'snow_depth', 'air_temperature_observed_f'],\n      dtype='object')\ngridmet.columns =  Index(['day', 'lon', 'lat', 'air_temperature_tmmn',\n       'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n       'relative_humidity_rmax', 'relative_humidity_rmin',\n       'precipitation_amount', 'air_temperature_tmmx', 'wind_speed'],\n      dtype='object')\nterrain.columns =  Index(['lat', 'lon', 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness',\n       'Eastness'],\n      dtype='object')\nsnowcover.columns =  Index(['date', 'lat', 'lon', 'fsca'], dtype='object')\nall the dataframes are partitioned\nstart to merge amsr and snotel\nintermediate file saved to /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_snotel.csv\nstart to merge gridmet\nintermediate file saved to /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_gridmet.csv\nstart to merge terrain\nintermediate file saved to /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_terrain.csv\nstart to merge snowcover\nintermediate file saved to /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv_snow_cover.csv\nMerge completed. /home/chetana/gridmet_test_run/final_merged_data_3yrs_all_stations_with_non_stations.csv\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/oOUSRB5CI1qi/merge_custom_traning_range.py\", line 129, in <module>\n    merge_all_data_together()\n  File \"/home/chetana/gw-workspace/oOUSRB5CI1qi/merge_custom_traning_range.py\", line 109, in merge_all_data_together\n    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/core.py\", line 1897, in to_csv\n    return to_csv(self, filename, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/io/csv.py\", line 995, in to_csv\n    return list(dask.compute(*values, **compute_kwargs))\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/base.py\", line 628, in compute\n    results = schedule(dsk, keys, **kwargs)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/io/csv.py\", line 142, in __call__\n    df = pandas_read_text(\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/io/csv.py\", line 197, in pandas_read_text\n    coerce_dtypes(df, dtypes)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/io/csv.py\", line 298, in coerce_dtypes\n    raise ValueError(msg)\nValueError: Mismatched dtypes found in `pd.read_csv`/`pd.read_table`.\n+--------------+--------+----------+\n| Column       | Found  | Expected |\n+--------------+--------+----------+\n| station_name | object | float64  |\n+--------------+--------+----------+\nThe following columns also raised exceptions on conversion:\n- station_name\n  ValueError(\"could not convert string to float: 'Carrot Basin'\")\nUsually this is due to dask's dtype inference failing, and\n*may* be fixed by specifying dtypes manually by adding:\ndtype={'station_name': 'object'}\nto the call to `read_csv`/`read_table`.\n",
+  "history_begin_time" : 1714621194958,
+  "history_end_time" : 1714635471846,
+  "history_notes" : "merge all the new files with non station rows included, might have rows in 2024 and 2023",
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "GopK316nQz4c",
+  "history_input" : "\"\"\"\nThis script performs the following operations:\n1. Reads multiple CSV files into Dask DataFrames with specified chunk sizes and compression.\n2. Repartitions the DataFrames for optimized processing.\n3. Merges the DataFrames based on specified columns.\n4. Saves the merged DataFrame to a CSV file in chunks.\n5. Reads the merged DataFrame, removes duplicate rows, and saves the cleaned DataFrame to a new CSV file.\n\nAttributes:\n    working_dir (str): The directory where the CSV files are located.\n    chunk_size (str): The chunk size used for reading and processing the CSV files.\n\nFunctions:\n    main(): The main function that executes the data processing operations and saves the results.\n\"\"\"\n\nimport dask.dataframe as dd\nimport os\nfrom snowcast_utils import work_dir, homedir\nimport pandas as pd\n\nworking_dir = work_dir\nfinal_output_name = \"final_merged_data_3yrs_all_stations_with_non_stations.csv\"\nchunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size\n\n\ndef merge_all_data_together():\n    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'\n    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'\n    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'\n    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'\n    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    \n    if os.path.exists(final_final_output_file):\n      print(f\"The file '{final_final_output_file}' exists. Skipping\")\n      return final_final_output_file\n      \n    \n    # Read the CSV files with a smaller chunk size and compression\n    amsr = dd.read_csv(amsr_file, blocksize=chunk_size)\n    print(\"amsr.columns = \", amsr.columns)\n    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)\n    print(\"snotel.columns = \", snotel.columns)\n#     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)\n    gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)\n    gridmet = gridmet.drop(columns=[\"Unnamed: 0\"])\n    print(\"gridmet.columns = \", gridmet.columns)\n    terrain = dd.read_csv(terrain_file, blocksize=chunk_size)\n    terrain = terrain.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    terrain = terrain[[\"stationTriplet\", \"elevation\", \"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n    print(\"terrain.columns = \", terrain.columns)\n    snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)\n    snowcover = snowcover.rename(columns={\n      \"latitude\": \"lat\", \n      \"longitude\": \"lon\"\n    })\n    print(\"snowcover.columns = \", snowcover.columns)\n\n    # Repartition DataFrames for optimized processing\n    amsr = amsr.repartition(partition_size=chunk_size)\n    snotel = snotel.repartition(partition_size=chunk_size)\n    gridmet = gridmet.repartition(partition_size=chunk_size)\n    gridmet = gridmet.rename(columns={'day': 'date'})\n    terrain = terrain.repartition(partition_size=chunk_size)\n    snow_cover = snowcover.repartition(partition_size=chunk_size)\n    print(\"all the dataframes are partitioned\")\n\n    # Merge DataFrames based on specified columns\n    print(\"start to merge amsr and snotel\")\n    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snotel.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge gridmet\")\n    merged_df = dd.merge(merged_df, gridmet, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_gridmet.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge terrain\")\n    merged_df = dd.merge(merged_df, terrain, on=['lat', 'lon'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_terrain.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    print(\"start to merge snowcover\")\n    merged_df = dd.merge(merged_df, snow_cover, on=['lat', 'lon', 'date'], how='outer')\n    merged_df = merged_df.drop_duplicates(keep='first')\n    output_file = os.path.join(working_dir, f\"{final_output_name}_snow_cover.csv\")\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f\"intermediate file saved to {output_file}\")\n    \n    # Save the merged DataFrame to a CSV file in chunks\n    output_file = os.path.join(working_dir, final_output_name)\n    merged_df.to_csv(output_file, single_file=True, index=False)\n    print(f'Merge completed. {output_file}')\n\n    # Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file\n    df = dd.read_csv(f'{work_dir}/{final_output_name}')\n    df = df.drop_duplicates(keep='first')\n    df.to_csv(f'{work_dir}/{final_output_name}', single_file=True, index=False)\n    print('Data cleaning completed.')\n    return final_final_output_file\n\n  \ndef sort_training_data(input_training_csv, sorted_training_csv):\n    # Read Dask DataFrame from CSV with increased blocksize and assuming missing data\n    ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB')\n\n    # Persist the Dask DataFrame in memory\n    ddf = ddf.persist()\n\n    # Sort Dask DataFrame by three columns: date, lat, and Lon\n    sorted_ddf = ddf.sort_values(by=['date', 'lat', 'lon'])\n\n    # Save the sorted Dask DataFrame to a new CSV file\n    sorted_ddf.to_csv(sorted_training_csv, index=False, single_file=True)\n    print(f\"sorted training data is saved to {sorted_training_csv}\")\n  \nif __name__ == \"__main__\":\n    merge_all_data_together()\n    final_final_output_file = f'{work_dir}/{final_output_name}'\n    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')",
+  "history_output" : "today date = 2024-05-02\n2024-04-29\ntest start date:  2024-04-29\ntest end date:  2023-10-11\n/home/chetana\namsr.columns =  Index(['date', 'lat', 'lon', 'AMSR_SWE'], dtype='object')\nsnotel.columns =  Index(['station_name', 'date', 'lat', 'lon', 'swe_value', 'change_in_swe_inch',\n       'snow_depth', 'air_temperature_observed_f'],\n      dtype='object')\ngridmet.columns =  Index(['day', 'lon', 'lat', 'air_temperature_tmmn',\n       'potential_evapotranspiration', 'mean_vapor_pressure_deficit',\n       'relative_humidity_rmax', 'relative_humidity_rmin',\n       'precipitation_amount', 'air_temperature_tmmx', 'wind_speed'],\n      dtype='object')\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/GopK316nQz4c/merge_custom_traning_range.py\", line 129, in <module>\n    merge_all_data_together()\n  File \"/home/chetana/gw-workspace/GopK316nQz4c/merge_custom_traning_range.py\", line 54, in merge_all_data_together\n    terrain = terrain[[\"stationTriplet\", \"elevation\", \"lat\", \"lon\", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/dask/dataframe/core.py\", line 4917, in __getitem__\n    meta = self._meta[_extract_meta(key)]\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/frame.py\", line 3813, in __getitem__\n    indexer = self.columns._get_indexer_strict(key, \"columns\")[1]\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/indexes/base.py\", line 6070, in _get_indexer_strict\n    self._raise_if_missing(keyarr, indexer, axis_name)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/pandas/core/indexes/base.py\", line 6133, in _raise_if_missing\n    raise KeyError(f\"{not_found} not in index\")\nKeyError: \"['stationTriplet', 'elevation'] not in index\"\n",
+  "history_begin_time" : 1714620801135,
+  "history_end_time" : 1714620895960,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "gsbocu5139n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714409076782,
+  "history_end_time" : 1714409076782,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jgvo69h0cjc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714407283836,
+  "history_end_time" : 1714407283836,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wti2f037orn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714404800097,
+  "history_end_time" : 1714404800097,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9b85s4crrri",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714363210165,
+  "history_end_time" : 1714363210165,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "pqmf1zol3ml",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714362032676,
+  "history_end_time" : 1714362032676,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ptpl3u5irl6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714355595242,
+  "history_end_time" : 1714355595242,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rjc02v0hqz6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714351396831,
+  "history_end_time" : 1714351396831,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "j05256mji3o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714348539284,
+  "history_end_time" : 1714348539284,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6buwmtr3anm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714345973244,
+  "history_end_time" : 1714345973244,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gtyilqfxwiz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714343583853,
+  "history_end_time" : 1714343583853,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "808gpb65ngc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714340841819,
+  "history_end_time" : 1714340841819,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6q3s23esh9p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714332798139,
+  "history_end_time" : 1714332798139,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "87wk1t7f8ob",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714328816209,
+  "history_end_time" : 1714328816209,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l10ynx090n2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714323529103,
+  "history_end_time" : 1714323529103,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "087kpag072k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714320354965,
+  "history_end_time" : 1714320354965,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "g2qw8ug5uv0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714315863117,
+  "history_end_time" : 1714315863117,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qk19nd64k8f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714283543366,
+  "history_end_time" : 1714315862062,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8ibfajdzhm5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714281870980,
+  "history_end_time" : 1714283515038,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "byeyeuzxcdf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714276838376,
+  "history_end_time" : 1714315876911,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "we28gcc17ia",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714274662756,
+  "history_end_time" : 1714281869550,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ae8n28tdcv0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714272894719,
+  "history_end_time" : 1714274352443,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "z1ln19e5s3e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714265253439,
+  "history_end_time" : 1714272892780,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "udp4a6lndzh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714265112646,
+  "history_end_time" : 1714265250935,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bnptgg3v6rq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714192736297,
+  "history_end_time" : 1714265111656,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "e1yc87ff23j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714190418313,
+  "history_end_time" : 1714274351051,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cf8eiyzwybh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714104009487,
+  "history_end_time" : 1714274350450,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bxv6c0h6zmy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714017609824,
+  "history_end_time" : 1714274349936,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "p9s5dwlhfrs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713931210129,
+  "history_end_time" : 1714274349391,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "l5f1bbhge5z",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713844809824,
+  "history_end_time" : 1714274348792,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ttkrhd2f3gc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713758409400,
+  "history_end_time" : 1714274347355,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "moym7qz12xn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713672009841,
+  "history_end_time" : 1714274346364,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "08bpayupq4a",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713585609637,
+  "history_end_time" : 1714274345851,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "1uir1451cfq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713499209840,
+  "history_end_time" : 1714274345298,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "40ro4hw8su3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713412809070,
+  "history_end_time" : 1714274344724,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "j6z6qorszvy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713326409181,
+  "history_end_time" : 1714274343303,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "50b2fmbm04j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713283461320,
+  "history_end_time" : 1713283461320,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rr482wm2rph",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713240009177,
+  "history_end_time" : 1714274342597,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "l62fw9uwy3l",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -13,21 +553,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711684813821,
-  "history_end_time" : 1711684813821,
+  "history_end_time" : 1714282476116,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "mx3cmrgqkq3",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711598415240,
-  "history_end_time" : 1711598415240,
+  "history_end_time" : 1714282474708,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "9e1q0o7dv49",
   "history_input" : "No code saved",
@@ -63,21 +603,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711425614307,
-  "history_end_time" : 1711425614308,
+  "history_end_time" : 1714282483186,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "fgicv0fa3ok",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711339212860,
-  "history_end_time" : 1711339212860,
+  "history_end_time" : 1714282483865,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "dbz3b05qm1a",
   "history_input" : "No code saved",
@@ -113,41 +653,41 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710993609864,
-  "history_end_time" : 1710993609864,
+  "history_end_time" : 1714282484651,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "0wbj970fs9t",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710907209300,
-  "history_end_time" : 1710907209300,
+  "history_end_time" : 1714282485294,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "op2lebu0wsh",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710820808981,
-  "history_end_time" : 1710820808981,
+  "history_end_time" : 1714282486306,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "orcwpw0bs2i",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710734409707,
-  "history_end_time" : 1710734409707,
+  "history_end_time" : 1714282486973,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "xvzof4ctvam",
   "history_input" : "No code saved",
@@ -163,61 +703,61 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710648009398,
-  "history_end_time" : 1710648009398,
+  "history_end_time" : 1714282488978,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "d3xaowwylb2",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710561608856,
-  "history_end_time" : 1710561608856,
+  "history_end_time" : 1714282489555,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "x2yri6ose7w",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710475209452,
-  "history_end_time" : 1710475209452,
+  "history_end_time" : 1714282490323,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "etctcl31w6y",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710388809429,
-  "history_end_time" : 1710388809429,
+  "history_end_time" : 1714282490849,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "q4jcd1z0dep",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710302409552,
-  "history_end_time" : 1710302409552,
+  "history_end_time" : 1714282491522,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "lvdlxy4frwr",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710216009632,
-  "history_end_time" : 1710216009632,
+  "history_end_time" : 1714282492139,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "4ijgx3py6rz",
   "history_input" : "No code saved",
@@ -233,11 +773,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710129609293,
-  "history_end_time" : 1710129609293,
+  "history_end_time" : 1714282493751,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "68vjy01gf3w",
   "history_input" : "No code saved",
@@ -253,11 +793,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710043208949,
-  "history_end_time" : 1710043208949,
+  "history_end_time" : 1714282495096,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "bebq7mpi8v0",
   "history_input" : "No code saved",
@@ -273,11 +813,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709956809187,
-  "history_end_time" : 1709956809187,
+  "history_end_time" : 1714282495737,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "rwqx0h60r2r",
   "history_input" : "No code saved",
@@ -293,11 +833,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709870410197,
-  "history_end_time" : 1709870410197,
+  "history_end_time" : 1714282496854,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "erqe6oy6w44",
   "history_input" : "No code saved",
@@ -373,11 +913,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709784009678,
-  "history_end_time" : 1709784009678,
+  "history_end_time" : 1714282504741,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "h03drsq18ud",
   "history_input" : "No code saved",
@@ -443,31 +983,31 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709697609508,
-  "history_end_time" : 1709697609508,
+  "history_end_time" : 1714282506687,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "eczryf9nvfd",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709611208940,
-  "history_end_time" : 1709611208940,
+  "history_end_time" : 1714282507223,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tymn97aoomx",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709524809109,
-  "history_end_time" : 1709524809109,
+  "history_end_time" : 1714282507732,
   "history_notes" : null,
   "history_process" : "vo8bc9",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "jvuuws5o82l",
   "history_input" : "No code saved",

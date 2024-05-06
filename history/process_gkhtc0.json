@@ -1,4 +1,464 @@
 [{
+  "history_id" : "p1sd1wfhlvy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714977334926,
+  "history_end_time" : 1714977334926,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "6obla3073vq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714968022480,
+  "history_end_time" : 1714968022480,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xqn9ocqz7tg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714956082225,
+  "history_end_time" : 1714956340965,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "vbx6zc",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "f1yk285kpl7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714944529219,
+  "history_end_time" : 1714944767096,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "vbx6zc",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "0pj53no7qp9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714943546196,
+  "history_end_time" : 1714943546196,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "js5w5v5guc1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714897025177,
+  "history_end_time" : 1714897025177,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "z6mh1gg57va",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714894044070,
+  "history_end_time" : 1714895139362,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "p25ziwqw6yk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714881609552,
+  "history_end_time" : 1714881609552,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8MvpfAd7PWT8",
+  "history_input" : "# 2019 first https://nsidc.org/data/nsidc-0719/versions/1#anchor-1\n\n# TODO: change LAT LONG TO GRID CELL COORDS\n# TODO: adjust using grid cell geojson in data integration\n# TODO: adjust to make model validation working (model_train_validate)\n\n\"\"\"\nBroxton, P., X. Zeng, and N. Dawson. 2019. Daily 4 km Gridded SWE and Snow Depth from\nAssimilated In-Situ and Modeled Data over the Conterminous US, Version 1. 2019-2021.\nBoulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center.\nhttps://doi.org/10.5067/0GGPB220EX6A. 11/02/2022.\n\nTo enable wget to directly download netcdf from NSIDC, use:\n\necho 'machine urs.earthdata.nasa.gov login <uid> password <password>' >> ~/.netrc\nchmod 0600 ~/.netrc\n\n\"\"\"\n\nfrom math import cos, asin, sqrt, radians\nimport pandas as pd\nimport numpy as np\nimport os.path\nimport netCDF4 as nc\nimport datetime\nimport geojson\nfrom sklearn import neighbors as sk\nimport sys\n\n# read the grid geometry file\nhomedir = os.path.expanduser('~')\nprint(homedir)\n\n# read grid cell\ngithub_dir = f\"{homedir}/Documents/GitHub/SnowCast\"\n# read grid cell\ngrid_cells = f\"{github_dir}/data/snowcast_provided/grid_cells.geojson\"\nstation_cell_mapper_file = f\"{github_dir}/data/ready_for_training/station_cell_mapping.csv\"\nprint(\"station_cell_mapper_file = \", station_cell_mapper_file)\nstation_cell_mapper_df = pd.read_csv(station_cell_mapper_file)\n# open nsidc data file (netCDF)\n# crs, lat, lon, time, time_str, DEPTH, SWE, SWE_MASK\n# change to make it work\nend_year = 2019\n# https://daacdata.apps.nsidc.org/pub/DATASETS/nsidc0719_SWE_Snow_Depth_v1/4km_SWE_Depth_WY2019_v01.nc\nnsidc_data_file = f\"{homedir}/Documents/data/4km_SWE_Depth_WY{end_year}_v01.nc\"\nnsidc_data_ds = nc.Dataset(nsidc_data_file)\n\nprint(nsidc_data_ds)\nfor dim in nsidc_data_ds.dimensions.values():\n    print(dim)\nfor var in nsidc_data_ds.variables.values():\n    print(var)\n\n# dates based on Water Year 2019 (not normal year)\norg_name = 'nsidc'\nproduct_name = 'NSIDC'\nstart_date = '2018-10-01'\nend_date = '2019-09-30'\n\ndfolder = f\"{homedir}/Documents/GitHub/SnowCast/data/sim_training/{org_name}/\"\nif not os.path.exists(dfolder):\n    os.makedirs(dfolder)\n\n# Removes duplicate indices\nscmd = set(station_cell_mapper_df['cell_id'])\n\nlat = nsidc_data_ds.variables['lat'][:]\nlon = nsidc_data_ds.variables['lon'][:]\ndepth = nsidc_data_ds.variables['DEPTH']\nswe = nsidc_data_ds.variables['SWE']\ntime = nsidc_data_ds.variables['time']\ncolumns = ['Year', 'Month', 'Day', 'Lat', 'Lon', 'SWE', 'Depth']\n\nstart_date_dt = datetime.datetime.strptime(start_date, \"%Y-%m-%d\")\n# conversion factor so we can get days from 0-364 for array\ndays_1900_start = int((start_date_dt - datetime.datetime(1900,1,1)).days)\n\nall_cells_df = pd.DataFrame(columns=columns)\nind = 0\n\n\n# haversine formula\ndef coord_distance(lat1, lon1, lat2, lon2):\n    p = 0.017453292519943295\n    hav = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p)*cos(lat2*p) * (1-cos((lon2-lon1)*p)) / 2\n    return 12742 * asin(sqrt(hav))\n\n\n# inefficient and bad, don't use this\ndef find_nearest(find_lat, find_lng):\n    min_dist = 999999999\n    curr_min_lat_idx = 0\n    curr_min_lon_idx = 0\n\n    lat_len = len(lat)\n    lon_len = len(lon)\n    # iterate through lat and long to find closest val\n    for lat_idx in range(lat_len):\n        for lon_idx in range(lon_len):\n            if coord_distance(lat[lat_idx], lon[lon_idx], find_lat, find_lng) < min_dist:\n                if depth[23, lat_idx, lon_idx] != '--':\n                    min_dist = coord_distance(lat[lat_idx], lon[lon_idx], find_lat, find_lng)\n                    curr_min_lat_idx = lat_idx\n                    curr_min_lon_idx = lon_idx\n\n    return curr_min_lat_idx, curr_min_lon_idx\n\n\n# for generating the list of all valid lat long pairs\ndef gen_pairs():\n    temp = []\n    lat_len = len(lat)\n    lon_len = len(lon)\n    # iterate through lat and long to find closest val\n    for lat_idx in range(lat_len):\n        for lon_idx in range(lon_len):\n            if depth[23, lat_idx, lon_idx] != '--':\n                temp.append((lat[lat_idx], lon[lon_idx]))\n    temp = np.array(temp)\n    print(temp)\n    np.save(f\"{dfolder}/valid_pairs.npy\", temp)\n\n\n# use balltree to find closest neighbors, convert to radians first so the haversine thing works correctly\n# (that's why there's a separate rad thing)\ndef find_nearest_2(find_lat, find_lng):\n    ball_tree = sk.BallTree(lat_lon_pairs_rad, metric=\"haversine\")\n\n    dist, ind = ball_tree.query([(radians(find_lat), radians(find_lng))], return_distance=True)\n    print(dist)\n    print(ind)\n    print(lat_lon_pairs[ind])\n    curr_min_lat_idx = lat_lon_pairs[ind][0][0][0]\n    curr_min_lon_idx = lat_lon_pairs[ind][0][0][1]\n    return curr_min_lat_idx, curr_min_lon_idx\n\n\ndef turn_nsidc_nc_to_csv():\n    # generate valid pairs, or just load if they already exist\n    if not os.path.exists(f\"{dfolder}/valid_pairs.npy\"):\n        print(\"file doesn't exist, generating new\")\n        gen_pairs()\n    lat_lon_pairs = np.load(f\"{dfolder}/valid_pairs.npy\")\n    lat_lon_pairs_rad = np.array([[radians(x[0]), radians(x[1])] for x in lat_lon_pairs])\n\n    # comment out if bulk writing!!\n    # all_cells_df.to_csv(f\"{dfolder}/test.csv\", index=False)\n\n    for ind, current_cell_id in enumerate(scmd):\n        # comment out if bulk writing\n        # all_cells_df = pd.DataFrame(columns=columns)\n\n        # Location information\n        longitude = station_cell_mapper_df['lon'][ind]\n        latitude = station_cell_mapper_df['lat'][ind]\n\n    #     print(latitude)\n    #     print(longitude)\n\n        # find closest lat long\n        lat_val, lon_val = find_nearest_2(latitude, longitude)\n        lat_idx = np.where(lat == lat_val)[0]\n        lon_idx = np.where(lon == lon_val)[0]\n    #     print(lat_val)\n    #     print(lon_val)\n\n        depth_time = depth[:, lat_idx, lon_idx]\n        swe_time = swe[:, lat_idx, lon_idx]\n\n        for ele in time:\n            time_index = int(ele.data - days_1900_start)\n            time_index_dt = datetime.datetime(1900, 1, 1, 0, 0) + datetime.timedelta(int(ele.data))\n            depth_val = depth_time[time_index][0][0]\n            swe_val = swe_time[time_index][0][0]\n\n            all_cells_df.loc[len(all_cells_df.index)] = [time_index_dt.year, time_index_dt.month, time_index_dt.day, lat_val, lon_val, swe_val, depth_val]\n\n        # comment out if bulk writing\n        # all_cells_df.to_csv(f\"{dfolder}/test.csv\", mode='a', header=False, index=False)\n\n    # uncomment to bulk write at end of program\n    all_cells_df.to_csv(f\"{dfolder}/{end_year}nsidc_data.csv\")\n\n    print(\"finished\")\n\nif __name__ == \"__main__\":\n    # call this method to extract the \n    turn_nsidc_nc_to_csv()",
+  "history_output" : "/home/chetana\nstation_cell_mapper_file =  /home/chetana/Documents/GitHub/SnowCast/data/ready_for_training/station_cell_mapping.csv\n<class 'netCDF4._netCDF4.Dataset'>\nroot group (NETCDF4 data model, file format HDF5):\n    dimensions(sizes): lat(621), lon(1405), time(365), time_str_len(11)\n    variables(dimensions): |S1 crs(), float32 lat(lat), float32 lon(lon), float32 time(time), |S1 time_str(time_str_len, time), int16 SWE(time, lat, lon), int16 DEPTH(time, lat, lon)\n    groups: \n<class 'netCDF4._netCDF4.Dimension'>: name = 'lat', size = 621\n<class 'netCDF4._netCDF4.Dimension'>: name = 'lon', size = 1405\n<class 'netCDF4._netCDF4.Dimension'>: name = 'time', size = 365\n<class 'netCDF4._netCDF4.Dimension'>: name = 'time_str_len', size = 11\n<class 'netCDF4._netCDF4.Variable'>\n|S1 crs()\n    grid_mapping_name: latitude_longitude\n    long_name: CRS definition\n    longitude_of_prime_meridian: 0.0\n    semi_major_axis: 6378137.0\n    inverse_flattening: 298.257222101\n    spatial_ref: GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.01745329251994328,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4269\"]]\n    GeoTransform: -125.0208 0.04166662697178698 0 49.9375 0 -0.04166662697178698 \nunlimited dimensions: \ncurrent shape = ()\nfilling on, default _FillValue of \u0000 used\n<class 'netCDF4._netCDF4.Variable'>\nfloat32 lat(lat)\n    long_name: latitude\n    units: degrees north\nunlimited dimensions: \ncurrent shape = (621,)\nfilling on, default _FillValue of 9.969209968386869e+36 used\n<class 'netCDF4._netCDF4.Variable'>\nfloat32 lon(lon)\n    long_name: longitude\n    units: degrees east\nunlimited dimensions: \ncurrent shape = (1405,)\nfilling on, default _FillValue of 9.969209968386869e+36 used\n<class 'netCDF4._netCDF4.Variable'>\nfloat32 time(time)\n    long_name: time\n    units: days since 1900-01-01\nunlimited dimensions: \ncurrent shape = (365,)\nfilling on, default _FillValue of 9.969209968386869e+36 used\n<class 'netCDF4._netCDF4.Variable'>\n|S1 time_str(time_str_len, time)\n    long_name: time (string)\n    format: dd-mmm-yyyy\nunlimited dimensions: \ncurrent shape = (11, 365)\nfilling on, default _FillValue of \u0000 used\n<class 'netCDF4._netCDF4.Variable'>\nint16 SWE(time, lat, lon)\n    _FillValue: -999\n    long_name: Snow Water Equivalent\n    grid_mapping: crs\n    units: millimeters h20\nunlimited dimensions: \ncurrent shape = (365, 621, 1405)\nfilling on\n<class 'netCDF4._netCDF4.Variable'>\nint16 DEPTH(time, lat, lon)\n    _FillValue: -999\n    long_name: Snow Depth\n    grid_mapping: crs\n    units: millimeters snow thickness\nunlimited dimensions: \ncurrent shape = (365, 621, 1405)\nfilling on\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/8MvpfAd7PWT8/data_nsidc_4km_swe.py\", line 189, in <module>\n    turn_nsidc_nc_to_csv()\n  File \"/home/chetana/gw-workspace/8MvpfAd7PWT8/data_nsidc_4km_swe.py\", line 162, in turn_nsidc_nc_to_csv\n    lat_val, lon_val = find_nearest_2(latitude, longitude)\n  File \"/home/chetana/gw-workspace/8MvpfAd7PWT8/data_nsidc_4km_swe.py\", line 128, in find_nearest_2\n    ball_tree = sk.BallTree(lat_lon_pairs_rad, metric=\"haversine\")\nNameError: name 'lat_lon_pairs_rad' is not defined\n",
+  "history_begin_time" : 1714532932724,
+  "history_end_time" : 1714532942457,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "8oq2i86t9kn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714409076761,
+  "history_end_time" : 1714409076761,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2bt3gyqh1hs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714407283805,
+  "history_end_time" : 1714407283805,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r323i4qdkds",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714404800026,
+  "history_end_time" : 1714404800026,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "faghtbr5q1u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714363209937,
+  "history_end_time" : 1714363209937,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jcnul2vt4cy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714362032579,
+  "history_end_time" : 1714362032579,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w8rn3x03joo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714355595214,
+  "history_end_time" : 1714355595214,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "32l7rttnpkd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714351396810,
+  "history_end_time" : 1714351396810,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rkd0c5bgvjo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714348539236,
+  "history_end_time" : 1714348539236,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r9k1r3ssmbw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714345973170,
+  "history_end_time" : 1714345973170,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "29s51ovrmps",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714343583782,
+  "history_end_time" : 1714343583782,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "9qv4z1hnko9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714340841732,
+  "history_end_time" : 1714340841732,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "16pjf47yhh9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714332798031,
+  "history_end_time" : 1714332798031,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x0y4pb0f62b",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714328816108,
+  "history_end_time" : 1714328816108,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zdaq4g39z9u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714323529057,
+  "history_end_time" : 1714323529057,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0pyhz6p0330",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714320354872,
+  "history_end_time" : 1714320354872,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "lz2k68sgyur",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714315863033,
+  "history_end_time" : 1714315863033,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rhz9w32fk18",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714283543346,
+  "history_end_time" : 1714315861967,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8wu90yob4qz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714281870811,
+  "history_end_time" : 1714283515030,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "0dofss8h18o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714276838208,
+  "history_end_time" : 1714315876841,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "flxp2482nck",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714274662738,
+  "history_end_time" : 1714281869540,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9pm1gggwyaj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714272894657,
+  "history_end_time" : 1714274352428,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jkfxwf4c23t",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714265253393,
+  "history_end_time" : 1714272892766,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "htqxifqqyth",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714265112563,
+  "history_end_time" : 1714265250902,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wgs5mz0zqy9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714192736086,
+  "history_end_time" : 1714265111643,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gf5dneffbg7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714190418067,
+  "history_end_time" : 1714274350937,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gorsasnzagc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714104009270,
+  "history_end_time" : 1714274350440,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "emafpeui5gh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1714017609620,
+  "history_end_time" : 1714274349898,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "h86yz7wsary",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713931209913,
+  "history_end_time" : 1714274349306,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "is8663sfkbt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713844809632,
+  "history_end_time" : 1714274348767,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "m4qm20r7m8d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713758409210,
+  "history_end_time" : 1714274347305,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cz6vjgbcfql",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713672009666,
+  "history_end_time" : 1714274346320,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3z1b46bvzyy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713585609423,
+  "history_end_time" : 1714274345803,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ku0pntwo32c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713499209626,
+  "history_end_time" : 1714274345253,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "33xdd7fgfkp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713412808861,
+  "history_end_time" : 1714274344692,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zwyon751amn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713326408979,
+  "history_end_time" : 1714274343276,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "keiw4x5f4wo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713283461246,
+  "history_end_time" : 1713283461246,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "febnc8y4u98",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1713240008987,
+  "history_end_time" : 1714274342559,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "20k2k3mxoef",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -13,21 +473,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711684813600,
-  "history_end_time" : 1711684813600,
+  "history_end_time" : 1714282476006,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "0wu5zruyu6u",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711598415033,
-  "history_end_time" : 1711598415033,
+  "history_end_time" : 1714282474548,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "6k85h8ody4m",
   "history_input" : "No code saved",
@@ -63,21 +523,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711425614101,
-  "history_end_time" : 1711425614101,
+  "history_end_time" : 1714282483101,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "gh10ie73wbk",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1711339212645,
-  "history_end_time" : 1711339212645,
+  "history_end_time" : 1714282483759,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "j2dirhkx0pd",
   "history_input" : "No code saved",
@@ -113,41 +573,41 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710993609642,
-  "history_end_time" : 1710993609642,
+  "history_end_time" : 1714282484623,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ljtb48gm9l4",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710907209109,
-  "history_end_time" : 1710907209109,
+  "history_end_time" : 1714282485247,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "233qhprl2qj",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710820808752,
-  "history_end_time" : 1710820808752,
+  "history_end_time" : 1714282486275,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2kvchpmn9hh",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710734409492,
-  "history_end_time" : 1710734409492,
+  "history_end_time" : 1714282486943,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "n7tadf5rgpv",
   "history_input" : "No code saved",
@@ -163,61 +623,61 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710648009172,
-  "history_end_time" : 1710648009172,
+  "history_end_time" : 1714282488910,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "7tevf548ofg",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710561608642,
-  "history_end_time" : 1710561608642,
+  "history_end_time" : 1714282489525,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "rjeupztrnbv",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710475209241,
-  "history_end_time" : 1710475209241,
+  "history_end_time" : 1714282490285,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "nceh4vi52su",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710388809140,
-  "history_end_time" : 1710388809140,
+  "history_end_time" : 1714282490837,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "pz1qd6pg71y",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710302409372,
-  "history_end_time" : 1710302409372,
+  "history_end_time" : 1714282491500,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "by5f8zvrl8j",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710216009420,
-  "history_end_time" : 1710216009420,
+  "history_end_time" : 1714282492099,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "z5agk1j5nxq",
   "history_input" : "No code saved",
@@ -233,11 +693,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710129609087,
-  "history_end_time" : 1710129609087,
+  "history_end_time" : 1714282493724,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "qzxq6wd2qcf",
   "history_input" : "No code saved",
@@ -253,11 +713,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1710043208776,
-  "history_end_time" : 1710043208776,
+  "history_end_time" : 1714282495061,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tlolydf9x8y",
   "history_input" : "No code saved",
@@ -273,11 +733,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709956808959,
-  "history_end_time" : 1709956808959,
+  "history_end_time" : 1714282495726,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "fbd97f6x5eq",
   "history_input" : "No code saved",
@@ -293,11 +753,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709870409948,
-  "history_end_time" : 1709870409948,
+  "history_end_time" : 1714282496794,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ivzwcz0kqf2",
   "history_input" : "No code saved",
@@ -373,11 +833,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709784009440,
-  "history_end_time" : 1709784009440,
+  "history_end_time" : 1714282504661,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "rlgpsce8s5m",
   "history_input" : "No code saved",
@@ -443,31 +903,31 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709697609292,
-  "history_end_time" : 1709697609292,
+  "history_end_time" : 1714282506640,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "85xrb19h0ft",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709611208759,
-  "history_end_time" : 1709611208759,
+  "history_end_time" : 1714282507153,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1wvnaj6kdq8",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1709524808851,
-  "history_end_time" : 1709524808851,
+  "history_end_time" : 1714282507686,
   "history_notes" : null,
   "history_process" : "gkhtc0",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "okkbbzn0o6m",
   "history_input" : "No code saved",

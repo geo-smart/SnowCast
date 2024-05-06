@@ -11,6 +11,11 @@ import dask.delayed as delayed
 import dask.bag as db
 import xarray as xr
 from snowcast_utils import work_dir, train_start_date, train_end_date
+import warnings
+
+# Suppress specific warning
+warnings.filterwarnings("ignore", message="overflow encountered in add")
+
 
 def copy_he5_files(source_dir, destination_dir):
     '''
@@ -119,7 +124,7 @@ def extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, new_base_sta
     if os.path.exists(output_csv_file):
         os.remove(output_csv_file)
     
-    target_csv_path = f'{work_dir}/training_snotel_station_to_amsr_mapper.csv'
+    target_csv_path = f'{work_dir}/training_snotel_station_to_amsr_mapper_all_training_points.csv'
     mapper_df = create_snotel_station_to_amsr_mapper(new_base_station_list_file, 
                                          target_csv_path)
         
@@ -200,13 +205,14 @@ def extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, new_base_sta
                     
 if __name__ == "__main__":
     amsr_data_dir = '/home/chetana/gridmet_test_run/amsr'
-    new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
-    new_base_df = pd.read_csv(new_base_station_list_file)
+    # new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
+    all_training_points_with_station_and_non_station_file = f"{work_dir}/all_training_points_in_westus.csv"
+    new_base_df = pd.read_csv(all_training_points_with_station_and_non_station_file)
     print(new_base_df.head())
-    output_csv_file = f"{new_base_station_list_file}_amsr_dask.csv"
+    output_csv_file = f"{all_training_points_with_station_and_non_station_file}_amsr_dask_all_training_ponits.csv"
     
     start_date = train_start_date
     end_date = train_end_date
 
-    extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, new_base_station_list_file, start_date, end_date)
+    extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, all_training_points_with_station_and_non_station_file, start_date, end_date)
 
