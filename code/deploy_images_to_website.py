@@ -5,6 +5,7 @@ import shutil
 import re
 import pandas as pd
 from datetime import datetime
+import time
 
 
 print("move the plots and the results into the http folder")
@@ -83,8 +84,6 @@ MAP
     METADATA
       "wms_include_items" "all"
     END
-    PROCESSING "SCALE=0.0,30.0"
-    PROCESSING "SCALE_BUCKETS=15"
     PROCESSING "NODATA=0"
     STATUS ON
     DUMP TRUE
@@ -125,6 +124,7 @@ def refresh_available_date_list():
   
   # Save DataFrame to a CSV file
   df.to_csv("/var/www/html/swe_forecasting/date_list.csv", index=False)
+  print("directly write into the server file which might be used at the time might not be a good idea. ")
 
   # Display the final DataFrame
   print(df)
@@ -173,13 +173,18 @@ def copy_files_to_right_folder():
   
 
 if __name__ == "__main__":
+  
   geotiff_destination_folder = f"/var/www/html/swe_forecasting/output/"
   copy_files_to_right_folder()
+  
   # create mapserver config for all geotiff files in output folder
   for filename in os.listdir(geotiff_destination_folder):
     destination_file = os.path.join(geotiff_destination_folder, filename)
-    create_mapserver_map_config(destination_file)
+    create_mapserver_map_config(destination_file, force=True)
+  print("Finished creation of all mapserver files.")
     
   # refresh the output file list for the website to refresh its calendar
   refresh_available_date_list()
+  print("All done")
+  time.sleep(10)
 

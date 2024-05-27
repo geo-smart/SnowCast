@@ -31,9 +31,10 @@ gridcells_file = data_dir+'snowcast_provided/grid_cells_eval.geojson'
 stations_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
 #stations_file = data_dir+'snowcast_provided/ground_measures_metadata.csv'
 all_training_points_with_station_and_non_station_file = f"{work_dir}/all_training_points_in_westus.csv"
+all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
 gridcells_outfile = data_dir+'terrain/gridcells_terrainData_eval.csv'
-stations_outfile = f"{work_dir}/training_all_active_snotel_station_list_elevation.csv_terrain_4km_grid_shift.csv"
-stations_outfile = f"{work_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv"
+#stations_outfile = f"{work_dir}/training_all_active_snotel_station_list_elevation.csv_terrain_4km_grid_shift.csv"
+stations_outfile = f"{work_dir}/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv"
 
 
 def get_planetary_client():
@@ -324,7 +325,7 @@ def read_terrain_from_dem_csv():
   western_df = pd.read_csv(western_us_coords)
   print("western_df.head() = ", western_df.head())
   
-  stations_file_df = pd.read_csv(all_training_points_with_station_and_non_station_file)
+  stations_file_df = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
   print("stations_file_df.head() = ", stations_file_df.head())
   
   def find_closest_dem_row(row, western_df):

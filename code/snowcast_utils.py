@@ -35,9 +35,9 @@ def get_operation_day():
   print(three_days_ago_string)
   return three_days_ago_string
 
-#test_start_date = get_operation_day()
-test_start_date = "2023-12-07" # use this for debugging
-test_end_date = "2023-10-11"
+test_start_date = get_operation_day()
+#test_start_date = "2024-05-19" # use this for debugging and generating SWE map for specific day
+test_end_date = "2024-10-19"
 #test_end_date = d1
 print("test start date: ", test_start_date)
 print("test end date: ", test_end_date)

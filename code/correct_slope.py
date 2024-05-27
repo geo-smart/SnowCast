@@ -5,12 +5,10 @@ from scipy.spatial import KDTree
 import dask.dataframe as dd
 from dask.distributed import Client
 
-ready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted.csv'
+ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations.csv_sorted.csv'
 dem_slope_csv_path = f"{work_dir}/slope_file.tif.csv"
 print(f"ready_csv_path = {ready_csv_path}")
-
-
-
+new_result_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_ghcnd.csv_sorted_slope_corrected.csv'
 
 
 def replace_slope(row, tree, dem_df):
@@ -77,7 +75,7 @@ def parallelize_slope_correction():
     print(train_ready_df.head())
     print(train_ready_df.columns)
 
-    new_result_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'
+    
     print(f"saving the correct data into {new_result_csv_path}")
     # Save the modified DataFrame to a new CSV file
     train_ready_df.to_csv(new_result_csv_path, index=False)

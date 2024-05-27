@@ -21,10 +21,10 @@ year_list = [start_date.year + i for i in range(end_date.year - start_date.year 
 
 working_dir = work_dir
 #stations = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')
-all_training_points_with_station_and_non_station_file = f"{work_dir}/all_training_points_in_westus.csv"
-stations = pd.read_csv(all_training_points_with_station_and_non_station_file)
+all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
+stations = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
 gridmet_save_location = f'{working_dir}/gridmet_climatology'
-final_merged_csv = f"{work_dir}/training_all_point_gridmet_with_non_station.csv"
+final_merged_csv = f"{work_dir}/training_all_point_gridmet_with_snotel_ghcnd.csv"
 
 
 def get_files_in_directory():
@@ -78,7 +78,7 @@ def get_gridmet_variable(file_name):
     ds = xr.open_dataset(file_name)
     var_name = list(ds.keys())[0]
 
-    csv_file = f'{gridmet_save_location}/{Path(file_name).stem}.csv'
+    csv_file = f'{gridmet_save_location}/{Path(file_name).stem}_snotel_ghcnd.csv'
     if os.path.exists(csv_file):
         print(f"The file '{csv_file}' exists.")
         return
@@ -104,7 +104,9 @@ def merge_similar_variables_from_different_years():
     for filename in files:
         base_name, year_ext = os.path.splitext(filename)
         parts = base_name.split('_')
-        if len(parts) == 2 and year_ext == '.csv':
+        print(parts)
+        print(year_list)
+        if len(parts) == 4 and parts[3] == "ghcnd" and year_ext == '.csv' and int(parts[1]) in year_list:
             file_groups.setdefault(parts[0], []).append(filename)
 
     for base_name, file_list in file_groups.items():
@@ -114,7 +116,7 @@ def merge_similar_variables_from_different_years():
                 df = pd.read_csv(os.path.join(gridmet_save_location, filename))
                 dfs.append(df)
             merged_df = pd.concat(dfs, ignore_index=True)
-            merged_filename = f"{base_name}_merged.csv"
+            merged_filename = f"{base_name}_merged_snotel_ghcnd.csv"
             merged_df.to_csv(os.path.join(gridmet_save_location, merged_filename), index=False)
             print(f"Merged {file_list} into {merged_filename}")
 
@@ -124,13 +126,13 @@ def merge_all_variables_together():
     file_paths = []
 
     for filename in os.listdir(gridmet_save_location):
-        if filename.endswith("_merged.csv"):
+        if filename.endswith("_merged_snotel_ghcnd.csv"):
             file_paths.append(os.path.join(gridmet_save_location, filename))
 	
-    rmin_merged_path = os.path.join(gridmet_save_location, 'rmin_merged.csv')
-    rmax_merged_path = os.path.join(gridmet_save_location, 'rmax_merged.csv')
-    tmmn_merged_path = os.path.join(gridmet_save_location, 'tmmn_merged.csv')
-    tmmx_merged_path = os.path.join(gridmet_save_location, 'tmmx_merged.csv')
+    rmin_merged_path = os.path.join(gridmet_save_location, 'rmin_merged_snotel_ghcnd.csv')
+    rmax_merged_path = os.path.join(gridmet_save_location, 'rmax_merged_snotel_ghcnd.csv')
+    tmmn_merged_path = os.path.join(gridmet_save_location, 'tmmn_merged_snotel_ghcnd.csv')
+    tmmx_merged_path = os.path.join(gridmet_save_location, 'tmmx_merged_snotel_ghcnd.csv')
     
     df_rmin = pd.read_csv(rmin_merged_path)
     df_rmax = pd.read_csv(rmax_merged_path)
@@ -142,10 +144,10 @@ def merge_all_variables_together():
     df_tmmn.rename(columns={'air_temperature': 'air_temperature_tmmn'}, inplace=True)
     df_tmmx.rename(columns={'air_temperature': 'air_temperature_tmmx'}, inplace=True)
     
-    df_rmin.to_csv(os.path.join(gridmet_save_location, 'rmin_merged.csv'))
-    df_rmax.to_csv(os.path.join(gridmet_save_location, 'rmax_merged.csv'))
-    df_tmmn.to_csv(os.path.join(gridmet_save_location, 'tmmn_merged.csv'))
-    df_tmmx.to_csv(os.path.join(gridmet_save_location, 'tmmx_merged.csv'))
+    df_rmin.to_csv(rmin_merged_path)
+    df_rmax.to_csv(rmax_merged_path)
+    df_tmmn.to_csv(tmmn_merged_path)
+    df_tmmx.to_csv(tmmx_merged_path)
     
     if file_paths:
         merged_df = pd.read_csv(file_paths[0])
@@ -154,15 +156,18 @@ def merge_all_variables_together():
             merged_df = pd.concat([merged_df, df], axis=1)
         merged_df = merged_df.loc[:, ~merged_df.columns.duplicated()]
         merged_df.to_csv(final_merged_csv, index=False)
+        print(f"all files are saved to {final_merged_csv}")
 
 
 if __name__ == "__main__":
     
-    download_gridmet_climatology()
+    #download_gridmet_climatology()
     
-    nc_files = get_files_in_directory()
-    for nc in nc_files:
-        get_gridmet_variable(nc)
+    # mock out as this takes too long
+    #nc_files = get_files_in_directory()
+    #for nc in nc_files:
+    #.   # should check if the nc file year number is in the year_list
+    #    get_gridmet_variable(nc)
     
     merge_similar_variables_from_different_years()
     merge_all_variables_together()

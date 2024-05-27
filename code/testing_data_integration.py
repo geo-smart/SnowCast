@@ -11,7 +11,7 @@ def get_water_year(date):
     else:
         return date.year
 
-def merge_all_gridmet_amsr_csv_into_one(gridmet_csv_folder, dem_all_csv, testing_all_csv):
+def merge_all_gridmet_amsr_csv_into_one(gridmet_csv_folder, dem_all_csv, testing_all_csv, water_mask_csv):
     """
     Merge all GridMET and AMSR CSV files into one combined CSV file.
 
@@ -77,6 +77,10 @@ def merge_all_gridmet_amsr_csv_into_one(gridmet_csv_folder, dem_all_csv, testing
     print("fsca_df.shape: ", fsca_df.shape)
     fsca_df = fsca_df.drop(columns=['Latitude', 'Longitude'])
     all_df = pd.concat([all_df, fsca_df], axis=1)
+
+    water_mask_df = pd.read_csv(water_mask_csv)
+    water_mask_df = water_mask_df.drop(columns=["date", 'Latitude', 'Longitude'])
+    all_df = pd.concat([all_df, water_mask_df], axis=1)
     
     print("all columns: ", all_df.columns)
     # add water year
@@ -100,11 +104,15 @@ def merge_all_gridmet_amsr_csv_into_one(gridmet_csv_folder, dem_all_csv, testing
     print("all_df.shape = ", all_df.shape)
     print(all_df.describe(include='all'))
     print(all_df["fsca"].describe())
+    print(all_df["cumulative_fsca"].describe())
 
 if __name__ == "__main__":
     # Replace with the actual path to your folder
     gridmet_csv_folder = f"{work_dir}/gridmet_climatology/"
+    test_year = int(test_start_date[:4])
+
     merge_all_gridmet_amsr_csv_into_one(f"{work_dir}/testing_output/",
                                         f"{work_dir}/dem_all.csv",
-                                        f"{work_dir}/testing_all_ready_{test_start_date}.csv")
+                                        f"{work_dir}/testing_all_ready_{test_start_date}.csv",
+                                        f"{homedir}/water_mask/final_output/{test_year-1}_output.csv")
 

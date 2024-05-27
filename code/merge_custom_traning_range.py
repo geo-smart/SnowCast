@@ -18,29 +18,50 @@ import dask.dataframe as dd
 import os
 from snowcast_utils import work_dir, homedir
 import pandas as pd
+import time
 
 working_dir = work_dir
-final_output_name = "final_merged_data_3yrs_all_stations_with_non_stations.csv"
+final_output_name = "final_merged_data_4yrs_snotel_and_ghcnd_stations.csv"
 chunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size
+amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'
+snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'
+ghcnd_file = f'{working_dir}/active_station_only_list.csv_all_vars_masked_non_snow.csv'
+all_station_obs_file = f'{working_dir}/snotel_ghcnd_all_obs.csv'
+gridmet_file = f'{working_dir}/training_all_point_gridmet_with_snotel_ghcnd.csv'
+terrain_file = f'{working_dir}/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv'
+fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'
+final_final_output_file = f'{work_dir}/{final_output_name}'
 
+
+def merge_snotel_ghcnd_together():
+    snotel_df = pd.read_csv(snotel_file)
+    ghcnd_df = pd.read_csv(ghcnd_file)
+    print(snotel_df.columns)
+    print(ghcnd_df.columns)
+    ghcnd_df = ghcnd_df.rename(columns={'STATION': 'station_name',
+                                       'DATE': 'date',
+                                       'LATITUDE': 'lat',
+                                       'LONGITUDE': 'lon',
+                                       'SNWD': 'snow_depth',})
+    df_combined = pd.concat([snotel_df, ghcnd_df], axis=0, ignore_index=True)
+    df_combined.to_csv(all_station_obs_file, index=False)
+    print(f"All snotel ang ghcnd are saved to {all_station_obs_file}")
+    
 
 def merge_all_data_together():
-    amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'
-    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'
-    gridmet_file = f'{working_dir}/training_all_point_gridmet_with_non_station.csv'
-    terrain_file = f'{working_dir}/all_training_points_in_westus.csv_terrain_4km_grid_shift.csv'
-    fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'
-    final_final_output_file = f'{work_dir}/{final_output_name}'
     
     if os.path.exists(final_final_output_file):
       print(f"The file '{final_final_output_file}' exists. Skipping")
       return final_final_output_file
+    
+    # merge the snotel and ghcnd together first
+    
       
     # Read the CSV files with a smaller chunk size and compression
     amsr = dd.read_csv(amsr_file, blocksize=chunk_size)
     print("amsr.columns = ", amsr.columns)
-    snotel = dd.read_csv(snotel_file, blocksize=chunk_size)
-    print("snotel.columns = ", snotel.columns)
+    ground_truth = dd.read_csv(all_station_obs_file, blocksize=chunk_size)
+    print("ground_truth.columns = ", ground_truth.columns)
 #     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)
     gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)
     gridmet = gridmet.drop(columns=["Unnamed: 0"])
@@ -61,7 +82,7 @@ def merge_all_data_together():
 
     # Repartition DataFrames for optimized processing
     amsr = amsr.repartition(partition_size=chunk_size)
-    snotel = snotel.repartition(partition_size=chunk_size)
+    ground_truth = ground_truth.repartition(partition_size=chunk_size)
     gridmet = gridmet.repartition(partition_size=chunk_size)
     gridmet = gridmet.rename(columns={'day': 'date'})
     terrain = terrain.repartition(partition_size=chunk_size)
@@ -69,10 +90,10 @@ def merge_all_data_together():
     print("all the dataframes are partitioned")
 
     # Merge DataFrames based on specified columns
-    print("start to merge amsr and snotel")
-    merged_df = dd.merge(amsr, snotel, on=['lat', 'lon', 'date'], how='outer')
+    print("start to merge amsr and ground_truth")
+    merged_df = dd.merge(amsr, ground_truth, on=['lat', 'lon', 'date'], how='outer')
     merged_df = merged_df.drop_duplicates(keep='first')
-    output_file = os.path.join(working_dir, f"{final_output_name}_snotel.csv")
+    output_file = os.path.join(working_dir, f"{final_output_name}_ground_truth.csv")
     merged_df.to_csv(output_file, single_file=True, index=False)
     print(f"intermediate file saved to {output_file}")
     
@@ -131,8 +152,27 @@ def sort_training_data(input_training_csv, sorted_training_csv):
     print(f"sorted training data is saved to {sorted_training_csv}")
   
 if __name__ == "__main__":
-    # merge_all_data_together()
+  
+#     merge_snotel_ghcnd_together()
+  
+#     merge_all_data_together()
+#     cleanup_dataframe()
+#     final_final_output_file = f'{work_dir}/{final_output_name}'
+#     sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')
+    
+    start_time = time.time()
+    
+    merge_all_data_together()
+    print(f"Time taken for merge_all_data_together: {time.time() - start_time} seconds")
+    
+    start_time = time.time()
     cleanup_dataframe()
+    print(f"Time taken for cleanup_dataframe: {time.time() - start_time} seconds")
+    
     final_final_output_file = f'{work_dir}/{final_output_name}'
-    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')
+    sorted_output_file = f'{work_dir}/{final_output_name}_sorted.csv'
+    
+    start_time = time.time()
+    sort_training_data(final_final_output_file, sorted_output_file)
+    print(f"Time taken for sort_training_data: {time.time() - start_time} seconds")
     

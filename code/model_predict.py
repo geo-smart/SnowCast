@@ -43,7 +43,7 @@ def load_data(file_path):
     """
     return pd.read_csv(file_path)
 
-def preprocess_data(data):
+def preprocess_data(data, is_model_input: bool = True):
     """
     Preprocess the input data for model prediction.
 
@@ -53,7 +53,7 @@ def preprocess_data(data):
     Returns:
         pd.DataFrame: Preprocessed data ready for prediction.
     """
-    data['date'] = pd.to_datetime(data['date'])
+    
     #print("check date format: ", data.head())
     #data['date'] = data['date'].dt.strftime('%j').astype(int)
     #data['date'] = data['date'].dt.month.apply(month_to_season)
@@ -117,13 +117,15 @@ def preprocess_data(data):
     #mask = data['date'].dt.strftime('%Y-%m-%d').isin(dates_to_match)
     # Filter the DataFrame based on the mask
     #data = data[mask]
-    selected_columns.remove("swe_value")
-    desired_order = selected_columns + ['lat', 'lon',]
-    
-    data = data[desired_order]
-    data = data.reindex(columns=desired_order)
-    
-    print("reorganized columns: ", data.columns)
+    if is_model_input:
+        data['date'] = pd.to_datetime(data['date'])
+        selected_columns.remove("swe_value")
+        desired_order = selected_columns + ['lat', 'lon',]
+        
+        data = data[desired_order]
+        data = data.reindex(columns=desired_order)
+        
+        print("reorganized columns: ", data.columns)
     
     return data
 
@@ -170,13 +172,22 @@ def merge_data(original_data, predicted_data):
     print("new_data_extracted.columns: ", new_data_extracted.columns)
     print("new prediction statistics: ", new_data_extracted["predicted_swe"].describe())
     #merged_df = original_data.merge(new_data_extracted, on=["date", 'lat', 'lon'], how='left')
-    merged_df = original_data.merge(new_data_extracted, on=['date', 'lat', 'lon'], how='left')
+    merged_df = original_data.merge(new_data_extracted, on=['lat', 'lon'], how='left')
+    print("first merged df: ", merged_df.columns)
+
     merged_df.loc[merged_df['fsca'] == 237, 'predicted_swe'] = 0
     merged_df.loc[merged_df['fsca'] == 239, 'predicted_swe'] = 0
-    merged_df.loc[merged_df['cumulative_fsca'] == 0, 'predicted_swe'] = 0
+    merged_df.loc[merged_df['fsca'] == 225, 'predicted_swe'] = 0
+    #merged_df.loc[merged_df['cumulative_fsca'] == 0, 'predicted_swe'] = 0
+    merged_df.loc[merged_df['fsca'] == 0, 'predicted_swe'] = 0
     
     merged_df.loc[merged_df['air_temperature_tmmx'].isnull(), 
                   'predicted_swe'] = 0
+
+    merged_df.loc[merged_df['lc_prop3'] == 3, 'predicted_swe'] = 0
+    merged_df.loc[merged_df['lc_prop3'] == 255, 'predicted_swe'] = 0
+    merged_df.loc[merged_df['lc_prop3'] == 27, 'predicted_swe'] = 0
+
     return merged_df
 
 def predict():
@@ -201,10 +212,12 @@ def predict():
         print(f"File '{output_path}' has been removed.")
 
     model = load_model(model_path)
+    print(f"loading {new_data_path}")
     new_data = load_data(new_data_path)
-    #print("new_data shape: ", new_data.head())
+    new_data = new_data.drop(["date.1",], axis=1)
+    print("new_data.columns: ", new_data.columns)
 
-    preprocessed_data = preprocess_data(new_data)
+    preprocessed_data = preprocess_data(new_data, is_model_input=True)
     if len(new_data) < len(preprocessed_data):
       raise ValueError("Why the preprocessed data increased?")
     #print('Data preprocessing completed.', preprocessed_data.head())
@@ -214,7 +227,9 @@ def predict():
     
     if "date" not in preprocessed_data:
     	preprocessed_data["date"] = test_start_date
-    predicted_data = merge_data(preprocessed_data, predicted_data)
+
+    full_preprocessed_data = preprocess_data(new_data, is_model_input=False)
+    predicted_data = merge_data(full_preprocessed_data, predicted_data)
     
     
     #print('Data prediction completed.')

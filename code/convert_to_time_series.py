@@ -8,6 +8,18 @@ import dask.dataframe as dd
 # Set Pandas options to display all columns
 pd.set_option('display.max_columns', None)
 
+# Define file paths for various CSV files
+# current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'
+current_ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_ghcnd.csv_sorted_slope_corrected.csv'
+non_station_counted_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_fill_empty_snotel.csv'
+cleaned_csv_path = f"{work_dir}/snotel_ghcnd_stations_4yrs_cleaned.csv"
+target_time_series_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_time_series.csv'
+backup_time_series_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_time_series_backup.csv'
+# target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'
+target_time_series_cumulative_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_cumulative.csv'
+slope_renamed_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_slope_renamed.csv'
+logged_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv'
+deduplicated_csv_path = f'{work_dir}/deduplicated_training_points_final.csv'
 
 
 def array_describe(arr):
@@ -298,20 +310,8 @@ def log10_all_fields(cleaned_csv_path, logged_csv_path, force=False):
     print("dask_df.shape = ", df.shape)
     print(f"The log10 file is saved to {logged_csv_path}")
 
-    
-    
+
 if __name__ == "__main__":
-    # Define file paths for various CSV files
-    # current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'
-    current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_all_stations_with_non_stations.csv_sorted_slope_corrected.csv'
-    non_station_counted_csv_path = f'{work_dir}/new_stations_3yrs_fill_empty_snotel.csv'
-    cleaned_csv_path = f"{work_dir}/new_stations_3yrs_cleaned.csv"
-    target_time_series_csv_path = f'{work_dir}/new_stations_3yrs_time_series.csv'
-    backup_time_series_csv_path = f'{work_dir}/new_stations_3yrs_time_series_backup.csv'
-    # target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'
-    target_time_series_cumulative_csv_path = f'{work_dir}/new_stations_3yrs_cumulative.csv'
-    slope_renamed_path = f'{work_dir}/new_stations_3yrs_slope_renamed.csv'
-    logged_csv_path = f'{work_dir}/new_stations_3yrs_all_cols_log10.csv'
     
     # filling the non station rows with fsca indicating no snow
     assign_zero_swe_value_to_all_fsca_zero_rows(current_ready_csv_path, non_station_counted_csv_path, force=True)
@@ -336,7 +336,7 @@ if __name__ == "__main__":
     
     deduplicated_df = df.drop_duplicates(subset=['lat', 'lon'])
     # Export the deduplicated DataFrame to a CSV file
-    deduplicated_df.to_csv(f'{work_dir}/deduplicated_training_points_final.csv', index=False)
-    print("deduplicated_df.to_csv('deduplicated_training_points_final.csv', index=False)")
+    deduplicated_df.to_csv(deduplicated_csv_path, index=False)
+    print(f"deduplicated_df.to_csv('{deduplicated_csv_path}', index=False)")
     
 

@@ -352,7 +352,6 @@ def convert_csv_to_geotiff(target_date = test_start_date):
     # Load your CSV file
     test_csv = f"{homedir}/gridmet_test_run/test_data_predicted_latest_{target_date}.csv"
     
-    
     result_var_df = pd.read_csv(test_csv)
     result_var_df.rename(
       columns={
