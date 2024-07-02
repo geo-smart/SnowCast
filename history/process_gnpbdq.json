@@ -1,4 +1,574 @@
 [{
+  "history_id" : "7get0ejh770",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719806410723,
+  "history_end_time" : 1719806410723,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "u7us58w902f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719720012194,
+  "history_end_time" : 1719720012194,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f5kjzfg6qyd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719633609314,
+  "history_end_time" : 1719633609314,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vvisvxrgsur",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719547210077,
+  "history_end_time" : 1719547210077,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "01bsqkbd0bu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719460810675,
+  "history_end_time" : 1719460810675,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "xchgi9dexdv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719374413504,
+  "history_end_time" : 1719374413504,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k461ti3a17r",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719288011068,
+  "history_end_time" : 1719288011068,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "s6vk2e5rq8c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719201615350,
+  "history_end_time" : 1719201615350,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "oCGlQVHPFZ7b",
+  "history_input" : "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport autopytorch as apt\nfrom snowcast_utils import work_dir, month_to_season\n\n\nworking_dir = work_dir\n\n\ntraining_data_path = f\"{working_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv\"\n# Load the data from a CSV file\ndf = pd.read_csv(training_data_path)\n\n# Remove rows with missing values\ndf.dropna(inplace=True)\n\n# Initialize a label encoder\nlabel_encoder = LabelEncoder()\n\n# Drop unnecessary columns from the DataFrame\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\n# Rename columns for better readability\ndf.rename(columns={\n    'Change In Snow Water Equivalent (in)': 'swe_change',\n    'Snow Depth (in) Start of Day Values': 'swe_value',\n    'Change In Snow Depth (in)': 'snow_depth_change',\n    'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n    'Elevation [m]': 'elevation',\n    'Aspect [deg]': 'aspect',\n    'Curvature [ratio]': 'curvature',\n    'Slope [deg]': 'slope',\n    'Eastness [unitCirc.]': 'eastness',\n    'Northness [unitCirc.]': 'northness'\n}, inplace=True)\n\n# Split the dataset into features (X) and target variable (y)\nX = df.drop('swe_value', axis=1)\ny = df['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Define the Auto-PyTorch configuration\nconfig = apt.AutoNetRegressionConfig()\n\n# Initialize and train the Auto-PyTorch regressor\nreg = apt.AutoNetRegressor(config=config)\nreg.fit(X_train, y_train)\n\n# Evaluate the model\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint(\"RMSE:\", rmse)\nprint(\"R2 Score:\", r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/oCGlQVHPFZ7b/model_creation_autopytorch.py\", line 2, in <module>\n    from sklearn.model_selection import train_test_split\n  File \"/home/chetana/anaconda3/envs/automl2/lib/python3.9/site-packages/sklearn/__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"/home/chetana/anaconda3/envs/automl2/lib/python3.9/site-packages/sklearn/base.py\", line 17, in <module>\n    from .utils import _IS_32BIT\n  File \"/home/chetana/anaconda3/envs/automl2/lib/python3.9/site-packages/sklearn/utils/__init__.py\", line 22, in <module>\n    from .murmurhash import murmurhash3_32\n  File \"sklearn/utils/murmurhash.pyx\", line 1, in init sklearn.utils.murmurhash\nValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject\n",
+  "history_begin_time" : 1719194028629,
+  "history_end_time" : 1719194029557,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "zdSf7Db5x4Eu",
+  "history_input" : "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport autopytorch as apt\nfrom snowcast_utils import work_dir, month_to_season\n\n\nworking_dir = work_dir\n\n\ntraining_data_path = f\"{working_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv\"\n# Load the data from a CSV file\ndf = pd.read_csv(training_data_path)\n\n# Remove rows with missing values\ndf.dropna(inplace=True)\n\n# Initialize a label encoder\nlabel_encoder = LabelEncoder()\n\n# Drop unnecessary columns from the DataFrame\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\n# Rename columns for better readability\ndf.rename(columns={\n    'Change In Snow Water Equivalent (in)': 'swe_change',\n    'Snow Depth (in) Start of Day Values': 'swe_value',\n    'Change In Snow Depth (in)': 'snow_depth_change',\n    'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n    'Elevation [m]': 'elevation',\n    'Aspect [deg]': 'aspect',\n    'Curvature [ratio]': 'curvature',\n    'Slope [deg]': 'slope',\n    'Eastness [unitCirc.]': 'eastness',\n    'Northness [unitCirc.]': 'northness'\n}, inplace=True)\n\n# Split the dataset into features (X) and target variable (y)\nX = df.drop('swe_value', axis=1)\ny = df['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Define the Auto-PyTorch configuration\nconfig = apt.AutoNetRegressionConfig()\n\n# Initialize and train the Auto-PyTorch regressor\nreg = apt.AutoNetRegressor(config=config)\nreg.fit(X_train, y_train)\n\n# Evaluate the model\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint(\"RMSE:\", rmse)\nprint(\"R2 Score:\", r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/zdSf7Db5x4Eu/model_creation_autopytorch.py\", line 2, in <module>\n    from sklearn.model_selection import train_test_split\n  File \"/home/chetana/anaconda3/envs/automl2/lib/python3.9/site-packages/sklearn/__init__.py\", line 82, in <module>\n    from .base import clone\n  File \"/home/chetana/anaconda3/envs/automl2/lib/python3.9/site-packages/sklearn/base.py\", line 17, in <module>\n    from .utils import _IS_32BIT\n  File \"/home/chetana/anaconda3/envs/automl2/lib/python3.9/site-packages/sklearn/utils/__init__.py\", line 22, in <module>\n    from .murmurhash import murmurhash3_32\n  File \"sklearn/utils/murmurhash.pyx\", line 1, in init sklearn.utils.murmurhash\nValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject\n",
+  "history_begin_time" : 1719193530238,
+  "history_end_time" : 1719193531068,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "lzxZxg19Vmsq",
+  "history_input" : "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport autopytorch as apt\nfrom snowcast_utils import work_dir, month_to_season\n\n\nworking_dir = work_dir\n\n\ntraining_data_path = f\"{working_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv\"\n# Load the data from a CSV file\ndf = pd.read_csv(training_data_path)\n\n# Remove rows with missing values\ndf.dropna(inplace=True)\n\n# Initialize a label encoder\nlabel_encoder = LabelEncoder()\n\n# Drop unnecessary columns from the DataFrame\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\n# Rename columns for better readability\ndf.rename(columns={\n    'Change In Snow Water Equivalent (in)': 'swe_change',\n    'Snow Depth (in) Start of Day Values': 'swe_value',\n    'Change In Snow Depth (in)': 'snow_depth_change',\n    'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n    'Elevation [m]': 'elevation',\n    'Aspect [deg]': 'aspect',\n    'Curvature [ratio]': 'curvature',\n    'Slope [deg]': 'slope',\n    'Eastness [unitCirc.]': 'eastness',\n    'Northness [unitCirc.]': 'northness'\n}, inplace=True)\n\n# Split the dataset into features (X) and target variable (y)\nX = df.drop('swe_value', axis=1)\ny = df['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Define the Auto-PyTorch configuration\nconfig = apt.AutoNetRegressionConfig()\n\n# Initialize and train the Auto-PyTorch regressor\nreg = apt.AutoNetRegressor(config=config)\nreg.fit(X_train, y_train)\n\n# Evaluate the model\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint(\"RMSE:\", rmse)\nprint(\"R2 Score:\", r2)\n",
+  "history_output" : "Cannot run program \"/home/chetana/anaconda3/envs/automl/bin/python\" (in directory \"/home/chetana/gw-workspace/lzxZxg19Vmsq\"): error=2, No such file or directory",
+  "history_begin_time" : 1719193487039,
+  "history_end_time" : 1719193487042,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "DaBqldn6FTqz",
+  "history_input" : "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport autopytorch as apt\nfrom snowcast_utils import work_dir, month_to_season\n\n\nworking_dir = work_dir\n\n\ntraining_data_path = f\"{working_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv\"\n# Load the data from a CSV file\ndf = pd.read_csv(training_data_path)\n\n# Remove rows with missing values\ndf.dropna(inplace=True)\n\n# Initialize a label encoder\nlabel_encoder = LabelEncoder()\n\n# Drop unnecessary columns from the DataFrame\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\n# Rename columns for better readability\ndf.rename(columns={\n    'Change In Snow Water Equivalent (in)': 'swe_change',\n    'Snow Depth (in) Start of Day Values': 'swe_value',\n    'Change In Snow Depth (in)': 'snow_depth_change',\n    'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n    'Elevation [m]': 'elevation',\n    'Aspect [deg]': 'aspect',\n    'Curvature [ratio]': 'curvature',\n    'Slope [deg]': 'slope',\n    'Eastness [unitCirc.]': 'eastness',\n    'Northness [unitCirc.]': 'northness'\n}, inplace=True)\n\n# Split the dataset into features (X) and target variable (y)\nX = df.drop('swe_value', axis=1)\ny = df['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Define the Auto-PyTorch configuration\nconfig = apt.AutoNetRegressionConfig()\n\n# Initialize and train the Auto-PyTorch regressor\nreg = apt.AutoNetRegressor(config=config)\nreg.fit(X_train, y_train)\n\n# Evaluate the model\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint(\"RMSE:\", rmse)\nprint(\"R2 Score:\", r2)\n",
+  "history_output" : "Cannot run program \"/home/chetana/anaconda3/envs/automl/bin/python\" (in directory \"/home/chetana/gw-workspace/DaBqldn6FTqz\"): error=2, No such file or directory",
+  "history_begin_time" : 1719193462814,
+  "history_end_time" : 1719193462816,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "QKUqx0sWcFnm",
+  "history_input" : "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport autopytorch as apt\nfrom snowcast_utils import work_dir, month_to_season\n\n\nworking_dir = work_dir\n\n\ntraining_data_path = f\"{working_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv\"\n# Load the data from a CSV file\ndf = pd.read_csv(training_data_path)\n\n# Remove rows with missing values\ndf.dropna(inplace=True)\n\n# Initialize a label encoder\nlabel_encoder = LabelEncoder()\n\n# Drop unnecessary columns from the DataFrame\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\n# Rename columns for better readability\ndf.rename(columns={\n    'Change In Snow Water Equivalent (in)': 'swe_change',\n    'Snow Depth (in) Start of Day Values': 'swe_value',\n    'Change In Snow Depth (in)': 'snow_depth_change',\n    'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n    'Elevation [m]': 'elevation',\n    'Aspect [deg]': 'aspect',\n    'Curvature [ratio]': 'curvature',\n    'Slope [deg]': 'slope',\n    'Eastness [unitCirc.]': 'eastness',\n    'Northness [unitCirc.]': 'northness'\n}, inplace=True)\n\n# Split the dataset into features (X) and target variable (y)\nX = df.drop('swe_value', axis=1)\ny = df['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Define the Auto-PyTorch configuration\nconfig = apt.AutoNetRegressionConfig()\n\n# Initialize and train the Auto-PyTorch regressor\nreg = apt.AutoNetRegressor(config=config)\nreg.fit(X_train, y_train)\n\n# Evaluate the model\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint(\"RMSE:\", rmse)\nprint(\"R2 Score:\", r2)\n",
+  "history_output" : "Cannot run program \"/home/chetana/anaconda3/envs/automl/bin/python\" (in directory \"/home/chetana/gw-workspace/QKUqx0sWcFnm\"): error=2, No such file or directory",
+  "history_begin_time" : 1719180059780,
+  "history_end_time" : 1719180059784,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "inr4Xoeier57",
+  "history_input" : "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport autopytorch as apt\n\n\ntraining_data_path = f\"{working_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv\"\n# Load the data from a CSV file\ndf = pd.read_csv(training_data_path)\n\n# Remove rows with missing values\ndf.dropna(inplace=True)\n\n# Initialize a label encoder\nlabel_encoder = LabelEncoder()\n\n# Drop unnecessary columns from the DataFrame\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\n# Rename columns for better readability\ndf.rename(columns={\n    'Change In Snow Water Equivalent (in)': 'swe_change',\n    'Snow Depth (in) Start of Day Values': 'swe_value',\n    'Change In Snow Depth (in)': 'snow_depth_change',\n    'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n    'Elevation [m]': 'elevation',\n    'Aspect [deg]': 'aspect',\n    'Curvature [ratio]': 'curvature',\n    'Slope [deg]': 'slope',\n    'Eastness [unitCirc.]': 'eastness',\n    'Northness [unitCirc.]': 'northness'\n}, inplace=True)\n\n# Split the dataset into features (X) and target variable (y)\nX = df.drop('swe_value', axis=1)\ny = df['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Define the Auto-PyTorch configuration\nconfig = apt.AutoNetRegressionConfig()\n\n# Initialize and train the Auto-PyTorch regressor\nreg = apt.AutoNetRegressor(config=config)\nreg.fit(X_train, y_train)\n\n# Evaluate the model\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint(\"RMSE:\", rmse)\nprint(\"R2 Score:\", r2)\n",
+  "history_output" : "Cannot run program \"/home/chetana/anaconda3/envs/automl/bin/python\" (in directory \"/home/chetana/gw-workspace/inr4Xoeier57\"): error=2, No such file or directory",
+  "history_begin_time" : 1719180009185,
+  "history_end_time" : 1719180009187,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "2KJryS9YSr5F",
+  "history_input" : "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport autopytorch as apt\n\n\ntraining_data_path = f\"{working_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv\"\n# Load the data from a CSV file\ndf = pd.read_csv(training_data_path)\n\n# Remove rows with missing values\ndf.dropna(inplace=True)\n\n# Initialize a label encoder\nlabel_encoder = LabelEncoder()\n\n# Drop unnecessary columns from the DataFrame\ndf.drop(df.filter(regex=\"Unname\"), axis=1, inplace=True)\ndf.drop('Date', inplace=True, axis=1)\ndf.drop('mapping_cell_id', inplace=True, axis=1)\ndf.drop('cell_id', inplace=True, axis=1)\ndf.drop('station_id', inplace=True, axis=1)\ndf.drop('mapping_station_id', inplace=True, axis=1)\ndf.drop('station_triplet', inplace=True, axis=1)\ndf.drop('station_name', inplace=True, axis=1)\n\n# Rename columns for better readability\ndf.rename(columns={\n    'Change In Snow Water Equivalent (in)': 'swe_change',\n    'Snow Depth (in) Start of Day Values': 'swe_value',\n    'Change In Snow Depth (in)': 'snow_depth_change',\n    'Air Temperature Observed (degF) Start of Day Values': 'snotel_air_temp',\n    'Elevation [m]': 'elevation',\n    'Aspect [deg]': 'aspect',\n    'Curvature [ratio]': 'curvature',\n    'Slope [deg]': 'slope',\n    'Eastness [unitCirc.]': 'eastness',\n    'Northness [unitCirc.]': 'northness'\n}, inplace=True)\n\n# Split the dataset into features (X) and target variable (y)\nX = df.drop('swe_value', axis=1)\ny = df['swe_value']\n\n# Split the data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Define the Auto-PyTorch configuration\nconfig = apt.AutoNetRegressionConfig()\n\n# Initialize and train the Auto-PyTorch regressor\nreg = apt.AutoNetRegressor(config=config)\nreg.fit(X_train, y_train)\n\n# Evaluate the model\npredictions = reg.predict(X_test)\nrmse = mean_squared_error(y_test, predictions, squared=False)\nr2 = r2_score(y_test, predictions)\n\n# Print the evaluation metrics\nprint(\"RMSE:\", rmse)\nprint(\"R2 Score:\", r2)\n",
+  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/2KJryS9YSr5F/model_creation_autopytorch.py\", line 4, in <module>\n    import autopytorch as apt\nModuleNotFoundError: No module named 'autopytorch'\n",
+  "history_begin_time" : 1719179006057,
+  "history_end_time" : 1719179012223,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : null,
+  "indicator" : "Failed"
+},{
+  "history_id" : "8brsemx1v6m",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719115211710,
+  "history_end_time" : 1719115211710,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "v8yaa3yvxso",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719061831185,
+  "history_end_time" : 1719061831185,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cl4nuqmc53n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1719028809952,
+  "history_end_time" : 1719028809952,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1t0m92816wr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718992708754,
+  "history_end_time" : 1719004828834,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "x34vxzjfihw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718942410249,
+  "history_end_time" : 1718942410249,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tlvr146nkn7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718856011535,
+  "history_end_time" : 1718856011535,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "i1m64tq1cau",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718850065962,
+  "history_end_time" : 1718850065962,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h5o1u6tsvav",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718821279607,
+  "history_end_time" : 1718821279607,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rzhyhb6qdig",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718813272204,
+  "history_end_time" : 1718813272204,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "b2dqc4t7zew",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718778405580,
+  "history_end_time" : 1718778405580,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nz5qcyxu10o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718775386120,
+  "history_end_time" : 1718775386120,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0vfll597tcu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718771671340,
+  "history_end_time" : 1718771671340,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "o6b2wnn2dg0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718769611273,
+  "history_end_time" : 1718769611273,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cfr1r8uzx6j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718683212480,
+  "history_end_time" : 1718683212480,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "wxwx5vwfwsa",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718596812449,
+  "history_end_time" : 1718596812449,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zpjxizihzf7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718510413262,
+  "history_end_time" : 1718510413262,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t2wn2rkvook",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718459775254,
+  "history_end_time" : 1718459775254,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "90f5ly2v10s",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718424009617,
+  "history_end_time" : 1718424009617,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h8xjmueidmy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718373284949,
+  "history_end_time" : 1718373284949,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8d3rh6lcn5j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718337613041,
+  "history_end_time" : 1718337613041,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1b3vbp4jafo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718323441855,
+  "history_end_time" : 1718323441855,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "99zm3rx945o",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718302153546,
+  "history_end_time" : 1718302153546,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8bhvyjwelg8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718251216820,
+  "history_end_time" : 1718251216820,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "owy4h0xlrc0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718178289061,
+  "history_end_time" : 1718178289061,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ndk5ukhu6tq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718174667273,
+  "history_end_time" : 1718174667273,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nm6exfc0wrv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718164810303,
+  "history_end_time" : 1718164810303,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "c75kubys9sq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718098293556,
+  "history_end_time" : 1718098293556,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p0sr55mcoqm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718089421266,
+  "history_end_time" : 1718089421266,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r3yi8xjfxc7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718082200955,
+  "history_end_time" : 1718082200955,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "b8gd6usbqxb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718078411190,
+  "history_end_time" : 1718078411190,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2kszakp8aue",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1718053277562,
+  "history_end_time" : 1718053277562,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p3nhj1oj7m9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717992009995,
+  "history_end_time" : 1717992009995,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zv1pkkpj4qg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717985375999,
+  "history_end_time" : 1717985375999,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gut5bh4ggm5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717917246786,
+  "history_end_time" : 1717917246786,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "x8bwt1q80h7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717912483888,
+  "history_end_time" : 1717912483888,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "oz2tnzbfp05",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717905610037,
+  "history_end_time" : 1717905610037,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2bcxoawti4d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717819209990,
+  "history_end_time" : 1717819209990,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "da567mcaomp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717732810208,
+  "history_end_time" : 1717732810208,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2rla5blxstd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717646410177,
+  "history_end_time" : 1717646410177,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "iptfc9t8e51",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717599091176,
+  "history_end_time" : 1717599091176,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h5tt22g6l0f",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717579163776,
+  "history_end_time" : 1717579163776,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1cno9debek3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1717560009685,
+  "history_end_time" : 1717579485506,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
   "history_id" : "zy4ixice621",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
@@ -23,31 +593,31 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1717300809920,
-  "history_end_time" : 1717300809920,
+  "history_end_time" : 1717579483761,
   "history_notes" : null,
   "history_process" : "gnpbdq",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "txcm5hs38d4",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1717214410048,
-  "history_end_time" : 1717214410048,
+  "history_end_time" : 1717579482948,
   "history_notes" : null,
   "history_process" : "gnpbdq",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "fcgefw5p59c",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1717128009965,
-  "history_end_time" : 1717128009965,
+  "history_end_time" : 1717579482032,
   "history_notes" : null,
   "history_process" : "gnpbdq",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "bn0d7va8d5n",
   "history_input" : "No code saved",
