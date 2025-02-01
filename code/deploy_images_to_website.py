@@ -1,5 +1,5 @@
 import distutils.dir_util
-from snowcast_utils import work_dir
+from snowcast_utils import work_dir, output_dir, plot_dir
 import os
 import shutil
 import re
@@ -116,11 +116,19 @@ def refresh_available_date_list():
     date_str = re.search(r"\d{4}-\d{2}-\d{2}", filename).group()
     date = datetime.strptime(date_str, "%Y-%m-%d")
     
-    # Append a new row to the DataFrame
-    df = df.append({
-      "date": date, 
-      "predicted_swe_url_prefix": f"../swe_forecasting/output/{filename}"
-    }, ignore_index=True)
+    # # Append a new row to the DataFrame
+    # df = df.append({
+    #   "date": date, 
+    #   "predicted_swe_url_prefix": f"../swe_forecasting/output/{filename}"
+    # }, ignore_index=True)
+    # Create a new DataFrame with the new row data
+    new_row = pd.DataFrame([{
+        "date": date, 
+        "predicted_swe_url_prefix": f"../swe_forecasting/output/{filename}"
+    }])
+
+    # Use pd.concat to append the new row
+    df = pd.concat([df, new_row], ignore_index=True)
   
   # Save DataFrame to a CSV file
   df.to_csv("/var/www/html/swe_forecasting/date_list.csv", index=False)
@@ -145,7 +153,7 @@ def copy_files_to_right_folder():
 
 
   # copy the png from testing_output to plots
-  source_folder = f"{work_dir}/testing_output/"
+  source_folder = f"{output_dir}/"
 
   # Ensure the destination folder exists, create it if necessary
   if not os.path.exists(figure_destination_folder):
@@ -169,8 +177,7 @@ def copy_files_to_right_folder():
       if filename.endswith('.tif'):
         output_dest_file = os.path.join(geotiff_destination_folder, filename)
         copy_if_modified(source_file, output_dest_file)
-        
-  
+
 
 if __name__ == "__main__":
   

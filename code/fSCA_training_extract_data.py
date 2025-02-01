@@ -8,16 +8,18 @@ from snowcast_utils import homedir, work_dir, train_start_date, train_end_date
 from datetime import datetime, timedelta
 import dask.dataframe as dd
 import numpy as np
+import re
 
-working_dir = f"{homedir}/fsca"
-folder_path = f"{working_dir}/final_output/"
+fsca_working_dir = f"{homedir}/fsca"
+folder_path = f"{fsca_working_dir}/final_output/"
 new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
-cell_to_modis_mapping = f"{working_dir}/training_cell_to_modis_mapper_original_snotel_stations.csv"
+cell_to_modis_mapping = f"{fsca_working_dir}/training_cell_to_modis_mapper_original_snotel_stations.csv"
 non_station_random_points_file = f"{work_dir}/non_station_random_points_in_westus.csv"
-only_active_ghcd_station_in_west_conus_file = f"{working_dir}/active_ghcnd_station_only_list.csv"
-ghcd_station_to_modis_mapper_file = f"{working_dir}/active_ghcnd_mapper_modis.csv"
+only_active_ghcd_station_in_west_conus_file = f"{fsca_working_dir}/active_ghcnd_station_only_list.csv"
+salt_pepper_training_point_file = f"{work_dir}/salt_pepper_points_for_training.csv"
+ghcd_station_to_modis_mapper_file = f"{fsca_working_dir}/active_ghcnd_mapper_modis.csv"
 all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
-modis_day_wise = f"{working_dir}/final_output/"
+modis_day_wise = f"{fsca_working_dir}/final_output/"
 os.makedirs(modis_day_wise, exist_ok=True)
 
 
@@ -130,6 +132,49 @@ def merge_snotel_ghcnd_station_to_one_csv():
 
   print(f"Combined CSV saved to {all_training_points_with_snotel_ghcnd_file}")
 
+
+def prepare_training_points_to_modis_grid_mapper(training_points_csv):
+  new_mapper_file = f"{training_points_csv}_modis_mapper.csv"
+  if os.path.exists(new_mapper_file):
+    print(f"The file {new_mapper_file} exists. skip.")
+  else:
+    print(f"start to generate {new_mapper_file}")
+    station_df = pd.read_csv(training_points_csv)
+
+    if 'Latitude' in station_df.columns:
+      station_df = station_df.rename(columns={
+        'Latitude': 'latitude',
+        'Longitude': 'longitude'
+      })
+    
+    print("original station_df describe() = ", station_df.describe())
+    sample_modis_tif = f"{modis_day_wise}/2022-10-01__snow_cover.tif"
+
+    with rasterio.open(sample_modis_tif) as src:
+      # Apply get_band_value for each row in the DataFrame
+      #station_df['modis_y'], station_df['modis_x'] = zip(*station_df.apply(map_modis_to_station, axis=1, args=(src,)))
+      print("Spatial Extent (Bounding Box):", src.bounds)
+      # Get the affine transformation matrix
+      transform = src.transform
+
+      # Extract the spatial extent using the affine transformation
+      left, bottom, right, top = rasterio.transform.array_bounds(src.height, src.width, transform)
+
+      # Print the spatial extent
+      print("Spatial Extent (Bounding Box):", (left, bottom, right, top))
+      
+      station_df['modis_y'], station_df['modis_x'] = rasterio.transform.rowcol(
+        src.transform, 
+        station_df["longitude"],
+        station_df["latitude"])
+      
+      # print(f"Saving mapper csv file: {cell_to_modis_mapping}")
+      station_df.to_csv(new_mapper_file, index=False, columns=['latitude', 'longitude', 'modis_x', 'modis_y'])
+      print(f"the new mapper to the ghcnd is saved to {new_mapper_file}")
+      print("after mapped modis station_df.describe() = ", station_df.describe())
+  return new_mapper_file
+
+
 def prepare_ghcnd_station_mapping_training():
   if os.path.exists(ghcd_station_to_modis_mapper_file):
     print(f"The file {ghcd_station_to_modis_mapper_file} exists. skip.")
@@ -191,13 +236,13 @@ def get_band_value(row, src):
   else:
     return None
           
-def process_file(file_path, current_date_str, outfile):
-  print(f"processing {file_path}")
-  station_df = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
+def process_file(fsca_tif_file_path, new_point_to_modis_mapper_file, current_date_str, outfile):
+  print(f"processing {fsca_tif_file_path}")
+  station_df = pd.read_csv(new_point_to_modis_mapper_file)
   # print("station_df.head() = ", station_df.head())
 
   # Apply get_band_value for each row in the DataFrame
-  with rasterio.open(file_path) as src:
+  with rasterio.open(fsca_tif_file_path) as src:
     # Apply get_band_value for each row in the DataFrame
     # Get the affine transformation matrix
     transform = src.transform
@@ -217,37 +262,48 @@ def process_file(file_path, current_date_str, outfile):
                     columns=['date', 'latitude', 'longitude', 'fsca'])
   print(f"Saved to csv: {outfile}")
 
-def merge_csv(start_date, end_date):
+def get_date_str_from_path(file_path):
+  # Define the pattern to match the date (in the format YYYY-MM-DD)
+  pattern = r'_(\d{4}-\d{2}-\d{2})_'
+
+  # Use re.search to find the date string in the file path
+  match = re.search(pattern, file_path)
+
+  # Extract the date string if the pattern is found
+  if match:
+      date_string = match.group(1)
+      print("Date string found:", date_string)
+      return date_string
+  else:
+      print("No date string found in the path.")
+      return None
+
+
+def merge_csv(start_date, end_date, training_point_file):
   import glob
   # Find CSV files within the specified date range
-  csv_files = glob.glob(folder_path + '*_training_output_station_corrected.csv')
+  training_point_filename = os.path.basename(training_point_file)
+  csv_files = glob.glob(folder_path + f'{training_point_filename}*_fsca.csv')
   relevant_csv_files = []
 
   for c in csv_files:
     # Extract the date from the file name
     # print("c = ", c)
     file_name = os.path.basename(c)
-    date_str = file_name.split('_')[0]  # Assuming the date is part of the file name
+    date_str = get_date_str_from_path(file_name)  # Assuming the date is part of the file name
     # print("date_str = ", date_str)
     file_date = datetime.strptime(date_str, "%Y-%m-%d")
 
     # Check if the file date is within the specified range
     if start_date <= file_date <= end_date:
       relevant_csv_files.append(c)
-#       # Read and concatenate only relevant CSV files
-#       df = []
-#       for c in relevant_csv_files:
-#         tmp = pd.read_csv(c, low_memory=False, usecols=['date', 'latitude', 'longitude', 'fsca'])
-#         df.append(tmp)
-
-#         combined_df = pd.concat(df, ignore_index=True)
 
   # Initialize a Dask DataFrame
   print("start to use dask to read all csv files")
   dask_df = dd.read_csv(relevant_csv_files)
 
   # Save the merged DataFrame to a CSV file
-  output_file = f'{working_dir}/fsca_final_training_all.csv'
+  output_file = f'{fsca_working_dir}/{training_point_filename}_fsca_training.csv'
   # Write the Dask DataFrame to a single CSV file
   print(f"saving all csvs into one file: {output_file}")
   dask_df.to_csv(output_file, index=False, single_file=True)
@@ -262,25 +318,28 @@ def main():
   
   end_date = datetime.strptime(train_end_date, "%Y-%m-%d")
   
-  prepare_modis_grid_mapper_training()
-  prepare_ghcnd_station_mapping_training()
+  # prepare_modis_grid_mapper_training()
+  # prepare_ghcnd_station_mapping_training()
+  new_mapper_file = prepare_training_points_to_modis_grid_mapper(training_points_csv = salt_pepper_training_point_file)
+
   # running this function will generate a new set of random points
   # generate_random_non_station_points()
   #merge_station_and_non_station_to_one_csv()
-  merge_snotel_ghcnd_station_to_one_csv()
+  #merge_snotel_ghcnd_station_to_one_csv()
   
   date_list = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
+  training_points_filename = os.path.basename(salt_pepper_training_point_file)
   for i in date_list:
     current_date = i.strftime("%Y-%m-%d")
     #print(f"extracting data for {current_date}")
-    outfile = os.path.join(modis_day_wise, f'{current_date}_training_output_station_with_ghcnd.csv')
+    outfile = os.path.join(modis_day_wise, f'{training_points_filename}_{current_date}_fsca.csv')
     if os.path.exists(outfile):
       print(f"The file {outfile} exists. skip.")
       pass
     else:
-      process_file(f'{modis_day_wise}/{current_date}__snow_cover.tif', current_date, outfile)
+      process_file(f'{modis_day_wise}/{current_date}__snow_cover.tif', new_mapper_file, current_date, outfile)
   
-  merge_csv(start_date, end_date)
+  merge_csv(start_date, end_date, salt_pepper_training_point_file)
 
 if __name__ == "__main__":
   main()

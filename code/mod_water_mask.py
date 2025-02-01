@@ -13,7 +13,7 @@ import numpy as np
 import requests
 import earthaccess
 from osgeo import gdal
-from snowcast_utils import work_dir, homedir, test_start_date, date_to_julian
+from snowcast_utils import work_dir, homedir, data_dir, test_start_date, date_to_julian
 import pandas as pd
 import rasterio
 import shutil
@@ -25,10 +25,12 @@ import dask.multiprocessing
 import pyproj
 
 # change directory before running the code
-homedir = f"{homedir}/water_mask/"
-os.makedirs(homedir, exist_ok=True)
-os.chdir(homedir)
+water_mask_dir = f"{data_dir}/water_mask/"
+os.makedirs(water_mask_dir, exist_ok=True)
+os.chdir(water_mask_dir)
 
+env = os.environ.copy()  # Get the current environment variables
+env['PROJ_LIB'] = '/home/geo2021/anaconda3/share/proj'  # Set the path to PROJ_LIB
 
 tile_list = ["h08v04", "h08v05", "h09v04", "h09v05", 
              "h10v04", "h10v05", "h11v04", "h11v05", 
@@ -40,8 +42,12 @@ output_folder = os.getcwd() + "/output_folder/"
 modis_day_wise = os.getcwd() + "/final_output/"
 os.makedirs(output_folder, exist_ok=True)
 os.makedirs(modis_day_wise, exist_ok=True)
-western_us_coords = f'{work_dir}/dem_file.tif.csv'
+
+western_us_coords = f'{data_dir}/srtm/dem_file.tif.csv'
 mapper_file = os.path.join(modis_day_wise, f'modis_to_dem_mapper.csv')
+
+target_dir = os.path.dirname(mapper_file)
+os.makedirs(target_dir, exist_ok=True)
 
 
 @dask.delayed
@@ -92,9 +98,10 @@ def convert_all_hdf_in_folder(folder_path, output_folder):
     return file_list, results
 
 def get_env_var_for_gdalwarp():
-    if "PROJ_LIB" in os.environ:
-        os.environ.pop("PROJ_LIB")
-        print(f"Environment variable PROJ_LIB removed.")
+    # if "PROJ_LIB" in os.environ:
+    #     os.environ.pop("PROJ_LIB")
+    #     print(f"Environment variable PROJ_LIB removed.")
+    os.environ["PROJ_LIB"] = ""
     if "GDAL_DATA" in os.environ:
         os.environ.pop("GDAL_DATA")
         print(f"Environment variable GDAL_DATA removed.")
@@ -126,13 +133,13 @@ def merge_tifs(folder_path, target_date, output_file):
     #if 'PROJ_LIB' in os.environ:
     #    del os.environ['PROJ_LIB']
     print("pyproj.datadir.get_data_dir() = ", pyproj.datadir.get_data_dir())
-    gdal_command = ['/usr/bin/gdalwarp', '-r', 'min', ] + tif_files + [f"{output_file}_500m.tif"]
+    gdal_command = ['gdalwarp', '-r', 'min', ] + tif_files + [f"{output_file}_500m.tif"]
     print("Running ", ' '.join(gdal_command))
-    subprocess.run(gdal_command, env=get_env_var_for_gdalwarp())
+    subprocess.run(gdal_command, env=env)
     # gdalwarp -s_srs EPSG:4326 -t_srs EPSG:4326 -tr 0.036 0.036  -cutline template.shp -crop_to_cutline -overwrite output_4km.tif output_4km_clipped.tif
-    gdal_command = ['/usr/bin/gdalwarp', '-t_srs', 'EPSG:4326', '-tr', '0.036', '0.036', '-cutline', f'{work_dir}/template.shp', '-crop_to_cutline', '-overwrite', f"{output_file}_500m.tif", output_file]
+    gdal_command = ['gdalwarp', '-t_srs', 'EPSG:4326', '-tr', '0.036', '0.036', '-cutline', f'{work_dir}/template.shp', '-crop_to_cutline', '-overwrite', f"{output_file}_500m.tif", output_file]
     print("Running ", " ".join(gdal_command))
-    subprocess.run(gdal_command, env=get_env_var_for_gdalwarp())
+    subprocess.run(gdal_command, env=env)
 
 
 def list_files(directory):
@@ -145,9 +152,9 @@ def merge_tiles(date, hdf_files):
   files = list_files(path)
   print(files)
   merged_filename = f"data/{date}/merged.tif"
-  merge_command = ["/usr/bin/gdal_merge.py", "-o", merged_filename, "-of", "GTiff"] + files
+  merge_command = ["gdal_merge.py", "-o", merged_filename, "-of", "GTiff"] + files
   try:
-    subprocess.run(merge_command, env=get_env_var_for_gdalwarp())
+    subprocess.run(merge_command, env=env)
     print(f"Merged tiles into {merged_filename}")
   except subprocess.CalledProcessError as e:
     print(f"Error merging tiles: {e}")
@@ -604,7 +611,7 @@ def prepare_modis_grid_mapper():
     print(f"start to generate {mapper_file}")
     station_df = pd.read_csv(western_us_coords, low_memory=False, usecols=['Longitude', 'Latitude'])
 
-    sample_modis_tif = f"{modis_day_wise}/2022-10-01_water_mask.tif"
+    sample_modis_tif = f"{modis_day_wise}/2024__water_mask.tif"
 
     with rasterio.open(sample_modis_tif) as src:
       # Apply get_band_value for each row in the DataFrame
@@ -649,7 +656,7 @@ def extract_data_for_testing():
   start_date = past_october_1
   print(f"The start_date of the water year {start_date}")
   
-  # prepare_modis_grid_mapper()
+  prepare_modis_grid_mapper()
   
   download_tiles_and_merge(start_date, end_date)
   

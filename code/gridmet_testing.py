@@ -17,13 +17,13 @@ import pandas as pd
 import netCDF4 as nc
 import urllib.request
 from datetime import datetime, timedelta, date
-from snowcast_utils import test_start_date, work_dir
+from snowcast_utils import test_start_date, test_end_date, work_dir, homedir, data_dir, cumulative_mode, process_dates_in_range
 import matplotlib.pyplot as plt
 
 # Define the folder to store downloaded files
 gridmet_folder_name = f'{work_dir}/gridmet_climatology'
 
-western_us_coords = f'{work_dir}/dem_file.tif.csv'
+western_us_coords = f'{data_dir}/srtm/dem_file.tif.csv'
 
 
 gridmet_var_mapping = {
@@ -129,24 +129,35 @@ def download_file(url, target_file_path, variable):
     except Exception as e:
         print(f"An error occurred while downloading the file: {str(e)}")
 
-def download_gridmet_of_specific_variables(year_list):
+def download_gridmet_of_specific_variables(year_list, input_date):
     """
-    Download specific meteorological variables from the GridMET climatology dataset.
+    Download specific meteorological variables from the GridMET climatology dataset
+    if the file's last modified date is older than the input date.
     """
     # Make a directory to store the downloaded files
-    
+    gridmet_folder_name = f"{work_dir}/gridmet_climatology/"
+    os.makedirs(gridmet_folder_name, exist_ok=True)
 
     base_metadata_url = "http://www.northwestknowledge.net/metdata/data/"
     variables_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'etr', 'rmax', 'rmin', 'vs']
 
     for var in variables_list:
         for y in year_list:
-            download_link = base_metadata_url + var + '_' + '%s' % y + '.nc'
-            target_file_path = os.path.join(gridmet_folder_name, var + '_' + '%s' % y + '.nc')
-            if not os.path.exists(target_file_path):
-                download_file(download_link, target_file_path, var)
+            download_link = base_metadata_url + f"{var}_{y}.nc"
+            target_file_path = os.path.join(gridmet_folder_name, f"{var}_{y}.nc")
+            if os.path.exists(target_file_path):
+                # Check file modification date
+                file_mod_time = datetime.fromtimestamp(os.path.getmtime(target_file_path))
+                # print("file_mod_time = ", file_mod_time, input_date)
+                cutoff_date = file_mod_time - timedelta(days=3)
+                if cutoff_date < input_date:
+                    print(f"File {target_file_path} is outdated. Re-downloading...")
+                    download_file(download_link, target_file_path, var)
+                # else:
+                #     print(f"File {target_file_path} is up-to-date.")
             else:
-                print(f"File {target_file_path} exists")
+                print(f"Downloading to {target_file_path}")
+                download_file(download_link, target_file_path, var)
 
 
 def get_current_year():
@@ -184,9 +195,10 @@ def create_gridmet_to_dem_mapper(nc_file):
     # Check if the CSV already exists
     target_csv_path = f'{work_dir}/gridmet_to_dem_mapper.csv'
     if os.path.exists(target_csv_path):
-        print(f"File {target_csv_path} already exists, skipping..")
+        # print(f"File {target_csv_path} already exists, skipping..")
         return
     
+    print("creating gridmet to dem mapper")
     # get the netcdf file and generate the csv file for every coordinate in the dem_template.csv
     selected_date = datetime.strptime(test_start_date, "%Y-%m-%d")
     # Read the NetCDF file
@@ -219,7 +231,7 @@ def create_gridmet_to_dem_mapper(nc_file):
 def get_nc_csv_by_coords_and_variable(nc_file,
                                       var_name,
                                       target_date=test_start_date):
-    
+    # print("get_nc_csv_by_coords_and_variable")
     create_gridmet_to_dem_mapper(nc_file)
   	
     mapper_df = pd.read_csv(f'{work_dir}/gridmet_to_dem_mapper.csv')
@@ -237,12 +249,12 @@ def get_nc_csv_by_coords_and_variable(nc_file,
       day = nc_file.variables['day'][:]
       long_var_name = gridmet_var_mapping[var_name]
       var_col = nc_file.variables[long_var_name][:]
-      #print("val_col.shape: ", var_col.shape)
+      # print("val_col.shape: ", var_col.shape)
       
       # Calculate the day of the year
       day_of_year = selected_date.timetuple().tm_yday
       day_index = day_of_year - 1
-      #print('day_index:', day_index)
+      # print('day_index:', day_index)
       
       def get_gridmet_var_value(row):
         # Perform your custom calculation here
@@ -284,7 +296,7 @@ def turn_gridmet_nc_to_csv(target_date=test_start_date):
 
                 if os.path.exists(res_csv):
                     #os.remove(res_csv)
-                    print(f"{res_csv} already exists. Skipping..")
+                    # print(f"{res_csv} already exists. Skipping..")
                     generated_csvs.append(res_csv)
                     continue
 
@@ -430,33 +442,36 @@ Note: This docstring includes placeholders such as "download_gridmet_of_specific
   date_keyed_objects = {}
   
   download_gridmet_of_specific_variables(
-    prepare_folder_and_get_year_list(target_date=target_date)
+    prepare_folder_and_get_year_list(target_date=target_date), selected_date
   )
+
+  print("Downloading gridmet completed. Start to generate csv..")
   
   while current_date <= selected_date:
+    if not cumulative_mode and current_date != selected_date:
+      current_date += timedelta(days=1)
+      continue;
     print(current_date.strftime('%Y-%m-%d'))
     current_date_str = current_date.strftime('%Y-%m-%d')
-    
-    
     generated_csvs = turn_gridmet_nc_to_csv(target_date=current_date_str)
     
     # read the csv into dataframe and merge to the big dataframe
     date_keyed_objects[current_date_str] = generated_csvs
-    
     current_date += timedelta(days=1)
     
-  print("date_keyed_objects: ", date_keyed_objects)
+    
+  # print("date_keyed_objects: ", date_keyed_objects)
   target_generated_csvs = date_keyed_objects[target_date]
   for index, single_csv in enumerate(target_generated_csvs):
     # traverse the variables of gridmet here
     # each variable is a loop
-    print(f"creating cumulative for {single_csv}")
+    # print(f"creating cumulative for {single_csv}")
     
     cumulative_target_path = f"{single_csv}_cumulative.csv"
-    print("cumulative_target_path = ", cumulative_target_path)
+    # print("cumulative_target_path = ", cumulative_target_path)
     
     if os.path.exists(cumulative_target_path) and not force:
-      print(f"{cumulative_target_path} already exists, skipping..")
+      # print(f"{cumulative_target_path} already exists, skipping..")
       continue
     
     # Extract the file name without extension
@@ -465,62 +480,20 @@ Note: This docstring includes placeholders such as "download_gridmet_of_specific
 
 	# Split the file name using underscores
     var_name = file_name.split('_')[1]
-    print(f"Found variable name {var_name}")
+    # print(f"Found variable name {var_name}")
     current_date = past_october_1
     new_df = pd.read_csv(single_csv)
-    print(new_df.head())
+    # print(new_df.head())
     
     all_df = pd.read_csv(f"{work_dir}/testing_output/{str(selected_date.year)}_{var_name}_{target_date}.csv")
     all_df["date"] = target_date
     all_df[var_name] = pd.to_numeric(all_df[var_name], errors='coerce')
-    
-#     while current_date <= selected_date:
-#       print(current_date.strftime('%Y-%m-%d'))
-#       current_date_str = current_date.strftime('%Y-%m-%d')
-#       #current_generated_csv = date_keyed_objects[current_date_str][index]
-#       current_generated_csv = f"{work_dir}/testing_output/{str(current_date.year)}_{var_name}_{current_date_str}.csv"
-#       print(f"reading file: {current_generated_csv}")
-#       previous_df = pd.read_csv(current_generated_csv)
-#       previous_df["date"] = current_date_str
-#       previous_df[var_name] = pd.to_numeric(previous_df[var_name], errors='coerce')
-      
-#       if all_df is None:
-#         all_df = previous_df
-#       else:
-#         all_df = pd.concat([all_df, previous_df], ignore_index=True)
-      
-#       current_date += timedelta(days=1)
-    
-    
-#     print("all df head: ", all_df.shape, all_df[var_name].describe())
-    
-    # add all the columns together and save to new csv
-    # Adding all columns except latitude and longitude
-    
-#     def process_group_value_filling(group, var_name, target_date):
-#       # Sort the group by 'date'
-# #       group = group.sort_values(by='date')
-#       # no need to interpolate for gridmet, only add the cumulative columns
-#       cumvalue = group[var_name].sum()
-#       group = group[(group['date'] == target_date)]
-#       group[f'cumulative_{var_name}'] = cumvalue
-#       return group
-
-#     grouped = all_df.groupby(['Latitude', 'Longitude'])
-#     # Apply the function to each group
-#     filled_data = grouped.apply(lambda group: process_group_value_filling(group, var_name, target_date)).reset_index(drop=True)
     filled_data = all_df
     filled_data = filled_data[(filled_data['date'] == target_date)]
     
     filled_data.fillna(0, inplace=True)
     
-#     print("filled_data.shape = ", filled_data.shape)
-#     print("filled_data.head = ", filled_data.head())
-#     print(f"filled_data[{var_name}].unique() = {filled_data[var_name].describe()}")
-    # only retain the rows of the target date
-    
-	
-    print("Finished correctly ", filled_data.head())
+    # print("Finished correctly ", filled_data.head())
     #filled_data.to_csv(gap_filled_csv, index=False)
     #print(f"New filled values csv is saved to {gap_filled_csv}_gap_filled.csv")
     
@@ -528,11 +501,15 @@ Note: This docstring includes placeholders such as "download_gridmet_of_specific
                                var_name, 
 #                                f'cumulative_{var_name}'
                               ]]
-    print(filled_data.shape)
+    # print(filled_data.shape)
     filled_data.to_csv(cumulative_target_path, index=False)
     print(f"new df is saved to {cumulative_target_path}")
-    print(filled_data.describe())
+    # print(filled_data.describe())
 
+def gridmet_callback(current_date, force=False):
+  # Prepare the cumulative history CSVs for the current date
+  print("Getting gridmet for day", current_date.strftime("%Y-%m-%d"))
+  prepare_cumulative_history_csvs(target_date=current_date.strftime("%Y-%m-%d"), force=force)
 
 if __name__ == "__main__":
   # Run the download function
@@ -541,6 +518,14 @@ if __name__ == "__main__":
 #   plot_gridmet()
 
   # prepare testing data with cumulative variables
-  prepare_cumulative_history_csvs(force=True)
+  # prepare_cumulative_history_csvs(force=True)
+
+  process_dates_in_range(
+    start_date=test_start_date,
+    end_date=test_end_date,
+    days_look_back=7,
+    callback=gridmet_callback,
+    force=False
+  )
 
 

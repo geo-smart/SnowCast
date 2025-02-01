@@ -11,6 +11,10 @@ import dask.delayed as delayed
 import dask.bag as db
 import xarray as xr
 from snowcast_utils import work_dir, train_start_date, train_end_date
+from snowcast_utils import homedir, snowcast_github_dir, \
+supplement_point_for_correction_file, data_dir, gridcells_file, \
+stations_file, all_training_points_with_station_and_non_station_file, \
+all_training_points_with_snotel_ghcnd_file, gridcells_outfile, stations_outfile
 import warnings
 
 # Suppress specific warning
@@ -124,7 +128,7 @@ def extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, new_base_sta
     if os.path.exists(output_csv_file):
         os.remove(output_csv_file)
     
-    target_csv_path = f'{work_dir}/training_snotel_ghcnd_station_to_amsr_mapper_all_training_points.csv'
+    target_csv_path = f'{new_base_station_list_file}_amsr_grid_mapper.csv'
     mapper_df = create_snotel_ghcnd_station_to_amsr_mapper(new_base_station_list_file, 
                                          target_csv_path)
         
@@ -206,13 +210,17 @@ def extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, new_base_sta
 if __name__ == "__main__":
     amsr_data_dir = '/home/chetana/gridmet_test_run/amsr'
     # new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
-    all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
-    new_base_df = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
-    print(new_base_df.head())
-    output_csv_file = f"{all_training_points_with_snotel_ghcnd_file}_amsr_dask_all_training_ponits_with_ghcnd.csv"
-    
+    # all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
+    # new_base_df = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
+    # print(new_base_df.head())
+    # output_csv_file = f"{all_training_points_with_snotel_ghcnd_file}_amsr_dask_all_training_ponits_with_ghcnd.csv"
+
     start_date = train_start_date
     end_date = train_end_date
 
-    extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, all_training_points_with_snotel_ghcnd_file, start_date, end_date)
+    # extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, all_training_points_with_snotel_ghcnd_file, start_date, end_date)
+
+
+    # to get AMSR for the new salt-pepper training points
+    extract_amsr_values_save_to_csv(amsr_data_dir, f"{supplement_point_for_correction_file}_amsr_training.csv", supplement_point_for_correction_file, start_date, end_date)
 

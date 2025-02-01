@@ -16,8 +16,7 @@ import h5py
 import subprocess
 import pandas as pd
 import numpy as np
-from datetime import datetime
-from snowcast_utils import work_dir, test_start_date
+from snowcast_utils import homedir, work_dir, data_dir, test_start_date, test_end_date, cumulative_mode, process_dates_in_range
 from scipy.spatial import KDTree
 import time
 from datetime import datetime, timedelta, date
@@ -27,7 +26,7 @@ from convert_results_to_images import plot_all_variables_in_one_csv
 
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 
-western_us_coords = f'{work_dir}/dem_file.tif.csv'
+western_us_coords = f'{data_dir}/srtm/dem_file.tif.csv'
 
 latlontree = None
 
@@ -123,6 +122,7 @@ def find_closest_index(target_latitude, target_longitude, lat_grid, lon_grid):
 
   
 def prepare_amsr_grid_mapper():
+    print("prepare_amsr_grid_mapper")
     df = pd.DataFrame(columns=['amsr_lat', 'amsr_lon', 
                                'amsr_lat_idx', 'amsr_lon_idx',
                                'gridmet_lat', 'gridmet_lon'])
@@ -131,12 +131,22 @@ def prepare_amsr_grid_mapper():
     he5_date = date.replace(".", "")
     
     # Check if the CSV already exists
-    target_csv_path = f'{work_dir}/amsr_to_gridmet_mapper.csv'
+    target_csv_path = f'{data_dir}/amsr_testing/amsr_to_gridmet_mapper.csv'
+    # Extract the directory from the target path
+    target_dir = os.path.dirname(target_csv_path)
+
+    # Create all layers of directories if they don't exist
+    os.makedirs(target_dir, exist_ok=True)
+
+    # Now you can safely use the target_csv_path
+    print(f"Target directory ensured: {target_dir}")
+    print(f"Target file path: {target_csv_path}")
+    
     if os.path.exists(target_csv_path):
         print(f"File {target_csv_path} already exists, skipping..")
         return
     
-    target_amsr_hdf_path = f"{work_dir}/amsr_testing/testing_amsr_{date}.he5"
+    target_amsr_hdf_path = f"{data_dir}/amsr_testing/testing_amsr_{date}.he5"
     parent_directory = os.path.dirname(target_amsr_hdf_path)
     if not os.path.exists(parent_directory):
         os.makedirs(parent_directory)
@@ -160,6 +170,7 @@ def prepare_amsr_grid_mapper():
     lon = np.nan_to_num(lon, nan=0.0)
     
     # Convert the AMSR grid into our gridMET 1km grid
+    print("Start to create the grid mapper csv..")
     western_us_df = pd.read_csv(western_us_coords)
     for idx, row in western_us_df.iterrows():
         target_lat = row['Latitude']
@@ -183,11 +194,9 @@ def download_amsr_and_convert_grid(target_date = test_start_date):
     """
     Download AMSR snow data, convert it to DEM format, and save as a CSV file.
     """
-    
-    
-    
+    print("download_amsr_and_convert_grid")
     # the mapper
-    target_mapper_csv_path = f'{work_dir}/amsr_to_gridmet_mapper.csv'
+    target_mapper_csv_path = f'{data_dir}/amsr_testing/amsr_to_gridmet_mapper.csv'
     mapper_df = pd.read_csv(target_mapper_csv_path)
     #print(mapper_df.head())
     
@@ -199,12 +208,12 @@ def download_amsr_and_convert_grid(target_date = test_start_date):
     he5_date = date.replace(".", "")
     
     # Check if the CSV already exists
-    target_csv_path = f'{work_dir}/testing_ready_amsr_{date}.csv'
+    target_csv_path = f'{data_dir}/amsr_testing/testing_ready_amsr_{date}.csv'
     if os.path.exists(target_csv_path):
         print(f"File {target_csv_path} already exists, skipping..")
         return target_csv_path
     
-    target_amsr_hdf_path = f"{work_dir}/amsr_testing/testing_amsr_{date}.he5"
+    target_amsr_hdf_path = f"{data_dir}/amsr_testing/testing_amsr_{date}.he5"
     if os.path.exists(target_amsr_hdf_path) and is_binary(target_amsr_hdf_path):
         print(f"File {target_amsr_hdf_path} already exists, skip downloading..")
     else:
@@ -261,7 +270,7 @@ def download_amsr_and_convert_grid(target_date = test_start_date):
                                         'amsr_lat_idx',
                                         'amsr_lon_idx'])
     
-    print("result df: ", mapper_df.head())
+    # print("result df: ", mapper_df.head())
     # Save the new converted AMSR to CSV file
     print(f"saving the new AMSR SWE to csv: {target_csv_path}")
     mapper_df.to_csv(target_csv_path, index=False)
@@ -301,78 +310,9 @@ def interpolate_missing_and_add_cumulative_inplace(row, column_name, degree=1):
     ```
 
   """
-  
   # Extract X series (column names)
   x_all_key = row.index
-  
   x_subset_key = x_all_key[x_all_key.str.startswith(column_name)]
-  #print("x_subset_key = ", x_subset_key)
-#   x = np.arange(len(x_subset_key))
-
-#   # Extract Y series (values from the first row)
-#   y = row[x_subset_key]
-# #   print("start row: ", y)
-  
-#   # Create a mask for missing values
-#   if column_name == "AMSR_SWE":
-#     mask = (y > 240) | y.isnull()
-#   elif column_name == "fsca":
-#     mask = (y > 100) | y.isnull() 
-#   else:
-#     mask = y.isnull()
-
-#   # Check if all elements in the mask array are True
-#   all_true = np.all(mask)
-
-#   if all_true or len(np.where(~mask)[0]) == 1:
-#     row[x_subset_key] = 0
-# #     print("Final all columns: ", row)
-#   else:
-#     # Perform interpolation
-#     #new_y = np.interp(x, x[~mask], y[~mask])
-#     # Replace missing values with interpolated values
-#     #df[column_name] = new_y
-    
-#     try:
-#       # Coefficients of the polynomial fit
-#       #coefficients = np.polyfit(x[~mask], y[~mask], deg=degree)
-
-#       # Perform polynomial interpolation
-#       #interpolated_values = np.polyval(coefficients, x)
-
-#       # Merge using np.where
-#       #merged_array = np.where(mask, interpolated_values, y)
-
-#       #row.loc[x_subset_key] = merged_array
-# #       print("after assign: ", row)
-#       #print("don't interpolate and check the original data")
-#       pass
-#     except Exception as e:
-#       # Print the error message and traceback
-#       import traceback
-#       traceback.print_exc()
-#       print("x:", x)
-#       print("y:", y)
-#       print("mask:", mask)
-#       print(f"Error: {e}")
-#       raise e
-      
-#     if column_name == "AMSR_SWE":
-#       row[x_subset_key] = row[x_subset_key].clip(upper=240, lower=0)
-#     elif column_name == "fsca":
-#       row[x_subset_key] = row[x_subset_key].clip(upper=100, lower=0)
-#     else:
-#       row[x_subset_key] = row[x_subset_key].clip(upper=240, lower=0)
-      
-#     print("after clip: ", row)
-      
-#     if row[x_subset_key].isnull().any():
-#       print("x:", x)
-#       print("y:", y)
-#       print("mask:", mask)
-#       print("why row still has values > 100", row)
-#       raise ValueError("Single group: shouldn't have null values here")
-
   are_all_values_between_0_and_240 = row[x_subset_key].between(1, 239).all()
   if are_all_values_between_0_and_240:
     print("row[x_subset_key] = ", row[x_subset_key])
@@ -384,59 +324,64 @@ def interpolate_missing_and_add_cumulative_inplace(row, column_name, degree=1):
     
 def get_cumulative_amsr_data(target_date = test_start_date, force=False):
     
-    selected_date = datetime.strptime(target_date, "%Y-%m-%d")
-    print(selected_date)
-    if selected_date.month < 10:
-      past_october_1 = datetime(selected_date.year - 1, 10, 1)
-    else:
-      past_october_1 = datetime(selected_date.year, 10, 1)
+  selected_date = datetime.strptime(target_date, "%Y-%m-%d")
+  print(selected_date)
+  if selected_date.month < 10:
+    past_october_1 = datetime(selected_date.year - 1, 10, 1)
+  else:
+    past_october_1 = datetime(selected_date.year, 10, 1)
 
-    # Traverse and print every day from past October 1 to the specific date
-    current_date = past_october_1
-    target_csv_path = f'{work_dir}/testing_ready_amsr_{target_date}_cumulative.csv'
+  # Traverse and print every day from past October 1 to the specific date
+  current_date = past_october_1
+  target_csv_path = f'{data_dir}/amsr_testing/testing_ready_amsr_{target_date}_cumulative.csv'
 
-    columns_to_be_cumulated = ["AMSR_SWE"]
-    
-    gap_filled_csv = f"{target_csv_path}_gap_filled.csv"
-    if os.path.exists(gap_filled_csv) and not force:
-      print(f"{gap_filled_csv} already exists, skipping..")
-      df = pd.read_csv(gap_filled_csv)
-      print(df["AMSR_SWE"].describe())
-    else:
-      date_keyed_objects = {}
-      data_dict = {}
-      new_df = None
-      while current_date <= selected_date:
-        print(current_date.strftime('%Y-%m-%d'))
-        current_date_str = current_date.strftime('%Y-%m-%d')
-
-        data_dict[current_date_str] = download_amsr_and_convert_grid(current_date_str)
-        current_df = pd.read_csv(data_dict[current_date_str])
-        current_df.drop(columns=["date"], inplace=True)
-
-        if current_date != selected_date:
-          current_df.rename(columns={
-            "AMSR_SWE": f"AMSR_SWE_{current_date_str}",
-            "AMSR_Flag": f"AMSR_Flag_{current_date_str}",
-          }, inplace=True)
-        #print(current_df.head())
-
-        if new_df is None:
-          new_df = current_df
-        else:
-          new_df = pd.merge(new_df, current_df, on=['gridmet_lat', 'gridmet_lon'])
-          #new_df = new_df.append(current_df, ignore_index=True)
-
+  columns_to_be_cumulated = ["AMSR_SWE"]
+  
+  gap_filled_csv = f"{target_csv_path}_gap_filled.csv"
+  if os.path.exists(gap_filled_csv) and not force:
+    print(f"{gap_filled_csv} already exists, skipping..")
+    df = pd.read_csv(gap_filled_csv)
+    # print(df["AMSR_SWE"].describe())
+  else:
+    date_keyed_objects = {}
+    data_dict = {}
+    new_df = None
+    print("cumulative_mode = ", cumulative_mode)
+    while current_date <= selected_date:
+      if not cumulative_mode and current_date != selected_date:
         current_date += timedelta(days=1)
+        continue;
+      print(current_date.strftime('%Y-%m-%d'))
+      current_date_str = current_date.strftime('%Y-%m-%d')
 
-      print("new_df.columns = ", new_df.columns)
-      print("new_df.head = ", new_df.head())
-      df = new_df
+      data_dict[current_date_str] = download_amsr_and_convert_grid(current_date_str)
+      current_df = pd.read_csv(data_dict[current_date_str])
+      current_df.drop(columns=["date"], inplace=True)
 
-      #df.sort_values(by=['gridmet_lat', 'gridmet_lon', 'date'], inplace=True)
-      print("All current head: ", df.head())
-      print("the new_df.shape: ", df.shape)
+      if current_date != selected_date:
+        current_df.rename(columns={
+          "AMSR_SWE": f"AMSR_SWE_{current_date_str}",
+          "AMSR_Flag": f"AMSR_Flag_{current_date_str}",
+        }, inplace=True)
+      #print(current_df.head())
 
+      if new_df is None:
+        new_df = current_df
+      else:
+        new_df = pd.merge(new_df, current_df, on=['gridmet_lat', 'gridmet_lon'])
+        #new_df = new_df.append(current_df, ignore_index=True)
+
+      current_date += timedelta(days=1)
+
+    print("new_df.columns = ", new_df.columns)
+    # print("new_df.head = ", new_df.head())
+    df = new_df
+
+    #df.sort_values(by=['gridmet_lat', 'gridmet_lon', 'date'], inplace=True)
+    # print("All current head: ", df.head())
+    print("the new_df.shape: ", df.shape)
+
+    if cumulative_mode:
       print("Start to fill in the missing values")
       #grouped = df.groupby(['gridmet_lat', 'gridmet_lon'])
       filled_data = pd.DataFrame()
@@ -462,10 +407,7 @@ def get_cumulative_amsr_data(target_date = test_start_date, force=False):
         if filtered_columns.isnull().any().any():
           print("filtered_columns :", filtered_columns)
           raise ValueError("Single group: shouldn't have null values here")
-        
-        
-        
-
+      
         # Concatenate the original DataFrame with the Series containing the sum
         #df = pd.concat([df, sum_column.rename(new_column_name)], axis=1)
 #         cumulative_column = filled_data.filter(like=column_name).sum(axis=1)
@@ -479,37 +421,47 @@ def get_cumulative_amsr_data(target_date = test_start_date, force=False):
 
 #       if any(filled_data['AMSR_SWE'] > 240):
 #         raise ValueError("Error: shouldn't have AMSR_SWE > 240 at this point")
-      filled_data = df
-      filled_data["date"] = target_date
-      print("Finished correctly ", filled_data.head())
-      filled_data.to_csv(gap_filled_csv, index=False)
-      print(f"New filled values csv is saved to {gap_filled_csv}")
-      df = filled_data
-    
-    result = df
-    print("result.head = ", result.head())
-    # fill in the rest NA as 0
-    if result.isnull().any().any():
-      print("result :", result)
-      raise ValueError("Single group: shouldn't have null values here")
-    
-    # only retain the rows of the target date
-    print(result['date'].unique())
-    print(result.shape)
-    print(result[["AMSR_SWE", "AMSR_Flag"]].describe())
-    result.to_csv(target_csv_path, index=False)
-    print(f"New data is saved to {target_csv_path}")
-    
-      
-    
+    filled_data = df
+    filled_data["date"] = target_date
+    # print("Finished correctly ", filled_data.head())
+    filled_data.to_csv(gap_filled_csv, index=False)
+    print(f"New filled values csv is saved to {gap_filled_csv}")
+    df = filled_data
+  
+  result = df
+  # print("result.head = ", result.head())
+  # fill in the rest NA as 0
+  if result.isnull().any().any():
+    print("result :", result)
+    raise ValueError("Single group: shouldn't have null values here")
+  
+  # only retain the rows of the target date
+  print(result['date'].unique())
+  print(result.shape)
+  # print(result[["AMSR_SWE", "AMSR_Flag"]].describe())
+  result.to_csv(target_csv_path, index=False)
+  print(f"New data is saved to {target_csv_path}")
+
+def amsr_callback(current_date, force=False):
+  # Prepare the cumulative history CSVs for the current date
+  print("Getting gridmet for day", current_date.strftime("%Y-%m-%d"))
+  get_cumulative_amsr_data(target_date=current_date.strftime("%Y-%m-%d"), force=force)
+
 if __name__ == "__main__":
-    # Run the download and conversion function
-    #prepare_amsr_grid_mapper()
-    prepare_amsr_grid_mapper()
+  # Run the download and conversion function
+  #prepare_amsr_grid_mapper()
+  prepare_amsr_grid_mapper()
+  process_dates_in_range(
+    start_date=test_start_date,
+    end_date=test_end_date,
+    days_look_back=7,
+    callback=amsr_callback,
+    force=True
+  )
 #     download_amsr_and_convert_grid()
     
-    get_cumulative_amsr_data(force=False)
-    input_time_series_file = f'{work_dir}/testing_ready_amsr_{test_start_date}_cumulative.csv_gap_filled.csv'
+  # get_cumulative_amsr_data(force=False)
+  input_time_series_file = f'{data_dir}/amsr_testing/testing_ready_amsr_{test_start_date}_cumulative.csv_gap_filled.csv'
 
-    #plot_all_variables_in_one_csv(input_time_series_file, f"{input_time_series_file}.png")
+  #plot_all_variables_in_one_csv(input_time_series_file, f"{input_time_series_file}.png")
 

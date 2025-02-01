@@ -1,15 +1,17 @@
 import os
 import glob
+import re
 import urllib.request
 from datetime import date, datetime
 
 import pandas as pd
 import xarray as xr
 from pathlib import Path
-from snowcast_utils import work_dir, train_start_date, train_end_date
 import warnings
 import dask.dataframe as dd
 from dask.delayed import delayed
+
+from snowcast_utils import homedir, snowcast_github_dir, work_dir, train_start_date, train_end_date, data_dir, gridcells_file, stations_file, all_training_points_with_station_and_non_station_file, all_training_points_with_snotel_ghcnd_file, gridcells_outfile, stations_outfile, supplement_point_for_correction_file
 
 # Suppress FutureWarnings
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -19,15 +21,16 @@ end_date = datetime.strptime(train_end_date, "%Y-%m-%d")
 
 year_list = [start_date.year + i for i in range(end_date.year - start_date.year + 1)]
 
-working_dir = work_dir
-#stations = pd.read_csv(f'{working_dir}/station_cell_mapping.csv')
+# working_dir = work_dir
+print("work_dir = ", work_dir)
+#stations = pd.read_csv(f'{work_dir}/station_cell_mapping.csv')
 all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
-stations = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
-gridmet_save_location = f'{working_dir}/gridmet_climatology'
-final_merged_csv = f"{work_dir}/training_all_point_gridmet_with_snotel_ghcnd.csv"
+gridmet_save_location = f'{work_dir}/gridmet_climatology'
+final_merged_csv = f"{work_dir}/salt_pepper_point_gridmet_training.csv"
+variables_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'etr', 'rmax', 'rmin', 'vs']
 
 
-def get_files_in_directory():
+def get_files_in_directory(gridmet_save_location):
     f = list()
     for files in glob.glob(gridmet_save_location + "/*.nc"):
         f.append(files)
@@ -54,7 +57,7 @@ def download_gridmet_climatology():
         os.makedirs(folder_name)
 
     base_metadata_url = "http://www.northwestknowledge.net/metdata/data/"
-    variables_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'etr', 'rmax', 'rmin', 'vs']
+    
 
     for var in variables_list:
         for y in year_list:
@@ -73,17 +76,44 @@ def process_station(ds, lat, lon):
     converted_df = converted_df.drop('crs', axis=1)
     return converted_df
 
-def get_gridmet_variable(file_name):
-    print(f"Reading values from {file_name}")
-    ds = xr.open_dataset(file_name)
-    var_name = list(ds.keys())[0]
+def get_year_short_var_name_from_path(file_path):
+    # Regular expression to match the variable name and the year
+    pattern = '/([^/]*)_([0-9]{4})\\.nc$'
+    match = re.search(pattern, file_path)
+    if match:
+        variable_name = match.group(1)
+        year = match.group(2)
+        return year, variable_name
+    else:
+        print("No match found.")
+        return None, None
 
-    csv_file = f'{gridmet_save_location}/{Path(file_name).stem}_snotel_ghcnd.csv'
+def get_gridmet_variable(gridmet_nc_file_name, target_points_csv_path):
+    print(f"Reading values from {gridmet_nc_file_name}")
+    ds = xr.open_dataset(gridmet_nc_file_name)
+    var_name = list(ds.keys())[0]
+    year, short_var_name = get_year_short_var_name_from_path(gridmet_nc_file_name)
+
+    # Step 2: Define the start and end of that year
+    year_start = datetime(int(year), 1, 1)
+    year_end = datetime(int(year), 12, 31)
+
+    # Step 3: Check if there is an overlap between the year and the date range
+    if max(start_date, year_start) <= min(end_date, year_end):
+        print(f"The year {year} is within the range.")
+    else:
+        print(f"The year {year} is not within the range. exiting")
+        return
+
+    file_name = os.path.basename(target_points_csv_path)
+    csv_file = f'{gridmet_save_location}/{file_name}_{year}_{short_var_name}_gridmet_training.csv'
     if os.path.exists(csv_file):
         print(f"The file '{csv_file}' exists.")
         return
 
     result_data = []
+    # stations = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
+    stations = pd.read_csv(target_points_csv_path)
     for _, row in stations.iterrows():
         delayed_process_data = delayed(process_station)(ds, row['latitude'], row['longitude'])
         result_data.append(delayed_process_data)
@@ -94,45 +124,76 @@ def get_gridmet_variable(file_name):
     print("result_df = ddf.compute()")
     result_df = ddf.compute()
     result_df.to_csv(csv_file, index=False)
-    print(f'Completed extracting data for {file_name}')
+    print(f'Completed extracting data for {gridmet_nc_file_name}')
 
 
-def merge_similar_variables_from_different_years():
+def parse_var_year_from_path(file_path):
+    # Regular expression to extract the year and variable name
+    regex_pattern = "_(\d{4})_(.*?)_gridmet_training"
+    match = re.search(regex_pattern, file_path)
+    if match:
+        year = match.group(1)
+        variable_name = match.group(2)
+        return year, variable_name
+    else:
+        # print("Don't match")
+        return None, None
+
+def merge_similar_variables_from_different_years(target_points_file_path):
+    print(f"Listing files in {gridmet_save_location}")
     files = os.listdir(gridmet_save_location)
     file_groups = {}
 
-    for filename in files:
-        base_name, year_ext = os.path.splitext(filename)
-        parts = base_name.split('_')
-        print(parts)
-        print(year_list)
-        if len(parts) == 4 and parts[3] == "ghcnd" and year_ext == '.csv' and int(parts[1]) in year_list:
-            file_groups.setdefault(parts[0], []).append(filename)
+    point_file_name = os.path.basename(target_points_file_path)
 
-    for base_name, file_list in file_groups.items():
+    for filename in files:
+        year, variable_name = parse_var_year_from_path(filename)
+        if year is None:
+            continue;
+        
+        print(filename)
+        file_groups.setdefault(variable_name, []).append(filename)
+        # base_name, year_ext = os.path.splitext(filename)
+        # parts = base_name.split('_')
+        # print(parts)
+        # print(year_list)
+        # if len(parts) == 4 and parts[3] == "ghcnd" and year_ext == '.csv' and parts[1].isdigit() and int(parts[1]) in year_list:
+        #     file_groups.setdefault(parts[0], []).append(filename)
+
+    print("file_groups = ", file_groups)
+    for variable_name, file_list in file_groups.items():
         if len(file_list) > 1:
             dfs = []
             for filename in file_list:
                 df = pd.read_csv(os.path.join(gridmet_save_location, filename))
                 dfs.append(df)
             merged_df = pd.concat(dfs, ignore_index=True)
-            merged_filename = f"{base_name}_merged_snotel_ghcnd.csv"
-            merged_df.to_csv(os.path.join(gridmet_save_location, merged_filename), index=False)
+            merged_filename = f"{point_file_name}_{variable_name}_merged.csv"
+            merged_df.to_csv(
+                os.path.join(gridmet_save_location, merged_filename), 
+                index=False
+            )
             print(f"Merged {file_list} into {merged_filename}")
 
 
-def merge_all_variables_together():
+def merge_all_variables_together(target_points_csv_path):
     merged_df = None
     file_paths = []
 
+    point_file_name = os.path.basename(target_points_csv_path)
+
     for filename in os.listdir(gridmet_save_location):
-        if filename.endswith("_merged_snotel_ghcnd.csv"):
+        if filename.endswith("_merged.csv") and point_file_name in filename:
             file_paths.append(os.path.join(gridmet_save_location, filename))
+
+    print("file_paths = ", file_paths)
 	
-    rmin_merged_path = os.path.join(gridmet_save_location, 'rmin_merged_snotel_ghcnd.csv')
-    rmax_merged_path = os.path.join(gridmet_save_location, 'rmax_merged_snotel_ghcnd.csv')
-    tmmn_merged_path = os.path.join(gridmet_save_location, 'tmmn_merged_snotel_ghcnd.csv')
-    tmmx_merged_path = os.path.join(gridmet_save_location, 'tmmx_merged_snotel_ghcnd.csv')
+    rmin_merged_path = os.path.join(gridmet_save_location, f'{point_file_name}_rmin_merged.csv')
+    rmax_merged_path = os.path.join(gridmet_save_location, f'{point_file_name}_rmax_merged.csv')
+    tmmn_merged_path = os.path.join(gridmet_save_location, f'{point_file_name}_tmmn_merged.csv')
+    tmmx_merged_path = os.path.join(gridmet_save_location, f'{point_file_name}_tmmx_merged.csv')
+
+    print("saving to ", rmin_merged_path)
     
     df_rmin = pd.read_csv(rmin_merged_path)
     df_rmax = pd.read_csv(rmax_merged_path)
@@ -155,20 +216,24 @@ def merge_all_variables_together():
             df = pd.read_csv(file_path)
             merged_df = pd.concat([merged_df, df], axis=1)
         merged_df = merged_df.loc[:, ~merged_df.columns.duplicated()]
+        final_merged_csv = f"{target_points_csv_path}_gridmet_training.csv"
         merged_df.to_csv(final_merged_csv, index=False)
         print(f"all files are saved to {final_merged_csv}")
 
 
 if __name__ == "__main__":
     
-    #download_gridmet_climatology()
+    download_gridmet_climatology()
     
     # mock out as this takes too long
-    #nc_files = get_files_in_directory()
-    #for nc in nc_files:
-    #.   # should check if the nc file year number is in the year_list
-    #    get_gridmet_variable(nc)
+    nc_files = get_files_in_directory(gridmet_save_location)
+    for nc in nc_files:
+        # should check if the nc file year number is in the year_list
+        get_gridmet_variable(
+            gridmet_nc_file_name = nc, 
+            target_points_csv_path = supplement_point_for_correction_file
+        )
     
-    merge_similar_variables_from_different_years()
-    merge_all_variables_together()
+    merge_similar_variables_from_different_years(supplement_point_for_correction_file)
+    merge_all_variables_together(supplement_point_for_correction_file)
 

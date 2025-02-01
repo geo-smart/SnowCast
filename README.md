@@ -1,64 +1,121 @@
-[![Geoweaver](https://img.shields.io/badge/Geoweaver-Workflow-gray?style=flat&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAADIAAAAxCAMAAACvdQotAAAAIGNIUk0AAHomAACAhAAA%2BgAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAKvUExURTN6twAAADN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6tzN6t%2F%2F%2F%2F1u7%2FvwAAADjdFJOUwAABAsNDAUCBgcxZnR1az8OIkZRUEclAyiq5u7v7LxIAS2Z2%2BXj5KMqSt37%2FnMRClvY%2FeIJCFP68%2FL46HwUZ%2BH37WrZm46WyPZo37iwsbcrEiOMpDQeHy%2Bg9KkaE4OYGZIbqxiFwl1JVKbx6X9pQj6n9dfS1fCdLsG6u8D8jc75OceiDzOJ3lXrytq2n%2BfQxpAmMkxscrPThmS0eE0dsiys6iRxIJdE4J6H1q9WFRaVQIFhF0Eh0a1tV3BYw26E1JpDPBwpxZS%2FOzWPWqHERb2ckZMwi1l%2BgKiCPdx9emVgJ8mIjsT2SgAAAAFiS0dE5C9iOykAAAAHdElNRQfoBgwAKBJdsaa1AAAE5UlEQVRIx6WW%2B19TZRzHH%2BbYwFKGKYMYMJwj8hwUnjHPNkQYF1kEyEpEBCJF0DYhGUwRZsvABNSUMjTCCyCiIqiJFwgBUTRTu9D9bj3%2FSN9zzi4yZL1e%2Bflx5%2Ft%2Bzvfyeb47CCHBHKFTviKEfDyEkNjP3yUxAvnPfe75eQ7ND5DMRPwCF7zg0MJFQX4ISYNDXgx1SBYWHuHvicgjFyuWKHlFKV6KliL%2Fl5dStEtRMcs8keWxcdglShUbj9QrojDNaLRarUaHScLKRE9EuCqJYCoZpKMwrU%2BZwyFMalp6evrqDMNTkVeSCJP5alZ2ds5ShtbP5xFD1prc3GXG10JnQzSvr81bl5e%2FvsCNbCiE1hUVh82GaN8ogYDcNzVuJGQj9LaoWO8FgW4%2FK%2FI%2FEtu0TiQSlW72gpR6ILqy8i1bFm19y0TM2xI9HIOEFUmkYFNlZH7%2B29urXAiWWaqrq2vMFLHu2CmY5kwkX7fZTChl7a66unoVBYgv8l8YhYlDNLFl7l6rdjNgQWPMO3ZCY4phGMpGc9MXvbungAEnwM82oPCS9yIanAxC6sa9cYzrQHj8%2Fj44sahiQ059go3gpuYWHTyQ7S8vkSOekCw4wOZgOxjXZCO0QfHBocOtUoTkudEfflSrI1RG%2BZF6LZxUlfFxEPwOZZTGtunhbPvRY5%2B0GwhWfdpRaRQhXsdPJBNm18nEFac6IYSx7GULknZ1HyqAIzRl808f79ESbDkTz11KLoE8Fqk7iXwDenqhIqw8u6ghvvHceSiDbuq70I8GLgJy%2FhL7ch8%2BaR6JRMhv5%2BVqtiB99mdb01RsGb2LK30RusIhgwIuejqCxFdTajWQjfZacydXRvFcuO0%2BsyNskgMXrpshOZrtu6n2hlHMJuMNAUY4uCOBn4S2fWiAn5FXBJj%2B4TiaQxJ2Bzmm%2Bh9vufJ5lp5HqkYceXlDoH7jzRENlGGHfUN0R0e56n28dcx%2F7uiYHYo3h7dn2tgej98Seu0YEt4aT4LTsSotYmK0xjHJAc%2B5sBa4nc0a5g7qv9DXxE6j5lijn7hreNLpF3n%2FXRYJkLJ2Yacnyd2ZoyPMvS%2BCjoywYyyYHO5i%2FVoae4J35eX84DQNwakd%2FRLOler7q%2BYdq6GILfXL1VwZ%2BrYHpXLEe%2F8s5%2F3eh6OPdAQnXIypqJTAO1oPKJQHDdCjZHMo5iz5lQShaTeM1h7UYEIzZtXS%2FQEi5LdAQRO37JZzjWr3rZQauzOqnnwedpO9%2B0qM7SaZVWY1YMJciwl8cl8g%2BZXyrw0wJa3VajUlY9q6UsIhlOKbb6cO9%2BwxkNCpLvm0rQT26VYSquXh3btT4806F5Lc%2Fl1hYUn09%2Fqn7TH1DwpiyLpfuLHwTrqJljkQwyl2fy77sQmQfs9tGQ9I1fbbECD5SeZGrt%2BGs3O3PR15AMjPefC%2BhsvPjMCW9opAwDSk76pIJB34JWw2xBBilAqkiaNWF2IvGxocvNSx3jQbkhy%2Bb%2BLXiYgDGheCTb9ZLJYWWKKzIDZry9jYmKWT4pEOFYYNzgrTdMLvM%2F6S1EMttDsg9A8JbP7mArtTTOqfQk9EcGZSxzgDdL1%2FLYcJprSNPOI1GV78WO6JoNIbOX9nOHTvHyN7k4SnHwc7ZCwSzPxSkjcERq%2FhFd2aKOX2vlzsEpr5PcZuHalTbMC%2FKkGBEqqD5aAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDYtMTJUMDA6NDA6MTgrMDA6MDCCey26AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTA2LTEyVDAwOjQwOjE4KzAwOjAw8yaVBgAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNC0wNi0xMlQwMDo0MDoxOCswMDowMKQztNkAAAAASUVORK5CYII%3D&label=Geoweaver&labelColor=rgb(255%2C255%2C255)&color=rgb(38%2C%2090%2C%20139))](https://github.com/ESIPFed/Geoweaver)
-<a href="https://github.com/geo-smart/sca_mapping_geoweaver">
-  <img alt="GitHub stars" src="https://img.shields.io/github/stars/geo-smart/SnowCast?style=flat-square&label=Stars&logo=github" />
-</a>
+![Workflow Badge](https://img.shields.io/badge/Workflow-snowcast_wormhole-blue.svg)
 
-# SnowCast
+# Workflow Name: snowcast_wormhole
 
-SnowCast team SkiingPeople
+## Description
+The complete workflow for snowcast workflow creation, train, test, validation, deploy, predict.
 
-## Overview
+## Processes
+data_sentinel2, model_creation_lstm, model_creation_ghostnet, data_integration, model_train_validate, model_predict, data_terrainFeatures, data_gee_modis_station_only, data_gee_sentinel1_station_only, data_associate_station_grid_cell, data_gee_modis_real_time, data_gee_sentinel1_real_time, base_hole, data_gee_gridmet_station_only, data_gee_gridmet_real_time, model_creation_xgboost, testing_data_integration, snowcast_utils, model_create_kehan, data_snotel_real_time, all_dependencies, data_WUS_UCLA_SR, data_nsidc_4km_swe, model_creation_et, data_snotel_station_only, model_creation_rf, model_creation_pycaret, model_creation_autokeras, model_creation_autopytorch, western_us_dem.py, download_srtm_1arcsec (caution!), gridmet_testing, create_output_tif_template, resample_dem, convert_results_to_images, deploy_images_to_website, training_feature_selection, amsr_testing_realtime, perform_download.sh, merge_custom_traning_range, training_data_range, amsr_features, amsr_swe_data_download, install_dependencies, model_evaluation, interpret_model_results, train_test_pattern_compare, correct_slope, convert_to_time_series, data_merge_hackweek, data_gee_smap_station_only, data_merge_hackweek_testing, training_sanity_check, fSCA_training, fsCA_testing, fsca_py, fSCA_training_extract_data, data_ghcnd_station_only, mod_water_mask, prepare_water_mask_template, download_modis_09, data_mod09_extract_csvs, duplicated_feature_selection, train_self_attention_xgb_slurm, train_xgb_slurm, train_novel_transformerxgb, predict_transformerxgb, bttf_swe_predict, bttf_train, xgb_train, xgb_predict, snodas_test, transformer_snodas_train, snodas_tabnet, snodas_testing_realtime, snodas_tabnet_slurm, add_snodas_mask_column, snodas_fttransformer, snodas_dnn_new, base_nn_hole, clip_basins_for_eval, snodas_resnet
 
-This document provides an overview of a comprehensive full-stack workflow designed for forecasting snow water equivalent (SWE). The workflow includes multiple nodes representing different stages and components involved in data processing, model creation, training, prediction, and deployment.
+### Process Descriptions
+data_sentinel2: null
+model_creation_lstm: python
+model_creation_ghostnet: python
+data_integration: null
+model_train_validate: null
+model_predict: null
+data_terrainFeatures: null
+data_gee_modis_station_only: null
+data_gee_sentinel1_station_only: null
+data_associate_station_grid_cell: null
+data_gee_modis_real_time: null
+data_gee_sentinel1_real_time: null
+base_hole: null
+data_gee_gridmet_station_only: null
+data_gee_gridmet_real_time: null
+model_creation_xgboost: null
+testing_data_integration: null
+snowcast_utils: null
+model_create_kehan: null
+data_snotel_real_time: null
+all_dependencies: null
+data_WUS_UCLA_SR: null
+data_nsidc_4km_swe: null
+model_creation_et: null
+data_snotel_station_only: null
+model_creation_rf: null
+model_creation_pycaret: null
+model_creation_autokeras: null
+model_creation_autopytorch: null
+western_us_dem.py: null
+download_srtm_1arcsec (caution!): null
+gridmet_testing: null
+create_output_tif_template: null
+resample_dem: null
+convert_results_to_images: null
+deploy_images_to_website: null
+training_feature_selection: null
+amsr_testing_realtime: null
+perform_download.sh: null
+merge_custom_traning_range: null
+training_data_range: null
+amsr_features: null
+amsr_swe_data_download: null
+install_dependencies: null
+model_evaluation: null
+interpret_model_results: null
+train_test_pattern_compare: null
+correct_slope: null
+convert_to_time_series: null
+data_merge_hackweek: null
+data_gee_smap_station_only: null
+data_merge_hackweek_testing: null
+training_sanity_check: null
+fSCA_training: null
+fsCA_testing: null
+fsca_py: null
+fSCA_training_extract_data: null
+data_ghcnd_station_only: null
+mod_water_mask: null
+prepare_water_mask_template: null
+download_modis_09: null
+data_mod09_extract_csvs: null
+duplicated_feature_selection: python
+train_self_attention_xgb_slurm: null
+train_xgb_slurm: null
+train_novel_transformerxgb: null
+predict_transformerxgb: null
+bttf_swe_predict: null
+bttf_train: null
+xgb_train: null
+xgb_predict: null
+snodas_test: null
+transformer_snodas_train: null
+snodas_tabnet: null
+snodas_testing_realtime: null
+snodas_tabnet_slurm: null
+add_snodas_mask_column: null
+snodas_fttransformer: null
+snodas_dnn_new: null
+base_nn_hole: null
+clip_basins_for_eval: python
+snodas_resnet: null
 
-## Getting Started
 
-### Prerequisites
+## Steps to use the workflow
 
-- Python 3.8 or higher
+This section provides detailed instructions on how to use the workflow. Follow these steps to set up and execute the workflow using Geoweaver.
 
-### Installation
+### Step-by-Step Instructions
 
-- Install Geoweaver:
--- Download and install Geoweaver from geoweaver.dev.
+### Step 1: Download the zip file
+### Step 2: Import the Workflow into Geoweaver
+Open Geoweaver running on your local machine. [video guidance](https://youtu.be/jUd1dzi18EQ)
+1. Click on "Weaver" in the top navigation bar.
+2. A workspace to add a workflow opens up. Select the "Import" icon in the top navigation bar.
+3. Choose the downloaded zip file4. Click on "Start" to upload the file. If the file is valid, a prompt will ask for your permission to upload. Click "OK".
+5. Once the file is uploaded, Geoweaver will create a new workflow.
 
-- Download the Workflow:
--- Download the ZIP file containing the workflow from the release page.
--- Extract the ZIP file to your desired location.
--- Loading and Running the Workflow
+### Step 3: Execute the Workflow
+1. Click on the execute icon in the top navigation bar to start the workflow execution process.[video guidance](https://youtu.be/PJcMNR00QoE)
+2. A wizard will open where you need to select the [video guidance](https://youtu.be/KYiEHI0rn_o) and environment [video guidance](https://www.youtube.com/watch?v=H66AVoBBaHs).
+3. Click on "Execute" to initiate the workflow. Enter the required password when prompted and click "Confirm" to start executing the workflow.
 
-- Open Geoweaver:
--- Launch Geoweaver on your machine.
+### Step 4: Monitor Execution and View Results
+1. The workflow execution will begin.
+2. Note: Green indicates the process is successful, Yellow indicates the process is running, and Red indicates the process has failed.
+3. Once the execution is complete, the results will be available immediately.
 
-- Import the Workflow:
---Use the import button in Geoweaver to load the latest version of the workflow from the extracted directory.
+By following these steps, you will be able to set up and execute the snow cover mapping workflow using Geoweaver.
 
-- Run the Workflow:
--- After importing, you can view the workflow nodes and their configurations in Geoweaver.
--- Click the run button in Geoweaver to execute the workflow step-by-step as configured.
-
-### Workflow Description
-
-The workflow begins with data collection and integration from various sources. Nodes such as data_sentinel2, data_terrainFeatures, data_gee_modis_station_only, data_gee_sentinel1_station_only, and others handle the gathering and preprocessing of satellite data, terrain features, and meteorological data. These datasets are crucial for accurate model training and predictions.
-
-Next, the workflow transitions to model creation and training. Nodes like model_creation_lstm, model_creation_ghostnet, model_creation_xgboost, and several others are used to set up different types of machine learning models. The model_train_validate node is then executed to train and validate these models using the integrated data. This step ensures that the models are well-trained and capable of making accurate predictions.
-
-Finally, the workflow focuses on generating predictions and deploying the results. The model_predict node is used to produce predictions based on the trained models. Real-time data testing is performed using nodes such as amsr_testing_realtime and gridmet_testing. Visualization and deployment of results are managed by nodes like convert_results_to_images and deploy_images_to_website, allowing users to easily interpret and share the outcomes.
-
-## Contributing
-
-We welcome contributions to enhance and expand this workflow. To contribute, follow these steps:
-
-- Fork the repository.
-- Create a new branch (git checkout -b feature/your-feature).
-- Commit your changes (git commit -am 'Add new feature').
-- Push to the branch (git push origin feature/your-feature).
-- Create a new Pull Request.
-
-By participating in this project, you can help improve data processing, model training, and prediction accuracy. Your contributions will enable others to benefit from advanced data analysis and machine learning techniques.
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-Thanks to all contributors and open-source projects that made this workflow possible. Your efforts in data collection, model development, and community support are greatly appreciated.

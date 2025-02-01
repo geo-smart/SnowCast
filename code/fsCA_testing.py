@@ -10,7 +10,7 @@ import numpy as np
 import requests
 import earthaccess
 from osgeo import gdal
-from snowcast_utils import work_dir, homedir, test_start_date, date_to_julian
+from snowcast_utils import work_dir, data_dir, test_start_date, test_end_date, date_to_julian, cumulative_mode, process_dates_in_range
 import pandas as pd
 import rasterio
 import shutil
@@ -21,10 +21,17 @@ from dask import delayed
 import dask.multiprocessing
 import pyproj
 
+import os
+os.environ["OPENBLAS_NUM_THREADS"] = "4"
+from osgeo import gdal
+gdal.UseExceptions()  # Enable exceptions
+
 # change directory before running the code
-os.chdir(f"{homedir}/fsca/")
+os.chdir(f"{data_dir}/fsca/")
 
-
+# Set the PROJ_LIB environment variable
+env = os.environ.copy()  # Get the current environment variables
+env['PROJ_LIB'] = '/home/geo2021/anaconda3/share/proj'  # Set the path to PROJ_LIB
 
 tile_list = ["h08v04", "h08v05", "h09v04", "h09v05", 
              "h10v04", "h10v05", "h11v04", "h11v05", 
@@ -35,11 +42,11 @@ output_folder = os.getcwd() + "/output_folder/"
 modis_day_wise = os.getcwd() + "/final_output/"
 os.makedirs(output_folder, exist_ok=True)
 os.makedirs(modis_day_wise, exist_ok=True)
-western_us_coords = f'{work_dir}/dem_file.tif.csv'
+western_us_coords = f'{data_dir}/srtm/dem_file.tif.csv'
 mapper_file = os.path.join(modis_day_wise, f'modis_to_dem_mapper.csv')
 
 
-@dask.delayed
+# @dask.delayed
 def convert_hdf_to_geotiff(hdf_file, output_folder):
     hdf_ds = gdal.Open(hdf_file, gdal.GA_ReadOnly)
 
@@ -56,11 +63,10 @@ def convert_hdf_to_geotiff(hdf_file, output_folder):
                 gdal.Translate(output_path, ds)
                 ds = None
                 break
-
     hdf_ds = None
     return f"Converted {os.path.basename(hdf_file)} to GeoTIFF"
 
-def convert_all_hdf_in_folder(folder_path, output_folder):
+def convert_all_hdf_in_folder(folder_path, output_folder, datestr):
     file_list = []
     delayed_tasks = []
 
@@ -72,19 +78,23 @@ def convert_all_hdf_in_folder(folder_path, output_folder):
             continue
         else:
             file_list.append(file)
-            if file.lower().endswith(".hdf"):
-                hdf_file = os.path.join(folder_path, file)
-                task = convert_hdf_to_geotiff(hdf_file, output_folder)
-                delayed_tasks.append(task)
+            if file.lower().endswith(".hdf") and datestr in file:
+              print("Converting ", file)
+              hdf_file = os.path.join(folder_path, file)
+              convert_hdf_to_geotiff(hdf_file, output_folder)
+                # delayed_tasks.append(task)
 
-    results = dask.compute(*delayed_tasks, scheduler="processes")
 
-    return file_list, results
+    # results = dask.compute(*delayed_tasks, scheduler="processes")
+
+    return file_list
 
 def get_env_var_for_gdalwarp():
-    if "PROJ_LIB" in os.environ:
-        os.environ.pop("PROJ_LIB")
-        print(f"Environment variable PROJ_LIB removed.")
+    # if "PROJ_LIB" in os.environ:
+    #     os.environ.pop("PROJ_LIB")
+    #     print(f"Environment variable PROJ_LIB removed.")
+    os.environ["PROJ_LIB"] = "/home/geo2021/anaconda3/share/proj/"
+
     if "GDAL_DATA" in os.environ:
         os.environ.pop("GDAL_DATA")
         print(f"Environment variable GDAL_DATA removed.")
@@ -98,7 +108,7 @@ def merge_tifs(folder_path, target_date, output_file):
   if len(tif_files) == 0:
     print(f"uh-oh, didn't find HDFs for date {target_date}")
     print("generate a new csv file with empty values for each point")
-    gdal_command = ['/usr/bin/gdal_translate', 
+    gdal_command = ['gdal_translate', 
                     '-b', '1', 
                     '-outsize', '100%', '100%', 
                     '-scale', '0', '255', '200', '200', 
@@ -112,11 +122,11 @@ def merge_tifs(folder_path, target_date, output_file):
     #if 'PROJ_LIB' in os.environ:
     #    del os.environ['PROJ_LIB']
     print("pyproj.datadir.get_data_dir() = ", pyproj.datadir.get_data_dir())
-    gdal_command = ['/usr/bin/gdalwarp', '-r', 'min', ] + tif_files + [f"{output_file}_500m.tif"]
+    gdal_command = ['gdalwarp', '-r', 'min', ] + tif_files + [f"{output_file}_500m.tif"]
     print("Running ", ' '.join(gdal_command))
     subprocess.run(gdal_command, env=get_env_var_for_gdalwarp())
     # gdalwarp -s_srs EPSG:4326 -t_srs EPSG:4326 -tr 0.036 0.036  -cutline template.shp -crop_to_cutline -overwrite output_4km.tif output_4km_clipped.tif
-    gdal_command = ['/usr/bin/gdalwarp', '-t_srs', 'EPSG:4326', '-tr', '0.036', '0.036', '-cutline', f'{work_dir}/template.shp', '-crop_to_cutline', '-overwrite', f"{output_file}_500m.tif", output_file]
+    gdal_command = ['gdalwarp', '-t_srs', 'EPSG:4326', '-tr', '0.036', '0.036', '-cutline', f'{work_dir}/template.shp', '-crop_to_cutline', '-overwrite', f"{output_file}_500m.tif", output_file]
     print("Running ", " ".join(gdal_command))
     subprocess.run(gdal_command, env=get_env_var_for_gdalwarp())
 
@@ -131,7 +141,7 @@ def merge_tiles(date, hdf_files):
   files = list_files(path)
   print(files)
   merged_filename = f"data/{date}/merged.tif"
-  merge_command = ["/usr/bin/gdal_merge.py", "-o", merged_filename, "-of", "GTiff"] + files
+  merge_command = ["gdal_merge.py", "-o", merged_filename, "-of", "GTiff"] + files
   try:
     subprocess.run(merge_command, env=get_env_var_for_gdalwarp())
     print(f"Merged tiles into {merged_filename}")
@@ -188,32 +198,38 @@ def delete_files_in_folder(folder_path):
 
 def download_tiles_and_merge(start_date, end_date):
   date_list = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
+  count = 0
   for i in date_list:
     current_date = i.strftime("%Y-%m-%d")
     target_output_tif = f'{modis_day_wise}/{current_date}__snow_cover.tif'
+    print("Processing ", current_date)
     
     if os.path.exists(target_output_tif):
-        file_size_bytes = os.path.getsize(target_output_tif)
-        print(f"file_size_bytes: {file_size_bytes}")
-        print(f"The file {target_output_tif} exists. skip.")
+      file_size_bytes = os.path.getsize(target_output_tif)
+      print(f"file_size_bytes: {file_size_bytes}")
+      print(f"The file {target_output_tif} exists. skip.")
     else:
-        print(f"The file {target_output_tif} does not exist.")
-        print("start to download files from NASA server to local")
-        earthaccess.login(strategy="netrc")
-        results = earthaccess.search_data(short_name="MOD10A1", 
-                                          cloud_hosted=False, 
-                                          bounding_box=(-124.77, 24.52, -66.95, 49.38),
-                                          temporal=(current_date, current_date))
-        earthaccess.download(results, input_folder)
-        print("done with downloading, start to convert HDF to geotiff..")
+      print(f"The file {target_output_tif} does not exist.")
+      print("start to download files from NASA server to local")
+      earthaccess.login(strategy="netrc")
+      results = earthaccess.search_data(short_name="MOD10A1", 
+                                        cloud_hosted=False, 
+                                        bounding_box=(-124.77, 24.52, -66.95, 49.38),
+                                        temporal=(current_date, current_date))
+      earthaccess.download(results, input_folder)
+      print("done with downloading, start to convert HDF to geotiff..")
 
-        convert_all_hdf_in_folder(input_folder, output_folder)
-        print("done with conversion, start to merge geotiff tiles to one tif per day..")
+      convert_all_hdf_in_folder(input_folder, output_folder, i.strftime("%Y%j"))
+      print("done with conversion, start to merge geotiff tiles to one tif per day..")
 
-        merge_tifs(folder_path=output_folder, target_date = current_date, output_file=target_output_tif)
-        print(f"saved the merged tifs to {target_output_tif}")
-    #delete_files_in_folder(input_folder)  # cleanup
-    #delete_files_in_folder(output_folder)  # cleanup
+      merge_tifs(
+        folder_path=output_folder, 
+        target_date = current_date, 
+        output_file=target_output_tif
+      )
+      print(f"saved the merged tifs to {target_output_tif}")
+  #delete_files_in_folder(input_folder)  # cleanup
+  #delete_files_in_folder(output_folder)  # cleanup
 
 def get_value_at_coords(src, lat, lon, band_number=1):
 #     transformer = Transformer.from_crs("EPSG:4326", src.crs, always_xy=True)
@@ -597,7 +613,7 @@ def prepare_modis_grid_mapper():
       print(f"Saving mapper csv file: {mapper_file}")
       station_df.to_csv(mapper_file, index=False, columns=['Latitude', 'Longitude', 'modis_x', 'modis_y'])
     
-def extract_data_for_testing():
+def extract_data_for_testing(target_date = test_start_date):
   """
     Extracts and processes MODIS data for testing purposes within a specified date range.
 
@@ -621,15 +637,16 @@ def extract_data_for_testing():
     ```
 
   """
-  print("get test_start_date = ", test_start_date)
-  end_date = datetime.strptime(test_start_date, "%Y-%m-%d")
+  print("get target_date = ", target_date)
+  end_date = datetime.strptime(target_date, "%Y-%m-%d")
   print(end_date)
   if end_date.month < 10:
     past_october_1 = datetime(end_date.year - 1, 10, 1)
   else:
     past_october_1 = datetime(end_date.year, 10, 1)
   
-  start_date = past_october_1
+  # only deal with 1 day
+  start_date = end_date
   print(f"The start_date of the water year {start_date}")
   
   prepare_modis_grid_mapper()
@@ -637,6 +654,7 @@ def extract_data_for_testing():
   download_tiles_and_merge(start_date, end_date)
   
   date_list = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
+  count = 0
   for i in date_list:
     current_date = i.strftime("%Y-%m-%d")
     print(f"extracting data for {current_date}")
@@ -646,17 +664,32 @@ def extract_data_for_testing():
     else:
       process_file(f'{modis_day_wise}/{current_date}__snow_cover.tif', current_date)
   
-  add_time_series_columns(start_date, end_date, force=True)
-  
+  if cumulative_mode:
+    add_time_series_columns(start_date, end_date, force=True)
+  else:
+    cumulative_file_path =  f"{modis_day_wise}/{test_start_date}_output.csv_cumulative.csv"
+    shutil.copy(outfile, cumulative_file_path)
+    print(f"File is backed up to {cumulative_file_path}")
+
+def fsca_callback(current_date):
+    # Prepare the cumulative history CSVs for the current date
+    print("Getting gridmet for day", current_date.strftime("%Y-%m-%d"))
+    extract_data_for_testing(target_date=current_date.strftime("%Y-%m-%d"))
   
 
 if __name__ == "__main__":
-  extract_data_for_testing()
-
+  # SnowCover is missing from 10-12 to 10-23
+  # download_tiles_and_merge(datetime.strptime("2022-10-01", "%Y-%m-%d"), datetime.strptime("2022-10-01", "%Y-%m-%d"))
+  
+  process_dates_in_range(
+    start_date=test_start_date,
+    end_date=test_end_date,
+    days_look_back=7,
+    callback=fsca_callback,
+  )
   # cumulative_file_path =  f"{modis_day_wise}/{test_start_date}_output.csv_cumulative.csv"
   # plot_all_variables_in_one_csv(cumulative_file_path, f"{cumulative_file_path}.png")
 
-  # SnowCover is missing from 10-12 to 10-23
-  #download_tiles_and_merge(datetime.strptime("2022-10-24", "%Y-%m-%d"), datetime.strptime("2022-10-24", "%Y-%m-%d"))
+  
 
 

@@ -5,10 +5,7 @@ from scipy.spatial import KDTree
 import dask.dataframe as dd
 from dask.distributed import Client
 
-ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations.csv_sorted.csv'
-dem_slope_csv_path = f"{work_dir}/slope_file.tif.csv"
-print(f"ready_csv_path = {ready_csv_path}")
-new_result_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_ghcnd.csv_sorted_slope_corrected.csv'
+
 
 
 def replace_slope(row, tree, dem_df):
@@ -30,13 +27,7 @@ def replace_slope(row, tree, dem_df):
     closest_row = dem_df.iloc[idx[0]]
     return closest_row["Slope"]
 
-def parallelize_slope_correction():
-    # Start Dask client
-#     client = Client()
-
-    # Scatter DEM data
-#     dem_future = client.scatter(dem_slope_df)
-    # Read the cleaned ready CSV and DEM slope CSV
+def parallelize_slope_correction(ready_csv_path, dem_slope_csv_path, new_result_csv_path):
     train_ready_df = pd.read_csv(ready_csv_path)
     dem_slope_df = pd.read_csv(dem_slope_csv_path)
 
@@ -58,13 +49,6 @@ def parallelize_slope_correction():
     print("start to correct slope")
     #train_ready_df['corrected_slope'] = train_ready_df.apply(replace_slope, args=(tree, dem_slope_df), axis=1)
     
-    # Apply the function with scattered data and log progress
-#     train_ready_ddf['corrected_slope'] = train_ready_ddf.map_partitions(
-#         lambda df: df.apply(replace_slope, args=(tree, dem_future)), 
-#         meta=('slope', 'float64')
-#     )
-#     train_ready_ddf['corrected_slope'].compute(progress_callback=progress)
-
     lat_lon_df['corrected_slope'] = lat_lon_df.apply(replace_slope, args=(tree, dem_slope_df), axis=1)
   
     train_ready_df = train_ready_df.merge(lat_lon_df, on=['lat', 'lon'], how='left')
@@ -74,8 +58,6 @@ def parallelize_slope_correction():
     print("finished correcting slope")
     print(train_ready_df.head())
     print(train_ready_df.columns)
-
-    
     print(f"saving the correct data into {new_result_csv_path}")
     # Save the modified DataFrame to a new CSV file
     train_ready_df.to_csv(new_result_csv_path, index=False)
@@ -84,5 +66,18 @@ def parallelize_slope_correction():
   
   
 if __name__ == "__main__":
-    parallelize_slope_correction()
+    # ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations.csv_sorted.csv'
+    # dem_slope_csv_path = f"{work_dir}/slope_file.tif.csv"
+    # print(f"ready_csv_path = {ready_csv_path}")
+    # new_result_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_ghcnd.csv_sorted_slope_corrected.csv'
+    # parallelize_slope_correction(ready_csv_path, dem_slope_csv_path, new_result_csv_path)
+
+    ready_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted.csv'
+    dem_slope_csv_path = f"{work_dir}/slope_file.tif.csv"
+    print(f"ready_csv_path = {ready_csv_path}")
+    new_result_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv'
+    parallelize_slope_correction(ready_csv_path, dem_slope_csv_path, new_result_csv_path)
+
+
+
 

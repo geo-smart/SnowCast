@@ -1,14 +1,27 @@
 #!/bin/bash
 
+source /home/chetana/miniconda/bin/activate
+pip install geojson seaborn xarray dask pandas numpy geopandas pyarrow netCDF4 h5netcdf torch scikit-learn psutil
+
+# mkdir -p /home/chetana/data/ucla/raw/
+
+# cd /home/chetana/data/ucla/raw/
+
+# wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --keep-session-cookies --no-check-certificate --auth-no-challenge=on -r --reject "index.html*" -np -e robots=off https://n5eil01u.ecs.nsidc.org/DP6/SNOWEX/WUS_UCLA_SR.001/1984.10.01/WUS_UCLA_SR_v01_N31_0W104_0_agg_16_WY1984_85_SWE_SCA_POST.nc
+
+# wget https://n5eil01u.ecs.nsidc.org/DP6/SNOWEX/WUS_UCLA_SR.001/1984.10.01/WUS_UCLA_SR_v01_N31_0W104_0_agg_16_WY1984_85_SWE_SCA_POST.nc
+
+exit 0
+
 # change this line if you are creating a new env
-source /home/ubuntu/anaconda3/bin/activate
-conda activate new_env
-which python
-python --version
+# source /home/ubuntu/anaconda3/bin/activate
+# conda activate new_env
+# which python
+# python --version
 
 # install GDAL
-sudo apt update
-sudo apt install gdal-bin libgdal-dev -y
+# sudo apt update
+# sudo apt install gdal-bin libgdal-dev -y
 
 # Use cat to create the requirements.txt file
 cat <<EOL > requirements.txt
@@ -16,7 +29,6 @@ absl-py==1.4.0
 affine==2.4.0
 aiobotocore==2.7.0
 aioitertools==0.11.0
-anaconda-navigator==2.4.2
 ansi2html==1.8.0
 anyio==3.6.2
 argon2-cffi==21.3.0
@@ -36,7 +48,7 @@ bleach==4.1.0
 botocore==1.31.64
 bounded-pool-executor==0.0.3
 brotlipy==0.7.0
-catboost==1.2
+# catboost==1.2
 category-encoders==2.6.1
 certifi==2023.5.7
 cffi==1.15.1
@@ -46,8 +58,8 @@ click==8.0.4
 click-plugins==1.1.1
 cligj==0.7.2
 cloudpickle==2.2.1
-clyent==1.2.2
-colorcet==3.0.1
+# clyent==1.2.2
+# colorcet==3.0.1
 conda-repo-cli==1.0.75
 conda-verify==3.4.2
 ConfigSpace==0.7.1
@@ -200,7 +212,7 @@ python-cmr==0.9.0
 python-dateutil==2.8.2
 python-dotenv==1.0.0
 pytz==2022.7.1
-PyYAML==6.0
+# PyYAML==6.0
 pyzmq==25.0.2
 rasterio==1.3.9
 regex==2023.6.3

@@ -4,8 +4,10 @@ import os
 import subprocess
 import csv
 from datetime import datetime, timedelta
+from snowcast_utils import homedir
 
-output_csv_file = "/home/chetana/gridmet_test_run/mod10a1_snow_cover.csv"
+mod_folder = f"{homedir}/../fsca/"
+output_csv_file = f"{homedir}/../fsca/mod10a1_snow_cover.csv"
 
 # Function to extract snow cover value at a given lat lon
 def extract_snow_cover_value(geotiff_path, lon, lat):
@@ -24,10 +26,14 @@ start_date = datetime(2018,1, 1)
 end_date = datetime(2018, 1, 3)
 
 # Load the CSV file with latitude and longitude coordinates
-csv_file_path = "/home/chetana/gridmet_test_run/station_cell_mapping.csv"
+csv_file_path = f"{homedir}/../code/SnowCast/data/ready_for_training/station_cell_mapping.csv"
 
 # CSV file header
 csv_header = ["Date", "Latitude", "Longitude", "Snow Cover Value"]
+
+# Set the PROJ_LIB environment variable
+env = os.environ.copy()  # Get the current environment variables
+env['PROJ_LIB'] = '/home/geo2021/anaconda3/share/proj'  # Set the path to PROJ_LIB
 
 # Loop through the date range
 current_date = start_date
@@ -74,41 +80,43 @@ while current_date <= end_date:
             hdf_url = reference_link + hdf_file
             
             # Define the local filename to save the HDF file
-            local_hdf_filename = hdf_file
-            
-            # Send an HTTP GET request to download the HDF file
-            hdf_response = requests.get(hdf_url)
-            
-            # Check if the download was successful (HTTP status code 200)
-            if hdf_response.status_code == 200:
-                with open(local_hdf_filename, "wb") as f:
-                    f.write(hdf_response.content)
-                print(f"Downloaded {local_hdf_filename}")
-                
-                # Construct the output GeoTIFF file path and name in the same directory
-                local_geotiff_filename = os.path.splitext(local_hdf_filename)[0] + ".tif"
-                
-                # Run the gdal_translate command to convert HDF to GeoTIFF
-                gdal_translate_cmd = [
-                    "gdal_translate",
-                    "-of", "GTiff",
-                    f"HDF4_EOS:EOS_GRID:{local_hdf_filename}:MOD_Grid_Snow_500m:NDSI_Snow_Cover",
-                    local_geotiff_filename
-                ]
-                
-                # Execute the gdal_translate command
-                subprocess.run(gdal_translate_cmd)
-                
-                # Append the path of the converted GeoTIFF to the list
-                geotiff_files.append(local_geotiff_filename)
-                
-                # Delete the original HDF file
-#                 os.remove(local_hdf_filename)
-                
-                #print(f"Converted and deleted: {local_hdf_filename}")
+            local_hdf_filename = os.path.join(mod_folder, hdf_file)  # Specify the directory where the file should be saved
+
+            # Check if the file already exists
+            if os.path.exists(local_hdf_filename):
+                print(f"File {hdf_file} already exists, skipping download.")
             else:
-              pass
-                #print(f"Failed to download {local_hdf_filename}")
+                # Send an HTTP GET request to download the HDF file
+                hdf_response = requests.get(hdf_url)
+                
+                if hdf_response.status_code == 200:
+                    # Save the content to the local file
+                    with open(local_hdf_filename, 'wb') as f:
+                        f.write(hdf_response.content)
+                    print(f"Downloaded and saved {hdf_file}.")
+                    
+                else:
+                    print(f"Failed to download {hdf_file}, HTTP status code {hdf_response.status_code}.")
+                    continue
+            
+
+            # Construct the output GeoTIFF file path and name in the same directory
+            local_geotiff_filename = os.path.splitext(local_hdf_filename)[0] + ".tif"
+            
+            # Run the gdal_translate command to convert HDF to GeoTIFF
+            gdal_translate_cmd = [
+                "gdal_translate",
+                "-of", "GTiff",
+                f"HDF4_EOS:EOS_GRID:{local_hdf_filename}:MOD_Grid_Snow_500m:NDSI_Snow_Cover",
+                local_geotiff_filename
+            ]
+
+            # Execute the gdal_translate command
+            subprocess.run(gdal_translate_cmd, env=env, check=True)
+            
+            # Append the path of the converted GeoTIFF to the list
+            geotiff_files.append(local_geotiff_filename)
+            
         
         # Merge all the GeoTIFF files into a single GeoTIFF
         merged_geotiff = "merged_geotiff.tif"
@@ -118,7 +126,7 @@ while current_date <= end_date:
             "-of", "GTiff"
         ] + geotiff_files
         
-        subprocess.run(gdal_merge_cmd)
+        subprocess.run(gdal_merge_cmd, env=env, check=True)
         
         print(f"Merged all GeoTIFF files into {merged_geotiff}")
         

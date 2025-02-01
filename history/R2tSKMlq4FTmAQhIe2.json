@@ -1,0 +1,711 @@
+[{
+  "history_id" : "r1ozyn0pomo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332812889,
+  "history_end_time" : 1737332812889,
+  "history_notes" : null,
+  "history_process" : "78vedq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "cra5fig8cfv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332812893,
+  "history_end_time" : 1737332812893,
+  "history_notes" : null,
+  "history_process" : "mxpyqt",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gh5pu41oe25",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332812923,
+  "history_end_time" : 1737332812923,
+  "history_notes" : null,
+  "history_process" : "rauqsh",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t62bdklinap",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332812959,
+  "history_end_time" : 1737332812959,
+  "history_notes" : null,
+  "history_process" : "u7xh2p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qtjkrb5w407",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332812965,
+  "history_end_time" : 1737332812965,
+  "history_notes" : null,
+  "history_process" : "e8k4wq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rpo2mwm4ntr",
+  "history_input" : "import joblib\nimport pandas as pd\nfrom sklearn.preprocessing import MinMaxScaler, StandardScaler\nimport numpy as np\nfrom snowcast_utils import homedir, work_dir, model_dir, plot_dir, output_dir, month_to_season, test_start_date, test_end_date, process_dates_in_range\nimport os\nimport random\nimport string\nimport shutil\nfrom model_creation_et import selected_columns\nfrom datetime import datetime, timedelta\n# from interpret_model_results import explain_predictions\n\nimport shap\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport traceback\n\nCOLUMN_NAME_MAPPER = {'Latitude': 'lat', \n                         'Longitude': 'lon',\n                         'vpd': 'mean_vapor_pressure_deficit',\n                         'vs': 'wind_speed', \n                         'pr': 'precipitation_amount', \n                         'etr': 'potential_evapotranspiration',\n                         'tmmn': 'air_temperature_tmmn',\n                         'tmmx': 'air_temperature_tmmx',\n                         'rmin': 'relative_humidity_rmin',\n                         'rmax': 'relative_humidity_rmax',\n#                          'Elevation': 'elevation',\n#                          'Slope': 'Slope',\n#                          'Aspect': 'Aspect',\n#                          'Curvature': 'Curvature',\n#                          'Northness': 'Northness',\n#                          'Eastness': 'Eastness',\n                         'cumulative_AMSR_SWE': 'cumulative_SWE',\n                         'cumulative_AMSR_Flag': 'cumulative_Flag',\n                         'cumulative_tmmn':'cumulative_air_temperature_tmmn',\n                         'cumulative_etr': 'cumulative_potential_evapotranspiration',\n                         'cumulative_vpd': 'cumulative_mean_vapor_pressure_deficit',\n                         'cumulative_rmax': 'cumulative_relative_humidity_rmax', \n                         'cumulative_rmin': 'cumulative_relative_humidity_rmin',\n                         'cumulative_pr': 'cumulative_precipitation_amount',\n                         'cumulative_tmmx': 'cumulative_air_temperature_tmmx',\n                         'cumulative_vs': 'cumulative_wind_speed',\n                         'AMSR_SWE': 'SWE',\n                         'AMSR_Flag': 'Flag',\n#                          'relative_humidity_rmin': '',\n#                          'cumulative_rmin',\n#                          'mean_vapor_pressure_deficit', \n#                          'cumulative_vpd', \n#                          'wind_speed',\n#                          'cumulative_vs', \n#                          'relative_humidity_rmax', 'cumulative_rmax',\n\n# 'precipitation_amount', 'cumulative_pr', 'air_temperature_tmmx',\n\n# 'cumulative_tmmx', 'potential_evapotranspiration', 'cumulative_etr',\n\n# 'air_temperature_tmmn', 'cumulative_tmmn', 'x', 'y', 'elevation',\n\n# 'slope', 'aspect', 'curvature', 'northness', 'eastness', 'AMSR_SWE',\n\n# 'cumulative_AMSR_SWE', 'AMSR_Flag', 'cumulative_AMSR_Flag',\n}\n\nCOLUMN_LOOK_BACK = [\n    'mean_vapor_pressure_deficit',\n    'wind_speed', \n    'precipitation_amount', \n    'potential_evapotranspiration',\n    'air_temperature_tmmn',\n    'air_temperature_tmmx',\n    'relative_humidity_rmin',\n    'relative_humidity_rmax',\n    'SWE',\n    'fsca',\n]\n\nCOLUMN_UNCHANGED = [\n    'Aspect', \n    'Elevation', \n    'Curvature', \n    'Northness', \n    'Flag', \n    'x', \n    'Eastness', \n    'water_year', \n    'Slope', \n    'lc_prop3', \n    'y'\n]\n\ndef generate_random_string(length):\n    # Define the characters that can be used in the random string\n    characters = string.ascii_letters + string.digits  # You can customize this to include other characters if needed\n\n    # Generate a random string of the specified length\n    random_string = ''.join(random.choice(characters) for _ in range(length))\n\n    return random_string\n  \n\ndef load_model(model_path):\n    \"\"\"\n    Load a machine learning model from a file.\n\n    Args:\n        model_path (str): Path to the saved model file.\n\n    Returns:\n        model: The loaded machine learning model.\n    \"\"\"\n    return joblib.load(model_path)\n\ndef load_data(file_path):\n    \"\"\"\n    Load data from a CSV file.\n\n    Args:\n        file_path (str): Path to the CSV file containing the data.\n\n    Returns:\n        pd.DataFrame: A pandas DataFrame containing the loaded data.\n    \"\"\"\n    return pd.read_csv(file_path)\n\n\n# 'SWE', 'relative_humidity_rmin', 'potential_evapotranspiration',\n#     'air_temperature_tmmx', 'relative_humidity_rmax',\n#     'mean_vapor_pressure_deficit', 'air_temperature_tmmn', 'wind_speed',\n#     'Elevation', 'Aspect', 'Curvature', 'Northness', 'Eastness', 'fsca',\n#     'Slope', 'SWE_1', 'air_temperature_tmmn_1',\n#     'potential_evapotranspiration_1', 'mean_vapor_pressure_deficit_1',\n#     'relative_humidity_rmax_1', 'relative_humidity_rmin_1',\n#     'air_temperature_tmmx_1', 'wind_speed_1', 'fsca_1', 'SWE_2',\n#     'air_temperature_tmmn_2', 'potential_evapotranspiration_2',\n#     'mean_vapor_pressure_deficit_2', 'relative_humidity_rmax_2',\n#     'relative_humidity_rmin_2', 'air_temperature_tmmx_2', 'wind_speed_2',\n#     'fsca_2', 'SWE_3', 'air_temperature_tmmn_3',\n#     'potential_evapotranspiration_3', 'mean_vapor_pressure_deficit_3',\n#     'relative_humidity_rmax_3', 'relative_humidity_rmin_3',\n#     'air_temperature_tmmx_3', 'wind_speed_3', 'fsca_3', 'SWE_4',\n#     'air_temperature_tmmn_4', 'potential_evapotranspiration_4',\n#     'mean_vapor_pressure_deficit_4', 'relative_humidity_rmax_4',\n#     'relative_humidity_rmin_4', 'air_temperature_tmmx_4', 'wind_speed_4',\n#     'fsca_4', 'SWE_5', 'air_temperature_tmmn_5',\n#     'potential_evapotranspiration_5', 'mean_vapor_pressure_deficit_5',\n#     'relative_humidity_rmax_5', 'relative_humidity_rmin_5',\n#     'air_temperature_tmmx_5', 'wind_speed_5', 'fsca_5', 'SWE_6',\n#     'air_temperature_tmmn_6', 'potential_evapotranspiration_6',\n#     'mean_vapor_pressure_deficit_6', 'relative_humidity_rmax_6',\n#     'relative_humidity_rmin_6', 'air_temperature_tmmx_6', 'wind_speed_6',\n#     'fsca_6', 'SWE_7', 'air_temperature_tmmn_7',\n#     'potential_evapotranspiration_7', 'mean_vapor_pressure_deficit_7',\n#     'relative_humidity_rmax_7', 'relative_humidity_rmin_7',\n#     'air_temperature_tmmx_7', 'wind_speed_7', 'fsca_7', 'water_year'\n\ndef preprocess_data_with_history():\n    pass\n\ndef preprocess_chunk(chunk, day_offset):\n    \"\"\"\n    Load, clean, and rename columns for a specific day.\n\n    Args:\n        file_path (str): Path to the CSV file.\n        day_offset (int): Day offset (0 for current day, 1 for one day ago, etc.).\n\n    Returns:\n        pd.DataFrame: Processed DataFrame for the specific day.\n    \"\"\"\n    if \"date.1\" in chunk.columns:\n        chunk = chunk.drop([\"date.1\"], axis=1)\n    chunk.replace('--', pd.NA, inplace=True)\n    chunk.rename(columns=COLUMN_NAME_MAPPER, inplace=True)\n    chunk['date'] = pd.to_datetime(chunk['date'])\n\n    # print(\"Before drop: \", chunk.columns)\n    if day_offset != 0:\n        chunk.drop(COLUMN_UNCHANGED+[\"date\"], axis=1, inplace=True)\n        for col in COLUMN_LOOK_BACK:\n            chunk.rename(\n                columns={col: f\"{col}_{day_offset}\"}, inplace=True\n            )\n\n    # print(\"After drop: \", chunk.columns)\n    return chunk\n\ndef preprocess_data(target_date, is_model_input: bool = True):\n    \"\"\"\n    Preprocess the input data for model prediction.\n\n    Args:\n        target_date (str): Target date in the format 'YYYY-MM-DD'.\n        is_model_input (bool): Flag to specify if the data is for model input.\n\n    Returns:\n        pd.DataFrame: Preprocessed data ready for prediction.\n    \"\"\"\n    \n    # Initialize a list to store all data including past 7 days\n    all_data = []\n\n    # Process the current day\n    # current_day_path = f'{work_dir}/testing_all_ready_{target_date}.csv'\n    # current_day_data = process_day_data(current_day_path, 0)\n    # all_data.append(current_day_data)\n\n    # Process the past 7 days\n    target_date_dt = pd.to_datetime(target_date)\n    for i in range(0, 7):\n        past_date = (target_date_dt - pd.Timedelta(days=i)).strftime('%Y-%m-%d')\n        past_data_path = f'{work_dir}/testing_all_ready_{past_date}.csv'\n        past_day_data = process_day_data(past_data_path, i)\n        all_data.append(past_day_data)\n\n    # Merge all data on 'date', 'lat', and 'lon'\n    merged_data = all_data[0]\n    for additional_data in all_data[1:]:\n        merged_data = merged_data.merge(additional_data, on=['date', 'lat', 'lon'], how='outer')\n\n    if is_model_input:\n        if \"swe_value\" in selected_columns:\n            selected_columns.remove(\"swe_value\")\n        desired_order = selected_columns + ['lat', 'lon']\n\n        merged_data = merged_data[desired_order]\n        merged_data = merged_data.reindex(columns=desired_order)\n\n        # print(\"Reorganized columns: \", merged_data.columns)\n\n    # print(merged_data.head())\n\n    return merged_data\n\ndef predict_swe(model, data):\n    \"\"\"\n    Predict Snow Water Equivalent (SWE) values using a pre-trained model.\n\n    This function takes in a machine learning model and a DataFrame containing \n    meteorological and geospatial data, preprocesses the data by handling missing \n    values and dropping unnecessary columns, and applies the model to predict SWE values. \n    The predicted SWE values are then added to the original DataFrame as a new column \n    called 'predicted_swe'.\n\n    Args:\n        model (object): A pre-trained machine learning model with a `predict` method.\n        data (pd.DataFrame): A pandas DataFrame containing input data for prediction.\n            It is expected to have columns including 'lat', 'lon', and other relevant \n            features for the model.\n\n    Returns:\n        pd.DataFrame: The original DataFrame with an additional column 'predicted_swe' \n        containing the predicted SWE values.\n    \"\"\"\n    data = data.fillna(-1)\n    input_data = data\n    input_data = data.drop([\"lat\", \"lon\"], axis=1)\n\n    print(\"Assign -1 to fsca column..\")\n    # original_input_data = input_data.copy()\n    # input_data.loc[input_data['fsca'] > 100, 'fsca'] = -1 \n    for column in input_data.columns:\n        if 'fsca' in column.lower() or 'swe' in column.lower():  # Adjust to case-insensitive match\n            input_data.loc[input_data[column] > 100, column] = -1\n\n    #input_data = data.drop(['date', 'SWE', 'Flag', 'mean_vapor_pressure_deficit', 'potential_evapotranspiration', 'air_temperature_tmmx', 'relative_humidity_rmax', 'relative_humidity_rmin',], axis=1)\n    #scaler = StandardScaler()\n\n    # Fit the scaler on the training data and transform both training and testing data\n    #input_data_scaled = scaler.fit_transform(input_data)\n    print(\"Start to predict\", input_data.shape)\n    predictions = model.predict(input_data)\n    input_data['predicted_swe'] = predictions\n    input_data['lat'] = data['lat']\n    input_data['lon'] = data['lon']\n\n    # print(\"Explain the prediction: \")\n    # explain_predictions(model, input_data, input_data.columns, f\"{output_dir}/explain_ai.csv\", f\"{plot_dir}\")\n    return input_data\n\ndef merge_data(original_data, predicted_data):\n    \"\"\"\n    Merge predicted SWE data with the original data.\n\n    Args:\n        original_data (pd.DataFrame): Original input data.\n        predicted_data (pd.DataFrame): Dataframe with predicted SWE values.\n\n    Returns:\n        pd.DataFrame: Merged dataframe.\n    \"\"\"\n    #new_data_extracted = predicted_data[[\"date\", \"lat\", \"lon\", \"predicted_swe\"]]\n    if \"date\" not in predicted_data:\n    \tpredicted_data[\"date\"] = test_start_date\n    # new_data_extracted = predicted_data[[\"date\", \"lat\", \"lon\", \"predicted_swe\"]]\n    # print(\"original_data.columns: \", original_data.columns)\n    # print(\"predicted_data.columns: \", predicted_data.columns)\n    # print(\"new prediction statistics: \", predicted_data[\"predicted_swe\"].describe())\n    #merged_df = original_data.merge(new_data_extracted, on=[\"date\", 'lat', 'lon'], how='left')\n    merged_df = original_data.merge(predicted_data, on=['lat', 'lon'], how='left')\n    # print(\"first merged df: \", merged_df.columns)\n\n    merged_df.loc[merged_df['fsca'] == -1, 'predicted_swe'] = 0\n    # merged_df.loc[merged_df['fsca'] == 239, 'predicted_swe'] = 0\n    # merged_df.loc[merged_df['fsca'] == 225, 'predicted_swe'] = 0\n    #merged_df.loc[merged_df['cumulative_fsca'] == 0, 'predicted_swe'] = 0\n    merged_df.loc[merged_df['fsca'] == 0, 'predicted_swe'] = 0\n\n    # if predicted value is minus, assign 0\n    merged_df.loc[merged_df['predicted_swe'] < 0, 'predicted_swe'] = 0\n    \n    merged_df.loc[merged_df['air_temperature_tmmx'].isnull(), \n                  'predicted_swe'] = 0\n\n    merged_df.loc[merged_df['lc_prop3'] == 3, 'predicted_swe'] = 0\n    merged_df.loc[merged_df['lc_prop3'] == 255, 'predicted_swe'] = 0\n    merged_df.loc[merged_df['lc_prop3'] == 27, 'predicted_swe'] = 0\n\n    return merged_df\n\n\ndef predict_in_batches(\n    target_date: str, \n    output_path: str = None, \n    batch_size: int = 100000\n):\n    \"\"\"\n    Predict snow water equivalent (SWE) in batches by processing 7 days' data chunk by chunk.\n\n    Args:\n        target_date (str): Target date in the format 'YYYY-MM-DD'.\n        output_path (str): Path to save the prediction results.\n        batch_size (int): Size of each chunk to process.\n\n    Returns:\n        None\n    \"\"\"\n    # height = 666\n    # width = 694\n    model_path = f'{model_dir}/wormhole_ETHole_latest.joblib'\n    print(f\"Using model: {model_path}\")\n\n    if output_path is None:\n        output_path = f'{output_dir}/test_data_predicted_latest_{target_date}.csv'\n\n    if os.path.exists(output_path):\n        os.remove(output_path)\n        print(f\"File '{output_path}' has been removed.\")\n\n    # Load the model\n    model = load_model(model_path)\n\n    # Initialize file readers for each of the 7 days\n    target_date_dt = pd.to_datetime(target_date)\n    day_file_iters = []\n\n    for day_offset in range(8):\n        day_date = (target_date_dt - pd.Timedelta(days=day_offset)).strftime('%Y-%m-%d')\n        day_file_path = f'{work_dir}/testing_all_ready_{day_date}.csv'\n\n        try:\n            print(\"Loading batches from \", day_file_path)\n            day_file_iters.append(pd.read_csv(day_file_path, chunksize=batch_size))\n        except FileNotFoundError:\n            print(f\"File not found: {day_file_path}. Skipping this day.\")\n            day_file_iters.append(None)\n\n    # Process chunks\n    chunk_idx = 0\n    while True:\n        chunk_list = []\n        for day_idx, file_iter in enumerate(day_file_iters):\n            if file_iter is None:\n                continue\n            try:\n                chunk = next(file_iter)\n                print(f\"Read chunk {chunk_idx + 1} from day {day_idx + 1}\")\n                preprocessed_chunk = preprocess_chunk(chunk, day_offset=day_idx)\n                chunk_list.append(preprocessed_chunk)\n            except StopIteration:\n                print(f\"No more chunks for day {day_idx + 1}\")\n                continue\n\n        # If no more chunks for all days, break\n        if not chunk_list:\n            print(\"All chunks are processed\")\n            break\n\n        # Merge all chunks on 'date', 'lat', and 'lon'\n        merged_input = chunk_list[0]\n        for additional_chunk in chunk_list[1:]:\n            merged_input = merged_input.merge(additional_chunk, on=['lat', 'lon'], how='outer')\n\n        if len(merged_input) != len(chunk_list[0]):\n            raise ValueError(\n                f\"Row number mismatch: merged_input has {len(merged_input)} rows, \"\n                f\"but chunk_list[0] has {len(chunk_list[0])} rows. Ensure data alignment.\"\n            )\n\n        # print(\"merged_input.columns = \", merged_input.columns)\n\n        # Reorganize columns for model input\n        if \"swe_value\" in selected_columns:\n            selected_columns.remove(\"swe_value\")\n        desired_order = selected_columns + ['lat', 'lon']\n        used_input = merged_input[desired_order].reindex(columns=desired_order)\n        unused_input = merged_input[[\"lc_prop3\", \"lat\", \"lon\", \"date\"]]\n\n        # Predict on the merged input\n        predictions = predict_swe(model, used_input)\n        # print(f\"Predicted {len(predictions)} rows for chunk {chunk_idx + 1}\")\n\n        # Merge predictions with input\n        predictions_merged = merge_data(unused_input, predictions)\n\n        # Save predictions to output file incrementally\n        if chunk_idx == 0:\n            predictions_merged.to_csv(output_path, index=False, mode='w')\n        else:\n            predictions_merged.to_csv(output_path, index=False, mode='a', header=False)\n\n        chunk_idx += 1\n\n    print(f\"Prediction completed. Results saved to {output_path}\")\n\ndef predict_for_date(current_date, force: bool = False):\n    \"\"\"\n    Example callback function to predict SWE for a specific date.\n\n    Args:\n        current_date (datetime): The date to process.\n        force (bool): Whether to force processing even if conditions aren't met.\n    \"\"\"\n    current_date_str = current_date.strftime(\"%Y-%m-%d\")\n    print(f\">>>>>\\nPredicting SWE for day {current_date_str}\")\n    # Replace this with actual prediction logic\n    predict_in_batches(target_date=current_date_str,)\n\nif __name__ == \"__main__\":\n\tprocess_dates_in_range(\n        start_date=test_start_date,\n        end_date=test_end_date,\n        # start_date=\"2025-01-14\",\n        # end_date=\"2025-01-14\",\n        callback=predict_for_date,\n        force = True\n    )\n",
+  "history_output" : "/home/chetana\ntoday date = 2025-01-20\nStart day: 2025-01-13, End day: 2025-01-17\ntest start date:  2025-01-13\ntest end date:  2025-01-17\nProcessing date: 2025-01-13\n>>>>>\nPredicting SWE for day 2025-01-13\nUsing model: /home/chetana/models//wormhole_ETHole_latest.joblib\nFile '/home/chetana/data/output/test_data_predicted_latest_2025-01-13.csv' has been removed.\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-13.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-12.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-11.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-10.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-09.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-08.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-07.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-06.csv\nRead chunk 1 from day 1\nRead chunk 1 from day 2\nRead chunk 1 from day 3\nRead chunk 1 from day 4\nRead chunk 1 from day 5\nRead chunk 1 from day 6\nRead chunk 1 from day 7\nRead chunk 1 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 2 from day 1\nRead chunk 2 from day 2\nRead chunk 2 from day 3\nRead chunk 2 from day 4\nRead chunk 2 from day 5\nRead chunk 2 from day 6\nRead chunk 2 from day 7\nRead chunk 2 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 3 from day 1\nRead chunk 3 from day 2\nRead chunk 3 from day 3\nRead chunk 3 from day 4\nRead chunk 3 from day 5\nRead chunk 3 from day 6\nRead chunk 3 from day 7\nRead chunk 3 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 4 from day 1\nRead chunk 4 from day 2\nRead chunk 4 from day 3\nRead chunk 4 from day 4\nRead chunk 4 from day 5\nRead chunk 4 from day 6\nRead chunk 4 from day 7\nRead chunk 4 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 5 from day 1\nRead chunk 5 from day 2\nRead chunk 5 from day 3\nRead chunk 5 from day 4\nRead chunk 5 from day 5\nRead chunk 5 from day 6\nRead chunk 5 from day 7\nRead chunk 5 from day 8\nAssign -1 to fsca column..\nStart to predict (62204, 79)\nNo more chunks for day 1\nNo more chunks for day 2\nNo more chunks for day 3\nNo more chunks for day 4\nNo more chunks for day 5\nNo more chunks for day 6\nNo more chunks for day 7\nNo more chunks for day 8\nAll chunks are processed\nPrediction completed. Results saved to /home/chetana/data/output/test_data_predicted_latest_2025-01-13.csv\nProcessing date: 2025-01-14\n>>>>>\nPredicting SWE for day 2025-01-14\nUsing model: /home/chetana/models//wormhole_ETHole_latest.joblib\nFile '/home/chetana/data/output/test_data_predicted_latest_2025-01-14.csv' has been removed.\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-14.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-13.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-12.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-11.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-10.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-09.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-08.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-07.csv\nRead chunk 1 from day 1\nRead chunk 1 from day 2\nRead chunk 1 from day 3\nRead chunk 1 from day 4\nRead chunk 1 from day 5\nRead chunk 1 from day 6\nRead chunk 1 from day 7\nRead chunk 1 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 2 from day 1\nRead chunk 2 from day 2\nRead chunk 2 from day 3\nRead chunk 2 from day 4\nRead chunk 2 from day 5\nRead chunk 2 from day 6\nRead chunk 2 from day 7\nRead chunk 2 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 3 from day 1\nRead chunk 3 from day 2\nRead chunk 3 from day 3\nRead chunk 3 from day 4\nRead chunk 3 from day 5\nRead chunk 3 from day 6\nRead chunk 3 from day 7\nRead chunk 3 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 4 from day 1\nRead chunk 4 from day 2\nRead chunk 4 from day 3\nRead chunk 4 from day 4\nRead chunk 4 from day 5\nRead chunk 4 from day 6\nRead chunk 4 from day 7\nRead chunk 4 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 5 from day 1\nRead chunk 5 from day 2\nRead chunk 5 from day 3\nRead chunk 5 from day 4\nRead chunk 5 from day 5\nRead chunk 5 from day 6\nRead chunk 5 from day 7\nRead chunk 5 from day 8\nAssign -1 to fsca column..\nStart to predict (62204, 79)\nNo more chunks for day 1\nNo more chunks for day 2\nNo more chunks for day 3\nNo more chunks for day 4\nNo more chunks for day 5\nNo more chunks for day 6\nNo more chunks for day 7\nNo more chunks for day 8\nAll chunks are processed\nPrediction completed. Results saved to /home/chetana/data/output/test_data_predicted_latest_2025-01-14.csv\nProcessing date: 2025-01-15\n>>>>>\nPredicting SWE for day 2025-01-15\nUsing model: /home/chetana/models//wormhole_ETHole_latest.joblib\nFile '/home/chetana/data/output/test_data_predicted_latest_2025-01-15.csv' has been removed.\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-15.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-14.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-13.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-12.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-11.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-10.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-09.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-08.csv\nRead chunk 1 from day 1\nRead chunk 1 from day 2\nRead chunk 1 from day 3\nRead chunk 1 from day 4\nRead chunk 1 from day 5\nRead chunk 1 from day 6\nRead chunk 1 from day 7\nRead chunk 1 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 2 from day 1\nRead chunk 2 from day 2\nRead chunk 2 from day 3\nRead chunk 2 from day 4\nRead chunk 2 from day 5\nRead chunk 2 from day 6\nRead chunk 2 from day 7\nRead chunk 2 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 3 from day 1\nRead chunk 3 from day 2\nRead chunk 3 from day 3\nRead chunk 3 from day 4\nRead chunk 3 from day 5\nRead chunk 3 from day 6\nRead chunk 3 from day 7\nRead chunk 3 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 4 from day 1\nRead chunk 4 from day 2\nRead chunk 4 from day 3\nRead chunk 4 from day 4\nRead chunk 4 from day 5\nRead chunk 4 from day 6\nRead chunk 4 from day 7\nRead chunk 4 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 5 from day 1\nRead chunk 5 from day 2\nRead chunk 5 from day 3\nRead chunk 5 from day 4\nRead chunk 5 from day 5\nRead chunk 5 from day 6\nRead chunk 5 from day 7\nRead chunk 5 from day 8\nAssign -1 to fsca column..\nStart to predict (62204, 79)\nNo more chunks for day 1\nNo more chunks for day 2\nNo more chunks for day 3\nNo more chunks for day 4\nNo more chunks for day 5\nNo more chunks for day 6\nNo more chunks for day 7\nNo more chunks for day 8\nAll chunks are processed\nPrediction completed. Results saved to /home/chetana/data/output/test_data_predicted_latest_2025-01-15.csv\nProcessing date: 2025-01-16\n>>>>>\nPredicting SWE for day 2025-01-16\nUsing model: /home/chetana/models//wormhole_ETHole_latest.joblib\nFile '/home/chetana/data/output/test_data_predicted_latest_2025-01-16.csv' has been removed.\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-16.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-15.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-14.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-13.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-12.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-11.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-10.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-09.csv\nRead chunk 1 from day 1\nRead chunk 1 from day 2\nRead chunk 1 from day 3\nRead chunk 1 from day 4\nRead chunk 1 from day 5\nRead chunk 1 from day 6\nRead chunk 1 from day 7\nRead chunk 1 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 2 from day 1\nRead chunk 2 from day 2\nRead chunk 2 from day 3\nRead chunk 2 from day 4\nRead chunk 2 from day 5\nRead chunk 2 from day 6\nRead chunk 2 from day 7\nRead chunk 2 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 3 from day 1\nRead chunk 3 from day 2\nRead chunk 3 from day 3\nRead chunk 3 from day 4\nRead chunk 3 from day 5\nRead chunk 3 from day 6\nRead chunk 3 from day 7\nRead chunk 3 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 4 from day 1\nRead chunk 4 from day 2\nRead chunk 4 from day 3\nRead chunk 4 from day 4\nRead chunk 4 from day 5\nRead chunk 4 from day 6\nRead chunk 4 from day 7\nRead chunk 4 from day 8\nAssign -1 to fsca column..\nStart to predict (100000, 79)\nRead chunk 5 from day 1\nRead chunk 5 from day 2\nRead chunk 5 from day 3\nRead chunk 5 from day 4\nRead chunk 5 from day 5\nRead chunk 5 from day 6\nRead chunk 5 from day 7\nRead chunk 5 from day 8\nAssign -1 to fsca column..\nStart to predict (62204, 79)\nNo more chunks for day 1\nNo more chunks for day 2\nNo more chunks for day 3\nNo more chunks for day 4\nNo more chunks for day 5\nNo more chunks for day 6\nNo more chunks for day 7\nNo more chunks for day 8\nAll chunks are processed\nPrediction completed. Results saved to /home/chetana/data/output/test_data_predicted_latest_2025-01-16.csv\nProcessing date: 2025-01-17\n>>>>>\nPredicting SWE for day 2025-01-17\nUsing model: /home/chetana/models//wormhole_ETHole_latest.joblib\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-17.csv\nFile not found: /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-17.csv. Skipping this day.\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-16.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-15.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-14.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-13.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-12.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-11.csv\nLoading batches from  /home/chetana/data/gridmet_test_run/testing_all_ready_2025-01-10.csv\nRead chunk 1 from day 2\nRead chunk 1 from day 3\nRead chunk 1 from day 4\nRead chunk 1 from day 5\nRead chunk 1 from day 6\nRead chunk 1 from day 7\nRead chunk 1 from day 8\nError processing 2025-01-17: \"['SWE', 'relative_humidity_rmin', 'potential_evapotranspiration', 'air_temperature_tmmx', 'relative_humidity_rmax', 'mean_vapor_pressure_deficit', 'air_temperature_tmmn', 'wind_speed', 'Elevation', 'Aspect', 'Curvature', 'Northness', 'Eastness', 'fsca', 'Slope', 'water_year'] not in index\"\nTraceback (most recent call last):\n  File \"/home/chetana/gw-workspace/rpo2mwm4ntr/model_predict.py\", line 441, in <module>\n    process_dates_in_range(\n  File \"/home/chetana/gw-workspace/rpo2mwm4ntr/snowcast_utils.py\", line 276, in process_dates_in_range\n    raise ValueError(f\"Processing failed for the following dates: {', '.join(failed_dates)}\")\nValueError: Processing failed for the following dates: 2025-01-17\n",
+  "history_begin_time" : 1737332813889,
+  "history_end_time" : 1737333176376,
+  "history_notes" : null,
+  "history_process" : "h1qp9v",
+  "host_id" : "100001",
+  "indicator" : "Failed"
+},{
+  "history_id" : "j4l6h76mfw4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813019,
+  "history_end_time" : 1737332813019,
+  "history_notes" : null,
+  "history_process" : "urd0nk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fcdczfp0uwx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813023,
+  "history_end_time" : 1737332813023,
+  "history_notes" : null,
+  "history_process" : "525l8q",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "946ha7rno1c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813026,
+  "history_end_time" : 1737332813026,
+  "history_notes" : null,
+  "history_process" : "7temiv",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3exf1begfxn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813028,
+  "history_end_time" : 1737332813028,
+  "history_notes" : null,
+  "history_process" : "rmxece",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zofeoe48hgh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813030,
+  "history_end_time" : 1737332813030,
+  "history_notes" : null,
+  "history_process" : "illwc1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rtwdnnio97k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813032,
+  "history_end_time" : 1737332813032,
+  "history_notes" : null,
+  "history_process" : "sjs5by",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "uzpazxs9k4n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813035,
+  "history_end_time" : 1737332813035,
+  "history_notes" : null,
+  "history_process" : "y7nb46",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ptlnabhj14t",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813037,
+  "history_end_time" : 1737332813037,
+  "history_notes" : null,
+  "history_process" : "a8p3n7",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "17emd19lq2q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813039,
+  "history_end_time" : 1737332813039,
+  "history_notes" : null,
+  "history_process" : "smsdr0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "5gplkewsr1e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813042,
+  "history_end_time" : 1737332813042,
+  "history_notes" : null,
+  "history_process" : "4i0sop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "v6jadfscg6j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813044,
+  "history_end_time" : 1737332813044,
+  "history_notes" : null,
+  "history_process" : "b63prf",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "557zextybc5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813046,
+  "history_end_time" : 1737332813046,
+  "history_notes" : null,
+  "history_process" : "zh38b6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "luk0pe47a44",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813049,
+  "history_end_time" : 1737332813049,
+  "history_notes" : null,
+  "history_process" : "wdh394",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "y01md8ds2iu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813051,
+  "history_end_time" : 1737332813051,
+  "history_notes" : null,
+  "history_process" : "p87wh1",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "t561p8iwdxm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813053,
+  "history_end_time" : 1737332813053,
+  "history_notes" : null,
+  "history_process" : "ilbqzg",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "hd58epc4ctg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813056,
+  "history_end_time" : 1737332813056,
+  "history_notes" : null,
+  "history_process" : "do86ae",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "n1sp5jq4nb9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813058,
+  "history_end_time" : 1737332813058,
+  "history_notes" : null,
+  "history_process" : "gkhtc0",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ffhkyxvwicb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813060,
+  "history_end_time" : 1737332813060,
+  "history_notes" : null,
+  "history_process" : "lbd6cp",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "opsnet7yi7t",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813063,
+  "history_end_time" : 1737332813063,
+  "history_notes" : null,
+  "history_process" : "br9etb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gcno1t3fz0i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813065,
+  "history_end_time" : 1737332813065,
+  "history_notes" : null,
+  "history_process" : "c2xkhz",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "d9eyyvtk60l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813067,
+  "history_end_time" : 1737332813067,
+  "history_notes" : null,
+  "history_process" : "doinnd",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rusmbxfn8dz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813069,
+  "history_end_time" : 1737332813069,
+  "history_notes" : null,
+  "history_process" : "b7a4fu",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "y367befdmmm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813072,
+  "history_end_time" : 1737332813072,
+  "history_notes" : null,
+  "history_process" : "gnpbdq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ui4clh5d2ri",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813074,
+  "history_end_time" : 1737332813074,
+  "history_notes" : null,
+  "history_process" : "oon4sb",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "euxtsez47yw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813076,
+  "history_end_time" : 1737332813076,
+  "history_notes" : null,
+  "history_process" : "fa7e4u",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "2yy1g4na164",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813078,
+  "history_end_time" : 1737332813078,
+  "history_notes" : null,
+  "history_process" : "drwmbo",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zb0l20adkgo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813091,
+  "history_end_time" : 1737332813091,
+  "history_notes" : null,
+  "history_process" : "2n7b06",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "qfuf1b7lydm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813093,
+  "history_end_time" : 1737332813093,
+  "history_notes" : null,
+  "history_process" : "bwdy3s",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ovsu46tfm59",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1737333176361,
+  "history_notes" : null,
+  "history_process" : "2wkl6e",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "v7wzqno0mv7",
+  "history_input" : null,
+  "history_output" : null,
+  "history_begin_time" : null,
+  "history_end_time" : 1737333176369,
+  "history_notes" : null,
+  "history_process" : "i2fynz",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "42q0gfaqvr8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813106,
+  "history_end_time" : 1737332813106,
+  "history_notes" : null,
+  "history_process" : "2o6cp8",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l2737uxu2jc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813109,
+  "history_end_time" : 1737332813109,
+  "history_notes" : null,
+  "history_process" : "0n26v2",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "g0khhi3ojg6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813112,
+  "history_end_time" : 1737332813112,
+  "history_notes" : null,
+  "history_process" : "rvqv35",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7xcztsrf7o6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813123,
+  "history_end_time" : 1737332813123,
+  "history_notes" : null,
+  "history_process" : "vo8bc9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "sd84gzom1bz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813127,
+  "history_end_time" : 1737332813127,
+  "history_notes" : null,
+  "history_process" : "6evkh4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0eb2sg2pejx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813130,
+  "history_end_time" : 1737332813130,
+  "history_notes" : null,
+  "history_process" : "76ewp5",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ztzgsv53b69",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813152,
+  "history_end_time" : 1737332813152,
+  "history_notes" : null,
+  "history_process" : "5wzgx5",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "p4bxb98veou",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813155,
+  "history_end_time" : 1737332813155,
+  "history_notes" : null,
+  "history_process" : "d4zcq6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "fgqv80gllpq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813199,
+  "history_end_time" : 1737332813199,
+  "history_notes" : null,
+  "history_process" : "6x6myw",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "7hj4r0ax2xi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813206,
+  "history_end_time" : 1737332813206,
+  "history_notes" : null,
+  "history_process" : "r4knm9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "4pbcx1u3rql",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813221,
+  "history_end_time" : 1737332813221,
+  "history_notes" : null,
+  "history_process" : "9c573m",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "k0g1pt2g3td",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813224,
+  "history_end_time" : 1737332813224,
+  "history_notes" : null,
+  "history_process" : "ee5ur4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "tjsvdcuvp0k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813227,
+  "history_end_time" : 1737332813227,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "l90wx55vyx3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813234,
+  "history_end_time" : 1737332813234,
+  "history_notes" : null,
+  "history_process" : "83d2yv",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8aga95hffer",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813241,
+  "history_end_time" : 1737332813241,
+  "history_notes" : null,
+  "history_process" : "j8swco",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "1vzqot4vih5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813246,
+  "history_end_time" : 1737332813246,
+  "history_notes" : null,
+  "history_process" : "pnr64x",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "m9spvikrlro",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813250,
+  "history_end_time" : 1737332813250,
+  "history_notes" : null,
+  "history_process" : "qg80lj",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "j469f6m3qo9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813253,
+  "history_end_time" : 1737332813253,
+  "history_notes" : null,
+  "history_process" : "ggy7gf",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "27cjqwwkm70",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813256,
+  "history_end_time" : 1737332813256,
+  "history_notes" : null,
+  "history_process" : "c2qa9u",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "j8bxoyz7fvl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813258,
+  "history_end_time" : 1737332813258,
+  "history_notes" : null,
+  "history_process" : "lnrsop",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w7tzv02ivbv",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813261,
+  "history_end_time" : 1737332813261,
+  "history_notes" : null,
+  "history_process" : "c8isgf",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ijwm0e2ll1q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813263,
+  "history_end_time" : 1737332813263,
+  "history_notes" : null,
+  "history_process" : "16qpco",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jd27zb3nfnk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813266,
+  "history_end_time" : 1737332813266,
+  "history_notes" : null,
+  "history_process" : "1xdwd6",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "jok6zxzfjmi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813268,
+  "history_end_time" : 1737332813268,
+  "history_notes" : null,
+  "history_process" : "uw1w1u",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "w2zaphof1lt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813271,
+  "history_end_time" : 1737332813271,
+  "history_notes" : null,
+  "history_process" : "14bhpn",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "r5c4f6bsvs5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813273,
+  "history_end_time" : 1737332813273,
+  "history_notes" : null,
+  "history_process" : "pyn9xn",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "rnjog13zb3j",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813276,
+  "history_end_time" : 1737332813276,
+  "history_notes" : null,
+  "history_process" : "h1952i",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "8uh787yvy60",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813279,
+  "history_end_time" : 1737332813279,
+  "history_notes" : null,
+  "history_process" : "k1aoz3",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "s66ml2ua402",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813281,
+  "history_end_time" : 1737332813281,
+  "history_notes" : null,
+  "history_process" : "i66nk8",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "35vp4umzsxm",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813290,
+  "history_end_time" : 1737332813290,
+  "history_notes" : null,
+  "history_process" : "sacl4k",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nb995umez1w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813304,
+  "history_end_time" : 1737332813304,
+  "history_notes" : null,
+  "history_process" : "f86ae7",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "319n4zqfkd3",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813317,
+  "history_end_time" : 1737332813317,
+  "history_notes" : null,
+  "history_process" : "7ktwm9",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zg6fdwt9lgb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813322,
+  "history_end_time" : 1737332813322,
+  "history_notes" : null,
+  "history_process" : "04fgyq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "f51dmnjj5tb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813326,
+  "history_end_time" : 1737332813326,
+  "history_notes" : null,
+  "history_process" : "dwa3fy",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "0dgzudc211v",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1737332813329,
+  "history_end_time" : 1737332813329,
+  "history_notes" : null,
+  "history_process" : "gz5syq",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+}]

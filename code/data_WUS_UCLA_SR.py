@@ -1,5 +1,205 @@
 import os
+import subprocess
+import threading
+from datetime import datetime
+from datetime import timedelta
 
-print("get UCLA data and prepare it into csv")
+import requests
+import earthaccess
+from osgeo import gdal
+from snowcast_utils import date_to_julian, work_dir, data_dir, train_start_date, train_end_date
 
+# change directory before running the code
+os.chdir(f"{data_dir}/ucla/")
+
+input_folder = os.getcwd() + "/raw/"
+temp_folder = os.getcwd() + "/temp/"
+output_folder = os.getcwd() + "/output/"
+os.makedirs(input_folder, exist_ok=True)
+os.makedirs(temp_folder, exist_ok=True)
+os.makedirs(output_folder, exist_ok=True)
+
+
+def get_env_var_for_gdalwarp():
+    # if "PROJ_LIB" in os.environ:
+    #     os.environ.pop("PROJ_LIB")
+    #     print(f"Environment variable PROJ_LIB removed.")
+    os.environ["PROJ_LIB"] = "/home/chetana/miniconda/share/proj/"
+
+    if "GDAL_DATA" in os.environ:
+        os.environ.pop("GDAL_DATA")
+        print(f"Environment variable GDAL_DATA removed.")
+    return os.environ
+
+def convert_hdf_to_geotiff(hdf_file, output_folder):
+  hdf_ds = gdal.Open(hdf_file, gdal.GA_ReadOnly)
+
+# https://n5eil01u.ecs.nsidc.org/DP6/SNOWEX/WUS_UCLA_SR.001/2020.10.01/WUS_UCLA_SR_v01_N48_0W125_0_agg_16_WY2020_21_SWE_SCA_POST.nc
+  # Specific subdataset name you're interested in
+  target_subdataset_name = "MOD_Grid_Snow_500m:NDSI_Snow_Cover"
+  # Create a name for the output file based on the HDF file name and subdataset
+  output_file_name = os.path.splitext(os.path.basename(hdf_file))[0] + ".tif"
+  output_path = os.path.join(output_folder, output_file_name)
+
+  # student 1 changed something here
+
+  if os.path.exists(output_path):
+    pass
+    #print(f"The file {output_path} exists. skip.")
+  else:
+    for subdataset in hdf_ds.GetSubDatasets():
+      # Check if the subdataset is the one we want to convert
+      if target_subdataset_name in subdataset[0]:
+        ds = gdal.Open(subdataset[0], gdal.GA_ReadOnly)
+        # Convert to GeoTIFF
+        gdal.Translate(output_path, ds)
+        ds = None
+        break  # Exit the loop after converting the target subdataset
+
+  hdf_ds = None
+
+
+def convert_all_hdf_in_folder(folder_path, output_folder):
+  file_lst = list()
+  for file in os.listdir(folder_path):
+    file_lst.append(file)
+    if file.lower().endswith(".hdf"):
+      hdf_file = os.path.join(folder_path, file)
+      convert_hdf_to_geotiff(hdf_file, output_folder)
+      #print(f"Converted {file} to GeoTIFF")
+  return file_lst
+
+
+def merge_tifs(folder_path, target_date, output_file):
+  julian_date = date_to_julian(target_date)
+  print("target julian date", julian_date)
+  tif_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith('.tif') and julian_date in f]
+  if len(tif_files) == 0:
+    print(f"uh-oh, didn't find HDFs for date {target_date}")
+    print("generate a new csv file with empty values for each point")
+    gdal_command = ['gdal_translate', '-b', '1', '-outsize', '100%', '100%', '-scale', '0', '255', '200', '200', f"{output_folder}/fsca_template.tif", output_file]
+    print("Running ", " ".join(gdal_command))
+    subprocess.run(gdal_command, env=get_env_var_for_gdalwarp())
+    #raise ValueError(f"uh-oh, didn't find HDFs for date {target_date}")
+  else:
+    # gdal_command = ['gdal_merge.py', '-o', output_file, '-of', 'GTiff', '-r', 'cubic'] + tif_files
+    gdal_command = ['gdalwarp', '-r', 'min', ] + tif_files + [f"{output_file}_500m.tif"]
+    print("Running ", " ".join(gdal_command))
+    subprocess.run(gdal_command, env=get_env_var_for_gdalwarp())
+    # gdalwarp -s_srs EPSG:4326 -t_srs EPSG:4326 -tr 0.036 0.036  -cutline template.shp -crop_to_cutline -overwrite output_4km.tif output_4km_clipped.tif
+    gdal_command = ['gdalwarp', '-t_srs', 'EPSG:4326', '-tr', '0.036', '0.036', '-cutline', f'{work_dir}/template.shp', '-crop_to_cutline', '-overwrite', f"{output_file}_500m.tif", output_file]
+    print("Running ", " ".join(gdal_command))
+    subprocess.run(gdal_command, env=get_env_var_for_gdalwarp())
+
+
+def list_files(directory):
+  return [os.path.abspath(os.path.join(directory, f)) for f in os.listdir(directory) if
+          os.path.isfile(os.path.join(directory, f))]
+
+
+def merge_tiles(date, hdf_files):
+  path = f"data/{date}/"
+  files = list_files(path)
+  print(files)
+  merged_filename = f"data/{date}/merged.tif"
+  merge_command = ["gdal_merge.py", "-o", merged_filename, "-of", "GTiff"] + files
+  try:
+    subprocess.run(merge_command, env=get_env_var_for_gdalwarp())
+    print(f"Merged tiles into {merged_filename}")
+  except subprocess.CalledProcessError as e:
+    print(f"Error merging tiles: {e}")
+
+
+def download_url(date, url):
+  file_name = url.split('/')[-1]
+  if os.path.exists(f'data/{date}/{file_name}'):
+    print(f'File: {file_name} already exists, SKIPPING')
+    return
+  try:
+    os.makedirs('data/', exist_ok=True)
+    os.makedirs(f'data/{date}', exist_ok=True)
+    response = requests.get(url, stream=True)
+    with open(f'data/{date}/{file_name}', 'wb') as f:
+      for chunk in response.iter_content(chunk_size=8192):
+        if chunk:
+          f.write(chunk)
+
+    print(f"Downloaded {file_name}")
+  except Exception as e:
+    print(f"Error downloading {url}: {e}")
+
+
+def download_all(date, urls):
+  threads = []
+
+  for url in urls:
+    thread = threading.Thread(target=download_url, args=(date, url,))
+    thread.start()
+    threads.append(thread)
+
+  for thread in threads:
+    thread.join()
+
+
+def delete_files_in_folder(folder_path):
+  if not os.path.exists(folder_path):
+    print("Folder does not exist.")
+    return
+
+  for filename in os.listdir(folder_path):
+    file_path = os.path.join(folder_path, filename)
+    try:
+      if os.path.isfile(file_path) or os.path.islink(file_path):
+        os.unlink(file_path)
+      else:
+        print(f"Skipping {filename}, as it is not a file.")
+    except Exception as e:
+      print(f"Failed to delete {file_path}. Reason: {e}")
+
+
+def download_ucla_swe(start_date, end_date):
+  start_date = datetime.strptime(start_date, "%Y-%m-%d")
+  end_date = datetime.strptime(end_date, "%Y-%m-%d")
+
+  date_list = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
+  for i in date_list:
+    current_date = i.strftime("%Y-%m-%d")
+    target_output_tif = f'{output_folder}/{current_date}__ucla_swe.tif'
+    
+    if os.path.exists(target_output_tif):
+        file_size_bytes = os.path.getsize(target_output_tif)
+        print(f"file_size_bytes: {file_size_bytes}")
+        print(f"The file {target_output_tif} exists. skip.")
+    else:
+        print(f"The file {target_output_tif} does not exist.")
+        print("start to download files from NASA server to local")
+        earthaccess.login(strategy="netrc")
+        results = earthaccess.search_data(short_name="WUS_UCLA_SR", 
+                                          cloud_hosted=True, 
+                                          bounding_box=(-124.77, 24.52, -66.95, 49.38),
+                                          temporal=(current_date, current_date))
+
+        # SWE_SCA_POST
+        # Filter results to include only files related to SWE
+        # print(str(results[1]))
+        # swe_results = [
+        #     item for item in results
+        #     if "SWE_SCA" in str(item)
+        # ]
+        print(results)
+        earthaccess.download(results, input_folder)
+        print("done with downloading, start to convert HDF to geotiff..")
+
+        # convert_all_hdf_in_folder(input_folder, output_folder)
+        # print("done with conversion, start to merge geotiff tiles to one tif per day..")
+
+        # merge_tifs(folder_path=output_folder, target_date = current_date, output_file=target_output_tif)
+    #delete_files_in_folder(input_folder)  # cleanup
+    #delete_files_in_folder(output_folder)  # cleanup
+
+    
+if __name__ == "__main__":
+  # download_ucla_swe(train_start_date, train_end_date)
+  download_ucla_swe("2001-02-17", "2001-02-19")
+    
 

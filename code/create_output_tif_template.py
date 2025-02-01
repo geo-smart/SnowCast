@@ -2,6 +2,7 @@ import os
 import rasterio
 from rasterio.transform import from_origin
 import numpy as np
+from snowcast_utils import homedir
 
 def create_western_us_geotiff():
     """
@@ -22,7 +23,7 @@ def create_western_us_geotiff():
     data = np.zeros((height, width), dtype=np.float32)
     
     # Read the user's home directory
-    homedir = os.path.expanduser('~')
+    # homedir = os.path.expanduser('~')
     print(homedir)
 
     # Define the output filename

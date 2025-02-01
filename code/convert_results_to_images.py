@@ -15,9 +15,12 @@ import rasterio.features
 from rasterio.features import rasterize
 import os
 import math
+from datetime import datetime, timedelta
+
+from scipy.interpolate import griddata
 
 # Import utility functions and variables from 'snowcast_utils'
-from snowcast_utils import homedir, work_dir, test_start_date
+from snowcast_utils import data_dir, work_dir, plot_dir, output_dir, test_start_date, test_end_date,process_dates_in_range
 
 # Define a custom colormap with specified colors and ranges
 colors = [
@@ -44,6 +47,74 @@ lat_min, lat_max = 25, 49.5
 
 # Define value ranges for color mapping
 fixed_value_ranges = [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 30]
+
+import os
+import requests
+import zipfile
+
+def download_and_unzip_shapefile(url, output_dir):
+    """
+    Download and unzip a shapefile from the given URL.
+
+    Args:
+        url (str): URL of the zip file containing the shapefile.
+        output_dir (str): Directory to save the downloaded file and its contents.
+
+    Returns:
+        str: Path to the extracted shapefile directory.
+    """
+    # Ensure the output directory exists
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Define the file paths
+    zip_file_path = os.path.join(output_dir, "tl_2023_us_state.zip")
+
+    print(f"Step 1: Downloading shapefile from {url}...")
+    # Download the zip file
+    response = requests.get(url, stream=True)
+    response.raise_for_status()  # Raise an error if the download fails
+    with open(zip_file_path, "wb") as file:
+        for chunk in response.iter_content(chunk_size=8192):
+            file.write(chunk)
+
+    print(f"Step 2: Download complete. Saved to {zip_file_path}")
+
+    # Extract the zip file
+    print(f"Step 3: Extracting files to {output_dir}...")
+    with zipfile.ZipFile(zip_file_path, "r") as zip_ref:
+        zip_ref.extractall(output_dir)
+
+    print("Step 4: Extraction complete.")
+    return output_dir
+
+def retrieve_state_boundary():
+    """
+    Retrieve the state boundary shapefile.
+    Downloads and extracts the file only if it doesn't already exist.
+
+    Returns:
+        str: Absolute path to the main shapefile.
+    """
+    # URL of the shapefile zip
+    shapefile_url = "https://www2.census.gov/geo/tiger/TIGER2023/STATE/tl_2023_us_state.zip"
+
+    # Output directory for the downloaded and extracted files
+    output_directory = os.path.join(data_dir, "shapefiles", "tl_2023_us_state")
+    os.makedirs(output_directory, exist_ok=True)
+
+    # Path to the main shapefile
+    shapefile_path = os.path.join(output_directory, "tl_2023_us_state.shp")
+
+    # Check if the shapefile already exists
+    if os.path.exists(shapefile_path):
+        print(f"Shapefile already exists at: {shapefile_path}. Skipping download.")
+    else:
+        print("Shapefile not found. Downloading...")
+        # Download and unzip the shapefile
+        extracted_dir = download_and_unzip_shapefile(shapefile_url, output_directory)
+        print(f"Shapefile extracted to: {extracted_dir}")
+    
+    return os.path.abspath(shapefile_path)
 
 # Define the lat_lon_to_map_coordinates function
 def lat_lon_to_map_coordinates(lon, lat, m):
@@ -102,7 +173,7 @@ def create_color_maps_with_value_range(df_col, value_ranges=None):
     color_mapping = [map_value_to_color(value) for value in df_col.values]
     return color_mapping, new_value_ranges
 
-def convert_csvs_to_images():
+def convert_csvs_to_images(input_csv: str = None, new_plot_path: str = None):
     """
     Convert CSV data to images with color-coded SWE predictions.
 
@@ -110,7 +181,10 @@ def convert_csvs_to_images():
         None
     """
     global fixed_value_ranges
-    data = pd.read_csv(f"{homedir}/gridmet_test_run/test_data_predicted_n97KJ.csv")
+    if input_csv is None:
+        input_csv = f"{work_dir}/test_data_predicted_n97KJ.csv"
+    
+    data = pd.read_csv(input_csv)
     print("statistic of predicted_swe: ", data['predicted_swe'].describe())
     data['predicted_swe'].fillna(0, inplace=True)
     
@@ -125,6 +199,9 @@ def convert_csvs_to_images():
 
     m = Basemap(llcrnrlon=lon_min, llcrnrlat=lat_min, urcrnrlon=lon_max, urcrnrlat=lat_max,
                 projection='merc', resolution='i')
+
+    if "Latitude" in data.columns and "Longitude" in data.columns:
+        data.rename(columns={"Latitude": "lat", "Longitude": "lon"}, inplace=True)
 
     x, y = m(data['lon'].values, data['lat'].values)
     print(data.columns)
@@ -155,13 +232,13 @@ def convert_csvs_to_images():
 
     # Add longitude values to the x-axis and adjust font size
     x_ticks_labels = np.arange(lon_min, lon_max + 5, 5)
-    x_tick_labels_str = [f"{lon:.1f}°W" if lon < 0 else f"{lon:.1f}°E" for lon in x_ticks_labels]
+    x_tick_labels_str = [f"{lon:.1f}??W" if lon < 0 else f"{lon:.1f}??E" for lon in x_ticks_labels]
     plt.xticks(*m(x_ticks_labels, [lat_min] * len(x_ticks_labels)), fontsize=6)
     plt.gca().set_xticklabels(x_tick_labels_str)
 
     # Add latitude values to the y-axis and adjust font size
     y_ticks_labels = np.arange(lat_min, lat_max + 5, 5)
-    y_tick_labels_str = [f"{lat:.1f}°N" if lat >= 0 else f"{abs(lat):.1f}°S" for lat in y_ticks_labels]
+    y_tick_labels_str = [f"{lat:.1f}??N" if lat >= 0 else f"{abs(lat):.1f}??S" for lat in y_ticks_labels]
     plt.yticks(*m([lon_min] * len(y_ticks_labels), y_ticks_labels), fontsize=6)
     plt.gca().set_yticklabels(y_tick_labels_str)
 
@@ -169,7 +246,7 @@ def convert_csvs_to_images():
     y_tick_positions = np.linspace(lat_min, lat_max, len(y_ticks_labels))
     y_tick_positions_map_x, y_tick_positions_map_y = lat_lon_to_map_coordinates([lon_min] * len(y_ticks_labels), y_tick_positions, m)
     y_tick_positions_lat, _ = m(y_tick_positions_map_x, y_tick_positions_map_y, inverse=True)
-    y_tick_positions_lat_str = [f"{lat:.1f}°N" if lat >= 0 else f"{abs(lat):.1f}°S" for lat in y_tick_positions_lat]
+    y_tick_positions_lat_str = [f"{lat:.1f}??N" if lat >= 0 else f"{abs(lat):.1f}??S" for lat in y_tick_positions_lat]
     plt.yticks(y_tick_positions_map_y, y_tick_positions_lat_str, fontsize=6)
 
     # Create custom legend elements using the same colormap
@@ -182,7 +259,7 @@ def convert_csvs_to_images():
     # Remove the color bar
     #plt.colorbar().remove()
 
-    plt.text(0.98, 0.02, 'Copyright © SWE Wormhole Team',
+    plt.text(0.98, 0.02, 'Copyright ?? SWE Wormhole Team',
              horizontalalignment='right', verticalalignment='bottom',
              transform=plt.gcf().transFigure, fontsize=6, color='black')
 
@@ -192,7 +269,9 @@ def convert_csvs_to_images():
     # Adjust the bottom and top margins to create more white space between the title and the plot
     plt.subplots_adjust(bottom=0.15, right=0.80)  # Adjust right margin to accommodate the legend
     # Show the plot or save it to a file
-    new_plot_path = f'{homedir}/gridmet_test_run/predicted_swe-{test_start_date}.png'
+    if new_plot_path is None:
+        new_plot_path = f'{work_dir}/predicted_swe-{test_start_date}.png'
+    
     print(f"The new plot is saved to {new_plot_path}")
     plt.savefig(new_plot_path)
     # plt.show()  # Uncomment this line if you want to display the plot directly instead of saving it to a file
@@ -211,7 +290,8 @@ def plot_all_variables_in_one_csv(csv_path, res_png_path, target_date = test_sta
       inplace=True)
     
   	# Create subplots with a number of rows based on the number of columns in the DataFrame
-    us_boundary = gpd.read_file('/home/chetana/gridmet_test_run/tl_2023_us_state.shp')
+    
+    us_boundary = gpd.read_file(retrieve_state_boundary())
     us_boundary_clipped = us_boundary.cx[lon_min:lon_max, lat_min:lat_max]
 	
     lat_col = result_var_df[["lat"]]
@@ -289,11 +369,16 @@ def plot_all_variables_in_one_csv(csv_path, res_png_path, target_date = test_sta
     
 def plot_all_variables_in_one_figure_for_date(target_date=test_start_date):
   	selected_date = datetime.strptime(target_date, "%Y-%m-%d")
-  	test_csv = f"{homedir}/gridmet_test_run/test_data_predicted_latest.csv"
-  	res_png_path = f"{work_dir}/testing_output/{str(selected_date.year)}_all_variables_{target_date}.png"
+  	test_csv = f"{output_dir}/test_data_predicted_latest.csv"
+  	res_png_path = f"{plot_dir}/{str(selected_date.year)}_all_variables_{target_date}.png"
   	plot_all_variables_in_one_csv(test_csv, res_png_path, target_date)
     
-def convert_csvs_to_images_simple(target_date=test_start_date, column_name = "predicted_swe"):
+def convert_csvs_to_images_simple(
+    target_date=test_start_date, 
+    column_name = "predicted_swe", 
+    test_csv: str = None,
+    res_png_path: str = None,
+):
     """
     Convert CSV data to simple scatter plot images for predicted SWE.
 
@@ -303,15 +388,37 @@ def convert_csvs_to_images_simple(target_date=test_start_date, column_name = "pr
     
     selected_date = datetime.strptime(target_date, "%Y-%m-%d")
     var_name = column_name
-    test_csv = f"{homedir}/gridmet_test_run/test_data_predicted_latest.csv"
+    if test_csv is None:
+        test_csv = f"{output_dir}/test_data_predicted_latest_{target_date}.csv_snodas_mask.csv"
+
+    # Extract the directory from the target path
+    target_plot_dir = os.path.dirname(test_csv)
+
+    # Create all layers of directories if they don't exist
+    os.makedirs(target_plot_dir, exist_ok=True)
+
+    if res_png_path is None:
+        res_png_path = f"{plot_dir}/{str(selected_date.year)}_{var_name}_{target_date}.png"
+    
     result_var_df = pd.read_csv(test_csv)
     # Convert the 'date' column to datetime
-    result_var_df['date'] = pd.to_datetime(result_var_df['date'])
+    if 'date_x' in result_var_df.columns and 'date_y' in result_var_df.columns:
+        # Drop one of the date columns (let's drop 'date_y')
+        result_var_df.drop(columns=['date_y'], inplace=True)
+        
+        # Rename 'date_x' to 'date'
+        result_var_df.rename(columns={'date_x': 'date'}, inplace=True)
+    
+    if 'date' in result_var_df.columns:
+        result_var_df['date'] = pd.to_datetime(result_var_df['date'])
 
     # Filter the DataFrame based on the target date
     result_var_df[var_name] = pd.to_numeric(result_var_df[var_name], errors='coerce')
     
     colormaplist, value_ranges = create_color_maps_with_value_range(result_var_df[var_name], fixed_value_ranges)
+
+    if "Latitude" in result_var_df.columns and "Longitude" in result_var_df.columns:
+        result_var_df.rename(columns={"Latitude": "lat", "Longitude": "lon"}, inplace=True)
 
     # Create a scatter plot
     plt.scatter(result_var_df["lon"].values, 
@@ -325,8 +432,6 @@ def convert_csvs_to_images_simple(target_date=test_start_date, column_name = "pr
                 edgecolor='none',
                )
 
-    
-    
     # Add a colorbar
     cbar = plt.colorbar()
     cbar.set_label(column_name)  # Label for the colorbar
@@ -337,105 +442,131 @@ def convert_csvs_to_images_simple(target_date=test_start_date, column_name = "pr
     plt.title(f'{column_name} - {target_date}')
     plt.legend(loc='lower left')
     
-    us_boundary = gpd.read_file('/home/chetana/gridmet_test_run/tl_2023_us_state.shp')
+    us_boundary = gpd.read_file(retrieve_state_boundary())
     us_boundary_clipped = us_boundary.cx[lon_min:lon_max, lat_min:lat_max]
 
     us_boundary_clipped.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
 
-    res_png_path = f"{work_dir}/testing_output/{str(selected_date.year)}_{var_name}_{target_date}.png"
+    
     plt.savefig(res_png_path)
     print(f"test image is saved at {res_png_path}")
     plt.close()
 
-
-def convert_csv_to_geotiff(target_date = test_start_date):
+def convert_csv_to_geotiff(
+    target_date,
+    test_csv: str = None,
+    target_geotiff_file: str = None,
+    output_dir: str = ".",
+    resolution: float = 0.01,  # Define the grid resolution
+):
     # Load your CSV file
-    test_csv = f"{homedir}/gridmet_test_run/test_data_predicted_latest_{target_date}.csv"
+    if test_csv is None:
+        test_csv = f"{output_dir}/test_data_predicted_latest_{target_date}.csv"
     
     result_var_df = pd.read_csv(test_csv)
     result_var_df.rename(
-      columns={
-        'Latitude': 'lat', 
-        'Longitude': 'lon',
-        'gridmet_lat': 'lat',
-        'gridmet_lon': 'lon',
-      }, 
-      inplace=True)
+        columns={
+            'Latitude': 'lat',
+            'Longitude': 'lon',
+            'gridmet_lat': 'lat',
+            'gridmet_lon': 'lon',
+        },
+        inplace=True
+    )
 
     # Specify the output GeoTIFF file
-    target_geotiff_file = f"{homedir}/gridmet_test_run/testing_output/swe_predicted_{target_date}.tif"
+    if target_geotiff_file is None:
+        target_geotiff_file = f"{output_dir}/swe_predicted_{target_date}.tif"
 
+    target_plot_dir = os.path.dirname(target_geotiff_file)
+    os.makedirs(target_plot_dir, exist_ok=True)
+
+    # Extract latitude, longitude, and variable of interest
     df = result_var_df[["lat", "lon", "predicted_swe"]]
-    
-    # Extract latitude, longitude, and snow columns
     latitude = df['lat'].values
     longitude = df['lon'].values
-    
     swe = df['predicted_swe'].values
 
-    # Define the resolution and bounding box of the GeoTIFF
-#     resolution = 0.036  # adjust as needed
-#     min_longitude, max_latitude = min(longitude), max(latitude)
-#     max_longitude, min_latitude = max(longitude), min(latitude)
+    # Define raster grid bounds and resolution
+    lat_min, lat_max = latitude.min(), latitude.max()
+    lon_min, lon_max = longitude.min(), longitude.max()
 
-#     # Calculate the width and height of the GeoTIFF
-#     width = int((max_longitude - min_longitude) / resolution)
-#     height = int((max_latitude - min_latitude) / resolution)
-#     print("width: ", width, " - height: ", height)
-    
-#     print(f"Environment variables: {os.environ}")
-#     os.environ["PROJ_LIB"] = f"{homedir}/anaconda3/lib/python3.9/site-packages/rasterio/proj_data"
-#     print(f"Updated Environment variables: {os.environ}")
-    
-    # Create a transformation for the GeoTIFF
-#     transform = from_origin(min_longitude, max_latitude, resolution, resolution)
-#     projection = CRS.from_string("EPSG:4326")
-#     print(projection)
-    
-    
-    
-    dem_file = f"{homedir}/gridmet_test_run/dem_file.tif"
-    with rasterio.open(dem_file) as dataset:
-        # Read the DEM data as a numpy array
-        dem_data = dataset.read(1)
-        # Print the shape of the raster data
-        print("Shape of the raster data:", dem_data.shape)
+    # Create the raster grid
+    lon_grid, lat_grid = np.meshgrid(
+        np.arange(lon_min, lon_max, resolution),
+        np.arange(lat_min, lat_max, resolution)
+    )
 
-        # Print information about the raster dataset
-        print("Raster Dataset Information:")
-        print("Driver:", dataset.driver)
-        print("CRS (Coordinate Reference System):", dataset.crs)
-        print("Transform (Affine Matrix):", dataset.transform)
-        print("Number of Bands:", dataset.count)
-        print("Data Type:", dataset.dtypes[0])  # Assuming a single band, use [0]
-        print("Nodata Value:", dataset.nodatavals[0])  # Assuming a single band, use [0]
-        # Read metadata from the original file
-        meta = dataset.meta
+    # Interpolate data to the grid
+    grid_swe = griddata(
+        (longitude, latitude),  # Input coordinates
+        swe,                   # Input values
+        (lon_grid, lat_grid),  # Grid coordinates
+        method='linear'        # Interpolation method: 'linear', 'nearest', 'cubic'
+    )
 
-        # Update metadata for the new data
-        meta.update(dtype='float32', count=1)
-        new_data = swe.reshape((666, 694))
+    # Flip the grid vertically to align with raster conventions
+    grid_swe = np.flipud(grid_swe)
 
-        # Create a new GeoTIFF file for writing
-        with rasterio.open(target_geotiff_file, 'w', **meta) as dst:
-            # Write the new 2D array to the new GeoTIFF file
-            dst.write(new_data, 1)
-        
-    print("df['predicted_swe'].shape: ", df.shape)
-    print(f"GeoTIFF file '{target_geotiff_file}' created successfully.")
-    
+    # Define transform for the raster
+    transform = from_origin(
+        lon_min, lat_max,  # Upper-left corner
+        resolution, resolution  # Pixel size
+    )
+
+    # Save the GeoTIFF
+    with rasterio.open(
+        target_geotiff_file,
+        'w',
+        driver='GTiff',
+        height=grid_swe.shape[0],
+        width=grid_swe.shape[1],
+        count=1,  # Number of bands
+        dtype=grid_swe.dtype,
+        crs="EPSG:4326",  # WGS84 Latitude/Longitude
+        transform=transform
+    ) as dst:
+        dst.write(grid_swe, 1)  # Write the raster data to the first band
+
+    print(f"GeoTIFF saved to {target_geotiff_file}")
+
+def process_swe_prediction(current_date):
+    """
+    Example callback function to process SWE prediction for a specific date.
+
+    Args:
+        current_date (datetime): The date to process.
+        output_dir (str): Directory for output files.
+        plot_dir (str): Directory for plot files.
+    """
+    current_date_str = current_date.strftime("%Y-%m-%d")
+    test_csv = f"{output_dir}/test_data_predicted_latest_{current_date_str}.csv_snodas_mask.csv"
+
+    if not os.path.exists(test_csv):
+        print(f"Warning: {test_csv} is missing. Skipping this day.")
+        return
+
+    # Example processing steps
+    convert_csvs_to_images_simple(current_date_str, test_csv=test_csv)
+    convert_csv_to_geotiff(
+        current_date_str,
+        test_csv=test_csv,
+        target_geotiff_file=f"{output_dir}/swe_predicted_{current_date_str}.tif",
+    )
+
+
 if __name__ == "__main__":
     # Uncomment the function call you want to use:
     #convert_csvs_to_images()
     
     #test_start_date = "2022-10-09"
-
-    # plot the predicted SWE first
-    convert_csvs_to_images_simple(test_start_date)
-
-    # skip the long figure plot for now. this is too slow as someone is competiting resources with me.
-    # plot_all_variables_in_one_figure_for_date(test_start_date)
-    
-    convert_csv_to_geotiff(test_start_date)
+    process_dates_in_range(
+        # start_date="2025-01-14",
+        # end_date="2025-01-14",
+        start_date=test_start_date,
+        end_date=test_end_date,
+        days_look_back=0,
+        callback=process_swe_prediction,
+    )
 
 

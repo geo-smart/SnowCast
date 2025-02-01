@@ -6,11 +6,56 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
+def create_folders(folder_path):
+    """
+    Create all layers of folders if they don't exist.
+    
+    :param folder_path: Path to the folder (string).
+    """
+    os.makedirs(folder_path, exist_ok=True)
+
+# read the grid geometry file
+homedir = os.path.expanduser('~')
+# homedir = "/media/volume1/swe/data/"
+# homedir = "/groups/ESS3/zsun/swe/"
+print(homedir)
+github_dir = f"{homedir}/../code/SnowCast"
+data_dir = f"{homedir}/data"
+work_dir = f"{data_dir}/gridmet_test_run"
+model_dir = f"{homedir}/models/"
+plot_dir = f"{homedir}/plots/"
+output_dir = f"{data_dir}/output"
+code_dir = f"{homedir}/Documents/GitHub/SnowCast"
+snowcast_github_dir = f"{code_dir}"
+fsca_dir = f"{data_dir}/fsca"
+
+create_folders(model_dir)
+create_folders(plot_dir)
+create_folders(output_dir)
+create_folders(fsca_dir)
+
+# user-defined paths for data-access
+github_data_dir = f'{snowcast_github_dir}data/'
+gridcells_file = github_data_dir+'snowcast_provided/grid_cells_eval.geojson'
+#stations_file = data_dir+'snowcast_provided/ground_measures_metadata.csv'
+stations_file = f"{github_data_dir}/all_snotel_cdec_stations_active_in_westus.csv"
+supplement_point_for_correction_file = f"{work_dir}/salt_pepper_points_for_training.csv"
+#stations_file = github_data_dir+'snowcast_provided/ground_measures_metadata.csv'
+all_training_points_with_station_and_non_station_file = f"{github_data_dir}/all_training_points_in_westus.csv"
+all_training_points_with_snotel_ghcnd_file = f"{github_data_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
+gridcells_outfile = github_data_dir+'terrain/gridcells_terrainData_eval.csv'
+#stations_outfile = f"{github_data_dir}/training_all_active_snotel_station_list_elevation.csv_terrain_4km_grid_shift.csv"
+stations_outfile = f"{github_data_dir}/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv"
+
+interrupt_on_fail = False
+
 today = date.today()
 
 # dd/mm/YY
 d1 = today.strftime("%Y-%m-%d")
 print("today date =", d1)
+
+cumulative_mode = False  # cumulative no long makes sense, we only need the past 7 days of data exists
 
 # -125, 25, -100, 49
 southwest_lon = -125.0
@@ -19,35 +64,41 @@ northeast_lon = -100.0
 northeast_lat = 49.0
 
 # the training period is three years from 2018 to 2021
-train_start_date = "2018-01-03"
-train_end_date = "2021-12-31"
+train_start_date = "2002-01-01"
+train_end_date = "2024-12-31"
 
 def get_operation_day():
-  # Get the current date and time
-  current_date = datetime.now()
+    # Check if "SWE_FORECASTING_DATE" environment variable is set
+    swe_forecasting_start_date = os.environ.get("SWE_FORECASTING_START_DATE")
+    swe_forecasting_end_date = os.environ.get("SWE_FORECASTING_END_DATE")
 
-  # Calculate three days ago
-  three_days_ago = current_date - timedelta(days=3)
+    if swe_forecasting_start_date:
+        # Return the date from the environment variable
+        print(swe_forecasting_start_date, swe_forecasting_end_date)
+        return swe_forecasting_start_date, swe_forecasting_end_date
+    else:
+        # Calculate 10 days ago as the start day
+        current_date = datetime.now()
+        start_day = current_date - timedelta(days=7)
+        end_day = current_date - timedelta(days=3)
 
-  # Format the date as a string
-  three_days_ago_string = three_days_ago.strftime("%Y-%m-%d")
+        # Format dates as strings in "YYYY-MM-DD" format
+        start_day_string = start_day.strftime("%Y-%m-%d")
+        end_day_string = end_day.strftime("%Y-%m-%d")
 
-  print(three_days_ago_string)
-  return three_days_ago_string
+        print(f"Start day: {start_day_string}, End day: {end_day_string}")
+        
+        return start_day_string, end_day_string
 
-test_start_date = get_operation_day()
-#test_start_date = "2024-03-20" # use this for debugging and generating SWE map for specific day
-test_end_date = "2024-5-19"
+# Get the start and end dates
+# test_start_date, test_end_date = get_operation_day()
+
+test_start_date, test_end_date = "2025-01-01", "2025-01-30"
+
 #test_end_date = d1
 print("test start date: ", test_start_date)
 print("test end date: ", test_end_date)
 
-# read the grid geometry file
-homedir = os.path.expanduser('~')
-print(homedir)
-github_dir = f"{homedir}/Documents/GitHub/SnowCast"
-
-work_dir = f"{homedir}/gridmet_test_run"
 
 # Define a function to convert the month to season
 def month_to_season(month):
@@ -187,7 +238,49 @@ def date_to_julian(date_str):
     julian_format = str('%d%03d' % (tt.tm_year, tt.tm_yday))
 
     return julian_format
-  
+
+from datetime import datetime, timedelta
+import os
+
+def process_dates_in_range(
+    start_date: str,
+    end_date: str,
+    days_look_back: int,
+    callback: callable,
+    **callback_kwargs,
+):
+    """
+    Utility function to iterate over a range of dates and execute a callback for each date.
+
+    Args:
+        start_date (str): Start date in "YYYY-MM-DD" format.
+        end_date (str): End date in "YYYY-MM-DD" format.
+        callback (callable): A function to be executed for each date.
+        **callback_kwargs: Additional arguments to be passed to the callback function.
+    
+    Raises:
+        ValueError: If any errors occurred during the processing of the dates.
+    """
+    start_date = datetime.strptime(start_date, "%Y-%m-%d")
+    if days_look_back is None:
+        days_look_back = 0
+    start_date = start_date - timedelta(days=days_look_back)
+    end_date = datetime.strptime(end_date, "%Y-%m-%d")
+    current_date = start_date
+    failed_dates = []
+
+    while current_date <= end_date:
+        try:
+            print(f"Processing date: {current_date.strftime('%Y-%m-%d')}")
+            callback(current_date, **callback_kwargs)
+        except Exception as e:
+            print(f"Error processing {current_date.strftime('%Y-%m-%d')}: {str(e)}")
+            failed_dates.append(current_date.strftime('%Y-%m-%d'))
+        current_date += timedelta(days=1)
+
+    if failed_dates and interrupt_on_fail:
+        raise ValueError(f"Processing failed for the following dates: {', '.join(failed_dates)}")
+
 
 if __name__ == "__main__":
     print(date_to_julian(test_start_date))

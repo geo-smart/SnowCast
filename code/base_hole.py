@@ -10,9 +10,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 import shutil
+from snowcast_utils import homedir, work_dir, code_dir, model_dir
 
-homedir = os.path.expanduser('~')
-github_dir = f"{homedir}/Documents/GitHub/SnowCast"
+# homedir = os.path.expanduser('~')
 
 class BaseHole:
     '''
@@ -30,7 +30,8 @@ class BaseHole:
         save_file (str): The path to save the trained model.
     '''
 
-    all_ready_file = f"{github_dir}/data/ready_for_training/all_ready_new.csv"
+    training_data_path = f"{code_dir}/data/ready_for_training/all_ready_new.csv"
+
 
     def __init__(self):
         '''
@@ -44,6 +45,7 @@ class BaseHole:
         self.test_y = None
         self.test_y_results = None
         self.save_file = None
+        self.latest_model_file = f"{model_dir}/wormhole_{self.holename}_latest.joblib"
     
     def save(self):
         '''
@@ -54,7 +56,7 @@ class BaseHole:
         '''
         now = datetime.now()
         date_time = now.strftime("%Y%d%m%H%M%S")
-        self.save_file = f"{github_dir}/model/wormhole_{self.holename}_{date_time}.joblib"
+        self.save_file = f"{model_dir}/wormhole_{self.holename}_{date_time}.joblib"
         
         directory = os.path.dirname(self.save_file)
         if not os.path.exists(directory):
@@ -63,9 +65,9 @@ class BaseHole:
         print(f"Saving model to {self.save_file}")
         joblib.dump(self.classifier, self.save_file)
         # copy a version to the latest file placeholder
-        latest_copy_file = f"{github_dir}/model/wormhole_{self.holename}_latest.joblib"
-        shutil.copy(self.save_file, latest_copy_file)
-        print(f"a copy of the model is saved to {latest_copy_file}")
+        
+        shutil.copy(self.save_file, self.latest_model_file)
+        print(f"a copy of the model is saved to {self.latest_model_file}")
   
     def preprocessing(self):
         '''
@@ -74,7 +76,7 @@ class BaseHole:
         Returns:
             None
         '''
-        all_ready_pd = pd.read_csv(self.all_ready_file, header=0, index_col=0)
+        all_ready_pd = pd.read_csv(self.training_data_path, header=0, index_col=0)
         print("all columns: ", all_ready_pd.columns)
         all_ready_pd = all_ready_pd[all_cols]
         all_ready_pd = all_ready_pd.dropna()
@@ -130,6 +132,18 @@ class BaseHole:
             object: The machine learning model.
         '''
         pass
+
+    def load_model(self):
+        """
+        Load a machine learning model from a file.
+
+        Args:
+            model_path (str): Path to the saved model file.
+
+        Returns:
+            model: The loaded machine learning model.
+        """
+        self.classifier = joblib.load(self.latest_model_file)
   
     def post_processing(self):
         '''

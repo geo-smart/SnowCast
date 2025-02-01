@@ -8,19 +8,6 @@ import dask.dataframe as dd
 # Set Pandas options to display all columns
 pd.set_option('display.max_columns', None)
 
-# Define file paths for various CSV files
-# current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'
-current_ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_ghcnd.csv_sorted_slope_corrected.csv'
-non_station_counted_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_fill_empty_snotel.csv'
-cleaned_csv_path = f"{work_dir}/snotel_ghcnd_stations_4yrs_cleaned.csv"
-target_time_series_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_time_series.csv'
-backup_time_series_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_time_series_backup.csv'
-# target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'
-target_time_series_cumulative_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_cumulative.csv'
-slope_renamed_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_slope_renamed.csv'
-logged_csv_path = f'{work_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv'
-deduplicated_csv_path = f'{work_dir}/deduplicated_training_points_final.csv'
-
 
 def array_describe(arr):
     """
@@ -245,6 +232,8 @@ def assign_zero_swe_value_to_all_fsca_zero_rows(na_filled_csv, non_station_zero_
     
     
     df = pd.read_csv(na_filled_csv, dtype={'station_name': 'object'})
+    if target_column not in df.columns:
+      df[target_column] = 0
     empty_count = df[target_column].isnull().values.ravel().sum()
     
     print(f"The empty number of rows are {empty_count} before filling in")
@@ -311,32 +300,74 @@ def log10_all_fields(cleaned_csv_path, logged_csv_path, force=False):
     print(f"The log10 file is saved to {logged_csv_path}")
 
 
-if __name__ == "__main__":
-    
-    # filling the non station rows with fsca indicating no snow
-    assign_zero_swe_value_to_all_fsca_zero_rows(current_ready_csv_path, non_station_counted_csv_path, force=True)
-    
-    # remove the empty swe_value rows first
-    clean_non_swe_rows(non_station_counted_csv_path, cleaned_csv_path, force=True)
-  
-    # Uncomment this line to execute the 'convert_to_time_series' function
-    convert_to_time_series(cleaned_csv_path, target_time_series_csv_path, force=True)
+def merge_all_training_csvs(large_training_csv, small_training_csv, final_all_point_training_csv):
+  # Load the first CSV file
+  df1 = pd.read_csv(large_training_csv)
 
-    # Uncomment this line to execute the 'add_cumulative_columns' function
-    add_cumulative_columns(target_time_series_csv_path, target_time_series_cumulative_csv_path, force=True)
+  # Load the second CSV file
+  df2 = pd.read_csv(small_training_csv)
+
+  # Identify columns missing in the second CSV and add them with zeros
+  missing_columns = set(df1.columns) - set(df2.columns)
+  print("missing_columns = ", missing_columns)
+  for col in missing_columns:
+      df2[col] = 0
+
+  # Reorder columns in the second CSV to match the first CSV
+  df2 = df2[df1.columns]
+
+  # Merge the two dataframes by appending rows of df2 to df1
+  df_merged = pd.concat([df1, df2], ignore_index=True)
+
+  # Remove rows that contain at least one zero in any column
+  # df_filtered = df_merged[df_merged['Elevation'] != 0] # should we remove ocean?
+
+  # Save the merged dataframe to a new CSV file
+  df_merged.to_csv(final_all_point_training_csv, index=False)
+  print(f"merged training samples are saved to {final_all_point_training_csv}")
+
+
+if __name__ == "__main__":
+
+  # Define file paths for various CSV files
+  # current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'
+  current_ready_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv'
+  non_station_counted_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_fill_empty_snotel.csv'
+  cleaned_csv_path = f"{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_cleaned.csv"
+  target_time_series_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_time_series.csv'
+  backup_time_series_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_time_series_backup.csv'
+  # target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'
+  target_time_series_cumulative_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_cumulative.csv'
+  slope_renamed_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_slope_renamed.csv'
+  logged_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_all_cols_log10.csv'
+  deduplicated_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_deduplicated_training_points_final.csv'
+
+  merged_all_training_csv_path = f"{work_dir}/all_points_final_merged_training.csv"
     
-    # Rename the corrected slope to slope
-    rename_corrected_slope(target_time_series_cumulative_csv_path, slope_renamed_path, force=True)
-    
-    # convert all cumulative columns to log10
-    log10_all_fields(slope_renamed_path, logged_csv_path, force=True)
-    
-    df = pd.read_csv(logged_csv_path, dtype={'station_name': 'object'})
-    print("the number of the total rows: ", len(df))
-    
-    deduplicated_df = df.drop_duplicates(subset=['lat', 'lon'])
-    # Export the deduplicated DataFrame to a CSV file
-    deduplicated_df.to_csv(deduplicated_csv_path, index=False)
-    print(f"deduplicated_df.to_csv('{deduplicated_csv_path}', index=False)")
-    
+  # filling the non station rows with fsca indicating no snow
+  assign_zero_swe_value_to_all_fsca_zero_rows(current_ready_csv_path, non_station_counted_csv_path, force=True)
+
+  # remove the empty swe_value rows first
+  clean_non_swe_rows(non_station_counted_csv_path, cleaned_csv_path, force=True)
+
+  # Uncomment this line to execute the 'convert_to_time_series' function
+  convert_to_time_series(cleaned_csv_path, target_time_series_csv_path, force=True)
+
+  # Uncomment this line to execute the 'add_cumulative_columns' function
+  add_cumulative_columns(target_time_series_csv_path, target_time_series_cumulative_csv_path, force=True)
+
+  # Rename the corrected slope to slope
+  rename_corrected_slope(target_time_series_cumulative_csv_path, slope_renamed_path, force=True)
+
+  # convert all cumulative columns to log10
+  log10_all_fields(slope_renamed_path, logged_csv_path, force=True)
+
+  df = pd.read_csv(logged_csv_path, dtype={'station_name': 'object'})
+  print("the number of the total rows: ", len(df))
+
+  deduplicated_df = df.drop_duplicates(subset=['lat', 'lon', 'date'])
+  # Export the deduplicated DataFrame to a CSV file
+  deduplicated_df.to_csv(deduplicated_csv_path, index=False)
+  print(f"deduplicated_df.to_csv('{deduplicated_csv_path}', index=False)")
+  merge_all_training_csvs(f"{work_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv", deduplicated_csv_path, merged_all_training_csv_path)
 

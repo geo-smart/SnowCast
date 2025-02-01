@@ -6,6 +6,7 @@ import rasterio
 import csv
 from rasterio.transform import Affine
 from scipy.ndimage import sobel, gaussian_filter
+from snowcast_utils import homedir
 
 mile_to_meters = 1609.34
 feet_to_meters = 0.3048
@@ -283,15 +284,15 @@ def read_elevation_data(file_path, result_dem_csv_path, result_dem_feature_csv_p
 
 if __name__ == "__main__":
     # Usage example:
-    result_dem_csv_path = "/home/chetana/gridmet_test_run/dem_template.csv"
-    result_dem_feature_csv_path = "/home/chetana/gridmet_test_run/dem_all.csv"
+    result_dem_csv_path = f"{homedir}/srtm/dem_template.csv"
+    result_dem_feature_csv_path = f"{homedir}/srtm/dem_all.csv"
 
-    dem_file = "/home/chetana/gridmet_test_run/dem_file.tif"
-    slope_file = '/home/chetana/gridmet_test_run/dem_file.tif_slope.tif'
-    aspect_file = '/home/chetana/gridmet_test_run/dem_file.tif_aspect.tif'
-    curvature_file = '/home/chetana/gridmet_test_run/curvature_file.tif'
-    northness_file = '/home/chetana/gridmet_test_run/northness_file.tif'
-    eastness_file = '/home/chetana/gridmet_test_run/eastness_file.tif'
+    dem_file = f"{homedir}/srtm/dem_file.tif"
+    slope_file = f"{homedir}/srtm/dem_file.tif_slope.tif"
+    aspect_file = f"{homedir}/srtm/dem_file.tif_aspect.tif"
+    curvature_file = f"{homedir}/srtm/curvature_file.tif"
+    northness_file = f"{homedir}/srtm/northness_file.tif"
+    eastness_file = f"{homedir}/srtm/eastness_file.tif"
 
     slope, aspect = calculate_slope_aspect(dem_file)
     # slope = calculate_slope(dem_file)

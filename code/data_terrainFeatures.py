@@ -14,28 +14,23 @@ from pyproj import Proj, transform
 import os
 import sys, traceback
 import requests
-from snowcast_utils import work_dir
+from snowcast_utils import homedir, snowcast_github_dir, work_dir, \
+supplement_point_for_correction_file, data_dir, gridcells_file, \
+stations_file, all_training_points_with_station_and_non_station_file, \
+all_training_points_with_snotel_ghcnd_file, gridcells_outfile, stations_outfile
 
-
-home_dir = os.path.expanduser('~')
-snowcast_github_dir = f"{home_dir}/Documents/GitHub/SnowCast/"
-
-
-#exit() # this process no longer need to execute, we need to make Geoweaver to specify which process doesn't need to run
-
-
-# user-defined paths for data-access
-data_dir = f'{snowcast_github_dir}data/'
-gridcells_file = data_dir+'snowcast_provided/grid_cells_eval.geojson'
-#stations_file = data_dir+'snowcast_provided/ground_measures_metadata.csv'
-stations_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
-#stations_file = data_dir+'snowcast_provided/ground_measures_metadata.csv'
-all_training_points_with_station_and_non_station_file = f"{work_dir}/all_training_points_in_westus.csv"
-all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
-gridcells_outfile = data_dir+'terrain/gridcells_terrainData_eval.csv'
-#stations_outfile = f"{work_dir}/training_all_active_snotel_station_list_elevation.csv_terrain_4km_grid_shift.csv"
-stations_outfile = f"{work_dir}/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv"
-
+# # user-defined paths for data-access
+# data_dir = f'{snowcast_github_dir}data/'
+# gridcells_file = data_dir+'snowcast_provided/grid_cells_eval.geojson'
+# #stations_file = data_dir+'snowcast_provided/ground_measures_metadata.csv'
+# stations_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
+# supplement_point_for_correction_file = f"{work_dir}/salt_pepper_points_for_training.csv"
+# #stations_file = data_dir+'snowcast_provided/ground_measures_metadata.csv'
+# all_training_points_with_station_and_non_station_file = f"{work_dir}/all_training_points_in_westus.csv"
+# all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
+# gridcells_outfile = data_dir+'terrain/gridcells_terrainData_eval.csv'
+# #stations_outfile = f"{work_dir}/training_all_active_snotel_station_list_elevation.csv_terrain_4km_grid_shift.csv"
+# stations_outfile = f"{work_dir}/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv"
 
 def get_planetary_client():
   #requests.get('https://planetarycomputer.microsoft.com/api/stac/v1')
@@ -320,12 +315,12 @@ def find_closest_index(target_latitude, target_longitude, lat_grid, lon_grid):
     return row_idx
   
   
-def read_terrain_from_dem_csv():
+def read_terrain_from_dem_csv(input_csv, output_csv):
   western_us_coords = f'{work_dir}/dem_all.csv'
   western_df = pd.read_csv(western_us_coords)
   print("western_df.head() = ", western_df.head())
   
-  stations_file_df = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
+  stations_file_df = pd.read_csv(input_csv)
   print("stations_file_df.head() = ", stations_file_df.head())
   
   def find_closest_dem_row(row, western_df):
@@ -345,8 +340,8 @@ def read_terrain_from_dem_csv():
     return new_row
   
   stations_file_df = stations_file_df.apply(find_closest_dem_row, args=(western_df,), axis=1)
-  stations_file_df.to_csv(stations_outfile, index=False)
-  print(f"New elevation csv is aved to {stations_outfile}")
+  stations_file_df.to_csv(output_csv, index=False)
+  print(f"New elevation csv is aved to {output_csv}")
   
 
 if __name__ == "__main__":
@@ -355,7 +350,8 @@ if __name__ == "__main__":
     #prepareStationTerrain()
     
     #add_more_points_to_the_gridcells()
-    read_terrain_from_dem_csv()
+    # read_terrain_from_dem_csv(all_training_points_with_snotel_ghcnd_file, stations_outfile)
+    read_terrain_from_dem_csv(supplement_point_for_correction_file, f"{work_dir}/salt_pepper_dem.csv")
   except:
     traceback.print_exc(file=sys.stdout)
 
