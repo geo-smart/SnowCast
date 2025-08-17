@@ -1,17 +1,17 @@
 #!/bin/bash
 
-source /home/chetana/miniconda/bin/activate
-pip install geojson seaborn xarray dask pandas numpy geopandas pyarrow netCDF4 h5netcdf torch scikit-learn psutil
+# source /home/chetana/miniconda/bin/activate
+# pip install geojson seaborn xarray dask pandas numpy geopandas pyarrow netCDF4 h5netcdf torch scikit-learn psutil
 
-# mkdir -p /home/chetana/data/ucla/raw/
+# # mkdir -p /home/chetana/data/ucla/raw/
 
-# cd /home/chetana/data/ucla/raw/
+# # cd /home/chetana/data/ucla/raw/
 
-# wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --keep-session-cookies --no-check-certificate --auth-no-challenge=on -r --reject "index.html*" -np -e robots=off https://n5eil01u.ecs.nsidc.org/DP6/SNOWEX/WUS_UCLA_SR.001/1984.10.01/WUS_UCLA_SR_v01_N31_0W104_0_agg_16_WY1984_85_SWE_SCA_POST.nc
+# # wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --keep-session-cookies --no-check-certificate --auth-no-challenge=on -r --reject "index.html*" -np -e robots=off https://n5eil01u.ecs.nsidc.org/DP6/SNOWEX/WUS_UCLA_SR.001/1984.10.01/WUS_UCLA_SR_v01_N31_0W104_0_agg_16_WY1984_85_SWE_SCA_POST.nc
 
-# wget https://n5eil01u.ecs.nsidc.org/DP6/SNOWEX/WUS_UCLA_SR.001/1984.10.01/WUS_UCLA_SR_v01_N31_0W104_0_agg_16_WY1984_85_SWE_SCA_POST.nc
+# # wget https://n5eil01u.ecs.nsidc.org/DP6/SNOWEX/WUS_UCLA_SR.001/1984.10.01/WUS_UCLA_SR_v01_N31_0W104_0_agg_16_WY1984_85_SWE_SCA_POST.nc
 
-exit 0
+# exit 0
 
 # change this line if you are creating a new env
 # source /home/ubuntu/anaconda3/bin/activate
@@ -24,269 +24,87 @@ exit 0
 # sudo apt install gdal-bin libgdal-dev -y
 
 # Use cat to create the requirements.txt file
-cat <<EOL > requirements.txt
-absl-py==1.4.0
+cat <<EOL > /home/chetana/requirements.txt
 affine==2.4.0
-aiobotocore==2.7.0
-aioitertools==0.11.0
-ansi2html==1.8.0
-anyio==3.6.2
-argon2-cffi==21.3.0
-argon2-cffi-bindings==21.2.0
-asciitree==0.3.3
-astunparse==1.6.3
-async-generator==1.10
-attrs==22.2.0
-Babel==2.11.0
-backcall==0.2.0
-backports-datetime-fromisoformat==2.0.0
-backports.weakref==1.0.post1
-backports.zoneinfo==0.2.1
-basemap-data==1.3.2
-basemap-data-hires==1.3.2
-bleach==4.1.0
-botocore==1.31.64
-bounded-pool-executor==0.0.3
-brotlipy==0.7.0
-# catboost==1.2
-category-encoders==2.6.1
-certifi==2023.5.7
-cffi==1.15.1
-cftime==1.6.2
-charset-normalizer==2.0.12
-click==8.0.4
+attrs==25.1.0
+certifi==2025.1.31
+charset-normalizer==3.4.1
+click==8.1.8
 click-plugins==1.1.1
 cligj==0.7.2
-cloudpickle==2.2.1
-# clyent==1.2.2
-# colorcet==3.0.1
-conda-repo-cli==1.0.75
-conda-verify==3.4.2
-ConfigSpace==0.7.1
-contextvars==2.4
-contourpy==1.1.1
-cycler==0.11.0
-dash==2.11.1
-dash-core-components==2.0.0
-dash-html-components==2.0.0
-dash-table==5.0.0
-dask==2023.9.2
-dataclasses==0.8
-datashader==0.15.2
-datashape==0.5.2
-decorator==5.1.1
-defusedxml==0.7.1
-Deprecated==1.2.14
-deprecation==2.1.0
-distributed==2023.9.2
-earthaccess==0.7.1
-emcee==3.1.4
-entrypoints==0.4
-fasteners==0.18
-filelock==3.4.1
-Fiona==1.9.4.post1
-flaky==3.7.0
-Flask==2.2.5
-flatbuffers==23.5.26
-fonttools==4.42.1
-fsspec==2023.10.0
-gast==0.4.0
-GDAL
-geojson==3.0.1
-geopandas==0.14.0
-google-auth-oauthlib==1.0.0
-google-pasta==0.2.0
-graphviz==0.20.1
-gstatsim==1.0.1
-h5py==3.9.0
-htmldate==1.4.2
-huggingface-hub==0.4.0
-idna==3.4
-imageio==2.31.3
-imbalanced-learn==0.11.0
-imgaug==0.4.0
-immutables==0.19
-importlib-resources==5.4.0
-ipykernel==5.5.6
-ipython==7.16.3
-ipython-genutils==0.2.0
-isodate==0.6.1
-itsdangerous==2.1.2
-jedi==0.17.2
-Jinja2==3.0.3
-jmespath==1.0.1
-joblib==1.3.2
-json5==0.9.11
-jsonpointer==2.1
-jsonschema==3.2.0
-jupyter-client==7.1.2
-jupyter-core==4.9.2
-jupyter-dash==0.4.2
-jupyter-server==1.13.1
-jupyterlab==3.2.9
-jupyterlab-iframe==0.4.0
-jupyterlab-pygments==0.1.2
-jupyterlab-server==2.10.3
-kaleido==0.2.1
-keras==2.13.1
-keras-core==0.1.0
-keras-nlp==0.6.0
-keras-tuner==1.3.5
-kiwisolver==1.4.5
-kt-legacy==1.0.5
-lazy_loader==0.1
-libclang==16.0.0
-lightgbm==3.3.5
-llvmlite==0.40.1
-locket==1.0.0
-lockfile==0.12.2
-Markdown==3.4.4
-markdown-it-py==3.0.0
-matplotlib==3.8.0
-mdurl==0.1.2
-mistune==0.8.4
-mkl-fft==1.3.1
-mkl-service==2.4.0
-msgpack==1.0.5
-multimethod==1.10
-multipledispatch==1.0.0
-namex==0.0.7
-navigator-updater==0.3.0
-nbclassic==0.3.5
-nbclient==0.5.9
-nbconvert==6.0.7
-nbformat==5.1.3
-nest-asyncio==1.5.6
-netCDF4==1.5.8
-notebook==6.4.10
-numba==0.57.1
-numcodecs==0.11.0
+cloudpickle==3.0.0
+contourpy==1.3.0
+cycler==0.12.1
+filelock==3.17.0
+fonttools==4.55.8
+fsspec==2025.2.0
+geojson==3.2.0
+geopandas==1.0.1
+idna==3.10
+importlib_metadata==8.6.1
+importlib_resources==6.5.2
+Jinja2==3.1.5
+joblib==1.4.2
+kiwisolver==1.4.7
+llvmlite==0.43.0
+MarkupSafe==3.0.2
+matplotlib==3.9.4
+mpmath==1.3.0
+networkx==3.2.1
+numba==0.60.0
+numpy==1.26.4
 nvidia-cublas-cu11==11.10.3.66
+nvidia-cublas-cu12==12.4.5.8
+nvidia-cuda-cupti-cu12==12.4.127
 nvidia-cuda-nvrtc-cu11==11.7.99
+nvidia-cuda-nvrtc-cu12==12.4.127
 nvidia-cuda-runtime-cu11==11.7.99
+nvidia-cuda-runtime-cu12==12.4.127
 nvidia-cudnn-cu11==8.5.0.96
-oauthlib==3.2.2
-opencv-python==4.7.0.68
-opt-einsum==3.3.0
-orjson==3.9.2
-package-skimage==0.0.1
-packaging==21.3
-pandas==1.5.3
-pandocfilters==1.5.0
-param==1.13.0
-parso==0.7.1
-partd==1.4.0
-pexpect==4.8.0
-pickleshare==0.7.5
-Pillow==9.4.0
-Pint==0.18
-planetary-computer==0.4.9
-plotly==5.17.0
-plotly-resampler==0.8.3.2
-ply==3.11
-pmdarima==2.0.3
-Polygon3==3.0.9.1
-pqdm==0.2.0
-prometheus-client==0.16.0
-prompt-toolkit==3.0.36
-protobuf==3.20.3
-ptyprocess==0.7.0
-pyasn1-modules==0.2.8
-pycparser==2.21
-pyct==0.5.0
-pydantic==1.10.5
-pyEddyTracker==3.6.1
-pygeoweaver==0.9.14
-Pygments==2.14.0
-pynisher==0.6.4
-pyod==1.1.0
-pyparsing==3.0.9
+nvidia-cudnn-cu12==9.1.0.70
+nvidia-cufft-cu12==11.2.1.3
+nvidia-curand-cu12==10.3.5.147
+nvidia-cusolver-cu12==11.6.1.9
+nvidia-cusparse-cu12==12.3.1.170
+nvidia-cusparselt-cu12==0.6.2
+nvidia-nccl-cu12==2.21.5
+nvidia-nvjitlink-cu12==12.4.127
+nvidia-nvtx-cu12==12.4.127
+packaging==24.2
+pandas==2.2.2
+pillow==11.1.0
+psutil==6.1.1
+pyogrio==0.10.0
+pyparsing==3.2.1
 pyproj==3.6.1
-PyQt5-sip==12.11.0
-pyrfr==0.8.3
-pyrsistent==0.18.0
-pyshp==2.3.1
-pystac==1.6.1
-pystac-client==0.6.0
-python-cmr==0.9.0
-python-dateutil==2.8.2
-python-dotenv==1.0.0
-pytz==2022.7.1
-# PyYAML==6.0
-pyzmq==25.0.2
-rasterio==1.3.9
-regex==2023.6.3
-requests==2.27.1
-requests-oauthlib==1.3.1
-requests-toolbelt==0.10.1
-retrying==1.3.4
-rich==13.4.2
-rioxarray==0.13.4
-s3fs==2023.10.0
-sacremoses==0.0.53
-schemdraw==0.15
-scikit-base==0.5.0
-scikit-image==0.20.0
-scikit-learn==1.3.0
-scikit-plot==0.3.7
-scipy==1.11.2
-seaborn==0.12.2
-Send2Trash==1.8.0
-shap==0.42.1
-shapely==2.0.1
+python-dateutil==2.9.0.post0
+pytorch-tabnet==4.1.0
+pytz==2024.1
+rasterio==1.4.3
+requests==2.32.3
+scikit-learn==1.6.1
+scipy==1.13.1
+seaborn==0.13.2
+shap==0.46.0
+shapely==2.0.7
 six==1.16.0
-sktime==0.20.0
-slicer==0.0.7
-smac==1.4.0
-sniffio==1.2.0
-snuggs==1.4.7
-sortedcontainers==2.4.0
-tbats==1.1.3
-tblib==2.0.0
-tenacity==8.2.3
-tensorboard==2.13.0
-tensorboard-data-server==0.7.0
-tensorboard-plugin-wit==1.8.1
-tensorflow==2.13.0
-tensorflow-estimator==2.13.0
-tensorflow-hub==0.13.0
-tensorflow-io-gcs-filesystem==0.32.0
-tensorflow-text==2.13.0
-termcolor==2.3.0
-terminado==0.12.1
-testpath==0.6.0
-threadpoolctl==3.2.0
-tinynetrc==1.3.1
-tokenizers==0.12.1
+slicer==0.0.8
+sympy==1.13.1
+threadpoolctl==3.5.0
 torch==1.13.1
 torchaudio==0.13.1
 torchmetrics==0.11.1
 torchvision==0.14.1
-tornado==6.1
-tornado-proxy-handlers==0.0.5
-tqdm==4.64.1
-trace-updater==0.0.9.1
-traitlets==4.3.3
-transformers==4.18.0
-typing_extensions==4.5.0
-uritemplate==3.0.1
-urllib3==1.26.15
-wcwidth==0.2.6
-webencodings==0.5.1
-websocket-client==1.3.1
-Werkzeug==2.2.3
-wrapt==1.15.0
-xarray==2023.8.0
-xarray-spatial==0.3.5
-xxhash==3.2.0
-yellowbrick==1.5
-zarr==2.14.1
-zeep==4.2.1
-zict==3.0.0
-zipp==3.6.0
+tqdm==4.67.1
+triton==3.2.0
+typing_extensions==4.12.2
+tzdata==2024.1
+urllib3==2.3.0
+zipp==3.21.0
 EOL
 
-python -m pip install -r requirements.txt
+source ~/.bashrc
+which python
+python -m pip install -r /home/chetana/requirements.txt
 # clean up
-rm requirements.txt
-
+# rm requirements.txt

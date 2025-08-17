@@ -1,19 +1,23 @@
 #!/bin/bash
-
+# not working
 # Specify the file containing the download links
-input_file="/home/chetana/gridmet_test_run/amsr/download_links.txt"
-
-# Specify the base wget command with common options
-base_wget_command="wget --http-user=<your_username> --http-password=<your_password> --load-cookies /home/chetana/gridmet_test_run/amsr/mycookies.txt --save-cookies mycookies.txt --keep-session-cookies --no-check-certificate -$
+input_file="/home/chetana/data/gridmet_test_run/amsr/download_links.txt"
 
 # Specify the output directory for downloaded files
-output_directory="/home/chetana/gridmet_test_run/amsr"
+output_directory="/home/chetana/data/amsr_testing/amsr_curl_data/"
 
-# Ensure the output directory exists
-mkdir -p "$output_directory"
+ls -l /home/chetana/data/gridmet_test_run/amsr/download_links.txt
 
-# Loop through each line (URL) in the input file and download it using wget
+
 while IFS= read -r url; do
-    echo "Downloading: $url"
-    $base_wget_command -P "$output_directory" "$url"
+    # Extract the filename from the URL
+    filename=$(basename "$url")
+
+    # Define the full path where the file will be saved
+    output_path="$output_directory/$filename"
+
+    echo "Downloading: $url -> $output_path"
+
+    # Use curl to download the file with authentication cookies
+    curl --output "$output_path" -b ~/.urs_cookies -c ~/.urs_cookies -L -n "$url"
 done < "$input_file"

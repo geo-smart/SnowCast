@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from snowcast_utils import work_dir
+from snowcast_utils import work_dir, train_start_date, train_end_date
 from scipy.spatial import KDTree
 import dask.dataframe as dd
 from dask.distributed import Client
@@ -62,9 +62,7 @@ def parallelize_slope_correction(ready_csv_path, dem_slope_csv_path, new_result_
     # Save the modified DataFrame to a new CSV file
     train_ready_df.to_csv(new_result_csv_path, index=False)
     print(f"The new slope corrected dataframe is saved to {new_result_csv_path}")
-    
-  
-  
+
 if __name__ == "__main__":
     # ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations.csv_sorted.csv'
     # dem_slope_csv_path = f"{work_dir}/slope_file.tif.csv"
@@ -72,12 +70,14 @@ if __name__ == "__main__":
     # new_result_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_ghcnd.csv_sorted_slope_corrected.csv'
     # parallelize_slope_correction(ready_csv_path, dem_slope_csv_path, new_result_csv_path)
 
-    ready_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted.csv'
+    # /home/chetana/data/gridmet_test_run/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted.csv
+    # ready_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted.csv'
+    ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_{train_start_date}_{train_end_date}.csv_sorted.csv'
     dem_slope_csv_path = f"{work_dir}/slope_file.tif.csv"
     print(f"ready_csv_path = {ready_csv_path}")
-    new_result_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv'
+    # new_result_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv'
+    new_result_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_{train_start_date}_{train_end_date}.csv_sorted_slope_corrected.csv'
     parallelize_slope_correction(ready_csv_path, dem_slope_csv_path, new_result_csv_path)
-
 
 
 

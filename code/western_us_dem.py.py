@@ -339,4 +339,3 @@ if __name__ == "__main__":
     # Save the merged dataframe to a new CSV file
     merged_df.to_csv(result_dem_feature_csv_path, index=False)
     print(f"New dem features are updated in {result_dem_feature_csv_path}")
-

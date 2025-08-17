@@ -87,4 +87,3 @@ for current_cell_id in submission_format_df.index:
         pass
 
 all_cell_df.to_csv(final_csv_file)
-

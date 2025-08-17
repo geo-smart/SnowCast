@@ -24,47 +24,53 @@ import torch.nn as nn
 class FTTransformer(nn.Module):
     def __init__(
         self, input_dim, output_dim, 
-        embed_dim=16, num_heads=4, num_layers=2
+        embed_dim=32, num_heads=8, num_layers=4, max_seq_len=100
     ):
         super(FTTransformer, self).__init__()
+        
+        # Increase embedding dimension to capture small differences better
         self.embedding = nn.Linear(input_dim, embed_dim)
         
-        # Define the transformer encoder layer
+        # Define the transformer encoder layer with more heads and layers
         encoder_layer = nn.TransformerEncoderLayer(
-            d_model=embed_dim, nhead=num_heads, dim_feedforward=embed_dim * 2
+            d_model=embed_dim, nhead=num_heads, dim_feedforward=embed_dim * 4
         )
         
-        # Use TransformerEncoder with batch_first=True for (batch_size, seq_len, embed_dim)
+        # Use TransformerEncoder with batch_first=True
         self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+        
+        # Positional encoding (to introduce sequence order dependency)
+        self.positional_encoding = nn.Parameter(torch.randn(max_seq_len, embed_dim), requires_grad=True)
         
         # Output regressor layer
         self.regressor = nn.Linear(embed_dim, output_dim)
 
     def forward(self, x):
-        # Input embedding: [batch_size, sequence_length, embed_dim]
+        # Input embedding: [batch_size, seq_len, embed_dim]
         x = self.embedding(x)
-        # print("after embedding: ", x.shape)
         
-        # Add a sequence length dimension of 1, resulting in shape [batch_size, 1, embed_dim]
-        x = x.unsqueeze(1)  # Adds a dimension for seq_len, so now it's [batch_size, 1, embed_dim]
+        # Add a sequence length dimension of 1 (we assume it's a single sequence of features)
+        x = x.unsqueeze(1)  # Adds a dimension for seq_len: [batch_size, 1, embed_dim]
         
-        # Transformer expects inputs with shape (seq_len, batch_size, embed_dim)
-        x = x.permute(1, 0, 2)  # [seq_len, batch_size, embed_dim]
+        # Add positional encoding to the embeddings
+        seq_len = x.size(1)
+        x = x + self.positional_encoding[:seq_len, :].unsqueeze(0)  # Add positional encodings
         
-        # Pass through the transformer encoder
+        # Permute for transformer: [seq_len, batch_size, embed_dim]
+        x = x.permute(1, 0, 2)
+        
+        # Pass through transformer
         x = self.transformer(x)
-        # print("after transformer: ", x.shape)
         
         # Pooling the sequence output (mean over the sequence length)
         x = torch.mean(x, dim=0)  # Mean pooling over the sequence length
-        # print("after mean: ", x.shape)
-
+        
         # Remove sequence length dimension
         x = x.squeeze(0)  # [batch_size, embed_dim]
         
         # Regress to the final output
         return self.regressor(x)
-
+    
     def load_model(self, model_path):
         """Loads the model weights from a file."""
         try:
@@ -95,10 +101,10 @@ if __name__ == "__main__":
     hole_model = SNODAS_FTTransformer_Hole(
         start_date_str = test_start_date,
         end_date_str = test_end_date,
-        batch_size = 300000,
-        epochs = 50,
-        train_ratio = 0.1,
-        test_ratio = 0.1,
+        batch_size = 310000,
+        epochs = 10,
+        train_ratio = 0.8,
+        test_ratio = 0.01,
         val_ratio = 0.2,
         retrain = False,
         normalization = False,
@@ -108,5 +114,15 @@ if __name__ == "__main__":
     hole_model.train()
     hole_model.save()
     hole_model.evaluate()
-    hole_model.predict("2025-01-29", save_csv=True, tiff=True)
-
+    hole_model.predict("2025-01-29")
+    hole_model.predict("2025-02-29")
+    hole_model.predict("2025-03-29")
+    hole_model.predict("2025-04-29")
+    hole_model.predict("2025-05-29")
+    hole_model.predict("2025-06-29")
+    hole_model.predict("2025-07-29")
+    hole_model.predict("2025-08-29")
+    hole_model.predict("2025-09-29")
+    hole_model.predict("2025-10-29")
+    hole_model.predict("2025-11-29")
+    hole_model.predict("2025-12-29")

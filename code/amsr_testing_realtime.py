@@ -456,7 +456,7 @@ if __name__ == "__main__":
     end_date=test_end_date,
     days_look_back=7,
     callback=amsr_callback,
-    force=True
+    force=False
   )
 #     download_amsr_and_convert_grid()
     
@@ -464,4 +464,3 @@ if __name__ == "__main__":
   input_time_series_file = f'{data_dir}/amsr_testing/testing_ready_amsr_{test_start_date}_cumulative.csv_gap_filled.csv'
 
   #plot_all_variables_in_one_csv(input_time_series_file, f"{input_time_series_file}.png")
-

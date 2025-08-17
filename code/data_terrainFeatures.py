@@ -316,7 +316,7 @@ def find_closest_index(target_latitude, target_longitude, lat_grid, lon_grid):
   
   
 def read_terrain_from_dem_csv(input_csv, output_csv):
-  western_us_coords = f'{work_dir}/dem_all.csv'
+  western_us_coords = f'{data_dir}/srtm/dem_all.csv'
   western_df = pd.read_csv(western_us_coords)
   print("western_df.head() = ", western_df.head())
   
@@ -350,8 +350,10 @@ if __name__ == "__main__":
     #prepareStationTerrain()
     
     #add_more_points_to_the_gridcells()
-    # read_terrain_from_dem_csv(all_training_points_with_snotel_ghcnd_file, stations_outfile)
-    read_terrain_from_dem_csv(supplement_point_for_correction_file, f"{work_dir}/salt_pepper_dem.csv")
+    read_terrain_from_dem_csv(
+      all_training_points_with_snotel_ghcnd_file, 
+      stations_outfile
+    )
+    # read_terrain_from_dem_csv(supplement_point_for_correction_file, f"{work_dir}/salt_pepper_dem.csv")
   except:
     traceback.print_exc(file=sys.stdout)
-

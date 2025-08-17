@@ -169,4 +169,3 @@ while current_date <= end_date:
     
     # Move to the next date
     current_date += timedelta(days=1)
-

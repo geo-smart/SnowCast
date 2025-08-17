@@ -60,4 +60,3 @@ echo ">> Displayed information about the clipped output DEM"
 
 cp /media/volume1/swe/data/srtm/output_dem_4km_clipped.tif /media/volume1/swe/data/srtm/dem_file.tif
 
-

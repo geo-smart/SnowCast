@@ -46,4 +46,3 @@ def create_western_us_geotiff():
 
 if __name__ == "__main__":
     create_western_us_geotiff()
-

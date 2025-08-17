@@ -222,7 +222,7 @@ class BaseNNHole(BaseHole):
     # Folder containing the data files
     SNODAS_CSV_FOLDER = f"{data_dir}/snodas/csv/"
 
-    LAT_LON_CSV_PATH = "/home/chetana/data/snodas/2025-01-19_snodas_output.csv"
+    LAT_LON_CSV_PATH = f"{data_dir}/snodas/csv/2025-01-19_snodas_output.csv"
 
     def __init__(
         self, 
@@ -342,6 +342,11 @@ class BaseNNHole(BaseHole):
     def evaluate_model(
         self, model_file_path, files, start_date, end_date, batch_size=10000
     ):
+        if batch_size is not None:
+            self.batch_size =batch_size
+        
+        print("current batch size is ", self.batch_size)
+
         self.model = self.load_model()
 
         print(f"Model loaded successfully. Running evaluation on {self.device}...")
@@ -352,7 +357,7 @@ class BaseNNHole(BaseHole):
         # Start batch processing
         self.model.eval()
         batch_count = 0
-        for X_batch, y_batch in self.new_batch_generator(files, batch_size):
+        for X_batch, y_batch in self.new_batch_generator(files, self.batch_size):
             # X_batch = feature_scaler.fit_transform(X_batch)
             X_batch = self.normalize(X_batch)
             X_batch_tensor = torch.tensor(X_batch, dtype=torch.float32).to(self.device)
@@ -363,6 +368,9 @@ class BaseNNHole(BaseHole):
         # Calculate evaluation metrics
         y_true = np.array(all_y_true)
         y_pred = np.array(all_y_pred)
+
+        print("y_true.shape: ", y_true.shape)
+        print("y_pred.shape: ", y_pred.shape)
         
         mse = mean_squared_error(y_true, y_pred)
         rmse = np.sqrt(mse)
@@ -381,7 +389,7 @@ class BaseNNHole(BaseHole):
         self.evaluate_model(
             self.model_path, 
             self.eval_files, 
-            self.end_date - timedelta(days=4), 
+            self.end_date - timedelta(days=10), 
             self.end_date,
             batch_size=self.batch_size,
         )
@@ -470,7 +478,7 @@ class BaseNNHole(BaseHole):
             self.model.parameters(), lr=1e-3, weight_decay=1e-4
         )
         scheduler = torch.optim.lr_scheduler.StepLR(
-            optimizer, step_size=10, gamma=0.5
+            optimizer, step_size=3, gamma=0.5
         )
 
         criterion = nn.MSELoss()
@@ -688,8 +696,8 @@ class BaseNNHole(BaseHole):
 if __name__ == "__main__":
 
     # Define start and end date for training
-    start_date_str = '2024-10-01'
-    end_date_str = '2025-01-15'
+    start_date_str = '2022-10-01'
+    end_date_str = '2023-01-15'
     
     hole_model = BaseNNHole(
         start_date_str = test_start_date,
@@ -712,4 +720,3 @@ if __name__ == "__main__":
 
 
     
-

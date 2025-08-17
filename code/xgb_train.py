@@ -203,4 +203,3 @@ if __name__ == "__main__":
     # do_self_attention(filepath, plot_dir)
     do_xgboost(filepath, plot_dir, model_save_path)
 
-

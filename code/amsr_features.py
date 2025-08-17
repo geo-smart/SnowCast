@@ -1,3 +1,4 @@
+# Active
 import os
 import csv
 import h5py
@@ -5,12 +6,13 @@ import shutil
 import numpy as np
 import pandas as pd
 from datetime import datetime
+import subprocess
 import dask
 import dask.dataframe as dd
 import dask.delayed as delayed
 import dask.bag as db
 import xarray as xr
-from snowcast_utils import work_dir, train_start_date, train_end_date
+from snowcast_utils import data_dir, output_dir, work_dir, train_start_date, train_end_date
 from snowcast_utils import homedir, snowcast_github_dir, \
 supplement_point_for_correction_file, data_dir, gridcells_file, \
 stations_file, all_training_points_with_station_and_non_station_file, \
@@ -82,7 +84,7 @@ def create_snotel_ghcnd_station_to_amsr_mapper(
         df = pd.read_csv(target_csv_path)
         return df
     
-    target_amsr_hdf_path = f"{work_dir}/amsr_testing/testing_amsr_{date}.he5"
+    target_amsr_hdf_path = f"{data_dir}/amsr_testing/testing_amsr_{date}.he5"
     if os.path.exists(target_amsr_hdf_path):
         print(f"File {target_amsr_hdf_path} already exists, skip downloading..")
     else:
@@ -124,13 +126,21 @@ def create_snotel_ghcnd_station_to_amsr_mapper(
     return df
   
   
-def extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, new_base_station_list_file, start_date, end_date):
+def extract_amsr_values_save_to_csv(
+    amsr_data_dir, 
+    output_csv_file, 
+    new_base_station_list_file, 
+    start_date, 
+    end_date
+):
     if os.path.exists(output_csv_file):
         os.remove(output_csv_file)
     
     target_csv_path = f'{new_base_station_list_file}_amsr_grid_mapper.csv'
-    mapper_df = create_snotel_ghcnd_station_to_amsr_mapper(new_base_station_list_file, 
-                                         target_csv_path)
+    mapper_df = create_snotel_ghcnd_station_to_amsr_mapper(
+        new_base_station_list_file, 
+        target_csv_path
+    )
         
     # station_data = pd.read_csv(new_base_station_list_file)
 
@@ -144,11 +154,15 @@ def extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, new_base_sta
     def process_file(filename):
         file_path = os.path.join(amsr_data_dir, filename)
         print(file_path)
+        if not os.path.exists(file_path):
+            return None
         
         file = h5py.File(file_path, 'r')
         hem_group = file['HDFEOS/GRIDS/Northern Hemisphere']
+        print("filename = ", filename)
 
-        date_str = filename.split('_')[-1].split('.')[0]
+        date_str = filename.split('_')[-1].split('.he5')[0]
+        print("date_str = ", date_str)
         date = datetime.strptime(date_str, '%Y%m%d')
 
         if not (start_date <= date <= end_date):
@@ -190,25 +204,27 @@ def extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, new_base_sta
         return result_df
 
     # Get the list of files
-    files = [f for f in os.listdir(amsr_data_dir) if f.endswith('.he5')]
+    files = [f for f in os.listdir(amsr_data_dir) if f.endswith('.he5') and f.startswith("AMSR_U2_L3_DailySnow")]
 
-    # Create a Dask Bag from the files
-    dask_bag = db.from_sequence(files, npartitions=2)
+    # Process files one by one and collect results
+    processed_data = []
+    for file in files:
+        result = process_file(file)
+        if result is not None:
+            processed_data.append(result)
 
-    # Process files in parallel
-    processed_data = dask_bag.map(process_file).filter(lambda x: x is not None).compute()
-
-    # Concatenate the processed data
-    combined_df = pd.concat(processed_data, ignore_index=True)
-
-    # Save the combined DataFrame to a CSV file
-    combined_df.to_csv(output_csv_file, index=False)
-
+    # Concatenate results and save to CSV
+    if processed_data:
+        combined_df = pd.concat(processed_data, ignore_index=True)
+        combined_df.to_csv(output_csv_file, index=False)
+        print(f"Saved processed data to {output_csv_file}")
+    else:
+        print("No valid data to save.")
     print(f"Merged data saved to {output_csv_file}")
 
                     
 if __name__ == "__main__":
-    amsr_data_dir = '/home/chetana/gridmet_test_run/amsr'
+    # amsr_data_dir = '/home/chetana/gridmet_test_run/amsr'
     # new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
     # all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
     # new_base_df = pd.read_csv(all_training_points_with_snotel_ghcnd_file)
@@ -218,9 +234,10 @@ if __name__ == "__main__":
     start_date = train_start_date
     end_date = train_end_date
 
-    # extract_amsr_values_save_to_csv(amsr_data_dir, output_csv_file, all_training_points_with_snotel_ghcnd_file, start_date, end_date)
-
-
     # to get AMSR for the new salt-pepper training points
-    extract_amsr_values_save_to_csv(amsr_data_dir, f"{supplement_point_for_correction_file}_amsr_training.csv", supplement_point_for_correction_file, start_date, end_date)
-
+    extract_amsr_values_save_to_csv(
+        data_dir + "/amsr_testing/raw/",
+        f"{all_training_points_with_snotel_ghcnd_file}_amsr_training_{start_date}_{end_date}.csv",
+        all_training_points_with_snotel_ghcnd_file, start_date, 
+        end_date
+    )

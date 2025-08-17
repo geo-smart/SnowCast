@@ -427,7 +427,7 @@ def prepare_cumulative_history_csvs(target_date=test_start_date, force=False):
     print(f"new df is saved to {cumulative_target_path}")
     print(filled_data.describe())
     ```
-Note: This docstring includes placeholders such as "download_gridmet_of_specific_variables" and "prepare_folder_and_get_year_list" for the assumed existence of related helper functions. You should replace these placeholders with actual documentation for those functions.
+  Note: This docstring includes placeholders such as "download_gridmet_of_specific_variables" and "prepare_folder_and_get_year_list" for the assumed existence of related helper functions. You should replace these placeholders with actual documentation for those functions.
   """
   selected_date = datetime.strptime(target_date, "%Y-%m-%d")
   print(selected_date)
@@ -478,7 +478,7 @@ Note: This docstring includes placeholders such as "download_gridmet_of_specific
     file_name = os.path.splitext(os.path.basename(single_csv))[0]
     gap_filled_csv = f"{cumulative_target_path}_gap_filled.csv"
 
-	# Split the file name using underscores
+	  # Split the file name using underscores
     var_name = file_name.split('_')[1]
     # print(f"Found variable name {var_name}")
     current_date = past_october_1
@@ -527,5 +527,4 @@ if __name__ == "__main__":
     callback=gridmet_callback,
     force=False
   )
-
 

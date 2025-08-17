@@ -377,4 +377,3 @@ if __name__ == "__main__":
     os.makedirs(plot_dir, exist_ok=True)
     do_ensemble_model(filepath, plot_dir)
 
-

@@ -60,4 +60,3 @@ best_random = joblib.load(f"{homedir}/Documents/GitHub/snowcast_trained_model/mo
 random_predicted_values = evaluate(best_random, all_features, all_labels, "Optimized")
 
 
-

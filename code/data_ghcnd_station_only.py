@@ -14,8 +14,8 @@ import dask.dataframe as dd
 working_dir = work_dir
 all_ghcd_station_file = f"{working_dir}/all_ghcn_station_list.csv"
 only_active_ghcd_station_in_west_conus_file = f"{working_dir}/active_station_only_list.csv"
-snowdepth_csv_file = f'{only_active_ghcd_station_in_west_conus_file}_all_vars.csv'
-mask_non_snow_days_ghcd_csv_file =  f'{only_active_ghcd_station_in_west_conus_file}_all_vars_masked_non_snow.csv'
+snowdepth_csv_file = f'{only_active_ghcd_station_in_west_conus_file}_all_vars_{train_start_date}_{train_end_date}.csv'
+mask_non_snow_days_ghcd_csv_file =  f'{only_active_ghcd_station_in_west_conus_file}_all_vars_{train_start_date}_{train_end_date}_masked_non_snow.csv'
 
 def download_convert_and_read():
   
@@ -141,8 +141,7 @@ def mask_out_all_non_zero_snowdepth_days():
     print(f"The masked non snow var file is saved to {mask_non_snow_days_ghcd_csv_file}")
 
 if __name__ == "__main__":
-    #download_convert_and_read()
-    #get_snow_depth_observations_from_ghcn()
+    # download_convert_and_read()
+    get_snow_depth_observations_from_ghcn()
     mask_out_all_non_zero_snowdepth_days()
-
 

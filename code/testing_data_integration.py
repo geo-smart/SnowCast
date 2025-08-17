@@ -92,7 +92,7 @@ def merge_all_gridmet_amsr_csv_into_one(target_date, gridmet_csv_folder, dem_all
     # log10 all the cumulative columns
     # Get columns with "cumulative" in their names
     for col in all_df.columns:
-        print("Checking ", col)
+        # print("Checking ", col)
         if "cumulative" in col:
 	        # Apply log10 transformation to selected columns
             all_df[col] = np.log10(all_df[col] + 0.1)  # Adding 1 to avoid log(0)
@@ -118,7 +118,8 @@ def merge_all_gridmet_amsr_csv_into_one(target_date, gridmet_csv_folder, dem_all
         f"{testing_all_csv}_snodas_mask.csv",
         lat_col_name = "Latitude", 
         lon_col_name = "Longitude", 
-        date_col_name = "date"
+        date_col_name = "date",
+        overwrite = False,
     )
 
 def merge_callback(current_date):
@@ -142,4 +143,3 @@ if __name__ == "__main__":
         days_look_back=7,
         callback = merge_callback,
     )
-

@@ -7,6 +7,7 @@ import io
 import os
 import dask
 import dask.dataframe as dd
+import traceback
 from snowcast_utils import work_dir, southwest_lat, southwest_lon, northeast_lat, northeast_lon, train_start_date, train_end_date
 
 working_dir = work_dir
@@ -145,11 +146,11 @@ def get_swe_observations_from_snotel_cdec():
     new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
     new_base_df = pd.read_csv(new_base_station_list_file)
     print(new_base_df.head())
-  	
-    old_messed_file = f"{work_dir}/"
-    csv_file = f'{new_base_station_list_file}_swe_restored_dask_all_vars.csv'
     start_date = train_start_date
     end_date = train_end_date
+  	
+    old_messed_file = f"{work_dir}/"
+    csv_file = f'{new_base_station_list_file}_{start_date}_{end_date}_swe_restored_dask_all_vars.csv'
 	
     # Create an empty Pandas DataFrame with the desired columns
     result_df = pd.DataFrame(columns=[
@@ -198,8 +199,9 @@ def get_swe_observations_from_snotel_cdec():
               }
               entries.append(required_data)
             except Exception as e:
-              print("entry = ", entry)
-              raise e
+              print("entry = ", entry, e)
+              traceback.print_exc()
+            #   raise e
         return pd.DataFrame(entries)
 
     # List of delayed computations for each station
@@ -218,7 +220,25 @@ def get_swe_observations_from_snotel_cdec():
     result_df.to_csv(csv_file, index=False)
 #     result_df.to_csv(csv_file, index=False)
 
-if __name__ == "__main__":
-    download_station_json()
-    get_swe_observations_from_snotel_cdec()
+def check_on_data():
 
+    csv_path = "/home/chetana/data/gridmet_test_run/all_snotel_cdec_stations_active_in_westus.csv_2002-01-01_2024-12-31_swe_restored_dask_all_vars.csv"
+    # Load data
+    df = pd.read_csv(csv_path)
+    
+    print("Numerical Column Statistics:")
+    print(df.describe())
+    print(df.describe(include=['object']))
+    
+    print("Missing Values Count:")
+    print(df.isnull().sum())
+    
+    print("Column Data Types:")
+    print(df.dtypes)
+
+if __name__ == "__main__":
+    # download_station_json()
+    # get_swe_observations_from_snotel_cdec()
+    check_on_data()
+
+    

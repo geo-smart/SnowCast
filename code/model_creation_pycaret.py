@@ -56,4 +56,3 @@ rmse = mean_squared_error(y_test, predictions, squared=False)
 r2 = r2_score(y_test, predictions)
 print('RMSE:', rmse)
 print('R2 Score:', r2)
-

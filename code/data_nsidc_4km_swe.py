@@ -1,3 +1,4 @@
+# Deprecated (Mar 2 2025)
 # 2019 first https://nsidc.org/data/nsidc-0719/versions/1#anchor-1
 
 # TODO: change LAT LONG TO GRID CELL COORDS
@@ -26,10 +27,7 @@ import datetime
 import geojson
 from sklearn import neighbors as sk
 import sys
-
-# read the grid geometry file
-homedir = os.path.expanduser('~')
-print(homedir)
+from snowcast_utils import data_dir, homedir, output_dir
 
 # read grid cell
 github_dir = f"{homedir}/Documents/GitHub/SnowCast"

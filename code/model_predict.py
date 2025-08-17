@@ -311,9 +311,11 @@ def merge_data(original_data, predicted_data):
     # if predicted value is minus, assign 0
     merged_df.loc[merged_df['predicted_swe'] < 0, 'predicted_swe'] = 0
     
-    merged_df.loc[merged_df['air_temperature_tmmx'].isnull(), 
+    # if GridMET has no data, don't output
+    merged_df.loc[merged_df['air_temperature_tmmx']==0, 
                   'predicted_swe'] = 0
 
+    # if there are water body, don't output
     merged_df.loc[merged_df['lc_prop3'] == 3, 'predicted_swe'] = 0
     merged_df.loc[merged_df['lc_prop3'] == 255, 'predicted_swe'] = 0
     merged_df.loc[merged_df['lc_prop3'] == 27, 'predicted_swe'] = 0
@@ -339,7 +341,8 @@ def predict_in_batches(
     """
     # height = 666
     # width = 694
-    model_path = f'{model_dir}/wormhole_ETHole_latest.joblib'
+    # model_path = f'{model_dir}/wormhole_ETHole_latest.joblib'
+    model_path = f'{model_dir}/wormhole_ETHole_20250502173425.joblib'
     print(f"Using model: {model_path}")
 
     if output_path is None:
@@ -448,4 +451,3 @@ if __name__ == "__main__":
         callback=predict_for_date,
         force = True
     )
-

@@ -64,4 +64,3 @@ r2 = r2_score(y_test, predictions)
 # Print the evaluation metrics
 print("RMSE:", rmse)
 print("R2 Score:", r2)
-

@@ -125,21 +125,21 @@ class SNODASDNNHole(BaseNNHole):
 if __name__ == "__main__":
 
     # Define start and end date for training
-    start_date_str = '2024-10-01'
+    start_date_str = '2023-01-01'
     end_date_str = '2025-01-15'
     
     hole_model = SNODASDNNHole(
         start_date_str = test_start_date,
         end_date_str = test_end_date,
         batch_size = 310000,
-        epochs = 10,
+        epochs = 2,
         train_ratio = 0.8,
         test_ratio = 0.2,
         val_ratio = 0.01,
         normalization = True,
         retrain = True,
-        # model_path = "/home/chetana/models//SNODASDNNHole_e10_nTrue_20253101221511.model",
-        base_model_path = "/home/chetana/models//SNODASDNNHole_e10_nTrue_20253101221511.model"
+        # model_path = "/home/chetana/models//SNODASDNNHole_e10_nTrue_20250102163713.model",
+        base_model_path = "/home/chetana/models//SNODASDNNHole_e10_nTrue_20250102163713.model"
     )
     
     hole_model.preprocessing(verbose=True, semimonth_only = False)
@@ -158,6 +158,5 @@ if __name__ == "__main__":
     hole_model.predict("2024-03-10")
     hole_model.predict("2024-02-10")
     hole_model.predict("2024-01-10")
-
 
 

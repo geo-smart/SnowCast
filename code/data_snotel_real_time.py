@@ -34,4 +34,3 @@ print(parsed_html.body.find('div', attrs={'class':'container'}).text)
 #     [snotel_point.ALLOWED_VARIABLES.SWE]
 # )
 # print(df)
-

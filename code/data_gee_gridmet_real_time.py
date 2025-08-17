@@ -29,4 +29,3 @@ def download_gridmet():
             urllib.request.urlretrieve(download_source + t.get('href'), gridmet_download_dir + t.get("href"))
 
 download_gridmet()
-

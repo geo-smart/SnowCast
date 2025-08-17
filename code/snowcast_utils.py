@@ -42,10 +42,16 @@ stations_file = f"{github_data_dir}/all_snotel_cdec_stations_active_in_westus.cs
 supplement_point_for_correction_file = f"{work_dir}/salt_pepper_points_for_training.csv"
 #stations_file = github_data_dir+'snowcast_provided/ground_measures_metadata.csv'
 all_training_points_with_station_and_non_station_file = f"{github_data_dir}/all_training_points_in_westus.csv"
-all_training_points_with_snotel_ghcnd_file = f"{github_data_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
+
+# the current used standard list
+all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
+
+
 gridcells_outfile = github_data_dir+'terrain/gridcells_terrainData_eval.csv'
+
 #stations_outfile = f"{github_data_dir}/training_all_active_snotel_station_list_elevation.csv_terrain_4km_grid_shift.csv"
-stations_outfile = f"{github_data_dir}/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv"
+
+stations_outfile = f"{data_dir}/srtm/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv"
 
 interrupt_on_fail = False
 
@@ -79,7 +85,7 @@ def get_operation_day():
     else:
         # Calculate 10 days ago as the start day
         current_date = datetime.now()
-        start_day = current_date - timedelta(days=7)
+        start_day = current_date - timedelta(days=20)
         end_day = current_date - timedelta(days=3)
 
         # Format dates as strings in "YYYY-MM-DD" format
@@ -91,9 +97,9 @@ def get_operation_day():
         return start_day_string, end_day_string
 
 # Get the start and end dates
-# test_start_date, test_end_date = get_operation_day()
+test_start_date, test_end_date = get_operation_day()
 
-test_start_date, test_end_date = "2025-01-01", "2025-01-30"
+# test_start_date, test_end_date = "2024-10-01", "2025-02-01"
 
 #test_end_date = d1
 print("test start date: ", test_start_date)
@@ -289,4 +295,3 @@ if __name__ == "__main__":
     #findLastStopDate(f"{github_dir}/data/sim_testing/gridmet/", "%Y-%m-%d %H:%M:%S")
     #findLastStopDate(f"{github_dir}/data/sat_testing/sentinel1/", "%Y-%m-%d %H:%M:%S")
     #findLastStopDate(f"{github_dir}/data/sat_testing/modis/", "%Y-%m-%d")
-

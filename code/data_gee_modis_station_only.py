@@ -105,4 +105,3 @@ for ind in station_cell_mapper_df.index:
 all_cell_df.to_csv(f"{homedir}/Documents/GitHub/SnowCast/data/{org_name}/{column_name}.csv")  
 
 
-

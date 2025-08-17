@@ -1,4 +1,4 @@
-# Write your first Python code in Geoweaver
+# Deprecated, we don't have the capacity to collect and run on all the original reflect. We rely on MOD10A1 for now and will be good enough to achieve fair enough SWE maps.
 # Code to download 7 bands of MODIS (MOD09GA) to compute fSCA
 # Code first drafted by Millie Spencer and Ziheng Sun in UW Geohackweek 2024
 
@@ -278,5 +278,4 @@ if __name__ == "__main__":
   start_date = datetime(2018, 1, 1)
   end_date = datetime(2018, 1, 31)
   download_tiles_and_merge(start_date, end_date)
-
 

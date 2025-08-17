@@ -16,21 +16,9 @@ Functions:
 
 import dask.dataframe as dd
 import os
-from snowcast_utils import work_dir, homedir
+from snowcast_utils import work_dir, homedir, train_start_date, train_end_date, data_dir
 import pandas as pd
 import time
-
-working_dir = work_dir
-final_output_name = "final_merged_data_4yrs_snotel_and_ghcnd_stations.csv"
-chunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size
-amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits.csv'
-snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_swe_restored_dask_all_vars.csv'
-ghcnd_file = f'{working_dir}/active_station_only_list.csv_all_vars_masked_non_snow.csv'
-all_station_obs_file = f'{working_dir}/snotel_ghcnd_all_obs.csv'
-gridmet_file = f'{working_dir}/training_all_point_gridmet_with_snotel_ghcnd.csv'
-terrain_file = f'{working_dir}/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv'
-fsca_file = f'{homedir}/fsca/fsca_final_training_all.csv'
-final_final_output_file = f'{work_dir}/{final_output_name}'
 
 
 def merge_snotel_ghcnd_together():
@@ -152,13 +140,32 @@ def sort_training_data(input_training_csv, sorted_training_csv):
     print(f"sorted training data is saved to {sorted_training_csv}")
   
 if __name__ == "__main__":
-  
-#     merge_snotel_ghcnd_together()
-  
-#     merge_all_data_together()
-#     cleanup_dataframe()
-#     final_final_output_file = f'{work_dir}/{final_output_name}'
-#     sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')
+
+    working_dir = work_dir
+    final_output_name = f"final_merged_data_4yrs_snotel_and_ghcnd_stations_{train_start_date}_{train_end_date}.csv"
+    chunk_size = '10MB'  # You can adjust this chunk size based on your hardware and data size
+    # amsr_file = f'{working_dir}/all_training_points_in_westus.csv_amsr_dask_all_training_ponits_{train_start_date}_{train_end_date}.csv'
+    # amsr_file = f'{working_dir}/salt_pepper_points_for_training.csv_fsca_training_{train_start_date}_{train_end_date}.csv'
+    amsr_file = f'{working_dir}/all_training_points_snotel_ghcnd_in_westus.csv_amsr_training_{train_start_date}_{train_end_date}.csv'
+    # /home/chetana/data/fsca/salt_pepper_points_for_training.csv_fsca_training_2002-01-01_2024-12-31.csv
+    snotel_file = f'{working_dir}/all_snotel_cdec_stations_active_in_westus.csv_{train_start_date}_{train_end_date}_swe_restored_dask_all_vars.csv'
+    # /home/chetana/data/gridmet_test_run/all_snotel_cdec_stations_active_in_westus.csv_2002-01-01_2024-12-31_swe_restored_dask_all_vars.csv
+    ghcnd_file = f'{working_dir}/active_station_only_list.csv_all_vars_{train_start_date}_{train_end_date}_masked_non_snow.csv'
+    # active_station_only_list.csv_all_vars_2002-01-01_2024-12-31_masked_non_snow.csv
+    all_station_obs_file = f'{working_dir}/snotel_ghcnd_all_obs_{train_start_date}_{train_end_date}.csv'
+    gridmet_file = f'{working_dir}/all_training_points_snotel_ghcnd_in_westus.csv_gridmet_training_{train_start_date}_{train_end_date}.csv'
+    # /home/chetana/data/gridmet_test_run/all_training_points_snotel_ghcnd_in_westus.csv_gridmet_training_2002-01-01_2024-12-31.csv
+    terrain_file = f'{data_dir}/srtm/all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv'
+    # all_training_points_with_ghcnd_in_westus.csv_terrain_4km_grid_shift.csv
+    fsca_file = f'{data_dir}/fsca/all_training_points_snotel_ghcnd_in_westus.csv_fsca_training_{train_start_date}_{train_end_date}.csv'
+    # all_training_points_snotel_ghcnd_in_westus.csv_fsca_training_2002-01-01_2024-12-31.csv
+    final_final_output_file = f'{work_dir}/{final_output_name}'
+
+    merge_snotel_ghcnd_together()
+    merge_all_data_together()
+    cleanup_dataframe()
+    final_final_output_file = f'{work_dir}/{final_output_name}'
+    sort_training_data(final_final_output_file, f'{work_dir}/{final_output_name}_sorted.csv')
     
     start_time = time.time()
     

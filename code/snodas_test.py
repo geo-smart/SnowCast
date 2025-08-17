@@ -287,4 +287,3 @@ if __name__ == "__main__":
         end_date="2015-12-31",
         callback=snodas_callback,
     )
-

@@ -4,7 +4,7 @@ from torch import nn, optim
 from sklearn.preprocessing import MinMaxScaler
 from datetime import datetime
 import numpy as np
-from snowcast_utils import data_dir, work_dir
+from snowcast_utils import data_dir, work_dir, output_dir
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -97,130 +97,89 @@ def get_model(device):
     print(f"Total trainable parameters: {total_params}")
     return model
 
-def add_snodas_mask_column_for_training(
+def add_snodas_mask_column(
     model_path: str, 
     training_csv, 
     new_training_csv,
     lat_col_name = "lat", 
     lon_col_name = "lon", 
-    date_col_name = "date"
+    date_col_name = "date",
+    overwrite: bool = True,
 ):
-    # the training must be added from AI-derived swe maps. This is because if the batch size changes, the results will change. Must maintain the same input and batch size as the training. 
+
+    
+    import pandas as pd
+    import numpy as np
+    from scipy.spatial import cKDTree
+
+    # Load training data
     training_df = pd.read_csv(training_csv)
-    print(training_df.columns)
-    unique_dates = training_df[["date"]].drop_duplicates()
-    print("unique dates: ", len(unique_dates))
+    training_df.rename(columns={
+        lat_col_name: 'lat', 
+        lon_col_name: 'lon',
+        date_col_name: 'date'
+    }, inplace=True)
+    print(training_df.head())
 
-    hole_model = SNODASDNNHole(
-        start_date_str = test_start_date,
-        end_date_str = test_end_date,
-        batch_size = 310000,
-        epochs = 10,
-        train_ratio = 0.8,
-        test_ratio = 0.2,
-        val_ratio = 0.01,
-        normalization = True,
-        retrain = True,
-        model_path = "/home/chetana/models//SNODASDNNHole_e10_nTrue_20253101055710.model",
-        # base_model_path = "/home/chetana/models//SNODASDNNHole_e10_nTrue_20253101055710.model"
-    )
+    snodas_mask_csv = f"{output_dir}/SNODASDNNHole_e10_nTrue_nn_swe_predicted_2024-12-10.csv"
+    if os.path.exists(snodas_mask_csv) and not overwrite:
+        print(f"{new_training_csv} exists and won't overwrite. Skip..")
+        predicted_df = pd.read_csv(snodas_mask_csv)
+    else:
+        # Generate predictions
+        hole_model = SNODASDNNHole(
+            start_date_str=test_start_date,
+            end_date_str=test_end_date,
+            batch_size=310000,
+            epochs=10,
+            train_ratio=0.8,
+            test_ratio=0.2,
+            val_ratio=0.01,
+            normalization=True,
+            retrain=True,
+            model_path="/home/chetana/models//SNODASDNNHole_e10_nTrue_20250202144843.model",
+        )
+
+        predicted_df = hole_model.predict("2024-12-10", save_csv=True, tiff=True)
+
+    print("predicted_df.columns: ", predicted_df.columns)
+    predicted_df.rename(columns={
+        'Latitude': 'lat', 
+        'Longitude': 'lon'
+    }, inplace=True)
+
+    # Ensure required columns exist
+    if not {'lat', 'lon'}.issubset(training_df.columns) or not {'lat', 'lon'}.issubset(predicted_df.columns):
+        raise ValueError("Both training_df and predicted_df must contain 'lat' and 'lon' columns.")
+
+    # Build KDTree for fast nearest-neighbor lookup
+    tree = cKDTree(predicted_df[['lat', 'lon']].values)
+
+    # Query KDTree for the closest SWE prediction for each row in training_df
+    distances, indices = tree.query(training_df[['lat', 'lon']].values, k=1)
+
+    # Add the nearest SWE value to training_df
+    training_df['snodas_mask'] = predicted_df.iloc[indices]['SWE_predicted'].values  # Adjust 'SWE' to the actual column name
+
+    # Save or return updated DataFrame
+    training_df.to_csv(new_training_csv, index=False)
+
+    # Print summary
+    print("New csv with snodas_mask column is saved to ", new_training_csv)
     
-    # hole_model.preprocessing(verbose=True, semimonth_only = False)
-    # hole_model.train()
-    # hole_model.save()
-    # hole_model.evaluate()
-    for date in unique_dates["date"]:
-        print("Generating for ", date)
-        df = hole_model.predict(date, save_csv=False, tiff=False, skip_exists=False)
-
-        print(df.describe())
-        return
-
-    
-
-    
-
-# Main function for prediction on the large CSV
-def add_snodas_mask_column_for_testing(
-    model_path: str, 
-    testing_csv, 
-    new_testing_csv,
-    lat_col_name = "lat", 
-    lon_col_name = "lon", 
-    date_col_name = "date"
-):
-    print(f"Loading model from: {model_path}")
-    device = get_first_available_device()
-    model = get_model(device)
-    model.load_model(model_path)
-    
-    print("Model loaded successfully. Preparing the dataset...")
-    
-    # Read large CSV efficiently in chunks
-    chunk_size = 310000  # Set a chunk size that your system can handle
-    # this chunk size must match the batch size when training the model. Different chunk size will cause problems. Cannot change this!!! Be aware.
-    lat_lon_csv_path = testing_csv
-    
-    # Placeholder for predictions (to add them to the dataframe)
-    predictions_list = []
-    
-    model.eval()
-    for chunk in pd.read_csv(lat_lon_csv_path, chunksize=chunk_size):
-        # print(chunk.columns)
-        # Extract required columns
-        current_chunk = chunk[[date_col_name, lat_col_name, lon_col_name]].copy()
-        
-        # Parse the date and extract year, month, day of year
-        print("Parsing date and extracting features...")
-        current_chunk[date_col_name] = pd.to_datetime(current_chunk[date_col_name], format="%Y-%m-%d")
-        current_chunk['year'] = current_chunk[date_col_name].dt.year
-        current_chunk['month'] = current_chunk[date_col_name].dt.month
-        current_chunk['day_of_year'] = current_chunk[date_col_name].dt.dayofyear
-        
-        # Extract features (Latitude, Longitude, day_of_year, month, year)
-        X = current_chunk[[lat_col_name, lon_col_name, 'day_of_year', 'month', 'year']].values
-
-        # y = model.predict(X)
-        X = torch.tensor(X, dtype=torch.float32).to(device)
-        y = model(X).detach().cpu().numpy()
-
-        # Flatten y if it has an extra dimension
-        if y.ndim > 1:
-            y = y.flatten()
-
-        # Convert to a pandas Series for convenience
-        y_series = pd.Series(y)
-
-        snodas_mask = (10 ** y) - 1  # Reverse log10 scaling, should be 0.1
-
-        # Add predictions to the chunk
-        chunk['snodas_mask'] = snodas_mask
-        
-        # Append the chunk with predictions to the list
-        predictions_list.append(chunk)
-
-        print(f"Processed {len(chunk)} rows, predictions added.")
-    
-    # Concatenate all the chunks with predictions
-    final_df = pd.concat(predictions_list, ignore_index=True)
-    
-    # Save the final dataframe with predictions
-    output_file = new_testing_csv
-    final_df.to_csv(output_file, index=False)
-    print(f"Predictions saved to {output_file}")
 
 if __name__ == "__main__":
     # Call the function with appropriate paths
     # WARNING: This is not right, because batch matters. The start of each batch will matter. The correct way is to first generate all years of data, and then use the output to generate the training.csv.
     training_csv = f"{work_dir}/all_points_final_merged_training.csv"
-    new_training_csv = f"{work_dir}/all_points_final_merged_training_snodas_mask_resnet.csv"
+    new_training_csv = f"{work_dir}/all_points_final_merged_training_snodas_mask_resnet_all_batch.csv"
     model_path = f"/home/chetana/models//SNODASDNNHole_e10_nTrue_20253101055710.model"
-    add_snodas_mask_column_for_training(
+    add_snodas_mask_column(
         model_path, 
         training_csv, 
         new_training_csv, 
         lat_col_name = "lat", 
         lon_col_name = "lon", 
-        date_col_name = "date"
+        date_col_name = "date",
+        overwrite= False,
     )
-

@@ -252,8 +252,7 @@ if __name__ == "__main__":
     # plot_model()
 
     explain_predictions_for_latlon(
-        41.742627, -102.255249,
-        target_date = "2025-01-15",
+        38.051876, -107.560959,
+        target_date = "2025-02-07",
     )
-
 

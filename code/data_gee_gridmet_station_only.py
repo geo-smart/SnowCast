@@ -26,7 +26,7 @@ print("work_dir = ", work_dir)
 #stations = pd.read_csv(f'{work_dir}/station_cell_mapping.csv')
 all_training_points_with_snotel_ghcnd_file = f"{work_dir}/all_training_points_snotel_ghcnd_in_westus.csv"
 gridmet_save_location = f'{work_dir}/gridmet_climatology'
-final_merged_csv = f"{work_dir}/salt_pepper_point_gridmet_training.csv"
+final_merged_csv = f"{work_dir}/salt_pepper_point_gridmet_training_{train_start_date}_{train_end_date}.csv"
 variables_list = ['tmmn', 'tmmx', 'pr', 'vpd', 'etr', 'rmax', 'rmin', 'vs']
 
 
@@ -216,7 +216,7 @@ def merge_all_variables_together(target_points_csv_path):
             df = pd.read_csv(file_path)
             merged_df = pd.concat([merged_df, df], axis=1)
         merged_df = merged_df.loc[:, ~merged_df.columns.duplicated()]
-        final_merged_csv = f"{target_points_csv_path}_gridmet_training.csv"
+        final_merged_csv = f"{target_points_csv_path}_gridmet_training_{train_start_date}_{train_end_date}.csv"
         merged_df.to_csv(final_merged_csv, index=False)
         print(f"all files are saved to {final_merged_csv}")
 
@@ -231,9 +231,8 @@ if __name__ == "__main__":
         # should check if the nc file year number is in the year_list
         get_gridmet_variable(
             gridmet_nc_file_name = nc, 
-            target_points_csv_path = supplement_point_for_correction_file
+            target_points_csv_path = all_training_points_with_snotel_ghcnd_file
         )
     
-    merge_similar_variables_from_different_years(supplement_point_for_correction_file)
-    merge_all_variables_together(supplement_point_for_correction_file)
-
+    merge_similar_variables_from_different_years(all_training_points_with_snotel_ghcnd_file)
+    merge_all_variables_together(all_training_points_with_snotel_ghcnd_file)

@@ -194,4 +194,3 @@ if __name__ == "__main__":
   refresh_available_date_list()
   print("All done")
   time.sleep(10)
-

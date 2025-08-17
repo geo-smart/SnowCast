@@ -53,4 +53,3 @@ amsr_3_years_file = f"{work_dir}/training_amsr_data.csv"
 output_file = f"{work_dir}/training_ready_merged_data_dd.csv"
 
 clip_csv_using_time_range(gridmet_20_years_file, snotel_20_years_file, terrain_file, amsr_3_years_file, output_file)
-

@@ -4,13 +4,13 @@ import rasterio
 from pyproj import Transformer
 from rasterio.enums import Resampling
 import concurrent.futures
-from snowcast_utils import homedir, work_dir, train_start_date, train_end_date
+from snowcast_utils import homedir, data_dir, output_dir,work_dir, train_start_date, train_end_date
 from datetime import datetime, timedelta
 import dask.dataframe as dd
 import numpy as np
 import re
 
-fsca_working_dir = f"{homedir}/fsca"
+fsca_working_dir = f"{data_dir}/fsca"
 folder_path = f"{fsca_working_dir}/final_output/"
 new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
 cell_to_modis_mapping = f"{fsca_working_dir}/training_cell_to_modis_mapper_original_snotel_stations.csv"
@@ -303,7 +303,7 @@ def merge_csv(start_date, end_date, training_point_file):
   dask_df = dd.read_csv(relevant_csv_files)
 
   # Save the merged DataFrame to a CSV file
-  output_file = f'{fsca_working_dir}/{training_point_filename}_fsca_training.csv'
+  output_file = f'{fsca_working_dir}/{training_point_filename}_fsca_training_{train_start_date}_{train_end_date}.csv'
   # Write the Dask DataFrame to a single CSV file
   print(f"saving all csvs into one file: {output_file}")
   dask_df.to_csv(output_file, index=False, single_file=True)
@@ -320,7 +320,9 @@ def main():
   
   # prepare_modis_grid_mapper_training()
   # prepare_ghcnd_station_mapping_training()
-  new_mapper_file = prepare_training_points_to_modis_grid_mapper(training_points_csv = salt_pepper_training_point_file)
+  new_mapper_file = prepare_training_points_to_modis_grid_mapper(
+    training_points_csv = all_training_points_with_snotel_ghcnd_file
+  )
 
   # running this function will generate a new set of random points
   # generate_random_non_station_points()
@@ -328,21 +330,37 @@ def main():
   #merge_snotel_ghcnd_station_to_one_csv()
   
   date_list = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
-  training_points_filename = os.path.basename(salt_pepper_training_point_file)
+  training_points_filename = os.path.basename(all_training_points_with_snotel_ghcnd_file)
   for i in date_list:
     current_date = i.strftime("%Y-%m-%d")
-    #print(f"extracting data for {current_date}")
-    outfile = os.path.join(modis_day_wise, f'{training_points_filename}_{current_date}_fsca.csv')
+    # print(f"extracting data for {current_date}")
+    outfile = os.path.join(
+      modis_day_wise, 
+      f'{training_points_filename}_{current_date}_fsca.csv'
+    )
+    
     if os.path.exists(outfile):
-      print(f"The file {outfile} exists. skip.")
-      pass
+        print(f"The file {outfile} exists. Skip.")
+        continue  # Skip this iteration and continue with the next date
     else:
-      process_file(f'{modis_day_wise}/{current_date}__snow_cover.tif', new_mapper_file, current_date, outfile)
+        try:
+            process_file(
+              f'{modis_day_wise}/{current_date}__snow_cover.tif', 
+              new_mapper_file, 
+              current_date, 
+              outfile
+            )
+        except Exception as e:
+            # print(f"Error processing file for {current_date}: {e}")
+            continue  # Continue with the next date if an error occurs
   
-  merge_csv(start_date, end_date, salt_pepper_training_point_file)
+  merge_csv(
+    start_date, 
+    end_date, 
+    all_training_points_with_snotel_ghcnd_file
+  )
 
 if __name__ == "__main__":
   main()
   print("fsca Data extraction complete.")
   
-

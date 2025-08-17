@@ -129,32 +129,70 @@ def convert_to_time_series(input_csv, output_csv, force=False):
     if os.path.exists(output_csv) and not force:
         print(f"{output_csv} already exists, skipping")
     else:
-        df = filled_data
-        # Create a new DataFrame to store the time series data for each location
-        print("Start to create the training csv with previous 7 days columns")
-        result = pd.DataFrame()
-
+        print("Start to create the time series data")
+        
         # Define the number of days to consider (7 days in this case)
         num_days = 7
 
-        grouped = df.groupby(['lat', 'lon'])
+        # Use an iterator to process the input file in chunks
+        chunk_iter = pd.read_csv(filled_csv, dtype={'station_name': 'object'}, chunksize=chunk_size)
         
-        def process_group_time_series(group, num_days):
-          group = group.sort_values(by='date')
-          for day in range(1, num_days + 1):
-            for target_col in columns_to_be_time_series:
-              new_column_name = f'{target_col}_{day}'
-              group[new_column_name] = group[target_col].shift(day)
-              
-          return group
-        
-        result = grouped.apply(lambda group: process_group_time_series(group, num_days)).reset_index(drop=True)
-        result.fillna(0, inplace=True)
-        
-        result.to_csv(output_csv, index=False)
-        print(f"New data is saved to {output_csv}")
+        # Create the output file and prepare the writer
+        with open(output_csv, 'w') as f_out:
+            first_chunk = True  # To handle writing header only for the first chunk
+            for chunk in chunk_iter:
+                # Rename columns in the chunk
+                chunk.rename(columns={'vpd': 'mean_vapor_pressure_deficit',
+                                      'vs': 'wind_speed', 
+                                      'pr': 'precipitation_amount', 
+                                      'etr': 'potential_evapotranspiration',
+                                      'tmmn': 'air_temperature_tmmn',
+                                      'tmmx': 'air_temperature_tmmx',
+                                      'rmin': 'relative_humidity_rmin',
+                                      'rmax': 'relative_humidity_rmax',
+                                      'AMSR_SWE': 'SWE'}, inplace=True)
+
+                # Group the data by 'lat' and 'lon', process each group separately
+                grouped = chunk.groupby(['lat', 'lon'])
+
+                for _, group in grouped:
+                    group_data = process_group_time_series(group, num_days)
+                    
+                    # Write each processed group incrementally to the CSV
+                    group_data.to_csv(f_out, header=first_chunk, index=False, mode='a')
+                    first_chunk = False  # Only write the header once
+
+        print(f"New time series data is saved to {output_csv}")
+
+        # Backup the result
         shutil.copy(output_csv, backup_time_series_csv_path)
         print(f"File is backed up to {backup_time_series_csv_path}")
+        # df = filled_data
+        # # Create a new DataFrame to store the time series data for each location
+        # print("Start to create the training csv with previous 7 days columns")
+        # result = pd.DataFrame()
+
+        # # Define the number of days to consider (7 days in this case)
+        # num_days = 7
+
+        # grouped = df.groupby(['lat', 'lon'])
+        
+        # def process_group_time_series(group, num_days):
+        #   group = group.sort_values(by='date')
+        #   for day in range(1, num_days + 1):
+        #     for target_col in columns_to_be_time_series:
+        #       new_column_name = f'{target_col}_{day}'
+        #       group[new_column_name] = group[target_col].shift(day)
+              
+        #   return group
+        
+        # result = grouped.apply(lambda group: process_group_time_series(group, num_days)).reset_index(drop=True)
+        # result.fillna(0, inplace=True)
+        
+        # result.to_csv(output_csv, index=False)
+        # print(f"New data is saved to {output_csv}")
+        # shutil.copy(output_csv, backup_time_series_csv_path)
+        # print(f"File is backed up to {backup_time_series_csv_path}")
 
 def add_cumulative_columns(input_csv, output_csv, force=False):
     """
@@ -300,7 +338,11 @@ def log10_all_fields(cleaned_csv_path, logged_csv_path, force=False):
     print(f"The log10 file is saved to {logged_csv_path}")
 
 
-def merge_all_training_csvs(large_training_csv, small_training_csv, final_all_point_training_csv):
+def merge_all_training_csvs(
+  large_training_csv, 
+  small_training_csv, 
+  final_all_point_training_csv
+):
   # Load the first CSV file
   df1 = pd.read_csv(large_training_csv)
 
@@ -326,48 +368,88 @@ def merge_all_training_csvs(large_training_csv, small_training_csv, final_all_po
   df_merged.to_csv(final_all_point_training_csv, index=False)
   print(f"merged training samples are saved to {final_all_point_training_csv}")
 
+import pandas as pd
+import xarray as xr
+import numpy as np
+
+def csv_to_netcdf(input_csv, output_netcdf):
+    # Load CSV
+    df = pd.read_csv(input_csv, parse_dates=['date'])
+    
+    # Ensure lat, lon, and date are present
+    if not {'lat', 'lon', 'date'}.issubset(df.columns):
+        raise ValueError("CSV must contain 'lat', 'lon', and 'date' columns.")
+    
+    # Drop duplicate entries (if any)
+    df = df.drop_duplicates(subset=['date', 'lat', 'lon'])
+
+    # Pivot to 3D format using MultiIndex
+    df.set_index(['date', 'lat', 'lon'], inplace=True)
+
+    # Convert to xarray Dataset
+    ds = xr.Dataset.from_dataframe(df)
+
+    # Reorder dimensions if needed
+    ds = ds.transpose("date", "lat", "lon", ...)
+
+    # Save to NetCDF
+    ds.to_netcdf(output_netcdf)
+
+    print(f"NetCDF file saved to {output_netcdf}")
+
 
 if __name__ == "__main__":
 
   # Define file paths for various CSV files
   # current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'
-  current_ready_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv'
-  non_station_counted_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_fill_empty_snotel.csv'
-  cleaned_csv_path = f"{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_cleaned.csv"
-  target_time_series_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_time_series.csv'
-  backup_time_series_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_time_series_backup.csv'
+  # current_ready_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv'
+  current_ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv'
+  non_station_counted_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_fill_empty_snotel.csv'
+  cleaned_csv_path = f"{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_cleaned.csv"
+  target_time_series_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series.csv'
+  backup_time_series_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series_backup.csv'
   # target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'
-  target_time_series_cumulative_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_cumulative.csv'
-  slope_renamed_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_slope_renamed.csv'
-  logged_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_4yrs_all_cols_log10.csv'
-  deduplicated_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv_deduplicated_training_points_final.csv'
+  target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_cumulative.csv'
+  slope_renamed_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_4yrs_slope_renamed.csv'
+  logged_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_4yrs_all_cols_log10.csv'
+  deduplicated_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_deduplicated_training_points_final.csv'
 
-  merged_all_training_csv_path = f"{work_dir}/all_points_final_merged_training.csv"
+  merged_all_training_csv_path = f"{work_dir}/all_points_final_merged_training_2002-01-01_2024-12-31.csv"
     
   # filling the non station rows with fsca indicating no snow
-  assign_zero_swe_value_to_all_fsca_zero_rows(current_ready_csv_path, non_station_counted_csv_path, force=True)
+  # assign_zero_swe_value_to_all_fsca_zero_rows(current_ready_csv_path, non_station_counted_csv_path, force=True)
 
   # remove the empty swe_value rows first
-  clean_non_swe_rows(non_station_counted_csv_path, cleaned_csv_path, force=True)
+  # clean_non_swe_rows(non_station_counted_csv_path, cleaned_csv_path, force=True)
+
+  input_csv_path = f"{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series.csv_gap_filled.csv"
+  output_netcdf_path = f"{work_dir}/final_merged_data_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series.csv_gap_filled.csv.nc"
+  # convert csv to netcdf
+  # csv_to_netcdf(input_csv_path, output_netcdf_path)
+
+  # sys.exit(0)
 
   # Uncomment this line to execute the 'convert_to_time_series' function
   convert_to_time_series(cleaned_csv_path, target_time_series_csv_path, force=True)
 
   # Uncomment this line to execute the 'add_cumulative_columns' function
-  add_cumulative_columns(target_time_series_csv_path, target_time_series_cumulative_csv_path, force=True)
+  # add_cumulative_columns(target_time_series_csv_path, target_time_series_cumulative_csv_path, force=True)
 
   # Rename the corrected slope to slope
-  rename_corrected_slope(target_time_series_cumulative_csv_path, slope_renamed_path, force=True)
+  rename_corrected_slope(target_time_series_csv_path, slope_renamed_path, force=True)
 
   # convert all cumulative columns to log10
-  log10_all_fields(slope_renamed_path, logged_csv_path, force=True)
+  # log10_all_fields(slope_renamed_path, logged_csv_path, force=True)
 
-  df = pd.read_csv(logged_csv_path, dtype={'station_name': 'object'})
+  df = pd.read_csv(slope_renamed_path, dtype={'station_name': 'object'})
   print("the number of the total rows: ", len(df))
 
   deduplicated_df = df.drop_duplicates(subset=['lat', 'lon', 'date'])
   # Export the deduplicated DataFrame to a CSV file
-  deduplicated_df.to_csv(deduplicated_csv_path, index=False)
-  print(f"deduplicated_df.to_csv('{deduplicated_csv_path}', index=False)")
-  merge_all_training_csvs(f"{work_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv", deduplicated_csv_path, merged_all_training_csv_path)
+  # deduplicated_df.to_csv(deduplicated_csv_path, index=False)
+  # print(f"deduplicated_df.to_csv('{deduplicated_csv_path}', index=False)")
+  # merge_all_training_csvs(
+  #   f"{work_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv", deduplicated_csv_path, merged_all_training_csv_path)
 
+  deduplicated_df.to_csv(merged_all_training_csv_path)
+  print("All training saved to ", merged_all_training_csv_path)

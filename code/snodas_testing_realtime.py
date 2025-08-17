@@ -435,4 +435,3 @@ if __name__ == "__main__":
 
     # Run the training process
     model = main(data_folder, start_date_str, end_date_str, model_path)
-

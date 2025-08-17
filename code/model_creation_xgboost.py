@@ -53,4 +53,3 @@ class XGBoostHole(RandomForestHole):
                     n_estimators=100, n_jobs=-1, oob_score=False,
                     random_state=123, verbose=0, warm_start=False)
         return etmodel
-

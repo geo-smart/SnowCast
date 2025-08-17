@@ -276,4 +276,3 @@ def add_no_snow_data_points():
 add_no_snow_data_points()
 
 
-

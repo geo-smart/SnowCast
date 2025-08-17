@@ -618,4 +618,3 @@ if __name__ == "__main__":
 # >        'Northness', 'Eastness', 'AMSR_SWE', 'cumulative_AMSR_SWE', 'date']
     do_prediction(target_date="2024-11-11")
     
-

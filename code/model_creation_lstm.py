@@ -2,4 +2,3 @@
 
 print("Create LSTM")
 
-

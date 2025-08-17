@@ -1,4 +1,4 @@
-# ---
+# Deprecated, we don't have the capacity to collect and run on all the original reflect. We rely on MOD10A1 for now and will be good enough to achieve fair enough SWE maps.
 # Millie 
 
 # # code to convert MODIS09GA band geotiffs to a csv
@@ -329,5 +329,4 @@ def main():
 if __name__ == "__main__":
   main()
   print("fsca Data extraction complete.")
-
 

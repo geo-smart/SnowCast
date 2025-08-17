@@ -1089,4 +1089,3 @@ gdalinfo -stats /tmp/srtm_subwindow_new.tif
 echo "Done"
 
 
-

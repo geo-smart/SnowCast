@@ -41,7 +41,8 @@ class ETHole(RandomForestHole):
     # training_data_path = f"{working_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv"
     # training_data_path = f"{working_dir}/all_points_final_merged_training.csv"
     # training_data_path = f"{working_dir}/all_points_final_merged_training_snodas_mask.csv"
-    training_data_path = f"{working_dir}/all_points_final_merged_training_snodas_mask_resnet.csv"
+    # training_data_path = f"{working_dir}/all_points_final_merged_training_snodas_mask_resnet.csv"
+    training_data_path = f"{working_dir}/all_points_final_merged_training_snodas_mask_resnet_all_batch.csv"
     # training_data_path = f"{working_dir}/../snotel_ghcnd_stations_4yrs_all_cols_log10.csv"
 
 
@@ -141,7 +142,7 @@ class ETHole(RandomForestHole):
         # these columns all come from SNOTEL report
         cumulative_columns = [col for col in data.columns if 'cumulative' in col.lower()]
 
-        precip_history_columns = [col for col in data.columns if 'precipitation_amount' in col.lower()]
+        # precip_history_columns = [col for col in data.columns if 'precipitation_amount' in col.lower()]
 
         snotel_columns_to_drop = [
             'station_name', 
@@ -149,17 +150,14 @@ class ETHole(RandomForestHole):
             'change_in_swe_inch', 
             'snow_depth', 
             'air_temperature_observed_f', 
-            # 'precipitation_amount'
-        ] + cumulative_columns + precip_history_columns
+        ] + cumulative_columns
 
         # Drop columns only if they exist in the DataFrame
         data = data.drop(columns=[col for col in snotel_columns_to_drop if col in data.columns], axis=1)
 
         print("SNOTEL columns dropped successfully!")
         print(data.columns)  # Print the remaining columns for verification
-
         
-
         X = data.drop('swe_value', axis=1)
         print('required features after removing swe_value:', X.columns)
 
@@ -360,36 +358,42 @@ class ETHole(RandomForestHole):
 # 'cumulative_air_temperature_tmmx', 'cumulative_wind_speed', 'swe_value']
 
 
-selected_columns = ['SWE', 'swe_value', 'relative_humidity_rmin',
-'potential_evapotranspiration', 'air_temperature_tmmx',
-'relative_humidity_rmax', 'mean_vapor_pressure_deficit',
-'air_temperature_tmmn', 'wind_speed', 'Elevation', 'Aspect',
-'Curvature', 'Northness', 'Eastness', 'fsca', 'Slope', 'SWE_1',
-'air_temperature_tmmn_1', 'potential_evapotranspiration_1',
-'mean_vapor_pressure_deficit_1', 'relative_humidity_rmax_1',
-'relative_humidity_rmin_1', 'air_temperature_tmmx_1', 'wind_speed_1',
-'fsca_1', 'SWE_2', 'air_temperature_tmmn_2',
-'potential_evapotranspiration_2', 'mean_vapor_pressure_deficit_2',
-'relative_humidity_rmax_2', 'relative_humidity_rmin_2',
-'air_temperature_tmmx_2', 'wind_speed_2', 'fsca_2', 'SWE_3',
-'air_temperature_tmmn_3', 'potential_evapotranspiration_3',
-'mean_vapor_pressure_deficit_3', 'relative_humidity_rmax_3',
-'relative_humidity_rmin_3', 'air_temperature_tmmx_3', 'wind_speed_3',
-'fsca_3', 'SWE_4', 'air_temperature_tmmn_4',
-'potential_evapotranspiration_4', 'mean_vapor_pressure_deficit_4',
-'relative_humidity_rmax_4', 'relative_humidity_rmin_4',
-'air_temperature_tmmx_4', 'wind_speed_4', 'fsca_4', 'SWE_5',
-'air_temperature_tmmn_5', 'potential_evapotranspiration_5',
-'mean_vapor_pressure_deficit_5', 'relative_humidity_rmax_5',
-'relative_humidity_rmin_5', 'air_temperature_tmmx_5', 'wind_speed_5',
-'fsca_5', 'SWE_6', 'air_temperature_tmmn_6',
-'potential_evapotranspiration_6', 'mean_vapor_pressure_deficit_6',
-'relative_humidity_rmax_6', 'relative_humidity_rmin_6',
-'air_temperature_tmmx_6', 'wind_speed_6', 'fsca_6', 'SWE_7',
-'air_temperature_tmmn_7', 'potential_evapotranspiration_7',
-'mean_vapor_pressure_deficit_7', 'relative_humidity_rmax_7',
-'relative_humidity_rmin_7', 'air_temperature_tmmx_7', 'wind_speed_7',
-'fsca_7', 'water_year', 'snodas_mask']
+selected_columns = [
+    'SWE', 'swe_value', 'precipitation_amount', 'relative_humidity_rmin',
+    'potential_evapotranspiration', 'air_temperature_tmmx',
+    'relative_humidity_rmax', 'mean_vapor_pressure_deficit',
+    'air_temperature_tmmn', 'wind_speed', 'Elevation', 'Aspect',
+    'Curvature', 'Northness', 'Eastness', 'fsca', 'Slope', 'SWE_1',
+    'air_temperature_tmmn_1', 'potential_evapotranspiration_1',
+    'mean_vapor_pressure_deficit_1', 'relative_humidity_rmax_1',
+    'relative_humidity_rmin_1', 'precipitation_amount_1',
+    'air_temperature_tmmx_1', 'wind_speed_1', 'fsca_1', 'SWE_2',
+    'air_temperature_tmmn_2', 'potential_evapotranspiration_2',
+    'mean_vapor_pressure_deficit_2', 'relative_humidity_rmax_2',
+    'relative_humidity_rmin_2', 'precipitation_amount_2',
+    'air_temperature_tmmx_2', 'wind_speed_2', 'fsca_2', 'SWE_3',
+    'air_temperature_tmmn_3', 'potential_evapotranspiration_3',
+    'mean_vapor_pressure_deficit_3', 'relative_humidity_rmax_3',
+    'relative_humidity_rmin_3', 'precipitation_amount_3',
+    'air_temperature_tmmx_3', 'wind_speed_3', 'fsca_3', 'SWE_4',
+    'air_temperature_tmmn_4', 'potential_evapotranspiration_4',
+    'mean_vapor_pressure_deficit_4', 'relative_humidity_rmax_4',
+    'relative_humidity_rmin_4', 'precipitation_amount_4',
+    'air_temperature_tmmx_4', 'wind_speed_4', 'fsca_4', 'SWE_5',
+    'air_temperature_tmmn_5', 'potential_evapotranspiration_5',
+    'mean_vapor_pressure_deficit_5', 'relative_humidity_rmax_5',
+    'relative_humidity_rmin_5', 'precipitation_amount_5',
+    'air_temperature_tmmx_5', 'wind_speed_5', 'fsca_5', 'SWE_6',
+    'air_temperature_tmmn_6', 'potential_evapotranspiration_6',
+    'mean_vapor_pressure_deficit_6', 'relative_humidity_rmax_6',
+    'relative_humidity_rmin_6', 'precipitation_amount_6',
+    'air_temperature_tmmx_6', 'wind_speed_6', 'fsca_6', 'SWE_7',
+    'air_temperature_tmmn_7', 'potential_evapotranspiration_7',
+    'mean_vapor_pressure_deficit_7', 'relative_humidity_rmax_7',
+    'relative_humidity_rmin_7', 'precipitation_amount_7',
+    'air_temperature_tmmx_7', 'wind_speed_7', 'fsca_7', 'water_year',
+    'snodas_mask'
+]
 
 # ['cumulative_relative_humidity_rmin', 'cumulative_air_temperature_tmmx', 'cumulative_air_temperature_tmmn', 'cumulative_relative_humidity_rmax', 'cumulative_potential_evapotranspiration', 'cumulative_wind_speed'] 
 
@@ -404,5 +408,4 @@ if __name__ == "__main__":
   hole.save()
 #   hole.post_processing(chosen_columns = selected_columns)
   hole.post_processing()
-
 

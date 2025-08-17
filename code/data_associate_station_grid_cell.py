@@ -1,11 +1,7 @@
 import json
 import pandas as pd
-import ee
-import seaborn as sns
 import matplotlib.pyplot as plt
 import os
-import geopandas as gpd
-import geojson
 import numpy as np
 import os.path
 import math
@@ -64,7 +60,7 @@ if __name__ == "__main__":
     print(result_df)
     # Save the DataFrame to a CSV file
     result_df.to_csv(station_list_file, index=False)
-
+    print("All the target points are saved to ", station_list_file)
 
 
 

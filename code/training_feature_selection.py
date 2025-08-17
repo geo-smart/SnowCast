@@ -23,4 +23,3 @@ output_csv = '/home/chetana/gridmet_test_run/model_training_cleaned.csv'
 df.to_csv(output_csv, index=False, single_file=True)  # single_file=True 
 
 
-

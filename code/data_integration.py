@@ -60,27 +60,38 @@ def small_function():
 # Uncomment the line below to execute the function
 # small_function()
 
-def merge_all_files_for_training_points(training_points_csv, final_final_output_file):
+def merge_all_files_for_training_points(
+    training_points_csv, 
+    final_final_output_file,
+    force: bool = False,
+):
     training_points_file_name = os.path.basename(training_points_csv)
 
     terrain_file = f"{work_dir}/{training_points_file_name}_dem.csv"
-    gridmet_file = f"{work_dir}/{training_points_file_name}_gridmet_training.csv"
-    amsr_file = f"{work_dir}/{training_points_file_name}_amsr_training.csv"
-    fsca_file = f"{fsca_dir}/{training_points_file_name}_fsca_training.csv"
+    gridmet_file = f"{work_dir}/{training_points_file_name}_gridmet_training_{train_start_date}_{train_end_date}.csv"
+    amsr_file = f"{work_dir}/{training_points_file_name}_amsr_training_{train_start_date}_{train_end_date}.csv"
+    fsca_file = f"{fsca_dir}/{training_points_file_name}_fsca_training_{train_start_date}_{train_end_date}.csv"
     
-    if os.path.exists(final_final_output_file):
+    if os.path.exists(final_final_output_file) and not force:
       print(f"The file '{final_final_output_file}' exists. Skipping")
       return final_final_output_file
     
     # Read the CSV files with a smaller chunk size and compression
+    print("--\n Reading ", amsr_file)
     amsr = dd.read_csv(amsr_file, blocksize=chunk_size)
     print("amsr.columns = ", amsr.columns)
+    print(amsr.shape)
     # ground_truth = dd.read_csv(all_station_obs_file, blocksize=chunk_size)
     # print("ground_truth.columns = ", ground_truth.columns)
 #     gridmet = dd.read_csv(f'{working_dir}/gridmet_climatology/training_ready_gridmet.csv', blocksize=chunk_size)
+
+    print("--\n Reading ", gridmet_file)
     gridmet = dd.read_csv(gridmet_file, blocksize=chunk_size)
     gridmet = gridmet.drop(columns=["Unnamed: 0"])
     print("gridmet.columns = ", gridmet.columns)
+    print(gridmet.shape)
+
+    print("--\n Reading ", terrain_file)
     terrain = dd.read_csv(terrain_file, blocksize=chunk_size)
     terrain = terrain.rename(columns={
       "latitude": "lat", 
@@ -88,12 +99,16 @@ def merge_all_files_for_training_points(training_points_csv, final_final_output_
     })
     terrain = terrain[["lat", "lon", 'Elevation', 'Slope', 'Aspect', 'Curvature', 'Northness', 'Eastness']]
     print("terrain.columns = ", terrain.columns)
+    print(terrain.shape)
+
+    print("--\n Reading ", fsca_file)
     snowcover = dd.read_csv(fsca_file, blocksize=chunk_size)
     snowcover = snowcover.rename(columns={
       "latitude": "lat", 
       "longitude": "lon"
     })
     print("snowcover.columns = ", snowcover.columns)
+    print(snowcover.shape)
 
     # Repartition DataFrames for optimized processing
     amsr = amsr.repartition(partition_size=chunk_size)
@@ -112,7 +127,7 @@ def merge_all_files_for_training_points(training_points_csv, final_final_output_
     # merged_df.to_csv(output_file, single_file=True, index=False)
     # print(f"intermediate file saved to {output_file}")
     
-    print("start to merge amsr and gridmet")
+    print("==> \nstart to merge amsr and gridmet")
     merged_df = dd.merge(amsr, gridmet, on=['lat', 'lon', 'date'], how='outer')
     merged_df = merged_df.drop_duplicates(keep='first')
     # output_file = os.path.join(work_dir, f"{final_output_name}_gridmet.csv")
@@ -138,7 +153,10 @@ def merge_all_files_for_training_points(training_points_csv, final_final_output_
     merged_df.to_csv(final_final_output_file, single_file=True, index=False)
     print(f'Merge completed. {final_final_output_file}')
 
-def cleanup_dataframe(training_points_csv, final_final_output_file):
+def cleanup_dataframe(
+    training_points_csv, 
+    final_final_output_file
+):
     """
     Read the merged DataFrame, remove duplicate rows, and save the cleaned DataFrame to a new CSV file
     """
@@ -150,7 +168,10 @@ def cleanup_dataframe(training_points_csv, final_final_output_file):
     return final_final_output_file
 
   
-def sort_training_data(input_training_csv, sorted_training_csv):
+def sort_training_data(
+    input_training_csv, 
+    sorted_training_csv
+):
     # Read Dask DataFrame from CSV with increased blocksize and assuming missing data
     dtype = {'station_name': 'object'}  # 'object' dtype represents strings
     ddf = dd.read_csv(input_training_csv, assume_missing=True, blocksize='10MB', dtype=dtype)
@@ -168,10 +189,22 @@ def sort_training_data(input_training_csv, sorted_training_csv):
 
 if __name__ == "__main__":
     training_points_csv = f"{work_dir}/salt_pepper_points_for_training.csv"
-    final_final_output_file = f"{training_points_csv}_all_training.csv"
-    merge_all_files_for_training_points(training_points_csv, final_final_output_file)
-    cleanup_dataframe(training_points_csv, final_final_output_file)
-    sort_training_data(final_final_output_file, f"{final_final_output_file}_sorted.csv")
+    final_final_output_file = f"{training_points_csv}_all_training_{train_start_date}_{train_end_date}.csv"
 
+    merge_all_files_for_training_points(
+        training_points_csv, 
+        final_final_output_file,
+        force=True
+    )
+
+    cleanup_dataframe(
+        training_points_csv, 
+        final_final_output_file
+    )
+
+    sort_training_data(
+        final_final_output_file, 
+        f"{final_final_output_file}_sorted_{train_start_date}_{train_end_date}.csv"
+    )
 
 
