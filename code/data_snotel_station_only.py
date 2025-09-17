@@ -8,7 +8,7 @@ import os
 import dask
 import dask.dataframe as dd
 import traceback
-from snowcast_utils import work_dir, southwest_lat, southwest_lon, northeast_lat, northeast_lon, train_start_date, train_end_date
+from snowcast_utils import work_dir, southwest_lat, southwest_lon, northeast_lat, northeast_lon, train_start_date, train_end_date, data_dir
 
 working_dir = work_dir
 
@@ -142,15 +142,18 @@ def remove_commented_lines(text):
     return cleaned_text
 
   
-def get_swe_observations_from_snotel_cdec():
+def get_swe_observations_from_snotel_cdec(
+    start_date = train_start_date,
+    end_date = train_end_date
+):
     new_base_station_list_file = f"{work_dir}/all_snotel_cdec_stations_active_in_westus.csv"
     new_base_df = pd.read_csv(new_base_station_list_file)
     print(new_base_df.head())
-    start_date = train_start_date
-    end_date = train_end_date
+
+    os.makedirs(f'{data_dir}/snotel/', exist_ok=True)
   	
     old_messed_file = f"{work_dir}/"
-    csv_file = f'{new_base_station_list_file}_{start_date}_{end_date}_swe_restored_dask_all_vars.csv'
+    csv_file = f'{data_dir}/snotel/all_snotel_cdec_stations_active_in_westus_{start_date}_{end_date}.csv'
 	
     # Create an empty Pandas DataFrame with the desired columns
     result_df = pd.DataFrame(columns=[
@@ -174,7 +177,18 @@ def get_swe_observations_from_snotel_cdec():
         location_station_lat = station['latitude']
         location_station_long = station['longitude']
 
-        url = f"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue"
+        # url = f"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customSingleStationReport/daily/{location_triplet}%7Cid%3D%22%22%7Cname/{start_date},{end_date}%2C0/WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue"
+        url = f"https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customSingleStationReport/daily/start_of_period/{location_triplet}%257Cid=%2522%2522%257Cname/{start_date},{end_date}/WTEQ::value,SNWD::value,TOBS::value"
+        # print(url)
+
+        # https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customSingleStationReport/daily/start_of_period/1051:CA:SNTL%257Cid=%2522%2522%257Cname/0,0/WTEQ::value,SNWD::value?fitToScreen=false
+        # https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customMultiTimeSeriesGroupByStationReport/daily/start_of_period/1051:CA:SNTL%257Cid=%2522%2522%257Cname/0,0/WTEQ::value,SNWD::value?fitToScreen=false
+
+        # https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customMultiTimeSeriesGroupByStationReport/daily/start_of_period/1051:CA:SNTL%257Cid=%2522%2522%257Cname/2025-01-01,2025-09-06/WTEQ::value,SNWD::value?fitToScreen=false
+
+        # https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customMultiTimeSeriesGroupByStationReport/daily/start_of_period/1051:CA:SNTL%257Cid=%2522%2522%257Cname/2025-01-01,2025-09-06/WTEQ::value,SNWD::value,WTEQ::value:daily%2520MEAN,SNWD::value:daily%2520MEAN,TOBS::value:daily%2520MEAN?fitToScreen=false
+
+        # https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customMultiTimeSeriesGroupByStationReport/daily/start_of_period/1051:CA:SNTL%257Cid=%2522%2522%257Cname/2025-01-01,2025-09-06/WTEQ::value:daily%2520MEAN,SNWD::value:daily%2520MEAN,TOBS::value:daily%2520MEAN?fitToScreen=false
 
         r = requests.get(url)
         text = remove_commented_lines(r.text)
@@ -182,20 +196,28 @@ def get_swe_observations_from_snotel_cdec():
         json_data = json.loads(json.dumps(list(reader)))
 
         entries = []
+        swe_key, snow_depth_key,temp_key  = None, None, None
         
         for entry in json_data:
             try:
               # {'Date': '2021-06-18', 'Snow Water Equivalent (in) Start of Day Values': '', 'Change In Snow Water Equivalent (in)': '', 'Snow Depth (in) Start of Day Values': '', 'Change In Snow Depth (in)': '', 'Air Temperature Observed (degF) Start of Day Values': '70.5'}
+              if swe_key is None:
+                swe_key = 'Snow Water Equivalent (in) Start of Day Values'
+                snow_depth_key = 'Snow Depth (in) Start of Day Values'
+                temp_key = 'Air Temperature Observed (degF) Start of Day Values'
+                # swe_key = next(k for k in entry.keys() if "Snow Water Equivalent" in k)
+                # snow_depth_key = next(k for k in entry.keys() if "Snow Depth " in k)
+                # temp_key = next(k for k in entry.keys() if "Air Temperature Observed" in k)
+              if len(entry) == 1 or "null" in entry:
+                continue
               required_data = {
                 'station_name': location_name,
                 'date': entry['Date'],
                 'lat': location_station_lat, 
                 'lon': location_station_long,
-                'swe_value': entry['Snow Water Equivalent (in) Start of Day Values'],
-                'change_in_swe_inch': entry['Change In Snow Water Equivalent (in)'],
-                'snow_depth': entry['Snow Depth (in) Start of Day Values'],
-                'change_in_swe_inch': entry['Change In Snow Depth (in)'],
-                'air_temperature_observed_f': entry['Air Temperature Observed (degF) Start of Day Values']
+                'swe_value': entry[swe_key],
+                'snow_depth': entry[snow_depth_key],
+                'air_temperature_observed_f': entry[temp_key]
               }
               entries.append(required_data)
             except Exception as e:
@@ -222,7 +244,8 @@ def get_swe_observations_from_snotel_cdec():
 
 def check_on_data():
 
-    csv_path = "/home/chetana/data/gridmet_test_run/all_snotel_cdec_stations_active_in_westus.csv_2002-01-01_2024-12-31_swe_restored_dask_all_vars.csv"
+    # csv_path = "/home/chetana/data/gridmet_test_run/all_snotel_cdec_stations_active_in_westus.csv_2002-01-01_2024-12-31_swe_restored_dask_all_vars.csv"
+    csv_path = f"{data_dir}/snotel/all_snotel_cdec_stations_active_in_westus_2025-01-01_2025-09-06.csv"
     # Load data
     df = pd.read_csv(csv_path)
     
@@ -238,7 +261,10 @@ def check_on_data():
 
 if __name__ == "__main__":
     # download_station_json()
-    # get_swe_observations_from_snotel_cdec()
+    # get_swe_observations_from_snotel_cdec(
+    #     start_date="2025-01-01",
+    #     end_date="2025-09-06"
+    # )
     check_on_data()
 
     

@@ -17,6 +17,9 @@ import matplotlib
 from snowcast_utils import homedir, work_dir, test_start_date, test_end_date
 from convert_results_to_images import convert_csvs_to_images_simple, convert_csv_to_geotiff
 import geopandas as gpd
+from sklearn.ensemble import ExtraTreesRegressor
+
+from bttf_train import BASE_FEATURES, SEQUENCE_LENGTH, TARGET_COLUMN, TimeSeriesNetCDFDataset, TransformerFeatureExtractor, train_transformer_feature_extractor, extract_features, plot_comparison_chart, plot_learning_curve, TARGET_COLUMN
 
 matplotlib.use('Agg')
 
@@ -24,33 +27,9 @@ matplotlib.use('Agg')
 torch.manual_seed(42)
 np.random.seed(42)
 
-# Constants
-SEQUENCE_LENGTH = 7
-TARGET_COLUMN = 'swe_value'
-PREDICTED_COLUMN = "predicted_swe"
-
-BASE_FEATURES = [
-    'SWE', 
-    # 'change_in_swe_inch', 'snow_depth', 'air_temperature_observed_f', # remove SNOTEL values
-    'precipitation_amount', 'relative_humidity_rmin', 'potential_evapotranspiration',
-    'air_temperature_tmmx', 'relative_humidity_rmax', 'mean_vapor_pressure_deficit',
-    'air_temperature_tmmn', 'wind_speed', 'Elevation', 'Aspect', 'Curvature',
-    'Northness', 'Eastness', 'fsca', 'Slope'
-]
-
 # Derived features include lagged values
 # FEATURES = BASE_FEATURES + [f"{feature}_lag{i}" for feature in BASE_FEATURES for i in range(1, SEQUENCE_LENGTH + 1)]
 FEATURES = BASE_FEATURES
-
-# Data Preprocessing
-def load_data(filepath):
-    print("Loading dataset...")
-    df = pd.read_csv(filepath)
-    df = df[df[TARGET_COLUMN] > 0]
-    df = df.sort_values(by=["station_name", "date"])
-    # df = df.iloc[:10000]  # Limit rows for faster processing
-    return df
-
 
 class TimeSeriesDataset(Dataset):
     def __init__(self, data, sequence_length, features, target_column):
@@ -72,26 +51,6 @@ class TimeSeriesDataset(Dataset):
         reshaped_array = np.transpose(self.data, (1, 0, 2))
         data = np.nan_to_num(reshaped_array, nan=-1)
         return data
-        # sequences = []
-
-        # # Extract dimensions
-        # num_time_steps, num_stations, num_features = self.data.shape
-
-        # # Ensure there are enough time steps for at least one sequence
-        # if num_time_steps < self.sequence_length:
-        #     print(f"Warning: Insufficient time steps ({num_time_steps}) for the given sequence length "
-        #           f"({self.sequence_length}). No sequences will be created.")
-        #     return []
-
-        # # Iterate over each station
-        # for station_idx in range(num_stations):
-        #     station_data = self.data[:, station_idx, :]  # Shape (time_steps, features)
-
-        #     # Use the last `sequence_length` time steps for prediction
-        #     seq = station_data[-self.sequence_length:, :]  # Shape (sequence_length, features)
-        #     sequences.append(seq)
-
-        # return np.array(sequences)
 
     def __len__(self):
         return len(self.sequences)
@@ -102,175 +61,24 @@ class TimeSeriesDataset(Dataset):
         return sequence
 
 
-# Transformer Feature Extractor
-class TransformerFeatureExtractor(nn.Module):
-    def __init__(self, input_dim, nhead, hidden_dim, num_layers, output_dim):
-        super(TransformerFeatureExtractor, self).__init__()
-        self.input_embedding = nn.Linear(input_dim, hidden_dim)
-        self.positional_encoding = nn.Parameter(torch.zeros(1, SEQUENCE_LENGTH, hidden_dim))
-        
-        # Transformer Encoder
-        encoder_layer = nn.TransformerEncoderLayer(
-            d_model=hidden_dim, 
-            nhead=nhead, 
-            dim_feedforward=hidden_dim * 4, 
-            dropout=0.1,
-            batch_first=True
-        )
-        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
-        
-        self.feature_pool = nn.AdaptiveAvgPool1d(1)  # Pool over sequence length
-        self.output_layer = nn.Linear(hidden_dim, output_dim)
-
-    def forward(self, x):
-        # Add positional encoding to the input
-        x = self.input_embedding(x) + self.positional_encoding
-        # Pass through Transformer Encoder
-        x = self.transformer_encoder(x)
-        # Pool across the sequence dimension
-        x = self.feature_pool(x.transpose(1, 2)).squeeze(-1)
-        return self.output_layer(x)
-
-
-
-# Training and Feature Extraction
-def train_transformer_feature_extractor(model, train_loader, val_loader, criterion, optimizer, epochs):
-    """
-    Trains the transformer model with the given data and returns the training
-    and validation loss over epochs.
-    """
-    train_loss_list = []
-    val_loss_list = []
-
-    for epoch in range(epochs):
-        print(f"Epoch {epoch + 1}/{epochs}")
-        
-        # Training phase
-        model.train()
-        train_loss = 0.0
-        for batch_idx, (x, y) in enumerate(train_loader):
-            optimizer.zero_grad()
-            outputs = model(x)
-            loss = criterion(outputs, y)
-            loss.backward()
-            optimizer.step()
-            train_loss += loss.item()
-
-        avg_train_loss = train_loss / len(train_loader)  # Calculate average training loss
-        train_loss_list.append(avg_train_loss)  # Add to training loss list
-
-        # Validation phase
-        model.eval()
-        val_loss = 0.0
-        with torch.no_grad():
-            for batch_idx, (x, y) in enumerate(val_loader):
-                outputs = model(x)
-                loss = criterion(outputs, y)
-                val_loss += loss.item()
-
-        avg_val_loss = val_loss / len(val_loader)  # Calculate average validation loss
-        val_loss_list.append(avg_val_loss)  # Add to validation loss list
-
-        # Print epoch results
-        print(f"  Training Loss: {avg_train_loss:.4f}")
-        print(f"  Validation Loss: {avg_val_loss:.4f}")
-
-    # Return epoch-wise training and validation loss
-    return train_loss_list, val_loss_list
-
-
-def extract_features(model, data_loader):
-    model.eval()
-    features_list, targets_list = [], []
-    with torch.no_grad():
-        for x, y in data_loader:
-            # Extract features from the model
-            features = model(x)  # Shape: [batch_size, seq_length]
-
-            # Reshape features to [batch_size, seq_length, 1]
-            features_reshaped = features.unsqueeze(2)  # Add a new dimension, resulting in [batch_size, seq_length, 1]
-
-            # Merge features with x along the feature dimension
-            combined_features = torch.cat((x, features_reshaped), dim=2)  # Shape: [batch_size, seq_length, feature_dim + 1]
-
-            # Add combined features to the list
-            features_list.append(combined_features.numpy())
-
-            # Use only the first day of the target list
-            targets_list.append(y[:, 0].numpy())  # Extract the first column
-
-    # Concatenate all features and targets into single arrays
-    concatenated_features = np.concatenate(features_list, axis=0)
-    concatenated_targets = np.concatenate(targets_list, axis=0)
-
-    # Flatten the last two dimensions of concatenated_features
-    flattened_features = concatenated_features.reshape(concatenated_features.shape[0], -1)
-
-    # Print shapes for debugging
-    print(f"Original concatenated features shape: {concatenated_features.shape}")
-    print(f"Flattened features shape: {flattened_features.shape}")
-    print(f"Extracted targets shape: {concatenated_targets.shape}")
-
-    return flattened_features, concatenated_targets
-
-
-def plot_comparison_chart(test_targets, test_preds, plot_dir):
-    """
-    Plots a comparison chart of predicted vs actual values and saves it to the plot directory.
-    """
-    plt.figure(figsize=(10, 6))
-    plt.scatter(test_targets.flatten(), test_preds.flatten(), alpha=0.6, label="Predicted vs Actual")
-    plt.plot([test_targets.min(), test_targets.max()], [test_targets.min(), test_targets.max()], 
-             color='red', linestyle='--', label="Ideal Fit")
-    plt.xlabel("Actual Values")
-    plt.ylabel("Predicted Values")
-    plt.title("Comparison of Predicted vs Actual Values")
-    plt.legend()
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    comparison_plot_path = f"{plot_dir}/novel_comparison_plot_{timestamp}.png"
-    plt.savefig(comparison_plot_path)
-    print(f"Comparison chart saved at {comparison_plot_path}")
-    # plt.show()
-    plt.close()
-
-def plot_learning_curve(train_loss, val_loss, plot_dir):
-    """
-    Plots the learning curve (training and validation loss over epochs) and saves it to the plot directory.
-    """
-    plt.figure(figsize=(10, 6))
-    plt.plot(range(1, len(train_loss) + 1), train_loss, label="Training Loss")
-    plt.plot(range(1, len(val_loss) + 1), val_loss, label="Validation Loss")
-    plt.xlabel("Epoch")
-    plt.ylabel("Loss")
-    plt.title("Learning Curve")
-    plt.legend()
-    
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    learning_curve_path = f"{plot_dir}/novel_learning_curve_{timestamp}.png"
-    plt.savefig(learning_curve_path)
-    print(f"Learning curve saved at {learning_curve_path}")
-    # plt.show()
-    plt.close()
-
-
 class EnsembleModelPredictor:
     """
     Ensemble Model Predictor for processing the time series.
     """
-    def __init__(self, transformer_path, xgb_path, features, sequence_length, target_column, device='cpu'):
+    def __init__(self, transformer_path, visionary_path, features, sequence_length, target_column, device='cpu'):
         """
         Initializes the EnsembleModelPredictor with paths to the saved models.
 
         Args:
             transformer_path (str): Path to the saved Transformer model.
-            xgb_path (str): Path to the saved XGBoost model.
+            visionary_path (str): Path to the saved XGBoost model.
             features (list): List of feature column names.
             sequence_length (int): Sequence length for the Transformer input.
             target_column (str): Name of the target column.
             device (str): Device to load the Transformer model ('cpu' or 'cuda').
         """
         self.transformer_path = transformer_path
-        self.xgb_path = xgb_path
+        self.visionary_path = visionary_path
         self.features = features
         self.sequence_length = sequence_length
         self.target_column = target_column
@@ -301,10 +109,21 @@ class EnsembleModelPredictor:
         self.transformer.eval()
         print("Transformer model loaded successfully.")
 
-        print("Loading XGBoost model...")
-        self.xgb_model = xgb.XGBRegressor()
-        self.xgb_model.load_model(xgb_path)
-        print("XGBoost model loaded successfully.")
+        print("Loading Visionary model...")
+
+        # ET model loading
+        # self.visionary_model = ExtraTreesRegressor(
+        #     random_state=42,
+        #     n_jobs=-1             # use all CPUs
+        # )
+        # import joblib
+        # self.visionary_model = joblib.load(visionary_path)
+        # print("ExtraTrees model loaded from ", visionary_path)
+
+        # XGBoost loading
+        self.visionary_model = xgb.XGBRegressor()
+        self.visionary_model.load_model(visionary_path)
+        print("Visionary model loaded successfully.")
 
     def preprocess_data(self, data):
         """
@@ -379,6 +198,13 @@ class EnsembleModelPredictor:
         print(past_sequences.shape)
         print(transformer_features.shape)
 
+        # save the first day prediction of transformer
+        transformer_predictions = transformer_features[:, 0].reshape(-1, 1)
+        print("transformer first day predictions.shape: ", transformer_predictions.shape)
+        transformer_output = np.concatenate([lat_lon, transformer_predictions], axis=-1)
+        print(f"transformer output shape: {transformer_output.shape}")
+
+
         # Convert to PyTorch tensors
         transformer_features_tensor = torch.tensor(transformer_features)
 
@@ -390,44 +216,57 @@ class EnsembleModelPredictor:
         past_sequences_tensor = torch.tensor(past_sequences)
 
         # Concatenate along the feature dimension (dim=2)
-        combined_features = torch.cat((past_sequences_tensor, transformer_features_reshaped), dim=2)
+        combined_features = torch.cat((past_sequences_tensor, transformer_features_reshaped), dim=2) # for meta-learning
+        # combined_features = past_sequences_tensor # for pure ET
 
         # Print the shape of the combined features
         print(combined_features.shape)
 
-        # Step 3: Combine flattened features for XGBoost input
-        print("Combining features for XGBoost input ", combined_features.shape)
+        # Step 3: Combine flattened features for Visionary input
+        print("Combining features for Visionary input ", combined_features.shape)
 
-        # Flatten the combined features for XGBoost input
+        # Flatten the combined features for Visionary input
         # Ensure combined_features is a PyTorch tensor before reshaping
         flattened_features = combined_features.reshape(combined_features.shape[0], -1)
         print("Flatten combined features: ", flattened_features.shape)
 
-        # Convert the flattened features to NumPy array (required by XGBoost)
+        # Convert the flattened features to NumPy array (required by Visionary)
         xgb_input = flattened_features.cpu().numpy()  # Use .cpu() in case the tensor is on GPU
-        print(f"XGBoost input shape: {xgb_input.shape}")
+        print(f"Visionary input shape: {xgb_input.shape}")
 
-        # Step 3: Combine past sequence features and future sequence data for XGBoost input
+        # Step 3: Combine past sequence features and future sequence data for Visionary input
         # xgb_input = np.concatenate([transformer_features_expanded, past_sequences], axis=-1)
-        # print(f"XGBoost input shape: {xgb_input.shape}")
+        # print(f"Visionary input shape: {xgb_input.shape}")
 
-        # Step 4: Predict with the XGBoost model
-        # Print XGBoost model details
-        print("Inspecting the trained XGBoost model...")
-        print(f"XGBoost parameters: {self.xgb_model.get_params()}")
+        # Step 4: Predict with the Visionary model
+        # Print Visionary model details
+        print("Inspecting the trained Visionary model...")
+        print(f"Visionary parameters: {self.visionary_model.get_params()}")
         # Retrieve the Booster object
-        booster = self.xgb_model.get_booster()
-        print("Booster object retrieved.")
+        # booster = self.visionary_model.get_booster()
+        # print("Booster object retrieved.")
         # print(booster.get_dump())
 
         # Number of features can be inferred from the input or the Booster
-        print(f"Booster number of features: {booster.num_features()}")
+        # print(f"Booster number of features: {booster.num_features()}")
         # Requires Booster object
 
-        # Step 4: Predict with the XGBoost model
-        print("Performing predictions with the XGBoost model...")
-        predictions = self.xgb_model.predict(xgb_input)
+        # Step 4: Predict with the Visionary model
+        print("Performing predictions with the Visionary model...")
+        predictions = self.visionary_model.predict(xgb_input)
         print(f"Predictions complete. Output shape: {predictions.shape}")
+
+        # if predicted value is minus, assign 0
+        # merged_df.loc[merged_df['predicted_swe'] < 0, 'predicted_swe'] = 0
+        
+        # # if GridMET has no data, don't output
+        # merged_df.loc[merged_df['air_temperature_tmmx']==0, 
+        #             'predicted_swe'] = 0
+
+        # # if there are water body, don't output
+        # merged_df.loc[merged_df['lc_prop3'] == 3, 'predicted_swe'] = 0
+        # merged_df.loc[merged_df['lc_prop3'] == 255, 'predicted_swe'] = 0
+        # merged_df.loc[merged_df['lc_prop3'] == 27, 'predicted_swe'] = 0
 
         
         predictions = predictions.reshape(-1, 1)
@@ -436,7 +275,7 @@ class EnsembleModelPredictor:
         print(f"Final output shape: {final_output.shape}")
         # print(f"First 5 inputs: {xgb_input[:5]}")
         # print(f"First 5 predictions: {predictions[:5]}")
-        return final_output
+        return final_output, transformer_output
 
     def save_predictions(self, predictions, output_path):
         """
@@ -448,9 +287,36 @@ class EnsembleModelPredictor:
         """
         print(f"Saving predictions to {output_path}...")
         # the predictions contains all 7 future days. Only output 1 day
-        df = pd.DataFrame(predictions, columns=["Latitude", "Longitude", PREDICTED_COLUMN])
+        df = pd.DataFrame(predictions, columns=["Latitude", "Longitude", TARGET_COLUMN])
         print(df.describe())
-        df.to_csv(output_path, index=False)
+
+        # clean up and remove the no snow areas
+        mask_csv_path = os.path.join(work_dir, "testing_all_ready", "testing_all_ready_2025-08-31.csv_snodas_mask.csv")
+        # mask_df = pd.read_csv(mask_csv_path)
+        mask_df = pd.read_csv(
+            mask_csv_path,
+            usecols=["lat", "lon", "tmmx", "lc_prop3"]  # replace with your 4 column names
+        )
+
+        mask_df = mask_df.rename(columns={
+            "lat": "Latitude",
+            "lon": "Longitude"
+        })
+
+        merged = pd.merge(df, mask_df, on=["Latitude", "Longitude"], how="inner")
+
+        # if predicted value is minus, assign 0
+        merged.loc[merged[TARGET_COLUMN] < 0, TARGET_COLUMN] = 0
+        
+        # if GridMET has no data, don't output
+        merged.loc[merged['tmmx']==0, TARGET_COLUMN] = 0
+
+        # if there are water body, don't output
+        merged.loc[merged['lc_prop3'] == 3, TARGET_COLUMN] = 0
+        # df.loc[mask_df['lc_prop3'] == 255, TARGET_COLUMN] = 0
+        # df.loc[mask_df['lc_prop3'] == 27, TARGET_COLUMN] = 0
+
+        merged[["Latitude", "Longitude", TARGET_COLUMN]].to_csv(output_path, index=False)
         print("Predictions saved successfully.")
 
 
@@ -492,7 +358,7 @@ def prepare_input_numpy_for_date(target_date="2024-11-20", output_path: str = No
 
         for date in reversed(past_dates):
             file_name = file_pattern.format(date)
-            file_path = os.path.join(base_path, file_name)
+            file_path = os.path.join(base_path, "testing_all_ready", file_name)
 
             if not os.path.exists(file_path):
                 print(f"Warning: File for date {date} not found: {file_path}")
@@ -611,12 +477,16 @@ def load_and_analyze_numpy(file_path):
     except Exception as e:
         print(f"An error occurred while loading or analyzing the array: {e}")
 
-def do_prediction(target_date="2024-11-20", output_prediction_path:str = None, force=False):
-    # Paths to saved models
-    transformer_model_path = f"{homedir}/../models/ensemble_transformer_model_20250105_091448.pth"
-    xgb_model_path = f"{homedir}/../models/ensemble_xgboost_model_20250105_091448.json"
+def do_prediction(
+    transformer_model_path,
+    visionary_model_path,
+    target_date="2024-11-20", 
+    output_prediction_path:str = None, 
+    output_transformer_prediction_path: str = None,
+    force=False
+):
 
-    print("Model used for prediction: ", transformer_model_path, xgb_model_path)
+    print("Model used for prediction: ", transformer_model_path, visionary_model_path)
 
 # 50 epoch
 #     Transformer model saved at: /media/volume1/swe/data//../plots/models/ensemble_transformer_model_20250104_220829.pth
@@ -635,10 +505,13 @@ def do_prediction(target_date="2024-11-20", output_prediction_path:str = None, f
 
     # target_date = "2024-11-20"
     # input_csv = "/groups/ESS3/zsun/swe/data/testing_ready_input/input_2024-11-20.csv"
-    input_np_path = f"{homedir}/bttf_output/combined_array_{target_date}.npy"
+    input_np_path = f"{homedir}/data/bttf_output/combined_array_{target_date}.npy"
 
     if output_prediction_path is None:
-        output_prediction_path = f"{homedir}/bttf_output/transformer_xgb_predictions_{target_date}.csv"
+        output_prediction_path = f"{homedir}/data/bttf_output/transformer_xgb_predictions_{target_date}.csv"
+
+    if output_transformer_prediction_path is None:
+        output_transformer_prediction_path = f"{homedir}/data/bttf_output/transformer_predictions_{target_date}.csv"
 
     if os.path.exists(output_prediction_path) and not force:
         print(f"File exists: {output_prediction_path}")
@@ -652,7 +525,7 @@ def do_prediction(target_date="2024-11-20", output_prediction_path:str = None, f
     # Initialize the predictor
     predictor = EnsembleModelPredictor(
         transformer_path=transformer_model_path,
-        xgb_path=xgb_model_path,
+        visionary_path=visionary_model_path,
         features=FEATURES,
         sequence_length=SEQUENCE_LENGTH,
         target_column=TARGET_COLUMN
@@ -661,36 +534,78 @@ def do_prediction(target_date="2024-11-20", output_prediction_path:str = None, f
     # Run predictions
     data = np.load(input_np_path)  # Example of loading your data
 
-    predictions = predictor.predict(data)
+    predictions, transformer_predictions = predictor.predict(data)
 
-    # Save predictions
+    # Clean up and Save predictions
     predictor.save_predictions(predictions, output_prediction_path,)
+    predictor.save_predictions(transformer_predictions, output_transformer_prediction_path,)
 
 
 if __name__ == "__main__":
-    target_date = "2025-01-01"
-    bttf_npy_file = f"{homedir}/bttf_output/combined_array_{target_date}.npy"
-    prepare_input_numpy_for_date(target_date=target_date, output_path = bttf_npy_file, force=True)
+    # Paths to saved models
+    # transformer_model_path = f"{homedir}/models/ensemble_transformer_model_20250906_025046.pth"
+    # transformer_model_path = f"{homedir}/models/ensemble_transformer_model_20250913_072844.pth" # 500 epochs no physics
+    # xgb_model_path = f"{homedir}/models/ensemble_xgboost_model_20250906_025046.json"\
+    # et_model_path = f"{homedir}/models/ensemble_extratrees_model_20250910_025302.joblib"
+    # et_model_path = f"{homedir}/models/ensemble_extratrees_model_20250910_025302.joblib"
+    # et_model_path = f"{homedir}/models/ensemble_extratrees_model_20250911_040229.joblib"
+    # xgb_model_path = f"{homedir}/models/ensemble_xgboost_model_20250913_072844.json"
+
+    # 10 epoch elevation no imputation
+    # time_stamp = "20250914_020446"
+
+    # 10 epoch 80% zero dropped
+    time_stamp = "20250914_050029"
+
+    transformer_model_path = f"{homedir}/models/ensemble_transformer_model_{time_stamp}.pth"
+    xgb_model_path = f"{homedir}/models/ensemble_xgboost_model_{time_stamp}.json"
+
+
+    target_date = "2025-01-17"
+    bttf_npy_file = f"{homedir}/data/bttf_output/combined_array_{target_date}.npy"
+    prepare_input_numpy_for_date(target_date=target_date, output_path = bttf_npy_file, force=False)
     load_and_analyze_numpy(file_path = bttf_npy_file)
     # columns
 #     'Latitude', 'Longitude', 'tmmn', 'etr', 'rmin', 'vpd', 'tmmx', 'rmax',
 # >        'vs', 'pr', 'Elevation', 'Slope', 'Aspect', 'Aspect', 'Curvature',
 # >        'Northness', 'Eastness', 'AMSR_SWE', 'cumulative_AMSR_SWE', 'date']
-    predicted_csv = f"{homedir}/bttf_output/transformer_xgb_predictions_{target_date}.csv"
+    predicted_csv = f"{homedir}/data/bttf_output/transformer_xgb_predictions_{target_date}.csv"
+    transformer_predicted_csv = f"{homedir}/data/bttf_output/transformer_predictions_{target_date}.csv"
+
     do_prediction(
-        target_date=target_date, output_prediction_path=predicted_csv, force=True
+        transformer_model_path,
+        xgb_model_path,
+        target_date=target_date, 
+        output_prediction_path=predicted_csv, 
+        output_transformer_prediction_path = transformer_predicted_csv,
+        force=True
     )
     # convert_csvs_to_images_simple(target_date = target_date)
     convert_csvs_to_images_simple(
         target_date=target_date, 
-        column_name = "predicted_swe", 
+        column_name = TARGET_COLUMN, 
         test_csv = predicted_csv,
-        res_png_path = f"{homedir}/bttf_output/{target_date}.png"
+        res_png_path = f"{homedir}/data/bttf_output/{target_date}_ensemble_xgboost_model_{time_stamp}.png"
     );
+    convert_csvs_to_images_simple(
+        target_date=target_date, 
+        column_name = TARGET_COLUMN, 
+        test_csv = transformer_predicted_csv,
+        res_png_path = f"{homedir}/data/bttf_output/{target_date}_transformer_model_{time_stamp}.png"
+    );
+
     convert_csv_to_geotiff(
         target_date, 
         test_csv=predicted_csv, 
-        target_geotiff_file=f"{homedir}/bttf_output/swe_predicted_{target_date}.tif"
+        target_geotiff_file=f"{homedir}/data/bttf_output/swe_predicted_{target_date}_ensemble_xgboost_model_{time_stamp}.tif",
+        target_column=TARGET_COLUMN
+    )
+
+    convert_csv_to_geotiff(
+        target_date, 
+        test_csv=transformer_predicted_csv, 
+        target_geotiff_file=f"{homedir}/data/bttf_output/swe_predicted_{target_date}_transformer_model_{time_stamp}.tif",
+        target_column=TARGET_COLUMN
     )
     
 

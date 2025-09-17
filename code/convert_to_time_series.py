@@ -430,13 +430,13 @@ if __name__ == "__main__":
   # sys.exit(0)
 
   # Uncomment this line to execute the 'convert_to_time_series' function
-  convert_to_time_series(cleaned_csv_path, target_time_series_csv_path, force=True)
+  # convert_to_time_series(cleaned_csv_path, target_time_series_csv_path, force=True)
 
   # Uncomment this line to execute the 'add_cumulative_columns' function
   # add_cumulative_columns(target_time_series_csv_path, target_time_series_cumulative_csv_path, force=True)
 
   # Rename the corrected slope to slope
-  rename_corrected_slope(target_time_series_csv_path, slope_renamed_path, force=True)
+  rename_corrected_slope(input_csv_path, slope_renamed_path, force=True)
 
   # convert all cumulative columns to log10
   # log10_all_fields(slope_renamed_path, logged_csv_path, force=True)

@@ -132,7 +132,7 @@ def merge_callback(current_date):
         current_date_str, 
         f"{work_dir}/testing_output/",
         f"{data_dir}/srtm/dem_all.csv",
-        f"{work_dir}/testing_all_ready_{current_date_str}.csv",
+        f"{work_dir}/testing_all_ready/testing_all_ready_{current_date_str}.csv",
         f"{data_dir}/water_mask/final_output/{test_year}_output.csv"
     )
 

@@ -457,7 +457,8 @@ def convert_csv_to_geotiff(
     test_csv: str = None,
     target_geotiff_file: str = None,
     output_dir: str = ".",
-    resolution: float = 0.01,  # Define the grid resolution
+    resolution: float = 0.036,  # Define the grid resolution as the same resolution as 4km
+    target_column: str = "predicted_swe"
 ):
     # Load your CSV file
     if test_csv is None:
@@ -482,10 +483,10 @@ def convert_csv_to_geotiff(
     os.makedirs(target_plot_dir, exist_ok=True)
 
     # Extract latitude, longitude, and variable of interest
-    df = result_var_df[["lat", "lon", "predicted_swe"]]
+    df = result_var_df[["lat", "lon", target_column]]
     latitude = df['lat'].values
     longitude = df['lon'].values
-    swe = df['predicted_swe'].values
+    swe = df[target_column].values
 
     # Define raster grid bounds and resolution
     lat_min, lat_max = latitude.min(), latitude.max()

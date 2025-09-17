@@ -1,293 +1,613 @@
 [{
-  "history_id" : "l47o5x7fxsb",
+  "history_id" : "7d18rysgp5p",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
-  "history_begin_time" : 1755403212333,
-  "history_end_time" : 1755403212333,
+  "history_begin_time" : 1758081611978,
+  "history_end_time" : 1758081611978,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
   "indicator" : "Skipped"
+},{
+  "history_id" : "de3klm0kjsh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757995210694,
+  "history_end_time" : 1757995210694,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "yc57ez7p2hg",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757908812029,
+  "history_end_time" : 1757908812029,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "vd5owdga9mh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757875215680,
+  "history_end_time" : 1757875215680,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "nxhvivser0e",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757822411885,
+  "history_end_time" : 1757875360325,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "l2joiqi80j4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815173172,
+  "history_end_time" : 1757815173172,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "SdPkidZ6kqsy",
+  "history_input" : "import pandas as pd\nimport os\nfrom snowcast_utils import work_dir\nimport shutil\nimport numpy as np\nimport dask.dataframe as dd\n\n# Set Pandas options to display all columns\npd.set_option('display.max_columns', None)\n\n\ndef array_describe(arr):\n    \"\"\"\n    Calculate descriptive statistics for a given NumPy array.\n\n    Args:\n        arr (numpy.ndarray): The input array for which statistics are calculated.\n\n    Returns:\n        dict: A dictionary containing descriptive statistics such as Mean, Median, Standard Deviation, Variance, Minimum, Maximum, and Sum.\n    \"\"\"\n    stats = {\n        'Mean': np.mean(arr),\n        'Median': np.median(arr),\n        'Standard Deviation': np.std(arr),\n        'Variance': np.var(arr),\n        'Minimum': np.min(arr),\n        'Maximum': np.max(arr),\n        'Sum': np.sum(arr),\n    }\n    return stats\n\ndef interpolate_missing_inplace(df, column_name, degree=3):\n    x = df.index\n    y = df[column_name]\n\n    # Create a mask for missing values\n    if column_name == \"SWE\":\n      mask = (y > 240) | y.isnull()\n    elif column_name == \"fsca\":\n      y = y.replace([225, 237, 239], 0)\n      y[y < 0] = 0\n      mask = (y > 100) | y.isnull()\n    else:\n      mask = y.isnull()\n\n    # Check if all elements in the mask array are True\n    all_true = np.all(mask)\n\n    if all_true:\n      df[column_name] = 0\n    else:\n      # Perform interpolation\n      new_y = np.interp(x, x[~mask], y[~mask])\n      # Replace missing values with interpolated values\n      df[column_name] = new_y\n\n    if np.any(df[column_name].isnull()):\n      raise ValueError(\"Single group: shouldn't have null values here\")\n        \n    return df\n\ndef convert_to_time_series(input_csv, output_csv, force=False):\n    \"\"\"\n    Convert the data from the ready CSV file into a time series format.\n\n    This function reads the cleaned CSV file, sorts the data, fills in missing values using polynomial interpolation, and creates a time series dataset for specific columns. The resulting time series data is saved to a new CSV file.\n    \"\"\"\n    \n    columns_to_be_time_series = [\"SWE\", \n                                 'air_temperature_tmmn',\n                                 'potential_evapotranspiration', \n                                 'mean_vapor_pressure_deficit',\n                                 'relative_humidity_rmax', \n                                 'relative_humidity_rmin',\n                                 'precipitation_amount', \n                                 'air_temperature_tmmx', \n                                 'wind_speed',\n                                 'fsca']\n\n    # Read the cleaned ready CSV\n    df = pd.read_csv(input_csv, dtype={'station_name': 'object'})\n    df.sort_values(by=['lat', 'lon', 'date'], inplace=True)\n    print(\"All current columns: \", df.columns)\n    \n    # rename all columns to unified names\n    #     ['date', 'lat', 'lon', 'SWE', 'Flag', 'swe_value', 'cell_id',\n# 'station_id', 'etr', 'pr', 'rmax', 'rmin', 'tmmn', 'tmmx', 'vpd', 'vs',\n# 'elevation', 'slope', 'curvature', 'aspect', 'eastness', 'northness',\n# 'fsca']\n    df.rename(columns={'vpd': 'mean_vapor_pressure_deficit',\n                         'vs': 'wind_speed', \n                         'pr': 'precipitation_amount', \n                         'etr': 'potential_evapotranspiration',\n                         'tmmn': 'air_temperature_tmmn',\n                         'tmmx': 'air_temperature_tmmx',\n                         'rmin': 'relative_humidity_rmin',\n                         'rmax': 'relative_humidity_rmax',\n                         'AMSR_SWE': 'SWE',\n                        }, inplace=True)\n    \n    filled_csv = f\"{output_csv}_gap_filled.csv\"\n    if os.path.exists(filled_csv) and not force:\n        print(f\"{filled_csv} already exists, skipping\")\n        filled_data = pd.read_csv(filled_csv)\n    else:\n        # Function to perform polynomial interpolation and fill in missing values\n        def process_group_filling_value(group):\n          # Sort the group by 'date'\n          group = group.sort_values(by='date')\n      \n          for column_name in columns_to_be_time_series:\n            group = interpolate_missing_inplace(group, column_name)\n          # Return the processed group\n          return group\n        # Group the data by 'lat' and 'lon' and apply interpolation for each column\n        print(\"Start to fill in the missing values\")\n        grouped = df.groupby(['lat', 'lon'])\n        filled_data = grouped.apply(process_group_filling_value).reset_index(drop=True)\n    \n\n        if any(filled_data['SWE'] > 240):\n          raise ValueError(\"Error: shouldn't have SWE>240 at this point\")\n\n        filled_data.to_csv(filled_csv, index=False)\n        \n        print(f\"New filled values csv is saved to {filled_csv}\")\n    \n    if os.path.exists(output_csv) and not force:\n        print(f\"{output_csv} already exists, skipping\")\n    else:\n        print(\"Start to create the time series data\")\n        \n        # Define the number of days to consider (7 days in this case)\n        num_days = 7\n\n        # Use an iterator to process the input file in chunks\n        chunk_iter = pd.read_csv(filled_csv, dtype={'station_name': 'object'}, chunksize=chunk_size)\n        \n        # Create the output file and prepare the writer\n        with open(output_csv, 'w') as f_out:\n            first_chunk = True  # To handle writing header only for the first chunk\n            for chunk in chunk_iter:\n                # Rename columns in the chunk\n                chunk.rename(columns={'vpd': 'mean_vapor_pressure_deficit',\n                                      'vs': 'wind_speed', \n                                      'pr': 'precipitation_amount', \n                                      'etr': 'potential_evapotranspiration',\n                                      'tmmn': 'air_temperature_tmmn',\n                                      'tmmx': 'air_temperature_tmmx',\n                                      'rmin': 'relative_humidity_rmin',\n                                      'rmax': 'relative_humidity_rmax',\n                                      'AMSR_SWE': 'SWE'}, inplace=True)\n\n                # Group the data by 'lat' and 'lon', process each group separately\n                grouped = chunk.groupby(['lat', 'lon'])\n\n                for _, group in grouped:\n                    group_data = process_group_time_series(group, num_days)\n                    \n                    # Write each processed group incrementally to the CSV\n                    group_data.to_csv(f_out, header=first_chunk, index=False, mode='a')\n                    first_chunk = False  # Only write the header once\n\n        print(f\"New time series data is saved to {output_csv}\")\n\n        # Backup the result\n        shutil.copy(output_csv, backup_time_series_csv_path)\n        print(f\"File is backed up to {backup_time_series_csv_path}\")\n        # df = filled_data\n        # # Create a new DataFrame to store the time series data for each location\n        # print(\"Start to create the training csv with previous 7 days columns\")\n        # result = pd.DataFrame()\n\n        # # Define the number of days to consider (7 days in this case)\n        # num_days = 7\n\n        # grouped = df.groupby(['lat', 'lon'])\n        \n        # def process_group_time_series(group, num_days):\n        #   group = group.sort_values(by='date')\n        #   for day in range(1, num_days + 1):\n        #     for target_col in columns_to_be_time_series:\n        #       new_column_name = f'{target_col}_{day}'\n        #       group[new_column_name] = group[target_col].shift(day)\n              \n        #   return group\n        \n        # result = grouped.apply(lambda group: process_group_time_series(group, num_days)).reset_index(drop=True)\n        # result.fillna(0, inplace=True)\n        \n        # result.to_csv(output_csv, index=False)\n        # print(f\"New data is saved to {output_csv}\")\n        # shutil.copy(output_csv, backup_time_series_csv_path)\n        # print(f\"File is backed up to {backup_time_series_csv_path}\")\n\ndef add_cumulative_columns(input_csv, output_csv, force=False):\n    \"\"\"\n    Add cumulative columns to the time series dataset.\n\n    This function reads the time series CSV file created by `convert_to_time_series`, calculates cumulative values for specific columns, and saves the data to a new CSV file.\n    \"\"\"\n    \n    columns_to_be_cumulated = [\n      \"SWE\",\n      'air_temperature_tmmn',\n      'potential_evapotranspiration', \n      'mean_vapor_pressure_deficit',\n      'relative_humidity_rmax', \n      'relative_humidity_rmin',\n      'precipitation_amount', \n      'air_temperature_tmmx', \n      'wind_speed',\n      'fsca'\n    ]\n\n    # Read the time series CSV (ensure it was created using `convert_to_time_series` function)\n    # directly read from original file\n    df = pd.read_csv(input_csv, dtype={'station_name': 'object'})\n    print(\"the column statistics from time series before cumulative: \", df.describe())\n    \n    df['date'] = pd.to_datetime(df['date'])\n    \n    unique_years = df['date'].dt.year.unique()\n    print(\"This is our unique years\", unique_years)\n    #current_df['fSCA'] = current_df['fSCA'].fillna(0)\n    \n    # only start from the water year 10-01\n    # Filter rows based on the date range (2019 to 2022)\n    start_date = pd.to_datetime('2018-10-01')\n    end_date = pd.to_datetime('2021-09-30')\n    df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]\n    print(\"how many rows are left in the three water years?\", df.describe())\n    df.to_csv(f\"{current_ready_csv_path}.test_check.csv\")\n\n    # Define a function to calculate the water year\n    def calculate_water_year(date):\n        year = date.year\n        if date.month >= 10:  # Water year starts in October\n            return year + 1\n        else:\n            return year\n    \n    # every water year starts at Oct 1, and ends at Sep 30. \n    df['water_year'] = df['date'].apply(calculate_water_year)\n    \n    # Group the DataFrame by 'lat' and 'lon'\n    grouped = df.groupby(['lat', 'lon', 'water_year'], group_keys=False)\n    print(\"how many groups? \", grouped)\n    \n    grouped = df.groupby(['lat', 'lon', 'water_year'], group_keys=False)\n    for column in columns_to_be_cumulated:\n        df[f'cumulative_{column}'] = grouped.apply(lambda group: group.sort_values('date')[column].cumsum())\n\n    print(\"This is the dataframe after cumulative columns are added\")\n    print(df[\"cumulative_fsca\"].describe())\n    \n    df.to_csv(output_csv, index=False)\n    \n    print(f\"All the cumulative variables are added successfully! {target_time_series_cumulative_csv_path}\")\n    print(\"double check the swe_value statistics:\", df[\"swe_value\"].describe())\n\n    \ndef assign_zero_swe_value_to_all_fsca_zero_rows(na_filled_csv, non_station_zero_csv, force=False):\n    \n    # Define the conditions\n    condition_column = 'fsca'\n    target_column = 'swe_value'\n    values_to_check = [0, 225, 237, 239]\n    \n    \n    df = pd.read_csv(na_filled_csv, dtype={'station_name': 'object'})\n    if target_column not in df.columns:\n      df[target_column] = 0\n    empty_count = df[target_column].isnull().values.ravel().sum()\n    \n    print(f\"The empty number of rows are {empty_count} before filling in\")\n    print(\"double check the swe_value statistics before filling in:\", df[\"swe_value\"].describe())\n    \n    rows_less_than_zero = (df[target_column] < 0).sum()\n    print(\"Number of rows where '{}' is less than 0: {}\".format(target_column, rows_less_than_zero))\n    \n\n    # Mask the target column where the condition is met\n    df[target_column] = df[target_column].mask(\n        (df[target_column].isna()) & df[condition_column].isin(values_to_check),\n        0\n    )\n    \n    empty_count = df[target_column].isnull().values.ravel().sum()\n    \n    print(f\"The empty number of rows are {empty_count} after filling in\")\n    \n    print(\"total dataframe row number : \", len(df))\n    \n    df.to_csv(non_station_zero_csv, index=False)\n    \n    print(f\"The rows without snotel but fsca is zero or land or water or ocean are set to 0! {non_station_zero_csv}\")\n    print(\"double check the swe_value statistics after filling in:\", df[\"swe_value\"].describe())\n    \n    \ndef clean_non_swe_rows(current_ready_csv_path, cleaned_csv_path, force=False):\n    # Read Dask DataFrame from CSV\n    dask_df = dd.read_csv(current_ready_csv_path, dtype={'station_name': 'object'})\n\n    # Remove rows where 'swe_value' is empty\n    dask_df_filtered = dask_df.dropna(subset=['swe_value'])\n\n    # Save the result to a new CSV file\n    dask_df_filtered.to_csv(cleaned_csv_path, index=False, single_file=True)\n    print(\"dask_df_filtered.shape = \", dask_df_filtered.shape)\n    print(f\"The filtered csv with no swe values is saved to {cleaned_csv_path}\")\n\ndef rename_corrected_slope(corrected_slope_path, renamed_slope_path, force=False):\n    df = pd.read_csv(corrected_slope_path, dtype={'station_name': 'object'})\n    df.drop(columns=['Slope'], inplace=True)\n\t# Rename 'column_to_rename' to 'old_column'\n    df.rename(columns={'corrected_slope': 'Slope'}, inplace=True)\n    df.to_csv(renamed_slope_path, index=False)\n    print(\"dask_df.shape = \", df.shape)\n    print(f\"The log10 file is saved to {renamed_slope_path}\")\n    \ndef log10_all_fields(cleaned_csv_path, logged_csv_path, force=False):\n    print(\"convert all cumulative columns into log10\")\n    # Read Dask DataFrame from CSV\n    df = pd.read_csv(cleaned_csv_path, dtype={'station_name': 'object'})\n    \n    # Get columns with \"cumulative\" in their names\n    for col in df.columns:\n        print(\"Checking \", col)\n        if \"cumulative\" in col:\n\t        # Apply log10 transformation to selected columns\n            df[col] = np.log10(df[col] + 0.1)  # Adding 1 to avoid log(0)\n            print(f\"converted {col} to log10\")\n\n    df.to_csv(logged_csv_path, index=False)\n    print(\"dask_df.shape = \", df.shape)\n    print(f\"The log10 file is saved to {logged_csv_path}\")\n\n\ndef merge_all_training_csvs(\n  large_training_csv, \n  small_training_csv, \n  final_all_point_training_csv\n):\n  # Load the first CSV file\n  df1 = pd.read_csv(large_training_csv)\n\n  # Load the second CSV file\n  df2 = pd.read_csv(small_training_csv)\n\n  # Identify columns missing in the second CSV and add them with zeros\n  missing_columns = set(df1.columns) - set(df2.columns)\n  print(\"missing_columns = \", missing_columns)\n  for col in missing_columns:\n      df2[col] = 0\n\n  # Reorder columns in the second CSV to match the first CSV\n  df2 = df2[df1.columns]\n\n  # Merge the two dataframes by appending rows of df2 to df1\n  df_merged = pd.concat([df1, df2], ignore_index=True)\n\n  # Remove rows that contain at least one zero in any column\n  # df_filtered = df_merged[df_merged['Elevation'] != 0] # should we remove ocean?\n\n  # Save the merged dataframe to a new CSV file\n  df_merged.to_csv(final_all_point_training_csv, index=False)\n  print(f\"merged training samples are saved to {final_all_point_training_csv}\")\n\nimport pandas as pd\nimport xarray as xr\nimport numpy as np\n\ndef csv_to_netcdf(input_csv, output_netcdf):\n    # Load CSV\n    df = pd.read_csv(input_csv, parse_dates=['date'])\n    \n    # Ensure lat, lon, and date are present\n    if not {'lat', 'lon', 'date'}.issubset(df.columns):\n        raise ValueError(\"CSV must contain 'lat', 'lon', and 'date' columns.\")\n    \n    # Drop duplicate entries (if any)\n    df = df.drop_duplicates(subset=['date', 'lat', 'lon'])\n\n    # Pivot to 3D format using MultiIndex\n    df.set_index(['date', 'lat', 'lon'], inplace=True)\n\n    # Convert to xarray Dataset\n    ds = xr.Dataset.from_dataframe(df)\n\n    # Reorder dimensions if needed\n    ds = ds.transpose(\"date\", \"lat\", \"lon\", ...)\n\n    # Save to NetCDF\n    ds.to_netcdf(output_netcdf)\n\n    print(f\"NetCDF file saved to {output_netcdf}\")\n\n\nif __name__ == \"__main__\":\n\n  # Define file paths for various CSV files\n  # current_ready_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3.csv'\n  # current_ready_csv_path = f'{work_dir}/salt_pepper_points_for_training.csv_all_training.csv_sorted_slope_corrected.csv'\n  current_ready_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv'\n  non_station_counted_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_fill_empty_snotel.csv'\n  cleaned_csv_path = f\"{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_cleaned.csv\"\n  target_time_series_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series.csv'\n  backup_time_series_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series_backup.csv'\n  # target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_3yrs_cleaned_v3_time_series_cumulative_v1.csv'\n  target_time_series_cumulative_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_cumulative.csv'\n  slope_renamed_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_4yrs_slope_renamed.csv'\n  logged_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_4yrs_all_cols_log10.csv'\n  deduplicated_csv_path = f'{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_deduplicated_training_points_final.csv'\n\n  merged_all_training_csv_path = f\"{work_dir}/all_points_final_merged_training_2002-01-01_2024-12-31.csv\"\n    \n  # filling the non station rows with fsca indicating no snow\n  # assign_zero_swe_value_to_all_fsca_zero_rows(current_ready_csv_path, non_station_counted_csv_path, force=True)\n\n  # remove the empty swe_value rows first\n  # clean_non_swe_rows(non_station_counted_csv_path, cleaned_csv_path, force=True)\n\n  input_csv_path = f\"{work_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series.csv_gap_filled.csv\"\n  output_netcdf_path = f\"{work_dir}/final_merged_data_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series.csv_gap_filled.csv.nc\"\n  # convert csv to netcdf\n  # csv_to_netcdf(input_csv_path, output_netcdf_path)\n\n  # sys.exit(0)\n\n  # Uncomment this line to execute the 'convert_to_time_series' function\n  # convert_to_time_series(cleaned_csv_path, target_time_series_csv_path, force=True)\n\n  # Uncomment this line to execute the 'add_cumulative_columns' function\n  # add_cumulative_columns(target_time_series_csv_path, target_time_series_cumulative_csv_path, force=True)\n\n  # Rename the corrected slope to slope\n  rename_corrected_slope(input_csv_path, slope_renamed_path, force=True)\n\n  # convert all cumulative columns to log10\n  # log10_all_fields(slope_renamed_path, logged_csv_path, force=True)\n\n  df = pd.read_csv(slope_renamed_path, dtype={'station_name': 'object'})\n  print(\"the number of the total rows: \", len(df))\n\n  deduplicated_df = df.drop_duplicates(subset=['lat', 'lon', 'date'])\n  # Export the deduplicated DataFrame to a CSV file\n  # deduplicated_df.to_csv(deduplicated_csv_path, index=False)\n  # print(f\"deduplicated_df.to_csv('{deduplicated_csv_path}', index=False)\")\n  # merge_all_training_csvs(\n  #   f\"{work_dir}/snotel_ghcnd_stations_4yrs_all_cols_log10.csv\", deduplicated_csv_path, merged_all_training_csv_path)\n\n  deduplicated_df.to_csv(merged_all_training_csv_path)\n  print(\"All training saved to \", merged_all_training_csv_path)\n",
+  "history_output" : "/home/chetana\ntoday date = 2025-09-13\nStart day: 2025-08-24, End day: 2025-09-10\ntest start date:  2025-08-24\ntest end date:  2025-09-10\ndask_df.shape =  (51527931, 24)\nThe log10 file is saved to /home/chetana/data/gridmet_test_run/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_4yrs_slope_renamed.csv\nthe number of the total rows:  51527931\nAll training saved to  /home/chetana/data/gridmet_test_run/all_points_final_merged_training_2002-01-01_2024-12-31.csv\n",
+  "history_begin_time" : 1757800827583,
+  "history_end_time" : 1757804344556,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "xdd4rr49wo7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757736089375,
+  "history_end_time" : 1757815050706,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8xkjlo07gqw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757649621069,
+  "history_end_time" : 1757815050331,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "q8dwu7d6gav",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757563306901,
+  "history_end_time" : 1757815049821,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4j04twk8oa9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757476904423,
+  "history_end_time" : 1757815049286,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ilzmwawjqes",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757390441513,
+  "history_end_time" : 1757815048821,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dc29fy3d42d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757304011301,
+  "history_end_time" : 1757815048234,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "lwfyqokhuc8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757217611901,
+  "history_end_time" : 1757815047814,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wdafuj9y0ub",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757131221899,
+  "history_end_time" : 1757815046867,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bj2in2kp3oi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757044817424,
+  "history_end_time" : 1757815045272,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xlc4a0co461",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756958419565,
+  "history_end_time" : 1757815044794,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "w8ljpqananb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756872014606,
+  "history_end_time" : 1757815044217,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "jodxzr84gio",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756785615019,
+  "history_end_time" : 1757815043579,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xswbi95n8gb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756699271988,
+  "history_end_time" : 1757815043122,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "d5penq7ttiw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756612832159,
+  "history_end_time" : 1757815042378,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "6gw7zmsdjb0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756440015162,
+  "history_end_time" : 1757815023196,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gbj14mvxp0q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756353612217,
+  "history_end_time" : 1757815022450,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "m5yn7stjak5",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756267214358,
+  "history_end_time" : 1757815021155,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7rr5sjebhab",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756180813347,
+  "history_end_time" : 1757815020198,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "n8ebf4kbme7",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756094413823,
+  "history_end_time" : 1757815019597,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "k69i7255p3l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756008012281,
+  "history_end_time" : 1757815019074,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ormvlyz0z5p",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755921611571,
+  "history_end_time" : 1757815018587,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gacfpqaj2gq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755835211225,
+  "history_end_time" : 1757815017974,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dk0r3cv0igj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755662414180,
+  "history_end_time" : 1755662414180,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "zauctky1awz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755576013044,
+  "history_end_time" : 1757815016518,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gjrwwb9i28l",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755489612590,
+  "history_end_time" : 1757815015582,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "l47o5x7fxsb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755403212333,
+  "history_end_time" : 1757815014996,
+  "history_notes" : null,
+  "history_process" : "f03i7p",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },{
   "history_id" : "1gebep0fbhc",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755316812571,
-  "history_end_time" : 1755316812571,
+  "history_end_time" : 1757815014505,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3xlxq5bz9v7",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755230412742,
-  "history_end_time" : 1755230412742,
+  "history_end_time" : 1757815013996,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "70f59gyvsem",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755144010449,
-  "history_end_time" : 1755144010449,
+  "history_end_time" : 1757815013388,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "oq4mwfvixn7",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755057610290,
-  "history_end_time" : 1755057610290,
+  "history_end_time" : 1757815011588,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "kxmwf16cm3l",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754971224523,
-  "history_end_time" : 1754971224523,
+  "history_end_time" : 1757815011116,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2igu707ztpg",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754884811565,
-  "history_end_time" : 1754884811565,
+  "history_end_time" : 1757815010601,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1uwxskjg81k",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754798412109,
-  "history_end_time" : 1754798412109,
+  "history_end_time" : 1757815009228,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "k9eot4wn7qi",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754712011496,
-  "history_end_time" : 1754712011496,
+  "history_end_time" : 1757815008623,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "fr35fuejnc8",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754625611716,
-  "history_end_time" : 1754625611716,
+  "history_end_time" : 1757815008089,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "med8qukdn4b",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754452832740,
-  "history_end_time" : 1754452832740,
+  "history_end_time" : 1757815007392,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "0mswk37808t",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754366419522,
-  "history_end_time" : 1754366419522,
+  "history_end_time" : 1757815006534,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "uwv57sb01o8",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754280012710,
-  "history_end_time" : 1754280012710,
+  "history_end_time" : 1757815006110,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "dd0f3bku24d",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754193616088,
-  "history_end_time" : 1754193616088,
+  "history_end_time" : 1757815004507,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ilrv5j632gf",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754107212497,
-  "history_end_time" : 1754107212497,
+  "history_end_time" : 1757815003590,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1yo4uegbe6e",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754020812570,
-  "history_end_time" : 1754020812570,
+  "history_end_time" : 1757815002702,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "n55ydu4ox8b",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753934411700,
-  "history_end_time" : 1753934411700,
+  "history_end_time" : 1757815001560,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "nicath0mvoc",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753848014914,
-  "history_end_time" : 1753848014914,
+  "history_end_time" : 1757815001063,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "zphmakupbtk",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753761620759,
-  "history_end_time" : 1753761620759,
+  "history_end_time" : 1757815000586,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "op6m6apxd52",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753675211296,
-  "history_end_time" : 1753675211296,
+  "history_end_time" : 1757814999194,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "108xvrhmaug",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753588812019,
-  "history_end_time" : 1753588812019,
+  "history_end_time" : 1757814998588,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "dj1jpxzv3x7",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753502411776,
-  "history_end_time" : 1753502411776,
+  "history_end_time" : 1757814998025,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "nd4tv596lto",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753416011737,
-  "history_end_time" : 1753416011737,
+  "history_end_time" : 1757814997615,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "8g0iv4tda5r",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753329614513,
-  "history_end_time" : 1753329614513,
+  "history_end_time" : 1757814997028,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "b3jbg565via",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753243235716,
-  "history_end_time" : 1753243235716,
+  "history_end_time" : 1757814995620,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "h56tc7rj2z1",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753156821797,
-  "history_end_time" : 1753156821797,
+  "history_end_time" : 1757814994564,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "fpf4iryo3pu",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753070414570,
-  "history_end_time" : 1753070414570,
+  "history_end_time" : 1757814993758,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "grmpnbaytc6",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752984016397,
-  "history_end_time" : 1752984016397,
+  "history_end_time" : 1757814993187,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "xfh0m3xcby0",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752897615186,
-  "history_end_time" : 1752897615186,
+  "history_end_time" : 1757814992733,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "gsdpui2v9eh",
   "history_input" : "No code saved",
@@ -303,11 +623,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752811215031,
-  "history_end_time" : 1752811215031,
+  "history_end_time" : 1757814991369,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "180qomklg2u",
   "history_input" : "No code saved",
@@ -323,11 +643,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752724814115,
-  "history_end_time" : 1752724814115,
+  "history_end_time" : 1757814990797,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "f6rtb7z77ya",
   "history_input" : "No code saved",
@@ -343,21 +663,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752638412080,
-  "history_end_time" : 1752638412080,
+  "history_end_time" : 1757814990123,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1rfxrmc4iq8",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752552011187,
-  "history_end_time" : 1752552011187,
+  "history_end_time" : 1757814988691,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "fjji54u2daq",
   "history_input" : "No code saved",
@@ -373,11 +693,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752465612435,
-  "history_end_time" : 1752465612435,
+  "history_end_time" : 1757814987654,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1ozzs71e6tn",
   "history_input" : "No code saved",
@@ -393,41 +713,41 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752379212623,
-  "history_end_time" : 1752379212623,
+  "history_end_time" : 1757814985773,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "90dlyijb4a9",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752292831386,
-  "history_end_time" : 1752292831386,
+  "history_end_time" : 1757814985337,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "f6gtw1w7q2p",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752206414851,
-  "history_end_time" : 1752206414851,
+  "history_end_time" : 1757814984894,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "cx209k1maxe",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752120013668,
-  "history_end_time" : 1752120013668,
+  "history_end_time" : 1757814984470,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "sfp3f4s2rhz",
   "history_input" : "No code saved",
@@ -443,31 +763,31 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752033614579,
-  "history_end_time" : 1752033614579,
+  "history_end_time" : 1757814983256,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1atmrkdzdfm",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751947221201,
-  "history_end_time" : 1751947221201,
+  "history_end_time" : 1757814982581,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tw986xm6sa1",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751860818092,
-  "history_end_time" : 1751860818092,
+  "history_end_time" : 1757814982214,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "0sclqeud9yk",
   "history_input" : "No code saved",
@@ -493,51 +813,51 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751774411260,
-  "history_end_time" : 1751774411260,
+  "history_end_time" : 1757814980738,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "k73ati1a5a5",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751688011348,
-  "history_end_time" : 1751688011348,
+  "history_end_time" : 1757814980276,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "5sa7zg0tap8",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751601610585,
-  "history_end_time" : 1751601610585,
+  "history_end_time" : 1757814979721,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "a8xzx13d8ag",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751601122146,
-  "history_end_time" : 1751601122146,
+  "history_end_time" : 1757814979148,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "14ivw83l8is",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751590130524,
-  "history_end_time" : 1751590130524,
+  "history_end_time" : 1757814978653,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "b05wyasppkf",
   "history_input" : "No code saved",
@@ -573,11 +893,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1750301998312,
-  "history_end_time" : 1750301998312,
+  "history_end_time" : 1757814977142,
   "history_notes" : null,
   "history_process" : "f03i7p",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ol47tdsry4h",
   "history_input" : "No code saved",

@@ -1,293 +1,633 @@
 [{
-  "history_id" : "3ocz6axg5zu",
+  "history_id" : "44fbmxvfgr6",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
-  "history_begin_time" : 1755403212901,
-  "history_end_time" : 1755403212901,
+  "history_begin_time" : 1758081612324,
+  "history_end_time" : 1758081612324,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
   "indicator" : "Skipped"
+},{
+  "history_id" : "s0v9ooibrjy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757995211065,
+  "history_end_time" : 1757995211065,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gy904r1phxo",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757908812505,
+  "history_end_time" : 1757908812505,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "awl02oa0yv0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757875216026,
+  "history_end_time" : 1757875216026,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ksyw9xmcr9w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757822412201,
+  "history_end_time" : 1757875360341,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5r7pm0gyq2i",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815173247,
+  "history_end_time" : 1757815173247,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "y2xdy15t9fl",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815132119,
+  "history_end_time" : 1757815162402,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "zxx3x1wak12",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815109356,
+  "history_end_time" : 1757815126417,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kv5lzedkwuu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757814258944,
+  "history_end_time" : 1757815107122,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "snlhw8vaw1g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757736090246,
+  "history_end_time" : 1757815050719,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "tc68m50cdvy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757649621498,
+  "history_end_time" : 1757815050388,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "u1cprcofygy",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757563310000,
+  "history_end_time" : 1757815049839,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "pttcwyc42o1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757476906699,
+  "history_end_time" : 1757815049323,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "65vhjtuaq41",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757390443574,
+  "history_end_time" : 1757815048847,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kptjynj7phw",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757304011794,
+  "history_end_time" : 1757815048271,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ylpkuf7eylj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757217612306,
+  "history_end_time" : 1757815047870,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "h011l11two9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757131222266,
+  "history_end_time" : 1757815046921,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "p20s5dbn8mi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757044817887,
+  "history_end_time" : 1757815045312,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "9hrczgpnkw6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756958420024,
+  "history_end_time" : 1757815044827,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fzz00ycb46h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756872014957,
+  "history_end_time" : 1757815044263,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rr48g5zjws6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756785615409,
+  "history_end_time" : 1757815043621,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "89s6wmk9eb6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756699273415,
+  "history_end_time" : 1757815043178,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ct8mggrlzdt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756612833172,
+  "history_end_time" : 1757815042405,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "eq63zp5i8r4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756440015978,
+  "history_end_time" : 1757815023216,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "il1hb3s86t9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756353612869,
+  "history_end_time" : 1757815022460,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "v4of99ry2xq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756267215064,
+  "history_end_time" : 1757815021166,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fxjqezo1og2",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756180813992,
+  "history_end_time" : 1757815020217,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "10i0dgew34r",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756094414730,
+  "history_end_time" : 1757815019610,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fvwtr2r9v0k",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756008013148,
+  "history_end_time" : 1757815019088,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "2cmhvd1ourn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755921612211,
+  "history_end_time" : 1757815018601,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "j6e2w9oenlp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755835211929,
+  "history_end_time" : 1757815017987,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fqwszy52wlp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755662414950,
+  "history_end_time" : 1755662414950,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "h9qmd4j5j73",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755576014047,
+  "history_end_time" : 1757815016532,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "e31z8pr7j6w",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755489613300,
+  "history_end_time" : 1757815015604,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3ocz6axg5zu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755403212901,
+  "history_end_time" : 1757815015007,
+  "history_notes" : null,
+  "history_process" : "sb12qm",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },{
   "history_id" : "qmtl1yrk14h",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755316813244,
-  "history_end_time" : 1755316813244,
+  "history_end_time" : 1757815014524,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "75sx7e4dkrc",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755230413359,
-  "history_end_time" : 1755230413359,
+  "history_end_time" : 1757815014014,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "42i9pm4db2n",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755144010881,
-  "history_end_time" : 1755144010881,
+  "history_end_time" : 1757815013405,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2dnwva1juiu",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755057610790,
-  "history_end_time" : 1755057610790,
+  "history_end_time" : 1757815011601,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ime7janfp3y",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754971225181,
-  "history_end_time" : 1754971225181,
+  "history_end_time" : 1757815011136,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "vwi9j6qff0q",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754884812131,
-  "history_end_time" : 1754884812131,
+  "history_end_time" : 1757815010620,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "71e3dyl9kxm",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754798412634,
-  "history_end_time" : 1754798412634,
+  "history_end_time" : 1757815009243,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "44xrywmrtm1",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754712012021,
-  "history_end_time" : 1754712012021,
+  "history_end_time" : 1757815008641,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "n3gfalno5bl",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754625612767,
-  "history_end_time" : 1754625612767,
+  "history_end_time" : 1757815008108,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "izgic8xtugd",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754452833568,
-  "history_end_time" : 1754452833568,
+  "history_end_time" : 1757815007406,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "xyn5m59t4ih",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754366420094,
-  "history_end_time" : 1754366420094,
+  "history_end_time" : 1757815006563,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "8zzhrnzd8xc",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754280013433,
-  "history_end_time" : 1754280013433,
+  "history_end_time" : 1757815006129,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "jbmq44uzosh",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754193616657,
-  "history_end_time" : 1754193616657,
+  "history_end_time" : 1757815004527,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "u8va5nvrl2z",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754107213062,
-  "history_end_time" : 1754107213062,
+  "history_end_time" : 1757815003604,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "j9snl59gmwa",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754020812994,
-  "history_end_time" : 1754020812994,
+  "history_end_time" : 1757815002714,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "osfdgrc6geu",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753934412231,
-  "history_end_time" : 1753934412231,
+  "history_end_time" : 1757815001580,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "s4qkmejia9r",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753848015956,
-  "history_end_time" : 1753848015956,
+  "history_end_time" : 1757815001086,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "kt5qw4axe19",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753761621355,
-  "history_end_time" : 1753761621355,
+  "history_end_time" : 1757815000595,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "95b9mjzhdre",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753675211840,
-  "history_end_time" : 1753675211840,
+  "history_end_time" : 1757814999224,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "cng70wzv5gw",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753588812645,
-  "history_end_time" : 1753588812645,
+  "history_end_time" : 1757814998599,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "774p18qnkrf",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753502412332,
-  "history_end_time" : 1753502412332,
+  "history_end_time" : 1757814998047,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "clem36w4fr0",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753416012303,
-  "history_end_time" : 1753416012303,
+  "history_end_time" : 1757814997633,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "5whtm37m3p6",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753329615044,
-  "history_end_time" : 1753329615044,
+  "history_end_time" : 1757814997045,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "xe7t7tqwj0p",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753243236368,
-  "history_end_time" : 1753243236368,
+  "history_end_time" : 1757814995659,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "eaekhxlsr9u",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753156822418,
-  "history_end_time" : 1753156822418,
+  "history_end_time" : 1757814994624,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "n7j4ji9i2y4",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753070415156,
-  "history_end_time" : 1753070415156,
+  "history_end_time" : 1757814993769,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "5l82su57mei",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752984017035,
-  "history_end_time" : 1752984017035,
+  "history_end_time" : 1757814993200,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "6fhhkyzkewv",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752897615752,
-  "history_end_time" : 1752897615752,
+  "history_end_time" : 1757814992758,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3tag6djuwhv",
   "history_input" : "No code saved",
@@ -303,11 +643,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752811215560,
-  "history_end_time" : 1752811215560,
+  "history_end_time" : 1757814991395,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ot1pk60smyp",
   "history_input" : "No code saved",
@@ -323,11 +663,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752724814603,
-  "history_end_time" : 1752724814603,
+  "history_end_time" : 1757814990808,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "p5px3dsemfo",
   "history_input" : "No code saved",
@@ -343,21 +683,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752638412529,
-  "history_end_time" : 1752638412529,
+  "history_end_time" : 1757814990161,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "xx9ppxvw88g",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752552011552,
-  "history_end_time" : 1752552011552,
+  "history_end_time" : 1757814988719,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "4aw3y2nulan",
   "history_input" : "No code saved",
@@ -373,11 +713,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752465612827,
-  "history_end_time" : 1752465612827,
+  "history_end_time" : 1757814987678,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "qqqy86nzhgo",
   "history_input" : "No code saved",
@@ -393,41 +733,41 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752379213004,
-  "history_end_time" : 1752379213004,
+  "history_end_time" : 1757814985814,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "zrnepkvzqad",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752292831731,
-  "history_end_time" : 1752292831731,
+  "history_end_time" : 1757814985376,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "pb3vxgulcqs",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752206415288,
-  "history_end_time" : 1752206415288,
+  "history_end_time" : 1757814984909,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "myfum2bbri1",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752120014068,
-  "history_end_time" : 1752120014068,
+  "history_end_time" : 1757814984610,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2d79km83klx",
   "history_input" : "No code saved",
@@ -443,31 +783,31 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752033614950,
-  "history_end_time" : 1752033614950,
+  "history_end_time" : 1757814983369,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "suymdbsj246",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751947221648,
-  "history_end_time" : 1751947221648,
+  "history_end_time" : 1757814982631,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2eqip9cfsqe",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751860818431,
-  "history_end_time" : 1751860818431,
+  "history_end_time" : 1757814982249,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "qec074a5z7b",
   "history_input" : "No code saved",
@@ -493,51 +833,51 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751774411580,
-  "history_end_time" : 1751774411580,
+  "history_end_time" : 1757814980774,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tr06dui84ik",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751688011701,
-  "history_end_time" : 1751688011701,
+  "history_end_time" : 1757814980312,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tgq1i4kl178",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751601610921,
-  "history_end_time" : 1751601610921,
+  "history_end_time" : 1757814979767,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "mbrnwkz67bk",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751601122316,
-  "history_end_time" : 1751601122316,
+  "history_end_time" : 1757814979236,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "zqmyt7mo4h9",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751590130828,
-  "history_end_time" : 1751590130828,
+  "history_end_time" : 1757814978748,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "wyz317fb3sg",
   "history_input" : "No code saved",
@@ -553,11 +893,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1750301998582,
-  "history_end_time" : 1750301998582,
+  "history_end_time" : 1757814977286,
   "history_notes" : null,
   "history_process" : "sb12qm",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "nzi4owhq4wp",
   "history_input" : "No code saved",
@@ -1848,16 +2188,6 @@
   "history_process" : "sb12qm",
   "host_id" : null,
   "indicator" : "Done"
-},{
-  "history_id" : "8I7u4IHRlMg1",
-  "history_input" : "import xarray as xr\nimport rioxarray as rxr\nimport os\nimport re\nimport pandas as pd\nimport glob\n\ndef convert_geotiffs_to_netcdf(folder_path, output_filename=\"swe_predicted.nc\"):\n    \"\"\"\n    Convert all GeoTIFF files in the specified folder matching the pattern\n    'clipped_swe_predicted_YYYY-MM-DD.tif' into a NetCDF file with dimensions (time, lat, lon).\n    \n    Parameters:\n    - folder_path (str): Path to the folder containing GeoTIFF files.\n    - output_filename (str): Name of the output NetCDF file (default: \"swe_predicted.nc\").\n    \"\"\"\n\n    # Find all matching GeoTIFF files\n    tif_files = sorted(glob.glob(os.path.join(folder_path, \"clipped_swe_predicted_*.tif\")))\n    \n    if not tif_files:\n        print(\"No matching GeoTIFF files found.\")\n        return\n\n    # Extract dates from filenames\n    def extract_date(filename):\n        match = re.search(r\"(\\d{4}-\\d{2}-\\d{2})\", filename)\n        return match.group(1) if match else None\n\n    dates = [extract_date(os.path.basename(f)) for f in tif_files]\n    dates = pd.to_datetime(dates)\n\n    # Load and stack all GeoTIFFs\n    data_arrays = []\n    for file, date in zip(tif_files, dates):\n        da = rxr.open_rasterio(file, masked=True).squeeze()  # Load and remove single band dimension\n\n        # Extract lat, lon from GeoTIFF and assign as coordinates\n        lat = da.y.values  # Latitude values (y dimension in GeoTIFF)\n        lon = da.x.values  # Longitude values (x dimension in GeoTIFF)\n\n        # Ensure the dataset has lat, lon coordinates\n        da = da.assign_coords(lat=(\"lat\", lat), lon=(\"lon\", lon))\n\n        # Add time coordinate\n        da = da.assign_coords(time=date)\n        da.name = \"SWE\"  # Set variable name\n        data_arrays.append(da)\n\n    # Merge into a single dataset along the time dimension\n    ds = xr.concat(data_arrays, dim=\"time\")\n\n    # Save to NetCDF\n    output_path = os.path.join(folder_path, output_filename)\n    ds.to_netcdf(output_path)\n\n    print(f\"NetCDF file saved: {output_path}\")\n\ndef main():\n    convert_geotiffs_to_netcdf(\n        folder_path = \"/home/chetana/data/output/TuolumneBasin_clipped_shp\",\n        output_filename = \"TuolumneBasin_swe_predicted.nc\"\n    )\n    \n    convert_geotiffs_to_netcdf(\n        folder_path = \"/home/chetana/data/output/skagitboundary_clipped_geojson\",  # Change this to your actual folder path\n        output_filename = \"skagitboundary_swe_predicted.nc\"\n    )\n\nif __name__ == \"__main__\":\n    main()\n",
-  "history_output" : "Traceback (most recent call last):\n  File \"/home/chetana/gw-workspace/8I7u4IHRlMg1/clipped_geotif_to_netcdf.py\", line 71, in <module>\n    main()\n  File \"/home/chetana/gw-workspace/8I7u4IHRlMg1/clipped_geotif_to_netcdf.py\", line 60, in main\n    convert_geotiffs_to_netcdf(\n  File \"/home/chetana/gw-workspace/8I7u4IHRlMg1/clipped_geotif_to_netcdf.py\", line 43, in convert_geotiffs_to_netcdf\n    da = da.assign_coords(lat=(\"lat\", lat), lon=(\"lon\", lon))\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/xarray/core/common.py\", line 620, in assign_coords\n    data.coords.update(results)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/xarray/core/coordinates.py\", line 473, in update\n    self._update_coords(coords, indexes)\n  File \"/home/chetana/anaconda3/lib/python3.9/site-packages/xarray/core/coordinates.py\", line 683, in _update_coords\n    raise ValueError(\nValueError: cannot add coordinates with new dimensions to a DataArray\n",
-  "history_begin_time" : 1739470351603,
-  "history_end_time" : 1739470353267,
-  "history_notes" : null,
-  "history_process" : "sb12qm",
-  "host_id" : null,
-  "indicator" : "Failed"
 },{
   "history_id" : "bh6f7TGNvew6",
   "history_input" : "import xarray as xr\nimport rioxarray as rxr\nimport os\nimport re\nimport pandas as pd\nimport glob\n\ndef convert_geotiffs_to_netcdf(folder_path, output_filename=\"swe_predicted.nc\"):\n    \"\"\"\n    Convert all GeoTIFF files in the specified folder matching the pattern\n    'clipped_swe_predicted_YYYY-MM-DD.tif' into a NetCDF file with dimensions (time, lat, lon).\n    \n    Parameters:\n    - folder_path (str): Path to the folder containing GeoTIFF files.\n    - output_filename (str): Name of the output NetCDF file (default: \"swe_predicted.nc\").\n    \"\"\"\n\n    # Find all matching GeoTIFF files\n    tif_files = sorted(glob.glob(os.path.join(folder_path, \"clipped_swe_predicted_*.tif\")))\n    \n    if not tif_files:\n        print(\"No matching GeoTIFF files found.\")\n        return\n\n    # Extract dates from filenames\n    def extract_date(filename):\n        match = re.search(r\"(\\d{4}-\\d{2}-\\d{2})\", filename)\n        return match.group(1) if match else None\n\n    dates = [extract_date(os.path.basename(f)) for f in tif_files]\n    dates = pd.to_datetime(dates)\n\n    # Load and stack all GeoTIFFs\n    data_arrays = []\n    for file, date in zip(tif_files, dates):\n        da = rxr.open_rasterio(file, masked=True).squeeze()  # Load and remove single band dimension\n        da = da.assign_coords(time=date)  # Add time coordinate\n        da.name = \"SWE\"  # Set variable name\n        data_arrays.append(da)\n\n    # Merge into a single dataset\n    ds = xr.concat(data_arrays, dim=\"time\")\n\n    # Save to NetCDF\n    output_path = os.path.join(folder_path, output_filename)\n    ds.to_netcdf(output_path)\n\n    print(f\"NetCDF file saved: {output_path}\")\n\ndef main():\n    convert_geotiffs_to_netcdf(\n        folder_path = \"/home/chetana/data/output/TuolumneBasin_clipped_shp\",\n        output_filename = \"TuolumneBasin_swe_predicted.nc\"\n    )\n    \n    convert_geotiffs_to_netcdf(\n        folder_path = \"/home/chetana/data/output/skagitboundary_clipped_geojson\",  # Change this to your actual folder path\n        output_filename = \"skagitboundary_swe_predicted.nc\"\n    )\n\nif __name__ == \"__main__\":\n    main()\n",

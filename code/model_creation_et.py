@@ -42,7 +42,12 @@ class ETHole(RandomForestHole):
     # training_data_path = f"{working_dir}/all_points_final_merged_training.csv"
     # training_data_path = f"{working_dir}/all_points_final_merged_training_snodas_mask.csv"
     # training_data_path = f"{working_dir}/all_points_final_merged_training_snodas_mask_resnet.csv"
-    training_data_path = f"{working_dir}/all_points_final_merged_training_snodas_mask_resnet_all_batch.csv"
+
+    # training_data_path = f"{working_dir}/all_points_final_merged_training_snodas_mask_resnet_all_batch.csv" # previos training
+
+    # training_data_path = f"{working_dir}/final_merged_data_4yrs_snotel_and_ghcnd_stations_2002-01-01_2024-12-31.csv_sorted_slope_corrected.csv_4yrs_time_series.csv_gap_filled.csv"
+    training_data_path = f"{working_dir}/all_points_final_merged_training_2002-01-01_2024-12-31_snodas_mask.csv"
+
     # training_data_path = f"{working_dir}/../snotel_ghcnd_stations_4yrs_all_cols_log10.csv"
 
 
@@ -76,7 +81,13 @@ class ETHole(RandomForestHole):
 #                                    min_samples_leaf=1,
 #                                    n_jobs=5
 #                                   )
-        return ExtraTreesRegressor(n_jobs=-1, random_state=123)
+        # return ExtraTreesRegressor(n_jobs=-1, random_state=123)
+        return ExtraTreesRegressor(
+            n_estimators=300,       # fewer trees (default is 100)
+            max_depth=15,          # limit tree depth
+            n_jobs=-1,
+            random_state=123
+        )
 
     def create_sample_weights(self, X, y, scale_factor, columns):
         """
@@ -105,7 +116,7 @@ class ETHole(RandomForestHole):
         Preprocesses the training data, including data cleaning and feature extraction.
         """
         print("preparing training data from csv: ", self.training_data_path)
-        data = pd.read_csv(self.training_data_path)
+        data = pd.read_csv(self.training_data_path, index_col=0)
         print("data.shape = ", data.shape)
         for column in data.columns:
             print(column)
@@ -116,14 +127,22 @@ class ETHole(RandomForestHole):
         # just use julian day
         #data['date'] = data['date'].dt.strftime('%j').astype(int)
         # just use the season to reduce the bias on month or dates
-        data['date'] = data['date'].dt.month.apply(month_to_season)
+        # data['date'] = data['date'].dt.month.apply(month_to_season)
+
+        # add Compute day of water year (Oct 1 = day 1)
+        data['day_of_water_year'] = (data['date'] - pd.to_datetime(data['date'].dt.year.astype(str) + '-10-01')).dt.days + 1
+        # Fix dates before Oct 1 (they belong to previous water year)
+        data.loc[data['day_of_water_year'] <= 0, 'day_of_water_year'] = \
+            (data['date'] - pd.to_datetime((data['date'].dt.year - 1).astype(str) + '-10-01')).dt.days + 1
+
         
         data.replace('--', pd.NA, inplace=True)
         data.fillna(-1, inplace=True)
         data = data.replace(-999, -1)
         
-        data = data[(data['swe_value'] != -1)]
-        data = data[(data['swe_value'] != -999)]
+        # data = data[(data['swe_value'] != -1)]
+        # data = data[(data['swe_value'] != -999)]
+        data = data[(data["swe_value"] >= 0) & (data["swe_value"] <= 200)]
         print("After dropping -1: ", data.shape)
         
         if chosen_columns == None:
@@ -133,9 +152,9 @@ class ETHole(RandomForestHole):
           data = data.drop(columns=non_numeric_columns)
           print("all non-numeric columns are dropped: ", non_numeric_columns)
           #data = data.drop('level_0', axis=1)
-          data = data.drop(['date'], axis=1)
-          data = data.drop(['lat'], axis=1)
-          data = data.drop(['lon'], axis=1)
+        #   data = data.drop(['date'], axis=1)
+        #   data = data.drop(['lat'], axis=1)
+        #   data = data.drop(['lon'], axis=1)
         else:
           data = data[chosen_columns]
         
@@ -145,6 +164,7 @@ class ETHole(RandomForestHole):
         # precip_history_columns = [col for col in data.columns if 'precipitation_amount' in col.lower()]
 
         snotel_columns_to_drop = [
+            'SWE', # SWE is no longer in operation after Sep 1
             'station_name', 
             # 'swe_value', 
             'change_in_swe_inch', 

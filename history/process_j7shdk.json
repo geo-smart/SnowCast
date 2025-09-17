@@ -1,223 +1,563 @@
 [{
-  "history_id" : "v7mlshp55do",
+  "history_id" : "6vglzgpveyu",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
-  "history_begin_time" : 1755403212789,
-  "history_end_time" : 1755403212789,
+  "history_begin_time" : 1758081612215,
+  "history_end_time" : 1758081612215,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
   "indicator" : "Skipped"
+},{
+  "history_id" : "ercy6hb436c",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757995210948,
+  "history_end_time" : 1757995210948,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "91e7vnblba9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757908812390,
+  "history_end_time" : 1757908812390,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "50q6ntzghwk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757875215928,
+  "history_end_time" : 1757875215928,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "twzjqpwaxxb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757822412120,
+  "history_end_time" : 1757875360336,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "cjc4mpjfuet",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815173228,
+  "history_end_time" : 1757815173228,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ykzm6l01csi",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815132092,
+  "history_end_time" : 1757815162395,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "dwzjuuyzp3a",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815109335,
+  "history_end_time" : 1757815126411,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8jiem0hbyw9",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757814258916,
+  "history_end_time" : 1757815107117,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "vfvvpj9bks8",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757736089976,
+  "history_end_time" : 1757815050715,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wk2iwqi3q1g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757649621359,
+  "history_end_time" : 1757815050380,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "yhuqe6j3ejt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757563309021,
+  "history_end_time" : 1757815049836,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "h1e23k5xzhf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757476905478,
+  "history_end_time" : 1757815049319,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "kd3rq3a8q9h",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757390442569,
+  "history_end_time" : 1757815048843,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "831kqxwzur6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757304011647,
+  "history_end_time" : 1757815048266,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4v29408mnuk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757217612185,
+  "history_end_time" : 1757815047865,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8wxiphngnk6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757131222191,
+  "history_end_time" : 1757815046916,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "bnllt4p2gzc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757044817760,
+  "history_end_time" : 1757815045307,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "u1wjmgomjpn",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756958419903,
+  "history_end_time" : 1757815044822,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "d9qfrpq4nun",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756872014857,
+  "history_end_time" : 1757815044252,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "24yg3i4dmnk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756785615284,
+  "history_end_time" : 1757815043610,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "16ferf46lya",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756699273026,
+  "history_end_time" : 1757815043169,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "0wj17ybx5cc",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756612832962,
+  "history_end_time" : 1757815042396,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "2ctnnuw73iz",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756440015793,
+  "history_end_time" : 1757815023209,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "xg7b5dkt8pf",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756353612638,
+  "history_end_time" : 1757815022457,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "8mdj1y9xi1d",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756267214879,
+  "history_end_time" : 1757815021163,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "idzk8n7u4ua",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756180813807,
+  "history_end_time" : 1757815020211,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "fe72mytsiut",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756094414409,
+  "history_end_time" : 1757815019606,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "k4i319xo2hq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756008012919,
+  "history_end_time" : 1757815019084,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "burwipwvvbd",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755921612000,
+  "history_end_time" : 1757815018597,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "hv39qt2cz66",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755835211728,
+  "history_end_time" : 1757815017982,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "s8db6uknzzj",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755662414695,
+  "history_end_time" : 1755662414695,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "ew1ll9mn3qx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755576013451,
+  "history_end_time" : 1757815016529,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "j12v0n7ubwh",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755489613116,
+  "history_end_time" : 1757815015597,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "v7mlshp55do",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755403212789,
+  "history_end_time" : 1757815015003,
+  "history_notes" : null,
+  "history_process" : "j7shdk",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },{
   "history_id" : "2fvkfvfttwf",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755316813017,
-  "history_end_time" : 1755316813017,
+  "history_end_time" : 1757815014518,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "rm2tplvenu6",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755230413149,
-  "history_end_time" : 1755230413149,
+  "history_end_time" : 1757815014010,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "uvtwzo64svy",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755144010776,
-  "history_end_time" : 1755144010776,
+  "history_end_time" : 1757815013399,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "dja8cr1vnam",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755057610642,
-  "history_end_time" : 1755057610642,
+  "history_end_time" : 1757815011597,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "n3jxyr0pfmg",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754971225003,
-  "history_end_time" : 1754971225003,
+  "history_end_time" : 1757815011126,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "otw43bzwle3",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754884811945,
-  "history_end_time" : 1754884811945,
+  "history_end_time" : 1757815010614,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "hf9avhfr189",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754798412422,
-  "history_end_time" : 1754798412422,
+  "history_end_time" : 1757815009239,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "98ymp23e17r",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754712011905,
-  "history_end_time" : 1754712011905,
+  "history_end_time" : 1757815008636,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "g34k1ck9je6",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754625612547,
-  "history_end_time" : 1754625612547,
+  "history_end_time" : 1757815008101,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "d7sqkv974rb",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754452833240,
-  "history_end_time" : 1754452833240,
+  "history_end_time" : 1757815007401,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "xvqnlu0rjcz",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754366419944,
-  "history_end_time" : 1754366419944,
+  "history_end_time" : 1757815006546,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "7yjfod314il",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754280013240,
-  "history_end_time" : 1754280013240,
+  "history_end_time" : 1757815006123,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "lsepv7gdqn4",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754193616472,
-  "history_end_time" : 1754193616472,
+  "history_end_time" : 1757815004521,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "yag2aspbybg",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754107212935,
-  "history_end_time" : 1754107212935,
+  "history_end_time" : 1757815003599,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "c54p0259fg9",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754020812853,
-  "history_end_time" : 1754020812853,
+  "history_end_time" : 1757815002710,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "0o27vpz0q52",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753934412088,
-  "history_end_time" : 1753934412088,
+  "history_end_time" : 1757815001575,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tc1ypqjoh85",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753848015809,
-  "history_end_time" : 1753848015809,
+  "history_end_time" : 1757815001079,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "yizx86hgkwy",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753761621226,
-  "history_end_time" : 1753761621226,
+  "history_end_time" : 1757815000592,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "1wszwdg8pfr",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753675211693,
-  "history_end_time" : 1753675211693,
+  "history_end_time" : 1757814999213,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "7xp711ydqhr",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753588812425,
-  "history_end_time" : 1753588812425,
+  "history_end_time" : 1757814998596,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "x6es6ft0sb1",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753502412194,
-  "history_end_time" : 1753502412194,
+  "history_end_time" : 1757814998042,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "4MWCGqnM9qth",
   "history_input" : "from base_nn_hole import BaseNNHole\nimport torch\nimport torch.nn as nn\nimport os\nimport pandas as pd\nfrom datetime import datetime\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport numpy as np\nimport random\nimport psutil\nfrom snowcast_utils import model_dir, data_dir, plot_dir, test_start_date, test_end_date\nfrom datetime import datetime, timedelta\nimport time\nimport subprocess\nimport matplotlib.pyplot as plt\nfrom sklearn.preprocessing import StandardScaler\nfrom base_hole import BaseHole\nimport shutil\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom tqdm import tqdm\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nimport math\nfrom datetime import datetime\nimport os\nimport pandas as pd\nimport numpy as np\nimport torch\n\nimport torch\nimport torch.nn as nn\nimport math\n\nclass PositionalEncoding(nn.Module):\n    def __init__(self, d_model, max_len=500):\n        super().__init__()\n        pe = torch.zeros(max_len, d_model)\n        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)\n        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))\n        pe[:, 0::2] = torch.sin(position * div_term)\n        pe[:, 1::2] = torch.cos(position * div_term)\n        self.register_buffer('pe', pe.unsqueeze(0))  # shape (1, max_len, d_model)\n\n    def forward(self, x):\n        # x shape: (batch_size, seq_len, d_model)\n        seq_len = x.size(1)\n        x = x + self.pe[:, :seq_len, :].to(x.device)\n        return x\n\nclass SNODAS_Transformer_Model(nn.Module):\n    def __init__(self, input_dim=8, embed_dim=128, num_heads=4, num_layers=4, dropout=0.1):\n        super().__init__()\n        self.input_layer = nn.Linear(input_dim, embed_dim)  # Project 8 features → embed_dim\n        self.positional_encoding = PositionalEncoding(embed_dim)\n\n        encoder_layer = nn.TransformerEncoderLayer(\n            d_model=embed_dim,\n            nhead=num_heads,\n            dim_feedforward=256,\n            dropout=dropout,\n            activation='gelu',\n            batch_first=True  # input/output shape: (batch, seq, feature)\n        )\n        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)\n\n        self.output_layer = nn.Sequential(\n            nn.Linear(embed_dim, 64),\n            nn.LeakyReLU(0.01),\n            nn.Linear(64, 1)  # Predict scalar SWE\n        )\n\n        self.apply(self.init_weights)\n\n    def forward(self, x):\n        # x: (batch_size, seq_len=7, input_dim=8)\n        x = self.input_layer(x)               # (batch_size, seq_len, embed_dim)\n        x = self.positional_encoding(x)      # add positional encoding\n\n        x = self.transformer_encoder(x)      # (batch_size, seq_len, embed_dim)\n\n        x = x.mean(dim=1)                    # global average pooling over seq_len -> (batch_size, embed_dim)\n\n        x = self.output_layer(x)              # (batch_size, 1)\n        return x\n\n    @staticmethod\n    def init_weights(m):\n        if isinstance(m, nn.Linear):\n            nn.init.kaiming_uniform_(m.weight, nonlinearity='leaky_relu')\n            nn.init.zeros_(m.bias)\n\n    def load_model(self, model_path):\n        \"\"\"Loads the model weights from a file.\"\"\"\n        try:\n            state_dict = torch.load(model_path)\n            self.load_state_dict(state_dict)\n            print(f\"Model loaded from {model_path}\")\n        except Exception as e:\n            print(f\"Error loading model: {e}\")\n\n\nclass SNODAS_Transformer_Hole(BaseNNHole):\n\n    def normalize(self, X):\n        return X\n\n    def preprocessing(self, verbose=False, semimonth_only = False):\n        \"\"\"\n        Preprocesses the data for training and testing.\n\n        Returns:\n            None\n        \"\"\"\n        \n        # List all CSV files that end with -01.csv or -15.csv\n        if semimonth_only:\n            files = [\n                os.path.join(self.SNODAS_CSV_FOLDER, f)\n                for f in os.listdir(self.SNODAS_CSV_FOLDER)\n                if f.endswith('.csv') and ('-01_snodas' in f or '-15_snodas' in f)\n            ]\n        else:\n            files = [\n                os.path.join(self.SNODAS_CSV_FOLDER, f)\n                for f in os.listdir(self.SNODAS_CSV_FOLDER)\n                if f.endswith('.csv')\n            ]\n\n        # Shuffle the files to ensure randomness\n        # random.shuffle(files)\n        files = self.sort_files(files)\n\n        # Split the files: 80% for training and 20% for evaluation\n        train_size = int(self.train_ratio * len(files))\n        test_size = int(self.test_ratio * len(files))\n        self.train_files = files[:train_size]\n        self.eval_files = files[-test_size:]\n\n        if verbose:\n            print(\"Train files:\", self.train_files)\n            print(\"Test files:\", self.eval_files)\n    \n    def encode_features(self, df):\n        \"\"\"\n        Converts spatial and temporal features into an 8D representation:\n        - Uses sin transformations for Latitude and Longitude (to maintain continuity)\n        - Uses sin/cos transformations for periodic variables (year, month, day_of_year)\n        \"\"\"\n        # Encode Latitude and Longitude using sin transformation for generalization\n        # Normalize Year (assuming range ~[2000, 2100])\n        df['year_enc'] = (df['year'] - 2000) / 100  \n\n        # Normalize Month (1-12 → scaled between 0 and 1)\n        df['month_enc'] = (df['month'] - 1) / 11  \n\n        # Normalize Day of Year (1-365 → scaled between 0 and 1)\n        df['day_enc'] = (df['day_of_year'] - 1) / 364  \n\n        # Select final 8D input features\n        return df[['Latitude', 'Longitude', 'year', 'month', 'day_of_year', 'year_enc', 'month_enc', 'day_enc']].values\n\n    def extract_date(self, file_path):\n        filename = os.path.basename(file_path)\n        date_str = filename.split('_')[0]  # e.g. '2023-06-28'\n        return datetime.strptime(date_str, \"%Y-%m-%d\")\n\n    def sort_files(self, files):\n        # Sort files by date extracted from filename\n        files = sorted(files, key=self.extract_date)\n        return files\n\n    def load_batch_iterator(self, all_files, sequence_length=7, batch_size=8):\n        \"\"\"\n        A generator that yields batches of (X_seq, y_seq) with:\n        - X_seq: [batch_size * N, sequence_length, F]\n        - y_seq: [batch_size * N, 1]\n        \n        Only loads (batch_size + sequence_length - 1) files per batch.\n        \"\"\"\n        import pandas as pd\n        import numpy as np\n        import torch\n        from datetime import datetime, timedelta\n        import os\n\n        assert sequence_length >= 1, \"sequence_length must be ≥ 1\"\n\n        def extract_date(file_path):\n            fname = os.path.basename(file_path)\n            date_str = fname.split('_')[0]  # 'YYYY-MM-DD'\n            return datetime.strptime(date_str, \"%Y-%m-%d\")\n\n        # Sort input files by date\n        all_files = sorted(all_files, key=extract_date)\n        all_dates = [extract_date(f) for f in all_files]\n        file_lookup = {extract_date(f): f for f in all_files}\n\n        total_steps = len(all_files) - sequence_length\n\n        for i in range(0, total_steps, batch_size):\n            batch_X = []\n            batch_y = []\n\n            batch_dates = all_dates[i + sequence_length: i + sequence_length + batch_size]\n            if len(batch_dates) < batch_size:\n                break  # incomplete final batch\n\n            for target_date in batch_dates:\n                history_dates = [target_date - timedelta(days=d) for d in reversed(range(sequence_length))]\n                if not all(d in file_lookup for d in history_dates + [target_date]):\n                    print(f\"[SKIP] Missing files for {target_date.date()} sequence\")\n                    continue\n\n                # Load sequence\n                df_seq = []\n                for d in history_dates:\n                    df = pd.read_csv(file_lookup[d])\n                    df['date'] = pd.to_datetime(df['date'])\n                    df['day_of_year'] = df['date'].dt.dayofyear\n                    df['month'] = df['date'].dt.month\n                    df['year'] = df['date'].dt.year\n                    df_seq.append(df)\n\n                encoded_seq = [\n                    torch.tensor(self.encode_features(df) * 100, dtype=torch.float32)\n                    for df in df_seq\n                ]\n\n                X = torch.stack(encoded_seq)  # [T, N, F]\n                X = X.permute(1, 0, 2)        # [N, T, F]\n\n                # Load target\n                df_y = pd.read_csv(file_lookup[target_date])\n                y_raw = df_y['snodas'].values\n                y = np.log10(y_raw + 1)\n                y = torch.tensor(y, dtype=torch.float32).unsqueeze(-1)  # [N, 1]\n\n                batch_X.append(X)\n                batch_y.append(y)\n\n            if not batch_X:\n                continue\n\n            # Concatenate over all N's in batch\n            X_seq = torch.cat(batch_X, dim=0).to(self.device)  # [batch_size * N, T, F]\n            y_seq = torch.cat(batch_y, dim=0).to(self.device)  # [batch_size * N, 1]\n\n            print(f\"[YIELD] X_seq: {X_seq.shape}, y_seq: {y_seq.shape}\")\n            yield X_seq, y_seq\n\n\n\n    # def load_batch(self, files):\n    #     batch_data = []\n        \n    #     for file in files:\n    #         if not os.path.exists(file):\n    #             continue\n    #         df = pd.read_csv(file)\n    #         df['date'] = pd.to_datetime(df['date'])\n    #         batch_data.append(df)\n        \n    #     batch_df = pd.concat(batch_data, ignore_index=True)\n\n    #     # Extract date components\n    #     batch_df['day_of_year'] = batch_df['date'].dt.dayofyear\n    #     batch_df['month'] = batch_df['date'].dt.month\n    #     batch_df['year'] = batch_df['date'].dt.year\n\n    #     # Transform into 8D input features\n    #     X = self.encode_features(batch_df)\n    #     X *= 100\n\n    #     # Log-transform the target variable\n    #     y = np.log10(batch_df['snodas'] + 1)  # +1 to avoid log(0)\n        \n    #     return X, y\n\n    def predict_swe_map(\n        self, \n        target_date: str, \n        model_path: str = None, \n        batch_size: int = -1\n    ):\n        from tqdm import tqdm\n        print(\"======>\\nstart to predict SWE map...\")\n\n        if model_path is None:\n            model_path = self.model_path\n        self.model = self.load_model(model_path)\n        self.model.eval()\n\n        if batch_size == -1:\n            batch_size = self.batch_size\n\n        model_file_name = os.path.basename(model_path)\n        print(f\"Model loaded successfully. Running evaluation on {self.device}...\")\n\n        # Prepare files up to the target_date\n        date_obj = datetime.strptime(target_date, \"%Y-%m-%d\")\n        all_files = [f for f in self.input_files if f\"{target_date}\" not in f and datetime.strptime(os.path.basename(f).split('_')[0], \"%Y-%m-%d\") <= date_obj]\n\n        print(f\"Total files for evaluation: {len(all_files)} (up to {target_date})\")\n\n        # Use batch iterator\n        result_batches = []\n        for X_batch, _ in tqdm(self.load_batch_iterator(all_files, sequence_length=7, batch_size=batch_size), desc=\"Running prediction\"):\n            with torch.no_grad():\n                y_pred = self.model(X_batch).detach().cpu().numpy()\n\n            y_pred = (10 ** y_pred) - 1  # Reverse log10 scaling\n            result_batches.append(y_pred)\n\n        # Flatten result and map back to lat/lon if needed\n        all_preds = np.concatenate(result_batches, axis=0)  # [Total_points, 1]\n\n        # Map predictions to location\n        mapper_df = pd.read_csv(self.LAT_LON_CSV_PATH)\n        if len(mapper_df) != len(all_preds):\n            raise ValueError(f\"Prediction size {len(all_preds)} doesn't match location data {len(mapper_df)}\")\n\n        mapper_df['SWE_predicted'] = all_preds.flatten()\n        mapper_df['date'] = target_date\n\n        if mapper_df.isna().any().any():\n            raise ValueError(\"NaN detected in prediction output\")\n\n        self.save_png(mapper_df, target_date, model_file_name)\n        return mapper_df\n\n\n\n\n    def get_model(self):\n        model = SNODAS_Transformer_Model().to(self.device)\n        # Calculate the total number of trainable parameters\n        total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)\n\n        print(f\"Total trainable parameters: {total_params}\")\n        return model\n\n    def train(self):\n        print(\"======>\\nstart to train...\")\n        model = self.get_model()\n        optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)\n        loss_fn = torch.nn.MSELoss()\n        MAX_ROWS = 50000\n        \n        for epoch in range(self.epochs):\n            print(f\"\\n[Epoch {epoch+1}/{self.epochs}]\")\n\n            model.train()\n            total_loss = 0.0\n            total_samples = 0\n\n            batch_iter = self.load_batch_iterator(self.train_files, sequence_length=7, batch_size=8)\n\n            for i, (X_train, y_train) in enumerate(batch_iter):\n                if X_train is None or y_train is None:\n                    continue\n\n                num_rows = X_train.shape[0]\n                num_slices = (num_rows + MAX_ROWS - 1) // MAX_ROWS\n\n                for j in range(num_slices):\n                    start = j * MAX_ROWS\n                    end = min(start + MAX_ROWS, num_rows)\n\n                    X_batch = X_train[start:end].to(self.device)\n                    y_batch = y_train[start:end].to(self.device)\n\n                    print(\"X_batch.shape: \", X_batch.shape)\n\n                    optimizer.zero_grad()\n                    pred = model(X_batch)\n                    loss = loss_fn(pred, y_batch)\n                    loss.backward()\n                    optimizer.step()\n\n                    batch_size = X_batch.shape[0]\n                    total_loss += loss.item() * batch_size\n                    total_samples += batch_size\n\n                    # print(f\"  └── Batch {i+1}.{j+1}: Loss = {loss.item():.4f} | Samples = {batch_size}\")\n\n            if total_samples > 0:\n                avg_loss = total_loss / total_samples\n                print(f\"[Epoch {epoch+1}] Average Loss: {avg_loss:.4f}\")\n            else:\n                print(f\"[Epoch {epoch+1}] No valid samples in this epoch.\")\n\n    def new_batch_generator(self, files, batch_size, sequence_length=7):\n        \"\"\"\n        Batch generator for Transformer input:\n        - X: shape [batch_size, sequence_length, C, H, W]\n        - y: shape [batch_size, 1] or [batch_size, 1, H, W]\n        \"\"\"\n\n        assert sequence_length >= 1, \"sequence_length must be at least 1\"\n\n        print(\"🚀 Starting batch generator with spatial input...\")\n        print(f\"📁 Total files: {len(files)}\")\n        print(f\"🧮 Sequence length: {sequence_length}, Batch size: {batch_size}\")\n\n        # Sort files by date\n        def extract_date(f): return datetime.strptime(os.path.basename(f).split(\"_\")[0], \"%Y-%m-%d\")\n        files = sorted(files, key=extract_date)\n\n        X_accumulated, y_accumulated = [], []\n        total_sequences = 0\n        total_batches = 0\n\n        for i in range(len(files) - sequence_length):\n            input_files = files[i: i + sequence_length]\n            target_file = files[i + sequence_length]\n\n            print(f\"\\n🪟 Sequence #{total_sequences + 1}:\")\n            print(\"   🗂️ Inputs:\")\n            for f in input_files:\n                print(f\"     - {os.path.basename(f)}\")\n            print(f\"   🎯 Target: {os.path.basename(target_file)}\")\n\n            try:\n                X_seq = []\n                for f in input_files:\n                    X_f, _ = self.load_batch([f])  # returns [X], _\n                    X_f = X_f[0]\n                    if X_f.ndim != 3:\n                        raise ValueError(f\"Expected (C,H,W), got {X_f.shape}\")\n                    print(f\"     📦 {os.path.basename(f)} | X shape: {X_f.shape}\")\n                    X_seq.append(X_f)\n\n                X_seq = np.stack(X_seq, axis=0)  # [T, C, H, W]\n                print(f\"   🔗 Stacked X_seq shape: {X_seq.shape}\")\n\n                _, y_target = self.load_batch([target_file])  # returns _, [y]\n                y_val = y_target[0]\n                print(f\"   🎯 y_target shape: {np.array(y_val).shape}\")\n\n                X_accumulated.append(X_seq)\n                y_accumulated.append(y_val)\n                total_sequences += 1\n\n            except Exception as e:\n                print(f\"   ⚠️ Skipping sequence due to error: {e}\")\n                continue\n\n            while len(X_accumulated) >= batch_size:\n                X_batch = np.stack(X_accumulated[:batch_size], axis=0)  # [B, T, C, H, W]\n                y_batch = np.stack(y_accumulated[:batch_size], axis=0)\n\n                print(f\"\\n📤 Yielding batch #{total_batches + 1}\")\n                print(f\"   ✅ X_batch shape: {X_batch.shape}\")\n                print(f\"   ✅ y_batch shape: {y_batch.shape}\")\n\n                yield X_batch, y_batch\n\n                X_accumulated = X_accumulated[batch_size:]\n                y_accumulated = y_accumulated[batch_size:]\n                total_batches += 1\n\n        if X_accumulated:\n            X_batch = np.stack(X_accumulated, axis=0)\n            y_batch = np.stack(y_accumulated, axis=0)\n\n            print(f\"\\n📤 Yielding final (incomplete) batch\")\n            print(f\"   ✅ X_batch shape: {X_batch.shape}\")\n            print(f\"   ✅ y_batch shape: {y_batch.shape}\")\n\n            yield X_batch, y_batch\n\n        print(\"\\n✅ Batch generation complete.\")\n        print(f\"   🔢 Total sequences: {total_sequences}\")\n        print(f\"   📦 Total batches: {total_batches + (1 if X_accumulated else 0)}\")\n\n\n\n\n    def evaluate(self):\n        '''\n        Evaluates the performance of the machine learning model.\n\n        Returns:\n            None\n        '''\n        # Evaluate model on the last batch of data\n        self.evaluate_model(\n            self.model_path, \n            self.eval_files, \n            self.end_date - timedelta(days=21), \n            self.end_date,\n            batch_size=self.batch_size,\n        )\n\n    def evaluate_model(\n        self, model_file_path, files, start_date, end_date, batch_size=10000\n    ):\n        if batch_size is not None:\n            self.batch_size = batch_size\n\n        print(\"=\" * 60)\n        print(\"🧪 Starting Evaluation Phase\")\n        print(f\"📦 Batch size set to: {self.batch_size}\")\n        print(f\"🗂️ Number of input files: {len(files)}\")\n        print(f\"🕒 Evaluation period: {start_date} to {end_date}\")\n        print(\"=\" * 60)\n\n        # Load model and set to eval mode\n        print(\"🔄 Loading model from:\", model_file_path)\n        self.model = self.load_model(model_file_path)\n        self.model.eval()\n        print(f\"✅ Model loaded successfully. Evaluating on device: {self.device}\")\n\n        all_y_true = []\n        all_y_pred = []\n        batch_count = 0\n        total_samples = 0\n\n        for X_batch, y_batch in self.load_batch_iterator(files, sequence_length=7, batch_size=self.batch_size):\n            print(\"-\" * 60)\n            print(f\"📊 Processing batch {batch_count + 1}...\")\n            print(f\"  └── Raw X_batch shape: {X_batch.shape}\")\n            print(f\"  └── Raw y_batch length: {len(y_batch)}\")\n\n            # Normalize and convert to tensor\n            X_batch = self.normalize(X_batch)\n            X_batch_tensor = torch.tensor(X_batch, dtype=torch.float32).to(self.device)\n\n            # Set expected sequence and feature dimensions\n            self.seq_len = 7          # number of days (time steps)\n            self.num_features = 8     # number of variables per day\n            expected_shape = self.seq_len * self.num_features  # 56\n\n            if X_batch.shape[1] != expected_shape:\n                raise ValueError(f\"❌ Input shape mismatch: got {X_batch.shape}, \"\n                                f\"expected (_, {expected_shape})\")\n\n            try:\n                X_batch_tensor = X_batch_tensor.view(-1, self.seq_len, self.num_features)\n                print(f\"  ✅ Reshaped X_batch_tensor: {X_batch_tensor.shape}\")\n            except Exception as e:\n                raise ValueError(f\"❌ Error reshaping input: {X_batch_tensor.shape} \"\n                                f\"to (-1, {self.seq_len}, {self.num_features})\\n{e}\")\n\n            # Run prediction\n            try:\n                with torch.no_grad():\n                    y_pred_batch = self.model(X_batch_tensor).detach().cpu().numpy()\n                print(f\"  🎯 Predicted batch shape: {y_pred_batch.shape}\")\n            except Exception as e:\n                raise RuntimeError(f\"❌ Model prediction failed on batch {batch_count + 1}\\n{e}\")\n\n            # Aggregate results\n            all_y_true.extend(y_batch)\n            all_y_pred.extend(y_pred_batch)\n            total_samples += len(y_batch)\n            batch_count += 1\n            print(f\"  ✅ Batch {batch_count} complete | Total samples so far: {total_samples}\")\n\n        print(\"=\" * 60)\n        print(\"📈 Finalizing Evaluation Metrics\")\n\n        y_true = np.array(all_y_true)\n        y_pred = np.array(all_y_pred)\n\n        print(f\"  🧾 y_true.shape: {y_true.shape}\")\n        print(f\"  🧾 y_pred.shape: {y_pred.shape}\")\n\n        # === Metrics ===\n        mse = mean_squared_error(y_true, y_pred)\n        rmse = np.sqrt(mse)\n        r2 = r2_score(y_true, y_pred)\n\n        print(\"✅ Evaluation Complete\")\n        print(f\"  📉 RMSE = {rmse:.4f}\")\n        print(f\"  📊 R2   = {r2:.4f}\")\n        print(\"=\" * 60)\n\n\n\n\nif __name__ == \"__main__\":\n\n    # Define start and end date for training\n    start_date_str = '2023-10-01'\n    end_date_str = '2024-05-15'\n    \n    hole_model = SNODAS_Transformer_Hole(\n        start_date_str = start_date_str,\n        end_date_str = end_date_str,\n        batch_size = 5000,\n        epochs = 2,\n        train_ratio = 0.8,\n        test_ratio = 0.005,\n        val_ratio = 0.01,\n        normalization = True,\n        retrain = True,\n        model_path = \"/home/chetana/models/SNODAS_Transformer_Hole_e10_nTrue_seq2seq_latest.model\",\n        # base_model_path = \"/home/chetana/models//SNODAS_Transformer_Hole_e10_nTrue_latest.model\"\n    )\n    \n    hole_model.preprocessing(verbose=True, semimonth_only = False)\n    # hole_model.train()\n    # hole_model.save()\n    hole_model.evaluate()\n    # hole_model.predict(\"2024-12-10\")\n    # hole_model.predict(\"2024-11-10\")\n    # hole_model.predict(\"2024-10-10\")\n    # hole_model.predict(\"2024-09-10\")\n    # hole_model.predict(\"2024-08-10\")\n    # hole_model.predict(\"2024-07-10\")\n    # hole_model.predict(\"2024-06-10\")\n    # hole_model.predict(\"2024-05-10\")\n    # hole_model.predict(\"2024-04-10\")\n    # hole_model.predict(\"2024-03-10\")\n    # hole_model.predict(\"2024-02-10\")\n    # hole_model.predict(\"2024-01-10\")\n\n\n",
@@ -323,11 +663,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753416012161,
-  "history_end_time" : 1753416012161,
+  "history_end_time" : 1757814997627,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "mpbl6fNUx2yl",
   "history_input" : "from base_nn_hole import BaseNNHole\nimport torch\nimport torch.nn as nn\nimport os\nimport pandas as pd\nfrom datetime import datetime\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport numpy as np\nimport random\nimport psutil\nfrom snowcast_utils import model_dir, data_dir, plot_dir, test_start_date, test_end_date\nfrom datetime import datetime, timedelta\nimport time\nimport subprocess\nimport matplotlib.pyplot as plt\nfrom sklearn.preprocessing import StandardScaler\nfrom base_hole import BaseHole\nimport shutil\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom tqdm import tqdm\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nimport math\nfrom datetime import datetime\nimport os\nimport pandas as pd\nimport numpy as np\nimport torch\n\nimport torch\nimport torch.nn as nn\nimport math\n\nclass PositionalEncoding(nn.Module):\n    def __init__(self, d_model, max_len=500):\n        super().__init__()\n        pe = torch.zeros(max_len, d_model)\n        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)\n        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))\n        pe[:, 0::2] = torch.sin(position * div_term)\n        pe[:, 1::2] = torch.cos(position * div_term)\n        self.register_buffer('pe', pe.unsqueeze(0))  # shape (1, max_len, d_model)\n\n    def forward(self, x):\n        # x shape: (batch_size, seq_len, d_model)\n        seq_len = x.size(1)\n        x = x + self.pe[:, :seq_len, :].to(x.device)\n        return x\n\nclass SNODAS_Transformer_Model(nn.Module):\n    def __init__(self, input_dim=8, embed_dim=128, num_heads=4, num_layers=4, dropout=0.1):\n        super().__init__()\n        self.input_layer = nn.Linear(input_dim, embed_dim)  # Project 8 features → embed_dim\n        self.positional_encoding = PositionalEncoding(embed_dim)\n\n        encoder_layer = nn.TransformerEncoderLayer(\n            d_model=embed_dim,\n            nhead=num_heads,\n            dim_feedforward=256,\n            dropout=dropout,\n            activation='gelu',\n            batch_first=True  # input/output shape: (batch, seq, feature)\n        )\n        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)\n\n        self.output_layer = nn.Sequential(\n            nn.Linear(embed_dim, 64),\n            nn.LeakyReLU(0.01),\n            nn.Linear(64, 1)  # Predict scalar SWE\n        )\n\n        self.apply(self.init_weights)\n\n    def forward(self, x):\n        # x: (batch_size, seq_len=7, input_dim=8)\n        x = self.input_layer(x)               # (batch_size, seq_len, embed_dim)\n        x = self.positional_encoding(x)      # add positional encoding\n\n        x = self.transformer_encoder(x)      # (batch_size, seq_len, embed_dim)\n\n        x = x.mean(dim=1)                    # global average pooling over seq_len -> (batch_size, embed_dim)\n\n        x = self.output_layer(x)              # (batch_size, 1)\n        return x\n\n    @staticmethod\n    def init_weights(m):\n        if isinstance(m, nn.Linear):\n            nn.init.kaiming_uniform_(m.weight, nonlinearity='leaky_relu')\n            nn.init.zeros_(m.bias)\n\n    def load_model(self, model_path):\n        \"\"\"Loads the model weights from a file.\"\"\"\n        try:\n            state_dict = torch.load(model_path)\n            self.load_state_dict(state_dict)\n            print(f\"Model loaded from {model_path}\")\n        except Exception as e:\n            print(f\"Error loading model: {e}\")\n\n\nclass SNODAS_Transformer_Hole(BaseNNHole):\n\n    def normalize(self, X):\n        return X\n\n    def preprocessing(self, verbose=False, semimonth_only = False):\n        \"\"\"\n        Preprocesses the data for training and testing.\n\n        Returns:\n            None\n        \"\"\"\n        \n        # List all CSV files that end with -01.csv or -15.csv\n        if semimonth_only:\n            files = [\n                os.path.join(self.SNODAS_CSV_FOLDER, f)\n                for f in os.listdir(self.SNODAS_CSV_FOLDER)\n                if f.endswith('.csv') and ('-01_snodas' in f or '-15_snodas' in f)\n            ]\n        else:\n            files = [\n                os.path.join(self.SNODAS_CSV_FOLDER, f)\n                for f in os.listdir(self.SNODAS_CSV_FOLDER)\n                if f.endswith('.csv')\n            ]\n\n        # Shuffle the files to ensure randomness\n        # random.shuffle(files)\n        files = self.sort_files(files)\n\n        # Split the files: 80% for training and 20% for evaluation\n        train_size = int(self.train_ratio * len(files))\n        test_size = int(self.test_ratio * len(files))\n        self.train_files = files[:train_size]\n        self.eval_files = files[-test_size:]\n\n        if verbose:\n            print(\"Train files:\", self.train_files)\n            print(\"Test files:\", self.eval_files)\n    \n    def encode_features(self, df):\n        \"\"\"\n        Converts spatial and temporal features into an 8D representation:\n        - Uses sin transformations for Latitude and Longitude (to maintain continuity)\n        - Uses sin/cos transformations for periodic variables (year, month, day_of_year)\n        \"\"\"\n        # Encode Latitude and Longitude using sin transformation for generalization\n        # Normalize Year (assuming range ~[2000, 2100])\n        df['year_enc'] = (df['year'] - 2000) / 100  \n\n        # Normalize Month (1-12 → scaled between 0 and 1)\n        df['month_enc'] = (df['month'] - 1) / 11  \n\n        # Normalize Day of Year (1-365 → scaled between 0 and 1)\n        df['day_enc'] = (df['day_of_year'] - 1) / 364  \n\n        # Select final 8D input features\n        return df[['Latitude', 'Longitude', 'year', 'month', 'day_of_year', 'year_enc', 'month_enc', 'day_enc']].values\n\n    def extract_date(self, file_path):\n        filename = os.path.basename(file_path)\n        date_str = filename.split('_')[0]  # e.g. '2023-06-28'\n        return datetime.strptime(date_str, \"%Y-%m-%d\")\n\n    def sort_files(self, files):\n        # Sort files by date extracted from filename\n        files = sorted(files, key=self.extract_date)\n        return files\n\n    def load_batch_iterator(self, all_files, sequence_length=7, batch_size=8):\n        \"\"\"\n        A generator that yields batches of (X_seq, y_seq) with:\n        - X_seq: [batch_size * N, sequence_length, F]\n        - y_seq: [batch_size * N, 1]\n        \n        Only loads (batch_size + sequence_length - 1) files per batch.\n        \"\"\"\n        import pandas as pd\n        import numpy as np\n        import torch\n        from datetime import datetime, timedelta\n        import os\n\n        assert sequence_length >= 1, \"sequence_length must be ≥ 1\"\n\n        def extract_date(file_path):\n            fname = os.path.basename(file_path)\n            date_str = fname.split('_')[0]  # 'YYYY-MM-DD'\n            return datetime.strptime(date_str, \"%Y-%m-%d\")\n\n        # Sort input files by date\n        all_files = sorted(all_files, key=extract_date)\n        all_dates = [extract_date(f) for f in all_files]\n        file_lookup = {extract_date(f): f for f in all_files}\n\n        total_steps = len(all_files) - sequence_length\n\n        for i in range(0, total_steps, batch_size):\n            batch_X = []\n            batch_y = []\n\n            batch_dates = all_dates[i + sequence_length: i + sequence_length + batch_size]\n            if len(batch_dates) < batch_size:\n                break  # incomplete final batch\n\n            for target_date in batch_dates:\n                history_dates = [target_date - timedelta(days=d) for d in reversed(range(sequence_length))]\n                if not all(d in file_lookup for d in history_dates + [target_date]):\n                    print(f\"[SKIP] Missing files for {target_date.date()} sequence\")\n                    continue\n\n                # Load sequence\n                df_seq = []\n                for d in history_dates:\n                    df = pd.read_csv(file_lookup[d])\n                    df['date'] = pd.to_datetime(df['date'])\n                    df['day_of_year'] = df['date'].dt.dayofyear\n                    df['month'] = df['date'].dt.month\n                    df['year'] = df['date'].dt.year\n                    df_seq.append(df)\n\n                encoded_seq = [\n                    torch.tensor(self.encode_features(df) * 100, dtype=torch.float32)\n                    for df in df_seq\n                ]\n\n                X = torch.stack(encoded_seq)  # [T, N, F]\n                X = X.permute(1, 0, 2)        # [N, T, F]\n\n                # Load target\n                df_y = pd.read_csv(file_lookup[target_date])\n                y_raw = df_y['snodas'].values\n                y = np.log10(y_raw + 1)\n                y = torch.tensor(y, dtype=torch.float32).unsqueeze(-1)  # [N, 1]\n\n                batch_X.append(X)\n                batch_y.append(y)\n\n            if not batch_X:\n                continue\n\n            # Concatenate over all N's in batch\n            X_seq = torch.cat(batch_X, dim=0).to(self.device)  # [batch_size * N, T, F]\n            y_seq = torch.cat(batch_y, dim=0).to(self.device)  # [batch_size * N, 1]\n\n            print(f\"[YIELD] X_seq: {X_seq.shape}, y_seq: {y_seq.shape}\")\n            yield X_seq, y_seq\n\n\n\n    # def load_batch(self, files):\n    #     batch_data = []\n        \n    #     for file in files:\n    #         if not os.path.exists(file):\n    #             continue\n    #         df = pd.read_csv(file)\n    #         df['date'] = pd.to_datetime(df['date'])\n    #         batch_data.append(df)\n        \n    #     batch_df = pd.concat(batch_data, ignore_index=True)\n\n    #     # Extract date components\n    #     batch_df['day_of_year'] = batch_df['date'].dt.dayofyear\n    #     batch_df['month'] = batch_df['date'].dt.month\n    #     batch_df['year'] = batch_df['date'].dt.year\n\n    #     # Transform into 8D input features\n    #     X = self.encode_features(batch_df)\n    #     X *= 100\n\n    #     # Log-transform the target variable\n    #     y = np.log10(batch_df['snodas'] + 1)  # +1 to avoid log(0)\n        \n    #     return X, y\n\n    def predict_swe_map(\n        self, \n        target_date: str, \n        model_path: str = None, \n        batch_size: int = -1\n    ):\n        from tqdm import tqdm\n        print(\"======>\\nstart to predict SWE map...\")\n\n        if model_path is None:\n            model_path = self.model_path\n        self.model = self.load_model(model_path)\n        self.model.eval()\n\n        if batch_size == -1:\n            batch_size = self.batch_size\n\n        model_file_name = os.path.basename(model_path)\n        print(f\"Model loaded successfully. Running evaluation on {self.device}...\")\n\n        # Prepare files up to the target_date\n        date_obj = datetime.strptime(target_date, \"%Y-%m-%d\")\n        all_files = [f for f in self.input_files if f\"{target_date}\" not in f and datetime.strptime(os.path.basename(f).split('_')[0], \"%Y-%m-%d\") <= date_obj]\n\n        print(f\"Total files for evaluation: {len(all_files)} (up to {target_date})\")\n\n        # Use batch iterator\n        result_batches = []\n        for X_batch, _ in tqdm(self.load_batch_iterator(all_files, sequence_length=7, batch_size=batch_size), desc=\"Running prediction\"):\n            with torch.no_grad():\n                y_pred = self.model(X_batch).detach().cpu().numpy()\n\n            y_pred = (10 ** y_pred) - 1  # Reverse log10 scaling\n            result_batches.append(y_pred)\n\n        # Flatten result and map back to lat/lon if needed\n        all_preds = np.concatenate(result_batches, axis=0)  # [Total_points, 1]\n\n        # Map predictions to location\n        mapper_df = pd.read_csv(self.LAT_LON_CSV_PATH)\n        if len(mapper_df) != len(all_preds):\n            raise ValueError(f\"Prediction size {len(all_preds)} doesn't match location data {len(mapper_df)}\")\n\n        mapper_df['SWE_predicted'] = all_preds.flatten()\n        mapper_df['date'] = target_date\n\n        if mapper_df.isna().any().any():\n            raise ValueError(\"NaN detected in prediction output\")\n\n        self.save_png(mapper_df, target_date, model_file_name)\n        return mapper_df\n\n\n\n\n    def get_model(self):\n        model = SNODAS_Transformer_Model().to(self.device)\n        # Calculate the total number of trainable parameters\n        total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)\n\n        print(f\"Total trainable parameters: {total_params}\")\n        return model\n\n    def train(self):\n        print(\"======>\\nstart to train...\")\n        model = self.get_model()\n        optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)\n        loss_fn = torch.nn.MSELoss()\n        MAX_ROWS = 50000\n        \n        for epoch in range(self.epochs):\n            print(f\"\\n[Epoch {epoch+1}/{self.epochs}]\")\n\n            model.train()\n            total_loss = 0.0\n            total_samples = 0\n\n            batch_iter = self.load_batch_iterator(self.train_files, sequence_length=7, batch_size=8)\n\n            for i, (X_train, y_train) in enumerate(batch_iter):\n                if X_train is None or y_train is None:\n                    continue\n\n                num_rows = X_train.shape[0]\n                num_slices = (num_rows + MAX_ROWS - 1) // MAX_ROWS\n\n                for j in range(num_slices):\n                    start = j * MAX_ROWS\n                    end = min(start + MAX_ROWS, num_rows)\n\n                    X_batch = X_train[start:end].to(self.device)\n                    y_batch = y_train[start:end].to(self.device)\n\n                    print(\"X_batch.shape: \", X_batch.shape)\n\n                    optimizer.zero_grad()\n                    pred = model(X_batch)\n                    loss = loss_fn(pred, y_batch)\n                    loss.backward()\n                    optimizer.step()\n\n                    batch_size = X_batch.shape[0]\n                    total_loss += loss.item() * batch_size\n                    total_samples += batch_size\n\n                    # print(f\"  └── Batch {i+1}.{j+1}: Loss = {loss.item():.4f} | Samples = {batch_size}\")\n\n            if total_samples > 0:\n                avg_loss = total_loss / total_samples\n                print(f\"[Epoch {epoch+1}] Average Loss: {avg_loss:.4f}\")\n            else:\n                print(f\"[Epoch {epoch+1}] No valid samples in this epoch.\")\n\n    def new_batch_generator(self, files, batch_size, sequence_length=7):\n        \"\"\"\n        Batch generator for Transformer input:\n        - X: shape [batch_size, sequence_length, num_features]\n        - y: shape [batch_size, 1]\n        \"\"\"\n\n        assert sequence_length >= 1, \"sequence_length must be at least 1\"\n\n        print(\"🔄 Initializing new batch generator...\")\n        print(f\"📁 Total input files: {len(files)}\")\n        print(f\"🔢 Sequence length: {sequence_length}\")\n        print(f\"📦 Batch size: {batch_size}\")\n\n        num_files = len(files)\n        current_index = 0\n        X_accumulated, y_accumulated = [], []\n\n        # Sort files by date to maintain time order\n        def extract_date(path):\n            return datetime.strptime(os.path.basename(path).split('_')[0], \"%Y-%m-%d\")\n\n        files = sorted(files, key=extract_date)\n        print(\"📅 Files sorted by date.\")\n\n        total_sequences = 0\n        total_batches = 0\n\n        while current_index + sequence_length < num_files:\n            input_window = files[current_index: current_index + sequence_length]\n            target_file = files[current_index + sequence_length]\n\n            print(f\"\\n🪟 Sequence Window: {input_window[-1]} → Target: {os.path.basename(target_file)}\")\n\n            # Ensure all required files exist\n            if not all(os.path.exists(f) for f in input_window + [target_file]):\n                print(\"⚠️ Skipping sequence due to missing files.\")\n                current_index += 1\n                continue\n\n            try:\n                # Load and encode sequence\n                X_seq = []\n                for f in input_window:\n                    X_f, _ = self.load_batch([f])\n                    X_seq.append(X_f[0])\n                X_seq = np.stack(X_seq, axis=0)  # [sequence_length, num_features]\n\n                # Load and encode target\n                _, y_target = self.load_batch([target_file])\n                y_val = y_target[0]\n\n                X_accumulated.append(X_seq)\n                y_accumulated.append(y_val)\n                total_sequences += 1\n\n                print(f\"  ✅ Loaded sequence #{total_sequences} | X_seq shape: {X_seq.shape} | y_val: {y_val}\")\n\n            except Exception as e:\n                print(f\"❌ Error loading sequence: {e}\")\n                current_index += 1\n                continue\n\n            # Yield in batches\n            while len(X_accumulated) >= batch_size:\n                X_chunk = np.array(X_accumulated[:batch_size])  # [batch_size, T, F]\n                y_chunk = np.array(y_accumulated[:batch_size]).reshape(-1, 1)  # [batch_size, 1]\n\n                print(f\"📤 Yielding batch #{total_batches + 1} | X: {X_chunk.shape}, y: {y_chunk.shape}\")\n\n                X_accumulated = X_accumulated[batch_size:]\n                y_accumulated = y_accumulated[batch_size:]\n                total_batches += 1\n\n                yield X_chunk, y_chunk\n\n            current_index += 1\n\n        # Yield any remaining samples\n        if X_accumulated:\n            print(f\"\\n📤 Yielding final (incomplete) batch | X: {len(X_accumulated)} samples\")\n            yield np.array(X_accumulated), np.array(y_accumulated).reshape(-1, 1)\n\n        print(\"\\n✅ Finished batch generation.\")\n        print(f\"🔚 Total sequences: {total_sequences}\")\n        print(f\"📦 Total batches yielded: {total_batches + (1 if X_accumulated else 0)}\")\n\n\n    def evaluate_model(\n        self, model_file_path, files, start_date, end_date, batch_size=10000\n    ):\n        if batch_size is not None:\n            self.batch_size = batch_size\n\n        print(\"=\" * 60)\n        print(\"🧪 Starting Evaluation Phase\")\n        print(f\"📦 Batch size set to: {self.batch_size}\")\n        print(f\"🗂️ Number of input files: {len(files)}\")\n        print(f\"🕒 Evaluation period: {start_date} to {end_date}\")\n        print(\"=\" * 60)\n\n        # Load model and set to eval mode\n        print(\"🔄 Loading model from:\", model_file_path)\n        self.model = self.load_model(model_file_path)\n        self.model.eval()\n        print(f\"✅ Model loaded successfully. Evaluating on device: {self.device}\")\n\n        all_y_true = []\n        all_y_pred = []\n        batch_count = 0\n        total_samples = 0\n\n        for X_batch, y_batch in self.new_batch_generator(files, self.batch_size):\n            print(\"-\" * 60)\n            print(f\"📊 Processing batch {batch_count + 1}...\")\n            print(f\"  └── Raw X_batch shape: {X_batch.shape}\")\n            print(f\"  └── Raw y_batch length: {len(y_batch)}\")\n\n            # Normalize and convert to tensor\n            X_batch = self.normalize(X_batch)\n            X_batch_tensor = torch.tensor(X_batch, dtype=torch.float32).to(self.device)\n\n            # Set expected sequence and feature dimensions\n            self.seq_len = 7          # number of days (time steps)\n            self.num_features = 8     # number of variables per day\n            expected_shape = self.seq_len * self.num_features  # 56\n\n            if X_batch.shape[1] != expected_shape:\n                raise ValueError(f\"❌ Input shape mismatch: got {X_batch.shape}, \"\n                                f\"expected (_, {expected_shape})\")\n\n            try:\n                X_batch_tensor = X_batch_tensor.view(-1, self.seq_len, self.num_features)\n                print(f\"  ✅ Reshaped X_batch_tensor: {X_batch_tensor.shape}\")\n            except Exception as e:\n                raise ValueError(f\"❌ Error reshaping input: {X_batch_tensor.shape} \"\n                                f\"to (-1, {self.seq_len}, {self.num_features})\\n{e}\")\n\n            # Run prediction\n            try:\n                with torch.no_grad():\n                    y_pred_batch = self.model(X_batch_tensor).detach().cpu().numpy()\n                print(f\"  🎯 Predicted batch shape: {y_pred_batch.shape}\")\n            except Exception as e:\n                raise RuntimeError(f\"❌ Model prediction failed on batch {batch_count + 1}\\n{e}\")\n\n            # Aggregate results\n            all_y_true.extend(y_batch)\n            all_y_pred.extend(y_pred_batch)\n            total_samples += len(y_batch)\n            batch_count += 1\n            print(f\"  ✅ Batch {batch_count} complete | Total samples so far: {total_samples}\")\n\n        print(\"=\" * 60)\n        print(\"📈 Finalizing Evaluation Metrics\")\n\n        y_true = np.array(all_y_true)\n        y_pred = np.array(all_y_pred)\n\n        print(f\"  🧾 y_true.shape: {y_true.shape}\")\n        print(f\"  🧾 y_pred.shape: {y_pred.shape}\")\n\n        # === Metrics ===\n        mse = mean_squared_error(y_true, y_pred)\n        rmse = np.sqrt(mse)\n        r2 = r2_score(y_true, y_pred)\n\n        print(\"✅ Evaluation Complete\")\n        print(f\"  📉 RMSE = {rmse:.4f}\")\n        print(f\"  📊 R2   = {r2:.4f}\")\n        print(\"=\" * 60)\n\n\n\n\nif __name__ == \"__main__\":\n\n    # Define start and end date for training\n    start_date_str = '2024-10-01'\n    end_date_str = '2025-01-15'\n    \n    hole_model = SNODAS_Transformer_Hole(\n        start_date_str = test_start_date,\n        end_date_str = test_end_date,\n        batch_size = 5000,\n        epochs = 2,\n        train_ratio = 0.8,\n        test_ratio = 0.005,\n        val_ratio = 0.01,\n        normalization = True,\n        retrain = True,\n        model_path = \"/home/chetana/models/SNODAS_Transformer_Hole_e10_nTrue_seq2seq_latest.model\",\n        # base_model_path = \"/home/chetana/models//SNODAS_Transformer_Hole_e10_nTrue_latest.model\"\n    )\n    \n    hole_model.preprocessing(verbose=False, semimonth_only = False)\n    # hole_model.train()\n    # hole_model.save()\n    hole_model.evaluate()\n    # hole_model.predict(\"2024-12-10\")\n    # hole_model.predict(\"2024-11-10\")\n    # hole_model.predict(\"2024-10-10\")\n    # hole_model.predict(\"2024-09-10\")\n    # hole_model.predict(\"2024-08-10\")\n    # hole_model.predict(\"2024-07-10\")\n    # hole_model.predict(\"2024-06-10\")\n    # hole_model.predict(\"2024-05-10\")\n    # hole_model.predict(\"2024-04-10\")\n    # hole_model.predict(\"2024-03-10\")\n    # hole_model.predict(\"2024-02-10\")\n    # hole_model.predict(\"2024-01-10\")\n\n\n",
@@ -413,11 +753,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753329614885,
-  "history_end_time" : 1753329614885,
+  "history_end_time" : 1757814997040,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "H6tGeqMuoVDU",
   "history_input" : "from base_nn_hole import BaseNNHole\nimport torch\nimport torch.nn as nn\nimport os\nimport pandas as pd\nfrom datetime import datetime\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport numpy as np\nimport random\nimport psutil\nfrom snowcast_utils import model_dir, data_dir, plot_dir, test_start_date, test_end_date\nfrom datetime import datetime, timedelta\nimport time\nimport subprocess\nimport matplotlib.pyplot as plt\nfrom sklearn.preprocessing import StandardScaler\nfrom base_hole import BaseHole\nimport shutil\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom tqdm import tqdm\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nimport math\nfrom datetime import datetime\nimport os\nimport pandas as pd\nimport numpy as np\nimport torch\n\nimport torch\nimport torch.nn as nn\nimport math\n\nclass PositionalEncoding(nn.Module):\n    def __init__(self, d_model, max_len=500):\n        super().__init__()\n        pe = torch.zeros(max_len, d_model)\n        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)\n        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))\n        pe[:, 0::2] = torch.sin(position * div_term)\n        pe[:, 1::2] = torch.cos(position * div_term)\n        self.register_buffer('pe', pe.unsqueeze(0))  # shape (1, max_len, d_model)\n\n    def forward(self, x):\n        # x shape: (batch_size, seq_len, d_model)\n        seq_len = x.size(1)\n        x = x + self.pe[:, :seq_len, :].to(x.device)\n        return x\n\nclass SNODAS_Transformer_Model(nn.Module):\n    def __init__(self, input_dim=8, embed_dim=128, num_heads=4, num_layers=4, dropout=0.1):\n        super().__init__()\n        self.input_layer = nn.Linear(input_dim, embed_dim)  # Project 8 features → embed_dim\n        self.positional_encoding = PositionalEncoding(embed_dim)\n\n        encoder_layer = nn.TransformerEncoderLayer(\n            d_model=embed_dim,\n            nhead=num_heads,\n            dim_feedforward=256,\n            dropout=dropout,\n            activation='gelu',\n            batch_first=True  # input/output shape: (batch, seq, feature)\n        )\n        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)\n\n        self.output_layer = nn.Sequential(\n            nn.Linear(embed_dim, 64),\n            nn.LeakyReLU(0.01),\n            nn.Linear(64, 1)  # Predict scalar SWE\n        )\n\n        self.apply(self.init_weights)\n\n    def forward(self, x):\n        # x: (batch_size, seq_len=7, input_dim=8)\n        x = self.input_layer(x)               # (batch_size, seq_len, embed_dim)\n        x = self.positional_encoding(x)      # add positional encoding\n\n        x = self.transformer_encoder(x)      # (batch_size, seq_len, embed_dim)\n\n        x = x.mean(dim=1)                    # global average pooling over seq_len -> (batch_size, embed_dim)\n\n        x = self.output_layer(x)              # (batch_size, 1)\n        return x\n\n    @staticmethod\n    def init_weights(m):\n        if isinstance(m, nn.Linear):\n            nn.init.kaiming_uniform_(m.weight, nonlinearity='leaky_relu')\n            nn.init.zeros_(m.bias)\n\n    def load_model(self, model_path):\n        \"\"\"Loads the model weights from a file.\"\"\"\n        try:\n            state_dict = torch.load(model_path)\n            self.load_state_dict(state_dict)\n            print(f\"Model loaded from {model_path}\")\n        except Exception as e:\n            print(f\"Error loading model: {e}\")\n\n\nclass SNODAS_Transformer_Hole(BaseNNHole):\n\n    def normalize(self, X):\n        return X\n\n    def preprocessing(self, verbose=False, semimonth_only = False):\n        \"\"\"\n        Preprocesses the data for training and testing.\n\n        Returns:\n            None\n        \"\"\"\n        \n        # List all CSV files that end with -01.csv or -15.csv\n        if semimonth_only:\n            files = [\n                os.path.join(self.SNODAS_CSV_FOLDER, f)\n                for f in os.listdir(self.SNODAS_CSV_FOLDER)\n                if f.endswith('.csv') and ('-01_snodas' in f or '-15_snodas' in f)\n            ]\n        else:\n            files = [\n                os.path.join(self.SNODAS_CSV_FOLDER, f)\n                for f in os.listdir(self.SNODAS_CSV_FOLDER)\n                if f.endswith('.csv')\n            ]\n\n        # Shuffle the files to ensure randomness\n        # random.shuffle(files)\n        files = self.sort_files(files)\n\n        # Split the files: 80% for training and 20% for evaluation\n        train_size = int(self.train_ratio * len(files))\n        test_size = int(self.test_ratio * len(files))\n        self.train_files = files[:train_size]\n        self.eval_files = files[-test_size:]\n\n        if verbose:\n            print(\"Train files:\", self.train_files)\n            print(\"Test files:\", self.eval_files)\n    \n    def encode_features(self, df):\n        \"\"\"\n        Converts spatial and temporal features into an 8D representation:\n        - Uses sin transformations for Latitude and Longitude (to maintain continuity)\n        - Uses sin/cos transformations for periodic variables (year, month, day_of_year)\n        \"\"\"\n        # Encode Latitude and Longitude using sin transformation for generalization\n        # Normalize Year (assuming range ~[2000, 2100])\n        df['year_enc'] = (df['year'] - 2000) / 100  \n\n        # Normalize Month (1-12 → scaled between 0 and 1)\n        df['month_enc'] = (df['month'] - 1) / 11  \n\n        # Normalize Day of Year (1-365 → scaled between 0 and 1)\n        df['day_enc'] = (df['day_of_year'] - 1) / 364  \n\n        # Select final 8D input features\n        return df[['Latitude', 'Longitude', 'year', 'month', 'day_of_year', 'year_enc', 'month_enc', 'day_enc']].values\n\n    def extract_date(self, file_path):\n        filename = os.path.basename(file_path)\n        date_str = filename.split('_')[0]  # e.g. '2023-06-28'\n        return datetime.strptime(date_str, \"%Y-%m-%d\")\n\n    def sort_files(self, files):\n        # Sort files by date extracted from filename\n        files = sorted(files, key=self.extract_date)\n        return files\n\n    def load_batch_iterator(self, all_files, sequence_length=7, batch_size=8):\n        \"\"\"\n        A generator that yields batches of (X_seq, y_seq) with:\n        - X_seq: [batch_size * N, sequence_length, F]\n        - y_seq: [batch_size * N, 1]\n        \n        Only loads (batch_size + sequence_length - 1) files per batch.\n        \"\"\"\n        import pandas as pd\n        import numpy as np\n        import torch\n        from datetime import datetime, timedelta\n        import os\n\n        assert sequence_length >= 1, \"sequence_length must be ≥ 1\"\n\n        def extract_date(file_path):\n            fname = os.path.basename(file_path)\n            date_str = fname.split('_')[0]  # 'YYYY-MM-DD'\n            return datetime.strptime(date_str, \"%Y-%m-%d\")\n\n        # Sort input files by date\n        all_files = sorted(all_files, key=extract_date)\n        all_dates = [extract_date(f) for f in all_files]\n        file_lookup = {extract_date(f): f for f in all_files}\n\n        total_steps = len(all_files) - sequence_length\n\n        for i in range(0, total_steps, batch_size):\n            batch_X = []\n            batch_y = []\n\n            batch_dates = all_dates[i + sequence_length: i + sequence_length + batch_size]\n            if len(batch_dates) < batch_size:\n                break  # incomplete final batch\n\n            for target_date in batch_dates:\n                history_dates = [target_date - timedelta(days=d) for d in reversed(range(sequence_length))]\n                if not all(d in file_lookup for d in history_dates + [target_date]):\n                    print(f\"[SKIP] Missing files for {target_date.date()} sequence\")\n                    continue\n\n                # Load sequence\n                df_seq = []\n                for d in history_dates:\n                    df = pd.read_csv(file_lookup[d])\n                    df['date'] = pd.to_datetime(df['date'])\n                    df['day_of_year'] = df['date'].dt.dayofyear\n                    df['month'] = df['date'].dt.month\n                    df['year'] = df['date'].dt.year\n                    df_seq.append(df)\n\n                encoded_seq = [\n                    torch.tensor(self.encode_features(df) * 100, dtype=torch.float32)\n                    for df in df_seq\n                ]\n\n                X = torch.stack(encoded_seq)  # [T, N, F]\n                X = X.permute(1, 0, 2)        # [N, T, F]\n\n                # Load target\n                df_y = pd.read_csv(file_lookup[target_date])\n                y_raw = df_y['snodas'].values\n                y = np.log10(y_raw + 1)\n                y = torch.tensor(y, dtype=torch.float32).unsqueeze(-1)  # [N, 1]\n\n                batch_X.append(X)\n                batch_y.append(y)\n\n            if not batch_X:\n                continue\n\n            # Concatenate over all N's in batch\n            X_seq = torch.cat(batch_X, dim=0).to(self.device)  # [batch_size * N, T, F]\n            y_seq = torch.cat(batch_y, dim=0).to(self.device)  # [batch_size * N, 1]\n\n            print(f\"[YIELD] X_seq: {X_seq.shape}, y_seq: {y_seq.shape}\")\n            yield X_seq, y_seq\n\n\n\n    # def load_batch(self, files):\n    #     batch_data = []\n        \n    #     for file in files:\n    #         if not os.path.exists(file):\n    #             continue\n    #         df = pd.read_csv(file)\n    #         df['date'] = pd.to_datetime(df['date'])\n    #         batch_data.append(df)\n        \n    #     batch_df = pd.concat(batch_data, ignore_index=True)\n\n    #     # Extract date components\n    #     batch_df['day_of_year'] = batch_df['date'].dt.dayofyear\n    #     batch_df['month'] = batch_df['date'].dt.month\n    #     batch_df['year'] = batch_df['date'].dt.year\n\n    #     # Transform into 8D input features\n    #     X = self.encode_features(batch_df)\n    #     X *= 100\n\n    #     # Log-transform the target variable\n    #     y = np.log10(batch_df['snodas'] + 1)  # +1 to avoid log(0)\n        \n    #     return X, y\n\n    def predict_swe_map(\n        self, \n        target_date: str, \n        model_path: str = None, \n        batch_size: int = -1\n    ):\n        print(\"======>\\nstart to predict SWE map...\")\n        if model_path is None:\n            model_path = self.model_path\n        self.model = self.load_model(model_path)\n\n        if batch_size == -1:\n            batch_size = self.batch_size\n\n        model_file_name = os.path.basename(self.model_path)\n\n        print(f\"Model loaded successfully. Running evaluation on {self.device}...\")\n        print(\"reading: \", self.LAT_LON_CSV_PATH, \" - batch_size: \", batch_size)\n        \n        mapper_df = pd.read_csv(self.LAT_LON_CSV_PATH, chunksize=batch_size)  # Read in chunks\n\n        # Step 2: Parse the date string to extract year, month, and day_of_year\n        date_obj = datetime.strptime(target_date, \"%Y-%m-%d\")\n        year, month, day_of_year = date_obj.year, date_obj.month, date_obj.timetuple().tm_yday\n\n        print(year, month, day_of_year)\n\n        result_df_list = []  # List to store processed batches\n\n        # Process in batches using tqdm for progress tracking\n        for batch in tqdm(mapper_df, desc=\"Processing batches\", unit=\"batch\"):\n            if 'Latitude' not in batch.columns or 'Longitude' not in batch.columns:\n                raise ValueError(\"The CSV file must contain 'Latitude' and 'Longitude' columns.\")\n\n            # Step 3: Add time-related columns to the batch\n            batch['year'], batch['month'], batch['day_of_year'] = year, month, day_of_year\n\n            batch = batch[['Latitude', 'Longitude', 'day_of_year', 'month', 'year']]\n            X = self.encode_features(batch)\n\n            # Step 4: Extract the features\n            X_tensor = torch.tensor(X, dtype=torch.float32).to(self.device)\n\n            # Run inference\n            with torch.no_grad():\n                y = self.model(X_tensor).cpu().numpy()\n\n            # Flatten if necessary\n            if y.ndim > 1:\n                y = y.flatten()\n\n            # Apply transformation\n            batch['SWE_predicted'] = (10 ** y) - 1  # Reverse log10 scaling\n            if batch.empty or len(batch) == 0:\n                raise ValueError(\"Encountered an empty batch. Please check the data source.\")\n            \n            # Correctly print the first and last Latitude/Longitude\n            # print(f\"Batch first row: {batch.iloc[0]['Latitude']}, {batch.iloc[0]['Longitude']}\")\n            # print(f\"Batch last row: {batch.iloc[-1]['Latitude']}, {batch.iloc[-1]['Longitude']}\")\n            \n            result_df_list.append(batch)\n\n        # Concatenate all processed batches\n        final_mapper_df = pd.concat(result_df_list, ignore_index=True)\n        if final_mapper_df.isna().any().any():\n            raise ValueError(\"DataFrame contains NaN values. Please check the input data.\")\n\n        self.save_png(final_mapper_df, target_date, model_file_name)\n\n        return final_mapper_df\n\n\n    def get_model(self):\n        model = SNODAS_Transformer_Model().to(self.device)\n        # Calculate the total number of trainable parameters\n        total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)\n\n        print(f\"Total trainable parameters: {total_params}\")\n        return model\n\n    def train(self):\n        print(\"======>\\nstart to train...\")\n        model = self.get_model()\n        optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)\n        loss_fn = torch.nn.MSELoss()\n        MAX_ROWS = 50000\n        \n        for epoch in range(self.epochs):\n            print(f\"\\n[Epoch {epoch+1}/{self.epochs}]\")\n\n            model.train()\n            total_loss = 0.0\n            total_samples = 0\n\n            batch_iter = self.load_batch_iterator(self.train_files, sequence_length=7, batch_size=8)\n\n            for i, (X_train, y_train) in enumerate(batch_iter):\n                if X_train is None or y_train is None:\n                    continue\n\n                num_rows = X_train.shape[0]\n                num_slices = (num_rows + MAX_ROWS - 1) // MAX_ROWS\n\n                for j in range(num_slices):\n                    start = j * MAX_ROWS\n                    end = min(start + MAX_ROWS, num_rows)\n\n                    X_batch = X_train[start:end].to(self.device)\n                    y_batch = y_train[start:end].to(self.device)\n\n                    print(\"X_batch.shape: \", X_batch.shape)\n\n                    optimizer.zero_grad()\n                    pred = model(X_batch)\n                    loss = loss_fn(pred, y_batch)\n                    loss.backward()\n                    optimizer.step()\n\n                    batch_size = X_batch.shape[0]\n                    total_loss += loss.item() * batch_size\n                    total_samples += batch_size\n\n                    # print(f\"  └── Batch {i+1}.{j+1}: Loss = {loss.item():.4f} | Samples = {batch_size}\")\n\n            if total_samples > 0:\n                avg_loss = total_loss / total_samples\n                print(f\"[Epoch {epoch+1}] Average Loss: {avg_loss:.4f}\")\n            else:\n                print(f\"[Epoch {epoch+1}] No valid samples in this epoch.\")\n\n\n\n\nif __name__ == \"__main__\":\n\n    # Define start and end date for training\n    start_date_str = '2024-10-01'\n    end_date_str = '2025-01-15'\n    \n    hole_model = SNODAS_Transformer_Hole(\n        start_date_str = test_start_date,\n        end_date_str = test_end_date,\n        batch_size = 5000,\n        epochs = 2,\n        train_ratio = 0.8,\n        test_ratio = 0.005,\n        val_ratio = 0.01,\n        normalization = True,\n        retrain = True,\n        model_path = \"/home/chetana/models/SNODAS_Transformer_Hole_e10_nTrue_seq2seq_latest.model\",\n        # base_model_path = \"/home/chetana/models//SNODAS_Transformer_Hole_e10_nTrue_latest.model\"\n    )\n    \n    hole_model.preprocessing(verbose=False, semimonth_only = False)\n    hole_model.train()\n    hole_model.save()\n    hole_model.evaluate()\n    hole_model.predict(\"2024-12-10\")\n    hole_model.predict(\"2024-11-10\")\n    hole_model.predict(\"2024-10-10\")\n    hole_model.predict(\"2024-09-10\")\n    hole_model.predict(\"2024-08-10\")\n    hole_model.predict(\"2024-07-10\")\n    hole_model.predict(\"2024-06-10\")\n    hole_model.predict(\"2024-05-10\")\n    hole_model.predict(\"2024-04-10\")\n    hole_model.predict(\"2024-03-10\")\n    hole_model.predict(\"2024-02-10\")\n    hole_model.predict(\"2024-01-10\")\n\n\n",
@@ -473,11 +813,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753243236151,
-  "history_end_time" : 1753243236151,
+  "history_end_time" : 1757814995655,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "JAekEPH06it2",
   "history_input" : "from base_nn_hole import BaseNNHole\nimport torch\nimport torch.nn as nn\nimport os\nimport pandas as pd\nfrom datetime import datetime\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport numpy as np\nimport random\nimport psutil\nfrom snowcast_utils import model_dir, data_dir, plot_dir, test_start_date, test_end_date\nfrom datetime import datetime, timedelta\nimport time\nimport subprocess\nimport matplotlib.pyplot as plt\nfrom sklearn.preprocessing import StandardScaler\nfrom base_hole import BaseHole\nimport shutil\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom tqdm import tqdm\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nimport math\nfrom datetime import datetime\nimport os\nimport pandas as pd\nimport numpy as np\nimport torch\n\nimport torch\nimport torch.nn as nn\nimport math\n\nclass PositionalEncoding(nn.Module):\n    def __init__(self, d_model, max_len=500):\n        super().__init__()\n        pe = torch.zeros(max_len, d_model)\n        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)\n        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))\n        pe[:, 0::2] = torch.sin(position * div_term)\n        pe[:, 1::2] = torch.cos(position * div_term)\n        self.register_buffer('pe', pe.unsqueeze(0))  # shape (1, max_len, d_model)\n\n    def forward(self, x):\n        # x shape: (batch_size, seq_len, d_model)\n        seq_len = x.size(1)\n        x = x + self.pe[:, :seq_len, :].to(x.device)\n        return x\n\nclass SNODAS_Transformer_Model(nn.Module):\n    def __init__(self, input_dim=8, embed_dim=128, num_heads=4, num_layers=4, dropout=0.1):\n        super().__init__()\n        self.input_layer = nn.Linear(input_dim, embed_dim)  # Project 8 features → embed_dim\n        self.positional_encoding = PositionalEncoding(embed_dim)\n\n        encoder_layer = nn.TransformerEncoderLayer(\n            d_model=embed_dim,\n            nhead=num_heads,\n            dim_feedforward=256,\n            dropout=dropout,\n            activation='gelu',\n            batch_first=True  # input/output shape: (batch, seq, feature)\n        )\n        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)\n\n        self.output_layer = nn.Sequential(\n            nn.Linear(embed_dim, 64),\n            nn.LeakyReLU(0.01),\n            nn.Linear(64, 1)  # Predict scalar SWE\n        )\n\n        self.apply(self.init_weights)\n\n    def forward(self, x):\n        # x: (batch_size, seq_len=7, input_dim=8)\n        x = self.input_layer(x)               # (batch_size, seq_len, embed_dim)\n        x = self.positional_encoding(x)      # add positional encoding\n\n        x = self.transformer_encoder(x)      # (batch_size, seq_len, embed_dim)\n\n        x = x.mean(dim=1)                    # global average pooling over seq_len -> (batch_size, embed_dim)\n\n        x = self.output_layer(x)              # (batch_size, 1)\n        return x\n\n    @staticmethod\n    def init_weights(m):\n        if isinstance(m, nn.Linear):\n            nn.init.kaiming_uniform_(m.weight, nonlinearity='leaky_relu')\n            nn.init.zeros_(m.bias)\n\n    def load_model(self, model_path):\n        \"\"\"Loads the model weights from a file.\"\"\"\n        try:\n            state_dict = torch.load(model_path)\n            self.load_state_dict(state_dict)\n            print(f\"Model loaded from {model_path}\")\n        except Exception as e:\n            print(f\"Error loading model: {e}\")\n\n\nclass SNODAS_Transformer_Hole(BaseNNHole):\n\n    def normalize(self, X):\n        return X\n\n    def preprocessing(self, verbose=False, semimonth_only = False):\n        \"\"\"\n        Preprocesses the data for training and testing.\n\n        Returns:\n            None\n        \"\"\"\n        \n        # List all CSV files that end with -01.csv or -15.csv\n        if semimonth_only:\n            files = [\n                os.path.join(self.SNODAS_CSV_FOLDER, f)\n                for f in os.listdir(self.SNODAS_CSV_FOLDER)\n                if f.endswith('.csv') and ('-01_snodas' in f or '-15_snodas' in f)\n            ]\n        else:\n            files = [\n                os.path.join(self.SNODAS_CSV_FOLDER, f)\n                for f in os.listdir(self.SNODAS_CSV_FOLDER)\n                if f.endswith('.csv')\n            ]\n\n        # Shuffle the files to ensure randomness\n        # random.shuffle(files)\n        files = self.sort_files(files)\n\n        # Split the files: 80% for training and 20% for evaluation\n        train_size = int(self.train_ratio * len(files))\n        test_size = int(self.test_ratio * len(files))\n        self.train_files = files[:train_size]\n        self.eval_files = files[-test_size:]\n\n        if verbose:\n            print(\"Train files:\", self.train_files)\n            print(\"Test files:\", self.eval_files)\n    \n    def encode_features(self, df):\n        \"\"\"\n        Converts spatial and temporal features into an 8D representation:\n        - Uses sin transformations for Latitude and Longitude (to maintain continuity)\n        - Uses sin/cos transformations for periodic variables (year, month, day_of_year)\n        \"\"\"\n        # Encode Latitude and Longitude using sin transformation for generalization\n        # Normalize Year (assuming range ~[2000, 2100])\n        df['year_enc'] = (df['year'] - 2000) / 100  \n\n        # Normalize Month (1-12 → scaled between 0 and 1)\n        df['month_enc'] = (df['month'] - 1) / 11  \n\n        # Normalize Day of Year (1-365 → scaled between 0 and 1)\n        df['day_enc'] = (df['day_of_year'] - 1) / 364  \n\n        # Select final 8D input features\n        return df[['Latitude', 'Longitude', 'year', 'month', 'day_of_year', 'year_enc', 'month_enc', 'day_enc']].values\n\n    def extract_date(self, file_path):\n        filename = os.path.basename(file_path)\n        date_str = filename.split('_')[0]  # e.g. '2023-06-28'\n        return datetime.strptime(date_str, \"%Y-%m-%d\")\n\n    def sort_files(self, files):\n        # Sort files by date extracted from filename\n        files = sorted(files, key=self.extract_date)\n        return files\n\n    def load_batch_iterator(self, all_files, sequence_length=7, batch_size=8):\n        \"\"\"\n        A generator that yields batches of (X_seq, y_seq) with:\n        - X_seq: [batch_size * N, sequence_length, F]\n        - y_seq: [batch_size * N, 1]\n        \n        Only loads (batch_size + sequence_length - 1) files per batch.\n        \"\"\"\n        import pandas as pd\n        import numpy as np\n        import torch\n        from datetime import datetime, timedelta\n        import os\n\n        assert sequence_length >= 1, \"sequence_length must be ≥ 1\"\n\n        def extract_date(file_path):\n            fname = os.path.basename(file_path)\n            date_str = fname.split('_')[0]  # 'YYYY-MM-DD'\n            return datetime.strptime(date_str, \"%Y-%m-%d\")\n\n        # Sort input files by date\n        all_files = sorted(all_files, key=extract_date)\n        all_dates = [extract_date(f) for f in all_files]\n        file_lookup = {extract_date(f): f for f in all_files}\n\n        total_steps = len(all_files) - sequence_length\n\n        for i in range(0, total_steps, batch_size):\n            batch_X = []\n            batch_y = []\n\n            batch_dates = all_dates[i + sequence_length: i + sequence_length + batch_size]\n            if len(batch_dates) < batch_size:\n                break  # incomplete final batch\n\n            for target_date in batch_dates:\n                history_dates = [target_date - timedelta(days=d) for d in reversed(range(sequence_length))]\n                if not all(d in file_lookup for d in history_dates + [target_date]):\n                    print(f\"[SKIP] Missing files for {target_date.date()} sequence\")\n                    continue\n\n                # Load sequence\n                df_seq = []\n                for d in history_dates:\n                    df = pd.read_csv(file_lookup[d])\n                    df['date'] = pd.to_datetime(df['date'])\n                    df['day_of_year'] = df['date'].dt.dayofyear\n                    df['month'] = df['date'].dt.month\n                    df['year'] = df['date'].dt.year\n                    df_seq.append(df)\n\n                encoded_seq = [\n                    torch.tensor(self.encode_features(df) * 100, dtype=torch.float32)\n                    for df in df_seq\n                ]\n\n                X = torch.stack(encoded_seq)  # [T, N, F]\n                X = X.permute(1, 0, 2)        # [N, T, F]\n\n                # Load target\n                df_y = pd.read_csv(file_lookup[target_date])\n                y_raw = df_y['snodas'].values\n                y = np.log10(y_raw + 1)\n                y = torch.tensor(y, dtype=torch.float32).unsqueeze(-1)  # [N, 1]\n\n                batch_X.append(X)\n                batch_y.append(y)\n\n            if not batch_X:\n                continue\n\n            # Concatenate over all N's in batch\n            X_seq = torch.cat(batch_X, dim=0).to(self.device)  # [batch_size * N, T, F]\n            y_seq = torch.cat(batch_y, dim=0).to(self.device)  # [batch_size * N, 1]\n\n            print(f\"[YIELD] X_seq: {X_seq.shape}, y_seq: {y_seq.shape}\")\n            yield X_seq, y_seq\n\n\n\n    # def load_batch(self, files):\n    #     batch_data = []\n        \n    #     for file in files:\n    #         if not os.path.exists(file):\n    #             continue\n    #         df = pd.read_csv(file)\n    #         df['date'] = pd.to_datetime(df['date'])\n    #         batch_data.append(df)\n        \n    #     batch_df = pd.concat(batch_data, ignore_index=True)\n\n    #     # Extract date components\n    #     batch_df['day_of_year'] = batch_df['date'].dt.dayofyear\n    #     batch_df['month'] = batch_df['date'].dt.month\n    #     batch_df['year'] = batch_df['date'].dt.year\n\n    #     # Transform into 8D input features\n    #     X = self.encode_features(batch_df)\n    #     X *= 100\n\n    #     # Log-transform the target variable\n    #     y = np.log10(batch_df['snodas'] + 1)  # +1 to avoid log(0)\n        \n    #     return X, y\n\n    def predict_swe_map(\n        self, \n        target_date: str, \n        model_path: str = None, \n        batch_size: int = -1\n    ):\n        print(\"======>\\nstart to predict SWE map...\")\n        if model_path is None:\n            model_path = self.model_path\n        self.model = self.load_model(model_path)\n\n        if batch_size == -1:\n            batch_size = self.batch_size\n\n        model_file_name = os.path.basename(self.model_path)\n\n        print(f\"Model loaded successfully. Running evaluation on {self.device}...\")\n        print(\"reading: \", self.LAT_LON_CSV_PATH, \" - batch_size: \", batch_size)\n        \n        mapper_df = pd.read_csv(self.LAT_LON_CSV_PATH, chunksize=batch_size)  # Read in chunks\n\n        # Step 2: Parse the date string to extract year, month, and day_of_year\n        date_obj = datetime.strptime(target_date, \"%Y-%m-%d\")\n        year, month, day_of_year = date_obj.year, date_obj.month, date_obj.timetuple().tm_yday\n\n        print(year, month, day_of_year)\n\n        result_df_list = []  # List to store processed batches\n\n        # Process in batches using tqdm for progress tracking\n        for batch in tqdm(mapper_df, desc=\"Processing batches\", unit=\"batch\"):\n            if 'Latitude' not in batch.columns or 'Longitude' not in batch.columns:\n                raise ValueError(\"The CSV file must contain 'Latitude' and 'Longitude' columns.\")\n\n            # Step 3: Add time-related columns to the batch\n            batch['year'], batch['month'], batch['day_of_year'] = year, month, day_of_year\n\n            batch = batch[['Latitude', 'Longitude', 'day_of_year', 'month', 'year']]\n            X = self.encode_features(batch)\n\n            # Step 4: Extract the features\n            X_tensor = torch.tensor(X, dtype=torch.float32).to(self.device)\n\n            # Run inference\n            with torch.no_grad():\n                y = self.model(X_tensor).cpu().numpy()\n\n            # Flatten if necessary\n            if y.ndim > 1:\n                y = y.flatten()\n\n            # Apply transformation\n            batch['SWE_predicted'] = (10 ** y) - 1  # Reverse log10 scaling\n            if batch.empty or len(batch) == 0:\n                raise ValueError(\"Encountered an empty batch. Please check the data source.\")\n            \n            # Correctly print the first and last Latitude/Longitude\n            # print(f\"Batch first row: {batch.iloc[0]['Latitude']}, {batch.iloc[0]['Longitude']}\")\n            # print(f\"Batch last row: {batch.iloc[-1]['Latitude']}, {batch.iloc[-1]['Longitude']}\")\n            \n            result_df_list.append(batch)\n\n        # Concatenate all processed batches\n        final_mapper_df = pd.concat(result_df_list, ignore_index=True)\n        if final_mapper_df.isna().any().any():\n            raise ValueError(\"DataFrame contains NaN values. Please check the input data.\")\n\n        self.save_png(final_mapper_df, target_date, model_file_name)\n\n        return final_mapper_df\n\n\n    def get_model(self):\n        model = SNODAS_Transformer_Model().to(self.device)\n        # Calculate the total number of trainable parameters\n        total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)\n\n        print(f\"Total trainable parameters: {total_params}\")\n        return model\n\n    def train(self):\n        print(\"======>\\nstart to train...\")\n        model = self.get_model()\n        optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)\n        loss_fn = torch.nn.MSELoss()\n        MAX_ROWS = 10000\n        \n        for epoch in range(self.epochs):\n            print(f\"\\n[Epoch {epoch+1}/{self.epochs}]\")\n\n            model.train()\n            total_loss = 0.0\n            total_samples = 0\n\n            batch_iter = self.load_batch_iterator(self.train_files, sequence_length=7, batch_size=8)\n\n            for i, (X_train, y_train) in enumerate(batch_iter):\n                if X_train is None or y_train is None:\n                    continue\n\n                num_rows = X_train.shape[0]\n                num_slices = (num_rows + MAX_ROWS - 1) // MAX_ROWS\n\n                for j in range(num_slices):\n                    start = j * MAX_ROWS\n                    end = min(start + MAX_ROWS, num_rows)\n\n                    X_batch = X_train[start:end].to(self.device)\n                    y_batch = y_train[start:end].to(self.device)\n\n                    print(\"X_batch.shape: \", X_batch.shape)\n\n                    optimizer.zero_grad()\n                    pred = model(X_batch)\n                    loss = loss_fn(pred, y_batch)\n                    loss.backward()\n                    optimizer.step()\n\n                    batch_size = X_batch.shape[0]\n                    total_loss += loss.item() * batch_size\n                    total_samples += batch_size\n\n                    print(f\"  └── Batch {i+1}.{j+1}: Loss = {loss.item():.4f} | Samples = {batch_size}\")\n\n            if total_samples > 0:\n                avg_loss = total_loss / total_samples\n                print(f\"[Epoch {epoch+1}] Average Loss: {avg_loss:.4f}\")\n            else:\n                print(f\"[Epoch {epoch+1}] No valid samples in this epoch.\")\n\n\n\n\nif __name__ == \"__main__\":\n\n    # Define start and end date for training\n    start_date_str = '2024-10-01'\n    end_date_str = '2025-01-15'\n    \n    hole_model = SNODAS_Transformer_Hole(\n        start_date_str = test_start_date,\n        end_date_str = test_end_date,\n        batch_size = 5000,\n        epochs = 2,\n        train_ratio = 0.8,\n        test_ratio = 0.005,\n        val_ratio = 0.01,\n        normalization = True,\n        retrain = True,\n        model_path = \"/home/chetana/models/SNODAS_Transformer_Hole_e10_nTrue_seq2seq_latest.model\",\n        # base_model_path = \"/home/chetana/models//SNODAS_Transformer_Hole_e10_nTrue_latest.model\"\n    )\n    \n    hole_model.preprocessing(verbose=False, semimonth_only = False)\n    hole_model.train()\n    hole_model.save()\n    hole_model.evaluate()\n    hole_model.predict(\"2024-12-10\")\n    hole_model.predict(\"2024-11-10\")\n    hole_model.predict(\"2024-10-10\")\n    hole_model.predict(\"2024-09-10\")\n    hole_model.predict(\"2024-08-10\")\n    hole_model.predict(\"2024-07-10\")\n    hole_model.predict(\"2024-06-10\")\n    hole_model.predict(\"2024-05-10\")\n    hole_model.predict(\"2024-04-10\")\n    hole_model.predict(\"2024-03-10\")\n    hole_model.predict(\"2024-02-10\")\n    hole_model.predict(\"2024-01-10\")\n\n\n",
@@ -583,41 +923,41 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753156822255,
-  "history_end_time" : 1753156822255,
+  "history_end_time" : 1757814994598,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "esboicaxior",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753070414988,
-  "history_end_time" : 1753070414988,
+  "history_end_time" : 1757814993766,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "s77cdd378on",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752984016870,
-  "history_end_time" : 1752984016870,
+  "history_end_time" : 1757814993196,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "rzbl9m0evoc",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752897615579,
-  "history_end_time" : 1752897615579,
+  "history_end_time" : 1757814992755,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "qnidmxtlhqq",
   "history_input" : "No code saved",
@@ -633,11 +973,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752811215354,
-  "history_end_time" : 1752811215354,
+  "history_end_time" : 1757814991391,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "5jaozy00zdt",
   "history_input" : "No code saved",
@@ -653,11 +993,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752724814471,
-  "history_end_time" : 1752724814471,
+  "history_end_time" : 1757814990805,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "vd32qfaruix",
   "history_input" : "No code saved",
@@ -673,21 +1013,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752638412377,
-  "history_end_time" : 1752638412377,
+  "history_end_time" : 1757814990139,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "giigpyh8a95",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752552011449,
-  "history_end_time" : 1752552011449,
+  "history_end_time" : 1757814988717,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3rm15pa1ofd",
   "history_input" : "No code saved",
@@ -703,11 +1043,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752465612720,
-  "history_end_time" : 1752465612720,
+  "history_end_time" : 1757814987674,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "q6801alqqy4",
   "history_input" : "No code saved",
@@ -723,41 +1063,41 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752379212933,
-  "history_end_time" : 1752379212933,
+  "history_end_time" : 1757814985808,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "un0gmb04nbt",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752292831639,
-  "history_end_time" : 1752292831639,
+  "history_end_time" : 1757814985371,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3a4oufhe846",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752206415157,
-  "history_end_time" : 1752206415157,
+  "history_end_time" : 1757814984904,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tuj2uf9e0tb",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752120013974,
-  "history_end_time" : 1752120013974,
+  "history_end_time" : 1757814984567,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "dpj56s8y60a",
   "history_input" : "No code saved",
@@ -773,31 +1113,31 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752033614843,
-  "history_end_time" : 1752033614843,
+  "history_end_time" : 1757814983272,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "46kt82flocp",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751947221498,
-  "history_end_time" : 1751947221498,
+  "history_end_time" : 1757814982609,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "od8vi0gur3n",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751860818336,
-  "history_end_time" : 1751860818336,
+  "history_end_time" : 1757814982243,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "qt3zywts1sx",
   "history_input" : "No code saved",
@@ -823,51 +1163,51 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751774411501,
-  "history_end_time" : 1751774411501,
+  "history_end_time" : 1757814980758,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "0suvvvg4bnq",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751688011616,
-  "history_end_time" : 1751688011616,
+  "history_end_time" : 1757814980299,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "323kdynz045",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751601610820,
-  "history_end_time" : 1751601610820,
+  "history_end_time" : 1757814979744,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "pn9i7j41s37",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751601122270,
-  "history_end_time" : 1751601122270,
+  "history_end_time" : 1757814979194,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "c5qo942b0bd",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751590130775,
-  "history_end_time" : 1751590130775,
+  "history_end_time" : 1757814978695,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ij0hhecj4y2",
   "history_input" : "No code saved",
@@ -883,11 +1223,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1750301998464,
-  "history_end_time" : 1750301998464,
+  "history_end_time" : 1757814977244,
   "history_notes" : null,
   "history_process" : "j7shdk",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "9a76u0gv2z1",
   "history_input" : "No code saved",

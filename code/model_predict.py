@@ -211,7 +211,7 @@ def preprocess_data(target_date, is_model_input: bool = True):
     target_date_dt = pd.to_datetime(target_date)
     for i in range(0, 7):
         past_date = (target_date_dt - pd.Timedelta(days=i)).strftime('%Y-%m-%d')
-        past_data_path = f'{work_dir}/testing_all_ready_{past_date}.csv_snodas_mask.csv'
+        past_data_path = f'{work_dir}/testing_all_ready/testing_all_ready_{past_date}.csv_snodas_mask.csv'
         past_day_data = process_day_data(past_data_path, i)
         all_data.append(past_day_data)
 
@@ -361,7 +361,7 @@ def predict_in_batches(
 
     for day_offset in range(8):
         day_date = (target_date_dt - pd.Timedelta(days=day_offset)).strftime('%Y-%m-%d')
-        day_file_path = f'{work_dir}/testing_all_ready_{day_date}.csv_snodas_mask.csv'
+        day_file_path = f'{work_dir}/testing_all_ready/testing_all_ready_{day_date}.csv_snodas_mask.csv'
 
         try:
             print("Loading batches from ", day_file_path)

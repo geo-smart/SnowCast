@@ -171,8 +171,8 @@ def add_snodas_mask_column(
 if __name__ == "__main__":
     # Call the function with appropriate paths
     # WARNING: This is not right, because batch matters. The start of each batch will matter. The correct way is to first generate all years of data, and then use the output to generate the training.csv.
-    training_csv = f"{work_dir}/all_points_final_merged_training.csv"
-    new_training_csv = f"{work_dir}/all_points_final_merged_training_snodas_mask_resnet_all_batch.csv"
+    training_csv = f"{work_dir}/all_points_final_merged_training_2002-01-01_2024-12-31.csv"
+    new_training_csv = f"{work_dir}/aall_points_final_merged_training_2002-01-01_2024-12-31_snodas_mask.csv"
     model_path = f"/home/chetana/models//SNODASDNNHole_e10_nTrue_20253101055710.model"
     add_snodas_mask_column(
         model_path, 

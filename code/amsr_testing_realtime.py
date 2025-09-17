@@ -157,7 +157,7 @@ def prepare_amsr_grid_mapper():
     else:
         cmd = f"curl --output {target_amsr_hdf_path} -b ~/.urs_cookies -c ~/.urs_cookies -L -n -O https://n5eil01u.ecs.nsidc.org/AMSA/AU_DySno.001/{date}/AMSR_U2_L3_DailySnow_B02_{he5_date}.he5"
         print(f'Running command: {cmd}')
-        subprocess.run(cmd, shell=True)
+        subprocess.run(cmd, shell=True, timeout=10)
     
     # Read the HDF
     file = h5py.File(target_amsr_hdf_path, 'r')
@@ -219,7 +219,7 @@ def download_amsr_and_convert_grid(target_date = test_start_date):
     else:
         cmd = f"curl --output {target_amsr_hdf_path} -b ~/.urs_cookies -c ~/.urs_cookies -L -n -O https://n5eil01u.ecs.nsidc.org/AMSA/AU_DySno.001/{date}/AMSR_U2_L3_DailySnow_B02_{he5_date}.he5"
         print(f'Running command: {cmd}')
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=10)
         # Check the exit code
         if result.returncode != 0:
             print(f"Command failed with exit code {result.returncode}.")

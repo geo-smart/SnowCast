@@ -1,293 +1,643 @@
 [{
-  "history_id" : "78lwl4yadyq",
+  "history_id" : "ectx1yj7qd7",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
-  "history_begin_time" : 1755403212845,
-  "history_end_time" : 1755403212845,
+  "history_begin_time" : 1758081612251,
+  "history_end_time" : 1758081612251,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
   "indicator" : "Skipped"
+},{
+  "history_id" : "awngfo9jebs",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757995210981,
+  "history_end_time" : 1757995210981,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gz7bu2r9v5u",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757908812433,
+  "history_end_time" : 1757908812433,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "3rqt1pe9r5n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757875215961,
+  "history_end_time" : 1757875215961,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "KKL4VU1Y49rE",
+  "history_input" : "import pandas as pd\nimport torch\nfrom torch import nn, optim\nfrom sklearn.preprocessing import MinMaxScaler\nfrom datetime import datetime\nimport numpy as np\nfrom snowcast_utils import data_dir, work_dir, output_dir\nimport torch\nimport torch.nn as nn\nimport torch.optim as optim\nimport os\nimport pandas as pd\nfrom datetime import datetime, timedelta\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport numpy as np\nimport psutil\nfrom snowcast_utils import model_dir, data_dir, test_start_date, test_end_date\nimport random\nimport subprocess\nfrom pytorch_tabnet.tab_model import TabNetRegressor\nimport warnings\nimport matplotlib.pyplot as plt\nfrom snodas_dnn_new import SNODAS_DNN_Model, SNODASDNNHole\n\n# Suppress specific warnings\nwarnings.filterwarnings(\"ignore\", category=UserWarning, module=\"pytorch_tabnet.callbacks\")\n\n\n# Function to get system memory usage\ndef get_system_memory():\n    process = psutil.Process(os.getpid())\n    memory_info = process.memory_info()\n    return memory_info.rss / (1024 ** 2)  # Return in MB\n\n# Function to get GPU memory usage\ndef get_gpu_memory():\n    if torch.cuda.is_available():\n        return torch.cuda.memory_allocated() / (1024 ** 2)  # Return in MB\n    return 0\n\ndef print_memory_usage(step_description):\n    system_memory = get_system_memory()\n    gpu_memory = get_gpu_memory()\n    print(f\"Memory usage ({step_description}):\")\n    print(f\"System Memory: {system_memory:.2f} MB\")\n    print(f\"GPU Memory: {gpu_memory:.2f} MB\")\n    print(\"-\" * 40)\n\ndef get_first_available_device():\n    \"\"\"\n    Returns the first available GPU device based on utilization or falls back to CPU.\n    \n    Returns:\n        torch.device: The device to use for computations.\n    \"\"\"\n    try:\n        # Fetch the list of GPUs and their UUIDs\n        gpu_list = subprocess.check_output(\n            [\"nvidia-smi\", \"--query-gpu=index,uuid\", \"--format=csv,noheader,nounits\"],\n            universal_newlines=True\n        )\n        \n        gpu_id_to_uuid = {}\n        for line in gpu_list.strip().split(\"\\n\"):\n            if line:\n                gpu_id, gpu_uuid = line.split(\", \")\n                gpu_id_to_uuid[gpu_uuid] = int(gpu_id)\n        \n        # Fetch processes using GPUs\n        gpu_usage = subprocess.check_output(\n            [\"nvidia-smi\", \"--query-compute-apps=gpu_uuid\", \"--format=csv,noheader\"],\n            universal_newlines=True\n        )\n        \n        # Track GPUs in use\n        used_gpus = set(gpu_usage.strip().split(\"\\n\"))\n        \n        # Find the first GPU not in use\n        for gpu_uuid, gpu_id in gpu_id_to_uuid.items():\n            if gpu_uuid not in used_gpus:\n                print(f\"Using GPU: {gpu_id} - {torch.cuda.get_device_properties(gpu_id).name}\")\n                return torch.device(f\"cuda:{gpu_id}\")\n        \n        print(\"No free GPUs available. Using CPU.\")\n    except Exception as e:\n        print(f\"Error checking GPU usage: {e}. Falling back to CPU.\")\n    \n    return torch.device(\"cpu\")\n\ndevice = get_first_available_device()\n\ndef get_model(device):\n    model = SNODAS_DNN_Model(norm = True).to(device)\n    # Calculate the total number of trainable parameters\n    total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)\n\n    print(f\"Total trainable parameters: {total_params}\")\n    return model\n\ndef add_snodas_mask_column(\n    model_path: str, \n    training_csv, \n    new_training_csv,\n    lat_col_name = \"lat\", \n    lon_col_name = \"lon\", \n    date_col_name = \"date\",\n    overwrite: bool = True,\n):\n\n    \n    import pandas as pd\n    import numpy as np\n    from scipy.spatial import cKDTree\n\n    # Load training data\n    training_df = pd.read_csv(training_csv)\n    training_df.rename(columns={\n        lat_col_name: 'lat', \n        lon_col_name: 'lon',\n        date_col_name: 'date'\n    }, inplace=True)\n    print(training_df.head())\n\n    snodas_mask_csv = f\"{output_dir}/SNODASDNNHole_e10_nTrue_nn_swe_predicted_2024-12-10.csv\"\n    if os.path.exists(snodas_mask_csv) and not overwrite:\n        print(f\"{new_training_csv} exists and won't overwrite. Skip..\")\n        predicted_df = pd.read_csv(snodas_mask_csv)\n    else:\n        # Generate predictions\n        hole_model = SNODASDNNHole(\n            start_date_str=test_start_date,\n            end_date_str=test_end_date,\n            batch_size=310000,\n            epochs=10,\n            train_ratio=0.8,\n            test_ratio=0.2,\n            val_ratio=0.01,\n            normalization=True,\n            retrain=True,\n            model_path=\"/home/chetana/models//SNODASDNNHole_e10_nTrue_20250202144843.model\",\n        )\n\n        predicted_df = hole_model.predict(\"2024-12-10\", save_csv=True, tiff=True)\n\n    print(\"predicted_df.columns: \", predicted_df.columns)\n    predicted_df.rename(columns={\n        'Latitude': 'lat', \n        'Longitude': 'lon'\n    }, inplace=True)\n\n    # Ensure required columns exist\n    if not {'lat', 'lon'}.issubset(training_df.columns) or not {'lat', 'lon'}.issubset(predicted_df.columns):\n        raise ValueError(\"Both training_df and predicted_df must contain 'lat' and 'lon' columns.\")\n\n    # Build KDTree for fast nearest-neighbor lookup\n    tree = cKDTree(predicted_df[['lat', 'lon']].values)\n\n    # Query KDTree for the closest SWE prediction for each row in training_df\n    distances, indices = tree.query(training_df[['lat', 'lon']].values, k=1)\n\n    # Add the nearest SWE value to training_df\n    training_df['snodas_mask'] = predicted_df.iloc[indices]['SWE_predicted'].values  # Adjust 'SWE' to the actual column name\n\n    # Save or return updated DataFrame\n    training_df.to_csv(new_training_csv, index=False)\n\n    # Print summary\n    print(\"New csv with snodas_mask column is saved to \", new_training_csv)\n    \n\nif __name__ == \"__main__\":\n    # Call the function with appropriate paths\n    # WARNING: This is not right, because batch matters. The start of each batch will matter. The correct way is to first generate all years of data, and then use the output to generate the training.csv.\n    training_csv = f\"{work_dir}/all_points_final_merged_training_2002-01-01_2024-12-31.csv\"\n    new_training_csv = f\"{work_dir}/aall_points_final_merged_training_2002-01-01_2024-12-31_snodas_mask.csv\"\n    model_path = f\"/home/chetana/models//SNODASDNNHole_e10_nTrue_20253101055710.model\"\n    add_snodas_mask_column(\n        model_path, \n        training_csv, \n        new_training_csv, \n        lat_col_name = \"lat\", \n        lon_col_name = \"lon\", \n        date_col_name = \"date\",\n        overwrite= False,\n    )\n",
+  "history_output" : "/home/chetana\ntoday date = 2025-09-14\nStart day: 2025-08-25, End day: 2025-09-11\ntest start date:  2025-08-25\ntest end date:  2025-09-11\nUsing GPU: 1 - Tesla K80\n   Unnamed: 0        date      lat  ...  Eastness  ndsi      Slope\n0           0  2002-01-03  29.1333  ...  0.485897   0.0  89.958916\n1           1  2002-01-05  29.1333  ...  0.485897   0.0  89.958916\n2           2  2002-01-06  29.1333  ...  0.485897   0.0  89.958916\n3           3  2002-01-07  29.1333  ...  0.485897   0.0  89.958916\n4           4  2002-01-08  29.1333  ...  0.485897   0.0  89.958916\n[5 rows x 25 columns]\n/home/chetana/data/gridmet_test_run/aall_points_final_merged_training_2002-01-01_2024-12-31_snodas_mask.csv exists and won't overwrite. Skip..\npredicted_df.columns:  Index(['date', 'Latitude', 'Longitude', 'snodas', 'year', 'month',\n       'day_of_year', 'SWE_predicted'],\n      dtype='object')\nNew csv with snodas_mask column is saved to  /home/chetana/data/gridmet_test_run/aall_points_final_merged_training_2002-01-01_2024-12-31_snodas_mask.csv\n",
+  "history_begin_time" : 1757874960721,
+  "history_end_time" : 1757876832078,
+  "history_notes" : "add snodas mask to 20 years training",
+  "history_process" : "4q1uy4",
+  "host_id" : null,
+  "indicator" : "Done"
+},{
+  "history_id" : "s5hdrlmkzdr",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757822412150,
+  "history_end_time" : 1757875360337,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ah2j9x4j5kp",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815173235,
+  "history_end_time" : 1757815173235,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "gync277qka6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815132106,
+  "history_end_time" : 1757815162397,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "2s4qaeryz6t",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757815109342,
+  "history_end_time" : 1757815126413,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "e6mvqw2tg2a",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757814258933,
+  "history_end_time" : 1757815107118,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "o8n5mngbhav",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757736090054,
+  "history_end_time" : 1757815050716,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "mhg0w2zvjq1",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757649621415,
+  "history_end_time" : 1757815050383,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "p68wjlriblt",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757563309398,
+  "history_end_time" : 1757815049837,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wwg3dbsdqra",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757476905740,
+  "history_end_time" : 1757815049321,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rth89s81mht",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757390442782,
+  "history_end_time" : 1757815048844,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "3og65bm91y4",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757304011717,
+  "history_end_time" : 1757815048268,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ki24zgbi89n",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757217612216,
+  "history_end_time" : 1757815047867,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "wej20cvz0dq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757131222219,
+  "history_end_time" : 1757815046918,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "m9u0xbjji18",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1757044817789,
+  "history_end_time" : 1757815045309,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "4wnhat1oesx",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756958419935,
+  "history_end_time" : 1757815044824,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "deit6m1ruju",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756872014887,
+  "history_end_time" : 1757815044256,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "2holvm9sb1g",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756785615337,
+  "history_end_time" : 1757815043614,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "5a6pcp5euih",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756699273278,
+  "history_end_time" : 1757815043172,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "rhi4nyudwfe",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756612833038,
+  "history_end_time" : 1757815042399,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "gobbt3r93gb",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756440015882,
+  "history_end_time" : 1757815023212,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "03kjcq4vjm6",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756353612694,
+  "history_end_time" : 1757815022458,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "d5xdf9vxs96",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756267214981,
+  "history_end_time" : 1757815021164,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "73qqsmd1ius",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756180813881,
+  "history_end_time" : 1757815020213,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ul4ngc5lhvu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756094414520,
+  "history_end_time" : 1757815019608,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "k2xgme5ewk0",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1756008013005,
+  "history_end_time" : 1757815019085,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "7oiyifn4tnu",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755921612042,
+  "history_end_time" : 1757815018598,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "u9lw914402q",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755835211759,
+  "history_end_time" : 1757815017984,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ejbzmx31rdk",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755662414787,
+  "history_end_time" : 1755662414787,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Skipped"
+},{
+  "history_id" : "q80m47jd2iq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755576013930,
+  "history_end_time" : 1757815016530,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "ij0ls7iuz51",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755489613182,
+  "history_end_time" : 1757815015600,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
+},{
+  "history_id" : "78lwl4yadyq",
+  "history_input" : "No code saved",
+  "history_output" : "Skipped",
+  "history_begin_time" : 1755403212845,
+  "history_end_time" : 1757815015005,
+  "history_notes" : null,
+  "history_process" : "4q1uy4",
+  "host_id" : "100001",
+  "indicator" : "Stopped"
 },{
   "history_id" : "a6nk481tvaw",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755316813097,
-  "history_end_time" : 1755316813097,
+  "history_end_time" : 1757815014520,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "sl3rvajhq4m",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755230413224,
-  "history_end_time" : 1755230413224,
+  "history_end_time" : 1757815014012,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "kajc3tzqw8i",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755144010840,
-  "history_end_time" : 1755144010840,
+  "history_end_time" : 1757815013401,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "pr7q5gya9d7",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1755057610718,
-  "history_end_time" : 1755057610718,
+  "history_end_time" : 1757815011598,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "xx4en5a6xv3",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754971225033,
-  "history_end_time" : 1754971225033,
+  "history_end_time" : 1757815011127,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3ujtxp17tap",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754884812000,
-  "history_end_time" : 1754884812000,
+  "history_end_time" : 1757815010616,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "aaj33gkyzdy",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754798412555,
-  "history_end_time" : 1754798412555,
+  "history_end_time" : 1757815009241,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3arih00exrf",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754712011977,
-  "history_end_time" : 1754712011977,
+  "history_end_time" : 1757815008638,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "pf4qffb68z4",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754625612611,
-  "history_end_time" : 1754625612611,
+  "history_end_time" : 1757815008104,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "j5uxhmo7tku",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754452833324,
-  "history_end_time" : 1754452833324,
+  "history_end_time" : 1757815007403,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "rtvnpad5l2f",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754366419999,
-  "history_end_time" : 1754366419999,
+  "history_end_time" : 1757815006560,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "3p8mznqa87k",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754280013297,
-  "history_end_time" : 1754280013297,
+  "history_end_time" : 1757815006125,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tehvem7c4s9",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754193616548,
-  "history_end_time" : 1754193616548,
+  "history_end_time" : 1757815004523,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "8001rzz2tv7",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754107212990,
-  "history_end_time" : 1754107212990,
+  "history_end_time" : 1757815003600,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "utek747tvle",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1754020812894,
-  "history_end_time" : 1754020812894,
+  "history_end_time" : 1757815002712,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tiat1r1zrtq",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753934412130,
-  "history_end_time" : 1753934412130,
+  "history_end_time" : 1757815001577,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "qbogku9quhs",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753848015873,
-  "history_end_time" : 1753848015873,
+  "history_end_time" : 1757815001082,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "uk3jgusdwlp",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753761621286,
-  "history_end_time" : 1753761621286,
+  "history_end_time" : 1757815000593,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2ajzpvrud5a",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753675211729,
-  "history_end_time" : 1753675211729,
+  "history_end_time" : 1757814999216,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "vt9dsjcdu5e",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753588812479,
-  "history_end_time" : 1753588812479,
+  "history_end_time" : 1757814998597,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "fpfiqjkjdo4",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753502412228,
-  "history_end_time" : 1753502412228,
+  "history_end_time" : 1757814998044,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2mhuopk8re8",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753416012222,
-  "history_end_time" : 1753416012222,
+  "history_end_time" : 1757814997629,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "gtaqklocubz",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753329614971,
-  "history_end_time" : 1753329614971,
+  "history_end_time" : 1757814997042,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "7u7ldx7t8xx",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753243236238,
-  "history_end_time" : 1753243236238,
+  "history_end_time" : 1757814995657,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2w1tqdecukn",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753156822328,
-  "history_end_time" : 1753156822328,
+  "history_end_time" : 1757814994621,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ztaoie044mx",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1753070415044,
-  "history_end_time" : 1753070415044,
+  "history_end_time" : 1757814993767,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "sl4btu5nq8u",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752984016952,
-  "history_end_time" : 1752984016952,
+  "history_end_time" : 1757814993197,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "ivgh8fi2wir",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752897615612,
-  "history_end_time" : 1752897615612,
+  "history_end_time" : 1757814992756,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "8ivx3akqrst",
   "history_input" : "No code saved",
@@ -303,11 +653,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752811215404,
-  "history_end_time" : 1752811215404,
+  "history_end_time" : 1757814991393,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "90jprh4of8p",
   "history_input" : "No code saved",
@@ -323,11 +673,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752724814529,
-  "history_end_time" : 1752724814529,
+  "history_end_time" : 1757814990806,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "t17a6rfmop1",
   "history_input" : "No code saved",
@@ -343,21 +693,21 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752638412442,
-  "history_end_time" : 1752638412442,
+  "history_end_time" : 1757814990141,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2vsal7bobfc",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752552011494,
-  "history_end_time" : 1752552011494,
+  "history_end_time" : 1757814988718,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "5ccvstdwtgz",
   "history_input" : "No code saved",
@@ -373,11 +723,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752465612760,
-  "history_end_time" : 1752465612760,
+  "history_end_time" : 1757814987675,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "tpgd5rwcl68",
   "history_input" : "No code saved",
@@ -393,41 +743,41 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752379212960,
-  "history_end_time" : 1752379212960,
+  "history_end_time" : 1757814985810,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "6kcbg95gusl",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752292831669,
-  "history_end_time" : 1752292831669,
+  "history_end_time" : 1757814985373,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "98l2kjxp3xz",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752206415189,
-  "history_end_time" : 1752206415189,
+  "history_end_time" : 1757814984906,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "0ou101y1j9q",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752120014024,
-  "history_end_time" : 1752120014024,
+  "history_end_time" : 1757814984569,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "t4wc61scyh1",
   "history_input" : "No code saved",
@@ -443,31 +793,31 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1752033614877,
-  "history_end_time" : 1752033614877,
+  "history_end_time" : 1757814983366,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "2ha5m4yq84t",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751947221554,
-  "history_end_time" : 1751947221554,
+  "history_end_time" : 1757814982623,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "fopkr42lq5k",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751860818369,
-  "history_end_time" : 1751860818369,
+  "history_end_time" : 1757814982245,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "6554l7ix402",
   "history_input" : "No code saved",
@@ -493,51 +843,51 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751774411534,
-  "history_end_time" : 1751774411534,
+  "history_end_time" : 1757814980759,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "xyrhed4qdph",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751688011650,
-  "history_end_time" : 1751688011650,
+  "history_end_time" : 1757814980310,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "v6d9h72h59w",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751601610855,
-  "history_end_time" : 1751601610855,
+  "history_end_time" : 1757814979761,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "hzgmtmdxnt3",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751601122287,
-  "history_end_time" : 1751601122287,
+  "history_end_time" : 1757814979196,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "6lj4rjab2o4",
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1751590130793,
-  "history_end_time" : 1751590130793,
+  "history_end_time" : 1757814978741,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "p733ykmiudq",
   "history_input" : "No code saved",
@@ -553,11 +903,11 @@
   "history_input" : "No code saved",
   "history_output" : "Skipped",
   "history_begin_time" : 1750301998492,
-  "history_end_time" : 1750301998492,
+  "history_end_time" : 1757814977256,
   "history_notes" : null,
   "history_process" : "4q1uy4",
   "host_id" : "100001",
-  "indicator" : "Skipped"
+  "indicator" : "Stopped"
 },{
   "history_id" : "yftfqfdtzez",
   "history_input" : "No code saved",
